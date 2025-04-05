@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Title -->
+    <title>CruxCoach - Dashboard</title>
+
+    <!-- Description & Charset -->
+    <meta name="description"
+        content="CruxCoach is a platform to track your climbing progress and improve your skills through advanced tracking and analytics.">
+    <meta name="keywords" content="climbing, coaching, progress tracking, rock climbing, climbing tips, bouldering">
+    <meta charset="utf-8">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <link rel="icon" href="dark-favicon.png" type="image/x-icon" media="(prefers-color-scheme: dark)">
+    <link rel="icon" href="favicon.png" type="image/x-icon" media="(prefers-color-scheme: light)">
+
+    <!-- Import Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
+
+    <!-- Import Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    <!--  Import Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+    <div class="loading-screen">
+        <img src="loader.png" alt="Loader Image">
+    </div>
+
+    <!-- Header -->
+    <header>
+        <img class="logo" src="favicon.png" alt="Header Logo">
+        <h1>CruxCoach</h1>
+        <span class="material-icons mode">dark_mode</span>
+    </header>
+
+    <!-- Popup Container -->
+    <div id="popup"></div>
+
+    <!-- Content -->
+    <div id="contentContainer">
+
+        <!-- Options Container -->
+        <div id="optionsContainer">
+
+            <!-- Form Option -->
+            <button class="blue" onclick="openJournal();">
+                <span class="material-icons" alt="Journal Icon">description</span>
+                <h3>Journal Entry</h3>
+                <p>Log your various climbing points</p>
+            </button>
+
+            <!-- Quick Log Option -->
+            <button class="orange" onclick="openLog();">
+                <span class="material-icons" alt="Plus Button Icon">add_circle</span>
+                <h3>Quick Log</h3>
+                <p>Log a climb or training session</p>
+            </button>
+
+            <!-- Coach Analysis Option -->
+            <button class="green" onclick="openCoach();">
+                <span class="material-icons" alt="Phone Camera Icon">screenshot</span>
+                <h3>Coach Analysis</h3>
+                <p>Get feedback from uploaded clips.</p>
+            </button>
+
+        </div>
+
+        <!-- Grade Progression Container -->
+        <div id="gradeProgressionContainer">
+
+            <!-- Boulder Flash -->
+            <div>
+                <p><b id="flash">NaN</b></p>
+                <p>Flash</p>
+                <p><span class="up">+2</span></p>
+            </div>
+
+            <!-- Boulder Project -->
+            <div>
+                <p><b id="project">NaN</b></p>
+                <p>Project</p>
+                <p><span>0</span></p>
+            </div>
+
+            <!--Sport On-Sight -->
+            <div>
+                <p><b id="on-sight">NaN</b></p>
+                <p>On-Sight</p>
+                <p><span class="up">+1</span></p>
+            </div>
+
+            <!-- Sport Redpoint -->
+            <div>
+                <p><b id="redpoint">NaN</b></p>
+                <p>Redpoint</p>
+                <p><span class="down">-0.5</span></p>
+            </div>
+
+        </div>
+
+        <!-- Training Distribution Chart Container -->
+        <div id="trainingDistributionChartContainer">
+            <canvas id="trainingDistributionChart"></canvas>
+        </div>
+
+        <!-- Struggle/Strongpoint Container -->
+        <div id="struggleStrongContainer">
+
+            <!-- Holds -->
+            <div>
+                <p><span class="up" id="crimp">0</span> Crimp</p>
+                <p><span class="down" id="sloper">0</span> Sloper</p>
+                <p><span class="down" id="pocket">0</span> Pocket</p>
+                <p><span class="up" id="sidepull">0</span> Sidepull</p>
+                <p><span class="up" id="undercling">0</span> Undercling</p>
+            </div>
+
+            <!-- Style -->
+            <div>
+                <p><span class="up" id="bigmove">0</span> Big Move</p>
+                <p><span class="down" id="meticulous">0</span> Meticulous</p>
+                <p><span class="up" id="powerful">0</span> Powerful</p>
+                <p><span class="up" id="routereading">0</span> Route-Reading</p>
+            </div>
+
+            <!-- Angle -->
+            <div>
+                <p><span class="down" id="slab">0</span> Slab</p>
+                <p><span class="down" id="slightoverhang">0</span> Slight Overhang</p>
+                <p><span class="up" id="overhang">0</span> Overhang</p>
+                <p><span id="cave">0</span> Roof/Cave</p>
+            </div>
+
+        </div>
+
+        <!-- Nav -->
+        <br><br><br>
+        <nav>
+            <a href="index.html" class="material-icons" alt="Dashboard Icon" title="Dashboard">show_chart</a>
+            <a href="train.html" class="material-icons" alt="Lessons Icon" title="Lessons">school</a>
+            <a href="profile.html" class="material-icons" alt="Profile Icon" title="Profile">person</a>
+        </nav>
+
+    </div>
+
+
+    <!-- Import Javascript -->
+    <script src="scripts.js"></script>
+
+</body>
+
+</html>
