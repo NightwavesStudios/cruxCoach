@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Title -->
+    <title>CruxCoach - Profile</title>
+
+    <!-- Description & Charset -->
+    <meta name="description"
+        content="Create and view your account to see your progress and analytics and customize settings to personalize the website!">
+    <meta name="keywords" content="climbing, coaching, progress tracking, rock climbing, climbing tips, bouldering">
+    <meta charset="utf-8">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <link rel="icon" href="dark-favicon.png" type="image/x-icon" media="(prefers-color-scheme: light)">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/x-icon" media="(prefers-color-scheme: dark)">
+
+    <!-- Import Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQXN250GC5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-WQXN250GC5');
+    </script>
+
+    <!-- Import Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    <!--  Import Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <img class="logo" src="favicon.png" alt="Header Logo">
+        <h1>CruxCoach</h1>
+        <span class="material-icons mode">dark_mode</span>
+    </header>
+
+    <!-- Content -->
+    <div id="contentContainer">
+
+        <!-- Invalid Container -->
+        <div id="invalidContainer">
+            <p>You are not currently logged in. This feature is currently in development and is not available yet. Please browse as a guest.</p>
+        </div>
+
+        <!-- Nav -->
+        <br><br><br>
+        <nav>
+            <a href="index.html" class="material-icons" alt="Dashboard Icon" title="Dashboard">show_chart</a>
+            <a href="train.html" class="material-icons" alt="Lessons Icon" title="Lessons">school</a>
+            <a href="profile.html" class="material-icons" alt="Profile Icon" title="Profile">person</a>
+        </nav>
+
+    </div>
+
+    <!-- Import Javascript -->
+    <script src="scripts.js"></script>
+
+</body>
+
+</html>
