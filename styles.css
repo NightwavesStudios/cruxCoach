@@ -3,6 +3,9 @@ body {
     font-family: arial;
     margin: 0px;
     background-color: #FFF;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 img {
@@ -103,10 +106,6 @@ header .mode:hover {
     position: relative;
     top: 40px;
     align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 0 auto;
 }
 
 /* Navigation Styling */
