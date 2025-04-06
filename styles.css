@@ -13,6 +13,10 @@ img {
     overflow: hidden;
 }
 
+button {
+    color: black;
+}
+
 /* Loader Styling */
 .loadingScreen {
     position: absolute;
@@ -157,6 +161,7 @@ nav a:hover {
 
 #optionsContainer .blue {
     background-color: #4285f499;
+    color: black;
     transition: 0.5s;
 }
 
@@ -167,6 +172,7 @@ nav a:hover {
 
 #optionsContainer .orange {
     background-color: #F28C2899;
+    color: black;
     transition: 0.5s;
 }
 
@@ -177,6 +183,7 @@ nav a:hover {
 
 #optionsContainer .green {
     background-color: #34A85399;
+    color: black;
     transition: 0.5s;
 }
 
