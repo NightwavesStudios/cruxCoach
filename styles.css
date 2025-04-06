@@ -109,7 +109,10 @@ header .mode:hover {
 #contentContainer {
     position: relative;
     top: 40px;
+    display: flex;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 /* Navigation Styling */
@@ -144,9 +147,6 @@ nav a:hover {
     position: relative;
     margin-top: 20px;
     width: 95vw;
-    left: 1.25vw;
-    margin: 0 auto;
-
     display: flex;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
     justify-content: space-around;
@@ -197,7 +197,6 @@ nav a:hover {
     position: relative;
     margin-top: 20px;
     width: 95vw;
-    left: 1.25vw;
     display: flex;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
     justify-content: space-around;
@@ -219,7 +218,6 @@ nav a:hover {
     margin-top: 20px;
     padding: 10px 0px 15px 0px;
     width: 95vw;
-    left: 1.25vw;
     display: flex;
     color: black;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
@@ -238,7 +236,6 @@ nav a:hover {
     position: relative;
     margin-top: 20px;
     width: 95vw;
-    left: 1.25vw;
     display: flex;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
     justify-content: space-around;
@@ -388,7 +385,6 @@ nav a:hover {
     position: relative;
     margin-top: 20px;
     width: 95vw;
-    left: 1.25vw;
     padding: 5px;
     display: flex;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
