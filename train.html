@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Title -->
+    <title>CruxCoach - Train</title>
+
+    <!-- Description & Charset -->
+    <meta name="description"
+        content="Discover custom curated workouts, articles, and videos to help improve your climbing based on your strong and strugglepoints.">
+    <meta name="keywords" content="climbing, coaching, progress tracking, rock climbing, climbing tips, bouldering">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <link rel="icon" href="dark-favicon.png" type="image/x-icon" media="(prefers-color-scheme: light)">
+    <link rel="icon" href="favicon.png" type="image/x-icon" media="(prefers-color-scheme: dark)">
+
+    <!-- Import Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQXN250GC5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-WQXN250GC5');
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQXN250GC5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-WQXN250GC5');
+    </script>
+
+    <!-- Import Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    <!--  Import Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <img class="logo" src="favicon.png" alt="Header Logo">
+        <h1>CruxCoach</h1>
+        <span class="material-icons mode">dark_mode</span>
+    </header>
+
+    <!-- Content -->
+    <div id="contentContainer">
+
+        <!-- Popular Training Container -->
+        <div id="popularTrainingContainer">
+
+            <h3 class="align-center">Popular Resources</h3>
+
+            <div id="popularCardsContainer">
+
+                <div class="popular-card">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                    <h4>Title</h4>
+                    <p>
+                        <span class="type">Article</span>,
+                        <span class="category">Crimps</span>
+                    </p>
+                </div>
+
+                <div class="popular-card">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                    <h4>Title</h4>
+                    <p>
+                        <span class="type">Article</span>,
+                        <span class="category">Crimps</span>
+                    </p>
+                </div>
+
+                <div class="popular-card">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                    <h4>Title</h4>
+                    <p>
+                        <span class="type">Article</span>,
+                        <span class="category">Crimps</span>
+                    </p>
+                </div>
+
+            </div>
+
+            <button class="align-center">View All</button>
+        </div>
+
+        <!-- Holds Collection Container -->
+        <div id="holdsCollectionContainer">
+
+            <h3 class="align-center">Holds Collection</h3>
+
+            <!-- Collection Cards Container -->
+            <div id="collectionCardsContainer">
+
+                <!-- Crimp Collection -->
+                <div class="collection-card">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                    <h4>Crimps</h4>
+                </div>
+
+                <!-- Sloper Collection -->
+                <div class="collection-card">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                    <h4>Slopers</h4>
+                </div>
+
+                <!-- Pocket Collection -->
+                <div class="collection-card">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                    <h4>Pockets</h4>
+                </div>
+
+                <!-- Sidepull Collection -->
+                <div class="collection-card">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                    <h4>Sidepulls</h4>
+                </div>
+
+                <!-- Undercling Collection -->
+                <div class="collection-card">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                    <h4>Underclings</h4>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Angles Collection Container -->
+        <div id="anglesCollectionContainer">
+
+            <h3 class="align-center">Angles Collection</h3>
+
+            <!-- Collection Cards Container -->
+            <div id="collectionCardsContainer">
+
+                <!-- Slab Collection -->
+                <div class="collection-card">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                    <h4>Slabs</h4>
+                </div>
+
+                <!-- Slight Overhang Collection -->
+                <div class="collection-card">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                    <h4>Slight Overhangs</h4>
+                </div>
+
+                <!-- Overhang Collection -->
+                <div class="collection-card">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                    <h4>Overhangs</h4>
+                </div>
+
+                <!-- Roof/Cave Collection -->
+                <div class="collection-card">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                    <h4>Roofs/Caves</h4>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Type Collection Container -->
+        <div id="typeCollectionContainer">
+
+            <h3 class="align-center">Type Collection</h3>
+
+            <!-- Collection Cards Container -->
+            <div id="collectionCardsContainer">
+
+                <!-- Big Move Collection -->
+                <div class="collection-card">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                    <h4>Big Move</h4>
+                </div>
+
+                <!-- Meticulous Collection -->
+                <div class="collection-card">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                    <h4>Meticulous</h4>
+                </div>
+
+                <!-- Powerful Collection -->
+                <div class="collection-card">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                    <h4>Powerful</h4>
+                </div>
+
+                <!-- Route Reading Collection -->
+                <div class="collection-card">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                    <h4>Route Reading</h4>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Nav -->
+        <br><br><br>
+        <nav>
+            <a href="index.html" class="material-icons" alt="Dashboard Icon" title="Dashboard">show_chart</a>
+            <a href="train.html" class="material-icons" alt="Lessons Icon" title="Lessons">school</a>
+            <a href="profile.html" class="material-icons" alt="Profile Icon" title="Profile">person</a>
+        </nav>
+
+    </div>
+
+    <!-- Import Javascript -->
+    <script src="scripts.js"></script>
+
+</body>
+
+</html>
