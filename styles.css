@@ -108,7 +108,7 @@ header .mode:hover {
 /* Content Container Styling */
 #contentContainer {
     position: relative;
-    top: 40px;
+    top: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -261,6 +261,7 @@ nav a:hover {
 
 .popular-card {
     width: 30vw;
+    margin-left: 10px;
     border-radius: 20px;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
 }
