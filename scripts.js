@@ -66,6 +66,18 @@ new Chart("trainingDistributionChart", {
     }
 });
 
+/* Popups */
+function openJournal(state) {
+    if (state != "close") {
+        document.body.style.overflow = "hidden";
+        document.getElementById("journalPopup").style.display = "block";
+        console.log("openJournal");
+    } else {
+        document.getElementById("journalPopup").style.display = "none";
+        console.log("closeJournal");
+    }
+}
+
 /* Smooth Scroll */
 function smoothScroll(y) {
     window.scroll({

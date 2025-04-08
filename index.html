@@ -52,8 +52,146 @@
         <span class="material-icons mode">dark_mode</span>
     </header>
 
-    <!-- Popup Container -->
-    <div id="popup"></div>
+    <!-- Journal Popup Container -->
+    <div class="popup" id="journalPopup">
+        <h1>Journal</h1>
+        <div id="journalDirectionsContainer">
+        <p>Reflect on your last few climbing sessions and assess each point based on your personal performance. Use the following
+        scale to rate each item:
+        <br><br>
+        -2 = Major Struggle<br>
+        -1 = Minor Struggle<br>
+        0 = Neutral (neither good nor bad)<br>
+        1 = Minor Strength<br>
+        2 = Major Strength<br><br>
+        Leave any field blank if it doesn't apply or you have no input—these will default to zero and will not affect your
+        overall data.</p>
+        </div>
+        <form>
+            <h2>Holds Review</h2>
+            <label for="crimp">Crimp:</label><br>
+            <input type="range" min="-2" max="2" value="0" class="slider" id="crimp">
+            <div class="sliderticks">
+                <p>-2</p>
+                <p>-1</p>
+                <p>0</p>
+                <p>1</p>
+                <p>2</p>
+            </div><br><br>
+            <label for="sloper">Sloper:</label><br>
+            <input type="range" min="-2" max="2" value="0" class="slider" id="sloper">
+            <div class="sliderticks">
+                <p>-2</p>
+                <p>-1</p>
+                <p>0</p>
+                <p>1</p>
+                <p>2</p>
+            </div><br><br>
+            <label for="pocket">Pocket:</label><br>
+            <input type="range" min="-2" max="2" value="0" class="slider" id="pocket">
+            <div class="sliderticks">
+                <p>-2</p>
+                <p>-1</p>
+                <p>0</p>
+                <p>1</p>
+                <p>2</p>
+            </div><br><br>
+            <label for="sidepull">Sidepull:</label><br>
+            <input type="range" min="-2" max="2" value="0" class="slider" id="sidepull">
+            <div class="sliderticks">
+                <p>-2</p>
+                <p>-1</p>
+                <p>0</p>
+                <p>1</p>
+                <p>2</p>
+            </div><br><br>
+            <label for="undercling">Undercling:</label><br>
+            <input type="range" min="-2" max="2" value="0" class="slider" id="undercling">
+            <div class="sliderticks">
+                <p>-2</p>
+                <p>-1</p>
+                <p>0</p>
+                <p>1</p>
+                <p>2</p>
+            </div><br><br>
+            <h2>Angles Review</h2>
+            <label for="slab">Slab:</label><br>
+            <input type="range" min="-2" max="2" value="0" class="slider" id="slab">
+            <div class="sliderticks">
+                <p>-2</p>
+                <p>-1</p>
+                <p>0</p>
+                <p>1</p>
+                <p>2</p>
+            </div><br><br>
+            <label for="slightOverhang">Slight Overhang:</label><br>
+            <input type="range" min="-2" max="2" value="0" class="slider" id="slightOverhang">
+            <div class="sliderticks">
+                <p>-2</p>
+                <p>-1</p>
+                <p>0</p>
+                <p>1</p>
+                <p>2</p>
+            </div><br><br>
+            <label for="overhang">Overhang:</label><br>
+            <input type="range" min="-2" max="2" value="0" class="slider" id="overhang">
+            <div class="sliderticks">
+                <p>-2</p>
+                <p>-1</p>
+                <p>0</p>
+                <p>1</p>
+                <p>2</p>
+            </div><br><br>
+            <label for="cave">Roof/Cave:</label><br>
+            <input type="range" min="-2" max="2" value="0" class="slider" id="cave">
+            <div class="sliderticks">
+                <p>-2</p>
+                <p>-1</p>
+                <p>0</p>
+                <p>1</p>
+                <p>2</p>
+            </div><br><br>
+            <h2>Type Review</h2>
+            <label for="bigMove">Big Move:</label><br>
+            <input type="range" min="-2" max="2" value="0" class="slider" id="bigMove">
+            <div class="sliderticks">
+                <p>-2</p>
+                <p>-1</p>
+                <p>0</p>
+                <p>1</p>
+                <p>2</p>
+            </div><br><br>
+            <label for="meticulous">Meticulous:</label><br>
+            <input type="range" min="-2" max="2" value="0" class="slider" id="meticulous">
+            <div class="sliderticks">
+                <p>-2</p>
+                <p>-1</p>
+                <p>0</p>
+                <p>1</p>
+                <p>2</p>
+            </div><br><br>
+            <label for="powerful">Powerful:</label><br>
+            <input type="range" min="-2" max="2" value="0" class="slider" id="powerful">
+            <div class="sliderticks">
+                <p>-2</p>
+                <p>-1</p>
+                <p>0</p>
+                <p>1</p>
+                <p>2</p>
+            </div><br><br>
+            <label for="routeReading">Route Reading:</label><br>
+            <input type="range" min="-2" max="2" value="0" class="slider" id="routeReading">
+            <div class="sliderticks">
+                <p>-2</p>
+                <p>-1</p>
+                <p>0</p>
+                <p>1</p>
+                <p>2</p>
+            </div><br><br><br><br>
+            <button type="submit" onclick="openJournal('close');">Submit</button>
+        </form>
+    </div>
+
 
     <!-- Content -->
     <div id="contentContainer">
