@@ -1,6 +1,3 @@
-/* Initialize Lazy Load */
-lazyload();
-
 /* Data Variables (Placeholder) */
 let flash = "V4";
 let project = "V5";
@@ -26,7 +23,7 @@ let slightoverhang = -2;
 let overhang = 10;
 let cave = 0;
 
-/* Write Data to HTML */
+/* Write Data to HTML (Placeholder) */
 document.getElementById("flash").innerHTML = flash;
 document.getElementById("project").innerHTML = project;
 document.getElementById("on-sight").innerHTML = onsight;
@@ -91,3 +88,8 @@ function checkScroll() {
 }
 checkScroll();
 document.addEventListener('scroll', checkScroll);
+
+/* Initialize Lazy Load */
+document.addEventListener("DOMContentLoaded", function () {
+    lazyload();
+});
