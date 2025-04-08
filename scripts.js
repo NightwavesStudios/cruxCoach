@@ -1,4 +1,7 @@
-/* Data Variables */
+/* Initialize Lazy Load */
+lazyload();
+
+/* Data Variables (Placeholder) */
 let flash = "V4";
 let project = "V5";
 let onsight = "5.10";
