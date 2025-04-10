@@ -147,12 +147,30 @@ header .mode:hover {
     background-color: #4285f477;
 }
 
+#logPopup button {
+    background-color: #F28C2899;
+}
+
+#logPopup button:hover {
+    background-color: #F28C2877;
+}
 
 /* Directions Form Styling */
 #journalDirectionsContainer {
     position: relative;
     margin-top: 20px;
     width: 90vw;
+    left: 5vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+}
+
+#quickLogDirectionsContainer {
+    position: relative;
+    width: 90vw;
+    padding-bottom: 20px;
     left: 5vw;
     display: flex;
     justify-content: space-around;

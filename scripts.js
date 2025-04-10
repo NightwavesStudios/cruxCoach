@@ -78,6 +78,21 @@ function openJournal(state) {
     }
 }
 
+function openLog(state) {
+    if (state != "close") {
+        document.body.style.overflow = "hidden";
+        document.getElementById("logPopup").style.display = "block";
+        console.log("openLog");
+    } else {
+        document.getElementById("logPopup").style.display = "none";
+        console.log("closeLog");
+    }
+}
+
+function openCoach() {
+    alert("This feature is not currently available.");
+}
+
 /* Smooth Scroll */
 function smoothScroll(y) {
     window.scroll({
