@@ -24,25 +24,20 @@ let overhang = 10;
 let cave = 0;
 
 /* Write Data to HTML (Placeholder) */
-document.getElementById("flash").innerHTML = flash;
-document.getElementById("project").innerHTML = project;
-document.getElementById("on-sight").innerHTML = onsight;
-document.getElementById("redpoint").innerHTML = redpoint;
+document.addEventListener("DOMContentLoaded", function () {
+var gradeElements = ["flash", "project", "on-sight", "redpoint"];
+var gradeValues = [flash, project, onsight, redpoint];
+for (let i = 0; i < gradeElements.length; i++) {
+    document.getElementById(gradeElements[i]).innerHTML = gradeValues[i];
+}
 
-document.getElementById("crimp").innerHTML = crimp;
-document.getElementById("sloper").innerHTML = sloper;
-document.getElementById("pocket").innerHTML = pocket;
-document.getElementById("sidepull").innerHTML = sidepull;
-document.getElementById("undercling").innerHTML = undercling;
-document.getElementById("bigmove").innerHTML = bigmove;
-document.getElementById("meticulous").innerHTML = meticulous;
-document.getElementById("powerful").innerHTML = powerful;
-document.getElementById("routereading").innerHTML = routereading;
-document.getElementById("slab").innerHTML = slab;
-document.getElementById("slightoverhang").innerHTML = slightoverhang;
-document.getElementById("overhang").innerHTML = overhang;
-document.getElementById("cave").innerHTML = cave;
+var struggleStrongElements = ["crimp", "sloper", "pocket", "sidepull", "undercling", "bigmove", "meticulous", "powerful", "routereading", "slab", "slightoverhang", "overhang", "cave"];
+var struggleStrongValues = [crimp, sloper, pocket, sidepull, undercling, bigmove, meticulous, powerful, routereading, slab, slightoverhang, overhang, cave];
 
+for (let i = 0; i < struggleStrongElements.length; i++) {
+    document.getElementById(struggleStrongElements[i]).innerHTML = struggleStrongValues[i];
+}
+});
 
 /* Training Distribution Chart */
 new Chart("trainingDistributionChart", {
@@ -67,6 +62,17 @@ new Chart("trainingDistributionChart", {
 });
 
 /* Popups */
+function openStreaks(state) {
+    if (state != "close") {
+        document.body.style.overflow = "hidden";
+        document.getElementById("streaksPopup").style.display = "block";
+        console.log("openStreaks");
+    } else {
+        document.getElementById("streaksPopup").style.display = "none";
+        console.log("closeStreaks");
+    }
+}
+
 function openJournal(state) {
     if (state != "close") {
         document.body.style.overflow = "hidden";
