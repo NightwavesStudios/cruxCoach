@@ -77,6 +77,11 @@ a:hover {
     text-align: left;
 }
 
+/* Form Styling */
+input, textarea {
+    font-size: 16px;
+}
+
 /* Header Styling */
 header {
     position: fixed;
