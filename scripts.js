@@ -1,3 +1,5 @@
+console.log("scripts.js loaded");
+
 /* Data Variables (Placeholder) */
 let flash = "V4";
 let project = "V5";
@@ -25,79 +27,117 @@ let cave = 0;
 
 /* Write Data to HTML (Placeholder) */
 document.addEventListener("DOMContentLoaded", function () {
-var gradeElements = ["flash", "project", "on-sight", "redpoint"];
-var gradeValues = [flash, project, onsight, redpoint];
-for (let i = 0; i < gradeElements.length; i++) {
-    document.getElementById(gradeElements[i]).innerHTML = gradeValues[i];
-}
-
-var struggleStrongElements = ["crimp", "sloper", "pocket", "sidepull", "undercling", "bigmove", "meticulous", "powerful", "routereading", "slab", "slightoverhang", "overhang", "cave"];
-var struggleStrongValues = [crimp, sloper, pocket, sidepull, undercling, bigmove, meticulous, powerful, routereading, slab, slightoverhang, overhang, cave];
-
-for (let i = 0; i < struggleStrongElements.length; i++) {
-    document.getElementById(struggleStrongElements[i]).innerHTML = struggleStrongValues[i];
-}
-
-// Attach event listener to the streaks button
-const streaksButton = document.querySelector(".mode");
-streaksButton.addEventListener("click", function () {
-    if (open === false) {
-        openStreaks();
-        open = true;
-        console.log(open);
-    } else if (open === true) {
-        openStreaks("close");
-        open = false;
-        console.log(open);
+    console.log("DOMContentLoaded event triggered");
+    var gradeElements = ["flash", "project", "on-sight", "redpoint"];
+    var gradeValues = [flash, project, onsight, redpoint];
+    for (let i = 0; i < gradeElements.length; i++) {
+        document.getElementById(gradeElements[i]).innerHTML = gradeValues[i];
     }
-});
 
-// Attach event listener to the .exit button
-const exitButton = document.querySelector(".streaks-header .exit");
-exitButton.addEventListener("click", function () {
-    openStreaks("close"); // Close the popup
-    open = false; // Reset the open state
-    console.log("Popup closed via exit button");
-});
-});
+    var struggleStrongElements = ["crimp", "sloper", "pocket", "sidepull", "undercling", "bigmove", "meticulous", "powerful", "routereading", "slab", "slightoverhang", "overhang", "cave"];
+    var struggleStrongValues = [crimp, sloper, pocket, sidepull, undercling, bigmove, meticulous, powerful, routereading, slab, slightoverhang, overhang, cave];
 
-/* Training Distribution Chart */
-new Chart("trainingDistributionChart", {
-    type: "pie",
-    data: {
-        labels: ["Bouldering", "Top Rope", "Lead", "Other"],
-        datasets: [{
-            backgroundColor: [
-                "#34A85399",
-                "#F28C2899",
-                "#4285f499",
-                "#e8c3b9"],
-            data: [bouldering, toprope, lead, other],
-        }]
-    },
-    options: {
-        title: {
-            display: true,
-            text: "Training Type Distribution",
-        }
+    for (let i = 0; i < struggleStrongElements.length; i++) {
+        document.getElementById(struggleStrongElements[i]).innerHTML = struggleStrongValues[i];
     }
-});
 
-/* Popups */
-let open = false;
-document.addEventListener("DOMContentLoaded", function () {
-    const streaksButton = document.querySelector(".mode");
-    streaksButton.addEventListener("click", function () {
-        if (open === false) {
-            openStreaks();
-            open = true;
-            console.log(open);
-        } else if (open === true) {
-            openStreaks("close");
-            open = false;
-            console.log(open);
+    /* Training Distribution Chart */
+    new Chart("trainingDistributionChart", {
+        type: "pie",
+        data: {
+            labels: ["Bouldering", "Top Rope", "Lead", "Other"],
+            datasets: [{
+                backgroundColor: [
+                    "#34A85399",
+                    "#F28C2899",
+                    "#4285f499",
+                    "#e8c3b9"],
+                data: [bouldering, toprope, lead, other],
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: "Training Type Distribution",
+            }
         }
     });
+
+    /* Popups */
+    let open = false;
+    const streaksButton = document.querySelector(".mode");
+    console.log("Streaks button:", streaksButton);
+
+    if (streaksButton) {
+        streaksButton.addEventListener("click", function () {
+            console.log("Streaks button clicked");
+            if (open === false) {
+                openStreaks();
+                open = true;
+                console.log("Popup opened");
+            } else if (open === true) {
+                openStreaks("close");
+                open = false;
+                console.log("Popup closed");
+            }
+        });
+    } else {
+        console.error("Streaks button not found in the DOM.");
+    }
+
+    const exitButton = document.querySelector(".streaks-header .exit");
+    console.log("Exit button:", exitButton);
+
+    if (exitButton) {
+        exitButton.addEventListener("click", function () {
+            console.log("Exit button clicked");
+            openStreaks("close");
+            open = false;
+            console.log("Popup closed via exit button");
+        });
+    } else {
+        console.error("Exit button not found in the DOM.");
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("DOMContentLoaded event triggered");
+
+    // Attach event listener to the streaks button
+    const streaksButton = document.querySelector(".mode");
+    console.log("Streaks button:", streaksButton);
+
+    if (streaksButton) {
+        streaksButton.addEventListener("click", function () {
+            console.log("Streaks button clicked");
+            if (open === false) {
+                openStreaks();
+                open = true;
+                console.log("Popup opened");
+            } else if (open === true) {
+                openStreaks("close");
+                open = false;
+                console.log("Popup closed");
+            }
+        });
+    } else {
+        console.error("Streaks button not found in the DOM.");
+    }
+
+    // Attach event listener to the .exit button
+    const exitButton = document.querySelector(".streaks-header .exit");
+    console.log("Exit button:", exitButton);
+
+    if (exitButton) {
+        exitButton.addEventListener("click", function () {
+            console.log("Exit button clicked");
+            openStreaks("close");
+            open = false;
+            console.log("Popup closed via exit button");
+        });
+    } else {
+        console.error("Exit button not found in the DOM.");
+    }
 });
 
 function openStreaks(state) {
