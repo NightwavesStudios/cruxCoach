@@ -62,10 +62,17 @@ new Chart("trainingDistributionChart", {
 });
 
 /* Popups */
+let open = false;
 document.addEventListener("DOMContentLoaded", function () {
-    const streaksButton = document.querySelector(".mode"); // Select the button
+    const streaksButton = document.querySelector(".mode");
     streaksButton.addEventListener("click", function () {
-        openStreaks(); // Call the openStreaks function
+        if (open === false) {
+            openStreaks();
+            open = true;
+        } else {
+            openStreaks("close");
+            open = false;
+        }
     });
 });
 
