@@ -63,12 +63,15 @@ new Chart("trainingDistributionChart", {
 
 /* Popups */
 function openStreaks(state) {
-    if (state != "close") {
-        document.body.style.overflow = "hidden";
-        document.getElementById("streaksPopup").style.display = "block";
+    const streaksPopup = document.getElementById("streaksPopup");
+    if (state !== "close") {
+        document.body.style.overflow = "hidden"; // Prevent background scrolling
+        streaksPopup.style.display = "block"; // Show the popup
+        streaksPopup.style.overflowY = "auto"; // Allow scrolling inside the popup
         console.log("openStreaks");
     } else {
-        document.getElementById("streaksPopup").style.display = "none";
+        document.body.style.overflow = ""; // Re-enable background scrolling
+        streaksPopup.style.display = "none"; // Hide the popup
         console.log("closeStreaks");
     }
 }
