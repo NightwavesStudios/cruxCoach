@@ -172,16 +172,24 @@ header .mode:hover {
 #streaksPopup {
     display: none;
     position: fixed;
-    overflow: auto;
-    top: 15vh;
-    left: 10vw;
-    width: 80vw;
-    height: 70vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 90%;
+    max-width: 500px;
+    height: auto;
+    max-height: 70%;
     border-radius: 20px;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
     background-color: white;
     text-align: center;
     z-index: 200;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .streaks-header {
