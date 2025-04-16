@@ -65,16 +65,17 @@ new Chart("trainingDistributionChart", {
 function openStreaks(state) {
     const streaksPopup = document.getElementById("streaksPopup");
     if (state !== "close") {
-        document.body.style.overflow = "hidden"; // Prevent background scrolling
-        streaksPopup.style.display = "block"; // Show the popup
-        streaksPopup.style.overflowY = "auto"; // Allow scrolling inside the popup
+        document.body.style.overflow = "hidden";
+        streaksPopup.style.display = "block";
+        streaksPopup.style.overflowY = "auto";
         console.log("openStreaks");
     } else {
-        document.body.style.overflow = ""; // Re-enable background scrolling
-        streaksPopup.style.display = "none"; // Hide the popup
+        document.body.style.overflow = "";
+        streaksPopup.style.display = "none";
         console.log("closeStreaks");
     }
 }
+openStreaks("close");
 
 function openJournal(state) {
     if (state != "close") {
