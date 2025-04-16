@@ -37,6 +37,28 @@ var struggleStrongValues = [crimp, sloper, pocket, sidepull, undercling, bigmove
 for (let i = 0; i < struggleStrongElements.length; i++) {
     document.getElementById(struggleStrongElements[i]).innerHTML = struggleStrongValues[i];
 }
+
+// Attach event listener to the streaks button
+const streaksButton = document.querySelector(".mode");
+streaksButton.addEventListener("click", function () {
+    if (open === false) {
+        openStreaks();
+        open = true;
+        console.log(open);
+    } else if (open === true) {
+        openStreaks("close");
+        open = false;
+        console.log(open);
+    }
+});
+
+// Attach event listener to the .exit button
+const exitButton = document.querySelector(".streaks-header .exit");
+exitButton.addEventListener("click", function () {
+    openStreaks("close"); // Close the popup
+    open = false; // Reset the open state
+    console.log("Popup closed via exit button");
+});
 });
 
 /* Training Distribution Chart */
@@ -69,9 +91,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (open === false) {
             openStreaks();
             open = true;
-        } else {
+            console.log(open);
+        } else if (open === true) {
             openStreaks("close");
             open = false;
+            console.log(open);
         }
     });
 });
