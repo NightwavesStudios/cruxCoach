@@ -28,15 +28,15 @@ let cave = 0;
 /* Write Data to HTML (Placeholder) */
 document.addEventListener("DOMContentLoaded", function () {
     console.log("DOMContentLoaded event triggered");
-    var gradeElements = ["flash", "project", "on-sight", "redpoint"];
-    var gradeValues = [flash, project, onsight, redpoint];
+
+    const gradeElements = ["flash", "project", "on-sight", "redpoint"];
+    const gradeValues = [flash, project, onsight, redpoint];
     for (let i = 0; i < gradeElements.length; i++) {
         document.getElementById(gradeElements[i]).innerHTML = gradeValues[i];
     }
 
-    var struggleStrongElements = ["crimp", "sloper", "pocket", "sidepull", "undercling", "bigmove", "meticulous", "powerful", "routereading", "slab", "slightoverhang", "overhang", "cave"];
-    var struggleStrongValues = [crimp, sloper, pocket, sidepull, undercling, bigmove, meticulous, powerful, routereading, slab, slightoverhang, overhang, cave];
-
+    const struggleStrongElements = ["crimp", "sloper", "pocket", "sidepull", "undercling", "bigmove", "meticulous", "powerful", "routereading", "slab", "slightoverhang", "overhang", "cave"];
+    const struggleStrongValues = [crimp, sloper, pocket, sidepull, undercling, bigmove, meticulous, powerful, routereading, slab, slightoverhang, overhang, cave];
     for (let i = 0; i < struggleStrongElements.length; i++) {
         document.getElementById(struggleStrongElements[i]).innerHTML = struggleStrongValues[i];
     }
@@ -47,11 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
         data: {
             labels: ["Bouldering", "Top Rope", "Lead", "Other"],
             datasets: [{
-                backgroundColor: [
-                    "#34A85399",
-                    "#F28C2899",
-                    "#4285f499",
-                    "#e8c3b9"],
+                backgroundColor: ["#34A85399", "#F28C2899", "#4285f499", "#e8c3b9"],
                 data: [bouldering, toprope, lead, other],
             }]
         },
@@ -71,11 +67,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (streaksButton) {
         streaksButton.addEventListener("click", function () {
             console.log("Streaks button clicked");
-            if (open === false) {
+            if (!open) {
                 openStreaks();
                 open = true;
                 console.log("Popup opened");
-            } else if (open === true) {
+            } else {
                 openStreaks("close");
                 open = false;
                 console.log("Popup closed");
@@ -98,46 +94,9 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         console.error("Exit button not found in the DOM.");
     }
-});
 
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("DOMContentLoaded event triggered");
-
-    // Attach event listener to the streaks button
-    const streaksButton = document.querySelector(".mode");
-    console.log("Streaks button:", streaksButton);
-
-    if (streaksButton) {
-        streaksButton.addEventListener("click", function () {
-            console.log("Streaks button clicked");
-            if (open === false) {
-                openStreaks();
-                open = true;
-                console.log("Popup opened");
-            } else if (open === true) {
-                openStreaks("close");
-                open = false;
-                console.log("Popup closed");
-            }
-        });
-    } else {
-        console.error("Streaks button not found in the DOM.");
-    }
-
-    // Attach event listener to the .exit button
-    const exitButton = document.querySelector(".streaks-header .exit");
-    console.log("Exit button:", exitButton);
-
-    if (exitButton) {
-        exitButton.addEventListener("click", function () {
-            console.log("Exit button clicked");
-            openStreaks("close");
-            open = false;
-            console.log("Popup closed via exit button");
-        });
-    } else {
-        console.error("Exit button not found in the DOM.");
-    }
+    /* Initialize Lazy Load */
+    lazyload();
 });
 
 function openStreaks(state) {
@@ -156,7 +115,7 @@ function openStreaks(state) {
 openStreaks("close");
 
 function openJournal(state) {
-    if (state != "close") {
+    if (state !== "close") {
         document.body.style.overflow = "hidden";
         document.getElementById("journalPopup").style.display = "block";
         console.log("openJournal");
@@ -167,7 +126,7 @@ function openJournal(state) {
 }
 
 function openLog(state) {
-    if (state != "close") {
+    if (state !== "close") {
         document.getElementById("logPopup").style.display = "block";
         console.log("openLog");
     } else {
@@ -190,10 +149,9 @@ function smoothScroll(y) {
 
 /* Scroll Animations */
 function checkScroll() {
-    var scrollElements = document.querySelectorAll('.scroll-element');
+    const scrollElements = document.querySelectorAll('.scroll-element');
     for (let i = scrollElements.length; i--;) {
         if (scrollElements[i].getBoundingClientRect().top < window.innerHeight) {
-
             scrollElements[i].classList.add('scrolled');
         } else {
             scrollElements[i].classList.remove('scrolled');
@@ -202,8 +160,3 @@ function checkScroll() {
 }
 checkScroll();
 document.addEventListener('scroll', checkScroll);
-
-/* Initialize Lazy Load */
-document.addEventListener("DOMContentLoaded", function () {
-    lazyload();
-});

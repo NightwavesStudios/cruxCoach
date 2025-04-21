@@ -558,26 +558,23 @@ nav a:hover {
 }
 
 .popular-card p {
-    display: flex; /* Use flexbox for alignment */
-    flex-wrap: wrap; /* Allow labels to wrap to the next line */
-    gap: 5px; /* Add spacing between labels */
-    padding: 10px; /* Add padding inside the container */
-    margin: 0; /* Reset margin */
-    align-items: center; /* Vertically align labels */
-}
-
-.popular-card span {
-    padding: 5px 10px; /* Add padding inside each label */
-    border-radius: 50px; /* Make labels rounded */
-    font-size: 12px; /* Adjust font size for smaller screens */
-    white-space: nowrap; /* Prevent text from breaking inside labels */
-}
-
-.popular-card p {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5px;
+    padding: 10px;
+    margin: 0;
+    align-items: center;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     padding: 0px 0px 15px 15px;
     margin-top: -10px;
+}
+
+.popular-card span {
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 12px;
+    white-space: nowrap;
 }
 
 .popular-card span {
@@ -610,10 +607,10 @@ nav a:hover {
 /* Collection Cards Styling */
 #collectionCardsContainer {
     display: flex;
-    justify-content: center; /* Center align cards */
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 20px; /* Add consistent spacing between cards */
+    gap: 20px;
 }
 
 .collection-card {
