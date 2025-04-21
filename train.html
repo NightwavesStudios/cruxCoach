@@ -14,9 +14,10 @@
     <meta charset="utf-8">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="favicon.png">
-    <link rel="icon" href="dark-favicon.png" type="image/x-icon" media="(prefers-color-scheme: light)">
-    <link rel="icon" href="favicon.png" type="image/x-icon" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
+    <link rel="icon" href="/dark-favicon.png" type="image/x-icon" media="(prefers-color-scheme: light)">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.png" type="image/x-icon" media="(prefers-color-scheme: dark)">
 
     <!-- Import Google Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
@@ -46,7 +47,7 @@
     <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
 
     <!--  Import Stylesheet -->
-    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="/styles/main.css">
 
 </head>
 
@@ -54,7 +55,7 @@
 
     <!-- Header -->
     <header>
-        <img class="logo" src="favicon.png" alt="Header Logo">
+        <img class="logo" src="/favicon.png" alt="Header Logo">
         <h1>CruxCoach</h1>
         <span class="material-icons mode" onclick="openStreaks();">local_fire_department</span>
     </header>
@@ -135,46 +136,45 @@
             <!-- Collection Cards Container -->
             <div id="collectionCardsContainer">
 
-                <!-- Crimp Collection -->
-                <div class="collection-card">
-                    <img
-                        class="lazyload"
-                        src="https://i.ibb.co/s90Yms7M/crimp-Cover.jpg">
-                    <h4>Crimps</h4>
-                </div>
-
-                <!-- Sloper Collection -->
-                <div class="collection-card">
-                    <img
-                        class="lazyload"
-                        src="https://i.ibb.co/nSRY9tF/sloper-Cover.jpg"
-                        alt="Sloper Collection Cover">
-                    <h4>Slopers</h4>
-                </div>
-
-                <!-- Pocket Collection -->
-                <div class="collection-card">
-                    <img
-                        class="lazyload"
-                        src="https://i.ibb.co/d4rJMYFm/pocket-Cover.jpg">
-                    <h4>Pockets</h4>
-                </div>
-
-                <!-- Sidepull Collection -->
-                <div class="collection-card">
-                    <img
-                        class="lazyload"
-                        src="https://i.ibb.co/dCKZ9hZ/sidepull-Cover.jpg">
-                    <h4>Sidepulls</h4>
-                </div>
-
-                <!-- Undercling Collection -->
-                <div class="collection-card">
-                    <img
-                        class="lazyload"
-                        src="https://i.ibb.co/53q55TK/Round-Undercling.jpg">
-                    <h4>Underclings</h4>
-                </div>
+                <!-- Crimps Collection -->
+                <a href="/collections/crimps/index.html">
+                    <div class="collection-card">
+                        <img class="lazyload" src="https://i.ibb.co/s90Yms7M/crimp-Cover.jpg">
+                        <h4>Crimps</h4>
+                    </div>
+                </a>
+                
+                <!-- Slopers Collection -->
+                <a href="/collections/slopers/index.html">
+                    <div class="collection-card">
+                        <img class="lazyload" src="https://i.ibb.co/nSRY9tF/sloper-Cover.jpg" alt="Sloper Collection Cover">
+                        <h4>Slopers</h4>
+                    </div>
+                </a>
+                
+                <!-- Pockets Collection -->
+                <a href="/collections/pockets/index.html">
+                    <div class="collection-card">
+                        <img class="lazyload" src="https://i.ibb.co/d4rJMYFm/pocket-Cover.jpg">
+                        <h4>Pockets</h4>
+                    </div>
+                </a>
+                
+                <!-- Sidepulls Collection -->
+                <a href="/collections/sidepulls/index.html">
+                    <div class="collection-card">
+                        <img class="lazyload" src="https://i.ibb.co/dCKZ9hZ/sidepull-Cover.jpg">
+                        <h4>Sidepulls</h4>
+                    </div>
+                </a>
+                
+                <!-- Underclings Collection -->
+                <a href="/collections/underclings/index.html">
+                    <div class="collection-card">
+                        <img class="lazyload" src="https://i.ibb.co/53q55TK/Round-Undercling.jpg">
+                        <h4>Underclings</h4>
+                    </div>
+                </a>
 
             </div>
 
@@ -188,37 +188,41 @@
             <!-- Collection Cards Container -->
             <div id="collectionCardsContainer">
 
-                <!-- Slab Collection -->
-                <div class="collection-card">
-                    <img
-                        class="lazyload"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
-                    <h4>Slabs</h4>
-                </div>
-
+                <!-- Slabs Collection -->
+                <a href="/collections/slabs/index.html">
+                    <div class="collection-card">
+                        <img class="lazyload"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                        <h4>Slabs</h4>
+                    </div>
+                </a>
+                
                 <!-- Slight Overhang Collection -->
-                <div class="collection-card">
-                    <img
-                        class="lazyload"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
-                    <h4>Slight Overhangs</h4>
-                </div>
-
+                <a href="/collections/slight-overhang/index.html">
+                    <div class="collection-card">
+                        <img class="lazyload"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                        <h4>Slight Overhangs</h4>
+                    </div>
+                </a>
+                
                 <!-- Overhang Collection -->
-                <div class="collection-card">
-                    <img
-                        class="lazyload"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
-                    <h4>Overhangs</h4>
-                </div>
-
+                <a href="/collections/overhang/index.html">
+                    <div class="collection-card">
+                        <img class="lazyload"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                        <h4>Overhangs</h4>
+                    </div>
+                </a>
+                
                 <!-- Roof/Cave Collection -->
-                <div class="collection-card">
-                    <img
-                        class="lazyload"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
-                    <h4>Roofs/Caves</h4>
-                </div>
+                <a href="/collections/cave/index.html">
+                    <div class="collection-card">
+                        <img class="lazyload"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                        <h4>Roofs/Caves</h4>
+                    </div>
+                </a>
 
             </div>
 
@@ -233,37 +237,41 @@
             <div id="collectionCardsContainer">
 
                 <!-- Big Move Collection -->
-                <div class="collection-card">
-                    <img
-                        class="lazyload"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
-                    <h4>Big Move</h4>
-                </div>
-
+                <a href="/collections/big-move/index.html">
+                    <div class="collection-card">
+                        <img class="lazyload"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                        <h4>Big Move</h4>
+                    </div>
+                </a>
+                
                 <!-- Meticulous Collection -->
-                <div class="collection-card">
-                    <img
-                        class="lazyload"
-                        src=" https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
-                    <h4>Meticulous</h4>
-                </div>
-
+                <a href="/collections/meticulous/index.html">
+                    <div class="collection-card">
+                        <img class="lazyload"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                        <h4>Meticulous</h4>
+                    </div>
+                </a>
+                
                 <!-- Powerful Collection -->
-                <div class="collection-card">
-                    <img
-                        class="lazyload"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
-                    <h4>Powerful</h4>
-                </div>
-
+                <a href="/collections/powerful/index.html">
+                    <div class="collection-card">
+                        <img class="lazyload"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                        <h4>Powerful</h4>
+                    </div>
+                </a>
+                
                 <!-- Route Reading Collection -->
-                <div class="collection-card">
-                    <img
-                        class="lazyload"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
-                    <h4>Route Reading</h4>
-                </div>
-
+                <a href="/collections/route-reading/index.html">
+                    <div class="collection-card">
+                        <img class="lazyload"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
+                        <h4>Route Reading</h4>
+                    </div>
+                </a>
+                
             </div>
 
         </div>
@@ -271,15 +279,15 @@
         <!-- Nav -->
         <br><br><br>
         <nav>
-            <a href="index.html" class="material-icons" alt="Dashboard Icon" title="Dashboard">show_chart</a>
-            <a href="train.html" class="material-icons" alt="Lessons Icon" title="Lessons">school</a>
-            <a href="profile.html" class="material-icons" alt="Profile Icon" title="Profile">person</a>
+            <a href="/index.html" class="material-icons" alt="Dashboard Icon" title="Dashboard">show_chart</a>
+            <a href="/train.html" class="material-icons" alt="Lessons Icon" title="Lessons">school</a>
+            <a href="/profile.html" class="material-icons" alt="Profile Icon" title="Profile">person</a>
         </nav>
 
     </div>
 
     <!-- Import Javascript -->
-    <script src="../scripts/main.js"></script>
+    <script src="/scripts/main.js"></script>
 
 </body>
 

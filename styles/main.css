@@ -25,6 +25,11 @@ button:hover {
     cursor: pointer;
 }
 
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
 a:hover {
     cursor: pointer;
 }
@@ -664,6 +669,105 @@ nav a:hover {
     }
 
     .collection-card img {
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        width: 17.5vw;
+    }
+}
+
+/* Resources Cards Styling */
+#resouresCardsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.resoure-card {
+    width: 45vw;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.resource-card:hover {
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.resource-card img {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    width: 45vw;
+    height: 175px;
+}
+
+.resource-card h4 {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding: 0px 0px 10px 0px;
+}
+
+.resource-card p {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5px;
+    padding: 10px;
+    margin: 0;
+    align-items: center;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 0px 0px 15px 15px;
+    margin-top: -10px;
+}
+
+.resource-card span {
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.resource-card span {
+    padding: 2px 5px 2px 5px;
+    border-radius: 50px;
+}
+
+.resource-card .type {
+    background-color: #F28C2877;
+}
+
+.resource-card .length {
+    background-color: #4285f477;
+}
+
+@media screen and (min-width: 600px) and (max-width: 900px) {
+    .resource-card {
+        width: 23vw;
+        margin-bottom: 20px;
+        border-radius: 20px;
+        box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .resource-card img {
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        width: 23vw;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .resource-card {
+        width: 17.5vw;
+        margin-bottom: 20px;
+        border-radius: 20px;
+        box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .resource-card img {
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
         width: 17.5vw;

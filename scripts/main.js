@@ -32,84 +32,102 @@ document.addEventListener("DOMContentLoaded", function () {
     const gradeElements = ["flash", "project", "on-sight", "redpoint"];
     const gradeValues = [flash, project, onsight, redpoint];
     for (let i = 0; i < gradeElements.length; i++) {
-        document.getElementById(gradeElements[i]).innerHTML = gradeValues[i];
+        const element = document.getElementById(gradeElements[i]);
+        if (element) {
+            element.innerHTML = gradeValues[i];
+        } else {
+            console.error(`Element with id "${gradeElements[i]}" not found in the DOM.`);
+        }
     }
 
     const struggleStrongElements = ["crimp", "sloper", "pocket", "sidepull", "undercling", "bigmove", "meticulous", "powerful", "routereading", "slab", "slightoverhang", "overhang", "cave"];
     const struggleStrongValues = [crimp, sloper, pocket, sidepull, undercling, bigmove, meticulous, powerful, routereading, slab, slightoverhang, overhang, cave];
     for (let i = 0; i < struggleStrongElements.length; i++) {
-        document.getElementById(struggleStrongElements[i]).innerHTML = struggleStrongValues[i];
+        const element = document.getElementById(struggleStrongElements[i]);
+        if (element) {
+            element.innerHTML = struggleStrongValues[i];
+        } else {
+            console.error(`Element with id "${struggleStrongElements[i]}" not found in the DOM.`);
+        }
     }
 
-    /* Training Distribution Chart */
-    new Chart("trainingDistributionChart", {
-        type: "pie",
-        data: {
-            labels: ["Bouldering", "Top Rope", "Lead", "Other"],
-            datasets: [{
-                backgroundColor: ["#34A85399", "#F28C2899", "#4285f499", "#e8c3b9"],
-                data: [bouldering, toprope, lead, other],
-            }]
-        },
-        options: {
-            title: {
-                display: true,
-                text: "Training Type Distribution",
+    // Training Distribution Chart
+    const chartElement = document.getElementById("trainingDistributionChart");
+    if (chartElement) {
+        new Chart(chartElement, {
+            type: "pie",
+            data: {
+                labels: ["Bouldering", "Top Rope", "Lead", "Other"],
+                datasets: [{
+                    backgroundColor: ["#34A85399", "#F28C2899", "#4285f499", "#e8c3b9"],
+                    data: [bouldering, toprope, lead, other],
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Training Type Distribution",
+                }
             }
-        }
-    });
+        });
+    } else {
+        console.error('Canvas element with id "trainingDistributionChart" not found in the DOM.');
+    }
 
-    /* Popups */
-    let open = false;
+    // Popups
     const streaksButton = document.querySelector(".mode");
-    console.log("Streaks button:", streaksButton);
-
     if (streaksButton) {
         streaksButton.addEventListener("click", function () {
             console.log("Streaks button clicked");
-            if (!open) {
-                openStreaks();
-                open = true;
-                console.log("Popup opened");
-            } else {
-                openStreaks("close");
-                open = false;
-                console.log("Popup closed");
-            }
+            openStreaks();
         });
     } else {
         console.error("Streaks button not found in the DOM.");
     }
 
     const exitButton = document.querySelector(".streaks-header .exit");
-    console.log("Exit button:", exitButton);
-
     if (exitButton) {
         exitButton.addEventListener("click", function () {
             console.log("Exit button clicked");
             openStreaks("close");
-            open = false;
-            console.log("Popup closed via exit button");
         });
     } else {
         console.error("Exit button not found in the DOM.");
     }
 
-    /* Initialize Lazy Load */
-    lazyload();
+    // Initialize Lazy Load
+    if (typeof lazyload === "function") {
+        lazyload();
+    } else {
+        console.error("Lazyload function not found.");
+    }
 });
+
+function handleStreaksButtonClick() {
+    console.log("Streaks button clicked");
+    openStreaks();
+}
+
+function handleExitButtonClick() {
+    console.log("Exit button clicked");
+    openStreaks("close");
+}
 
 function openStreaks(state) {
     const streaksPopup = document.getElementById("streaksPopup");
-    if (state !== "close") {
-        document.body.style.overflow = "hidden";
-        streaksPopup.style.display = "block";
-        streaksPopup.style.overflowY = "auto";
-        console.log("openStreaks");
+    if (streaksPopup) {
+        if (state !== "close") {
+            document.body.style.overflow = "hidden";
+            streaksPopup.style.display = "block";
+            streaksPopup.style.overflowY = "auto";
+            console.log("Popup opened");
+        } else {
+            document.body.style.overflow = "";
+            streaksPopup.style.display = "none";
+            console.log("Popup closed");
+        }
     } else {
-        document.body.style.overflow = "";
-        streaksPopup.style.display = "none";
-        console.log("closeStreaks");
+        console.error("Streaks popup not found in the DOM.");
     }
 }
 openStreaks("close");
