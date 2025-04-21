@@ -9,23 +9,88 @@
 
 <url>
   <loc>https://cruxcoach.vercel.app/</loc>
-  <lastmod>2025-04-12T14:22:14+00:00</lastmod>
+  <lastmod>2025-04-21T17:13:54+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://cruxcoach.vercel.app/index.html</loc>
-  <lastmod>2025-04-12T14:22:14+00:00</lastmod>
+  <lastmod>2025-04-21T17:13:55+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://cruxcoach.vercel.app/train.html</loc>
-  <lastmod>2025-04-12T14:22:15+00:00</lastmod>
+  <lastmod>2025-04-21T17:13:55+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://cruxcoach.vercel.app/profile.html</loc>
-  <lastmod>2025-04-12T14:22:15+00:00</lastmod>
+  <lastmod>2025-04-21T17:13:55+00:00</lastmod>
   <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://cruxcoach.vercel.app/collections/crimps/index.html</loc>
+  <lastmod>2025-04-21T17:13:55+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://cruxcoach.vercel.app/collections/slopers/index.html</loc>
+  <lastmod>2025-04-21T17:13:55+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://cruxcoach.vercel.app/collections/pockets/index.html</loc>
+  <lastmod>2025-04-21T17:13:55+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://cruxcoach.vercel.app/collections/sidepulls/index.html</loc>
+  <lastmod>2025-04-21T17:13:56+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://cruxcoach.vercel.app/collections/underclings/index.html</loc>
+  <lastmod>2025-04-21T17:13:56+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://cruxcoach.vercel.app/collections/slabs/index.html</loc>
+  <lastmod>2025-04-21T17:13:56+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://cruxcoach.vercel.app/collections/slight-overhang/index.html</loc>
+  <lastmod>2025-04-21T17:13:56+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://cruxcoach.vercel.app/collections/overhang/index.html</loc>
+  <lastmod>2025-04-21T17:13:56+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://cruxcoach.vercel.app/collections/cave/index.html</loc>
+  <lastmod>2025-04-21T17:13:56+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://cruxcoach.vercel.app/collections/big-move/index.html</loc>
+  <lastmod>2025-04-21T17:13:56+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://cruxcoach.vercel.app/collections/meticulous/index.html</loc>
+  <lastmod>2025-04-21T17:13:57+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://cruxcoach.vercel.app/collections/powerful/index.html</loc>
+  <lastmod>2025-04-21T17:13:57+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://cruxcoach.vercel.app/collections/route-reading/index.html</loc>
+  <lastmod>2025-04-21T17:13:57+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 
 
