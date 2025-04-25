@@ -4,12 +4,13 @@
 <head>
 
     <!-- Title -->
-    <title>CruxCoach - Collections - Slight Overhang</title>
+    <title>CruxCoach - Train</title>
 
     <!-- Description & Charset -->
     <meta name="description"
-        content="Create and view your account to see your progress and analytics and customize settings to personalize the website!">
+        content="Discover custom curated workouts, articles, and videos to help improve your climbing based on your strong and strugglepoints.">
     <meta name="keywords" content="climbing, coaching, progress tracking, rock climbing, climbing tips, bouldering">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
 
     <!-- Favicon -->
@@ -31,8 +32,19 @@
         gtag('config', 'G-WQXN250GC5');
     </script>
 
-    <!-- Import Chart.js -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQXN250GC5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-WQXN250GC5');
+    </script>
+
+    <!-- Import External Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
 
     <!--  Import Stylesheet -->
     <link rel="stylesheet" href="/styles/main.css">
@@ -71,32 +83,16 @@
     <!-- Content -->
     <div id="contentContainer">
 
-        <!-- Header -->
-        <br>
-        <h1>Slight Overhang Collection</h1>
-
-        <!-- Resources Cards Container -->
-        <div id="resourcesCardsContainer">
-
-            <!-- Card -->
-            <div class="resource-card">
-                <img class="lazyload"
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s">
-                <h4>Title</h4>
-                <p>
-                    <span class="type">Type</span>,
-                    <span class="length">Length</span>
-                </p>
-            </div>
-
+        <div id="filteredLessonsContainer">
+            <h3 class="align-center" id="filterTitle"></h3>
+            <div id="filteredCardsContainer" class="card-grid"></div>
         </div>
-
 
         <!-- Nav -->
         <br><br><br>
         <nav>
             <a href="/index.html" class="material-icons" alt="Dashboard Icon" title="Dashboard">show_chart</a>
-            <a href="/train.html" class="material-icons" alt="Lessons Icon" title="Lessons">school</a>
+            <a href="/../train/index.html" class="material-icons" alt="Lessons Icon" title="Lessons">school</a>
             <a href="/profile.html" class="material-icons" alt="Profile Icon" title="Profile">person</a>
         </nav>
 
@@ -104,6 +100,7 @@
 
     <!-- Import Javascript -->
     <script src="/scripts/main.js"></script>
+    <script src="/scripts/lessons.js"></script>
 
 </body>
 

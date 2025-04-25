@@ -1,0 +1,18 @@
+[
+  {
+    "title": "Placeholder #1",
+    "type": "Article",
+    "length": "5min",
+    "tags": ["crimp", "technique"],
+    "thumbnail": "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
+    "url": "/lessons/mastering-crimps.html"
+  },
+  {
+    "title": "Placeholder #2",
+    "type": "Video",
+    "length": "10min",
+    "tags": ["sloper", "powerful"],
+    "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+    "url": "/lessons/sloper-strength.html"
+  }
+]
