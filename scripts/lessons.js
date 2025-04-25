@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log("Filtered lessons:", filtered);
         titleElem.innerHTML = tag.toLowerCase() === "all"
     ? "<br>All Lessons"
-    : `<br>${tag.charAt(0).toUpperCase() + tag.slice(1)}Lessons`;
+    : `<br>${tag.charAt(0).toUpperCase() + tag.slice(1)} Lessons`;
 
         if (filtered.length === 0) {
             container.innerHTML = `<p class="no-results">No lessons found for "${tag}".</p>`;
@@ -33,17 +33,17 @@ document.addEventListener("DOMContentLoaded", async () => {
             const card = document.createElement("a");
             card.href = lesson.url;
             card.innerHTML = `
-                <div class="collection-card">
+                <div class="lesson-card">
                     <img class="lazyload" src="${lesson.thumbnail}" alt="${lesson.title}">
                     <h4>${lesson.title}</h4>
-                    <p><span class="type">${lesson.type}</span>, <span class="category">${lesson.length}</span></p>
+                    <p><span class="type">${lesson.type}</span>, <span class="length">${lesson.length}</span></p>
                 </div>
             `;
             container.appendChild(card);
         });
 
         if (typeof lazyload === "function") {
-            lazyload(); // reinit lazy loading if needed
+            lazyload();
         }
     } catch (err) {
         console.error("Failed to load lessons.json:", err);

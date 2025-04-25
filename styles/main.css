@@ -12,6 +12,10 @@ body {
     user-select: none;
 }
 
+h1, h2, h3, h4, h5, p, span, button, a {
+    user-select: text;
+}
+
 img {
     object-fit: cover;
     overflow: hidden;
@@ -675,8 +679,8 @@ nav a:hover {
     }
 }
 
-/* Resources Cards Styling */
-#resouresCardsContainer {
+/* Filtered Cards Styling */
+#filteredCardsContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -684,34 +688,34 @@ nav a:hover {
     gap: 20px;
 }
 
-.resoure-card {
+.lesson-card {
     width: 45vw;
     margin-bottom: 20px;
     border-radius: 20px;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-.resource-card:hover {
+.lesson-card:hover {
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
     transition: 0.2s ease-in-out;
     cursor: pointer;
 }
 
-.resource-card img {
+.lesson-card img {
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     width: 45vw;
     height: 175px;
 }
 
-.resource-card h4 {
+.lesson-card h4 {
     text-align: center;
     margin-top: 10px;
     margin-bottom: 5px;
     padding: 0px 0px 10px 0px;
 }
 
-.resource-card p {
+.lesson-card p {
     display: flex;
     flex-wrap: wrap;
     gap: 2.5px;
@@ -724,35 +728,35 @@ nav a:hover {
     margin-top: -10px;
 }
 
-.resource-card span {
+.lesson-card span {
     padding: 5px 10px;
     border-radius: 50px;
     font-size: 12px;
     white-space: nowrap;
 }
 
-.resource-card span {
+.lesson-card span {
     padding: 2px 5px 2px 5px;
     border-radius: 50px;
 }
 
-.resource-card .type {
+.lesson-card .type {
     background-color: #F28C2877;
 }
 
-.resource-card .length {
+.lesson-card .length {
     background-color: #4285f477;
 }
 
 @media screen and (min-width: 600px) and (max-width: 900px) {
-    .resource-card {
+    .lesson-card {
         width: 23vw;
         margin-bottom: 20px;
         border-radius: 20px;
         box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
     }
 
-    .resource-card img {
+    .lesson-card img {
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
         width: 23vw;
@@ -760,14 +764,14 @@ nav a:hover {
 }
 
 @media screen and (min-width: 900px) {
-    .resource-card {
+    .lesson-card {
         width: 17.5vw;
         margin-bottom: 20px;
         border-radius: 20px;
         box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
     }
 
-    .resource-card img {
+    .lesson-card img {
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
         width: 17.5vw;
