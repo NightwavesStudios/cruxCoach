@@ -6,89 +6,95 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
+
 <url>
   <loc>https://cruxcoach.vercel.app/</loc>
-  <lastmod>2025-04-21T17:13:54+00:00</lastmod>
+  <lastmod>2025-04-27T19:44:05+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://cruxcoach.vercel.app/index.html</loc>
-  <lastmod>2025-04-21T17:13:55+00:00</lastmod>
+  <lastmod>2025-04-27T19:44:06+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/../train/index.html</loc>
-  <lastmod>2025-04-21T17:13:55+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/index.html</loc>
+  <lastmod>2025-04-27T19:44:06+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://cruxcoach.vercel.app/profile.html</loc>
-  <lastmod>2025-04-21T17:13:55+00:00</lastmod>
+  <lastmod>2025-04-27T19:44:06+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/collections/crimps/index.html</loc>
-  <lastmod>2025-04-21T17:13:55+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=all</loc>
+  <lastmod>2025-04-27T19:44:06+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/collections/slopers/index.html</loc>
-  <lastmod>2025-04-21T17:13:55+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=crimp</loc>
+  <lastmod>2025-04-27T19:44:06+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/collections/pockets/index.html</loc>
-  <lastmod>2025-04-21T17:13:55+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=sloper</loc>
+  <lastmod>2025-04-27T19:44:06+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/collections/sidepulls/index.html</loc>
-  <lastmod>2025-04-21T17:13:56+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=pocket</loc>
+  <lastmod>2025-04-27T19:44:06+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/collections/underclings/index.html</loc>
-  <lastmod>2025-04-21T17:13:56+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=sidepull</loc>
+  <lastmod>2025-04-27T19:44:06+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/collections/slabs/index.html</loc>
-  <lastmod>2025-04-21T17:13:56+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=undercling</loc>
+  <lastmod>2025-04-27T19:44:06+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/collections/slight-overhang/index.html</loc>
-  <lastmod>2025-04-21T17:13:56+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=slab</loc>
+  <lastmod>2025-04-27T19:44:06+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/collections/overhang/index.html</loc>
-  <lastmod>2025-04-21T17:13:56+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=slight-overhang</loc>
+  <lastmod>2025-04-27T19:44:06+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/collections/cave/index.html</loc>
-  <lastmod>2025-04-21T17:13:56+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=overhang</loc>
+  <lastmod>2025-04-27T19:44:06+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/collections/big-move/index.html</loc>
-  <lastmod>2025-04-21T17:13:56+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=cave</loc>
+  <lastmod>2025-04-27T19:44:06+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/collections/meticulous/index.html</loc>
-  <lastmod>2025-04-21T17:13:57+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=big-move</loc>
+  <lastmod>2025-04-27T19:44:06+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/collections/powerful/index.html</loc>
-  <lastmod>2025-04-21T17:13:57+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=meticulous</loc>
+  <lastmod>2025-04-27T19:44:06+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/collections/route-reading/index.html</loc>
-  <lastmod>2025-04-21T17:13:57+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=powerful</loc>
+  <lastmod>2025-04-27T19:44:06+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=route-reading</loc>
+  <lastmod>2025-04-27T19:44:06+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 
