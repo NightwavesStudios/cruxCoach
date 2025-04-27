@@ -1,18 +1,464 @@
 [
-  {
-    "title": "Placeholder #1",
-    "type": "Article",
-    "length": "5min",
-    "tags": ["crimp", "technique"],
-    "thumbnail": "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
-    "url": "/lessons/mastering-crimps.html"
-  },
-  {
-    "title": "Placeholder #2",
-    "type": "Video",
-    "length": "10min",
-    "tags": ["sloper", "powerful"],
-    "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
-    "url": "/lessons/sloper-strength.html"
-  }
+   {
+      "title": "Intro to Crimps",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "crimp",
+         "intro"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/intro-crimps.html"
+   },
+   {
+      "title": "Crimp Finger Position",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "crimp",
+         "technique"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/crimp-finger-position.html"
+   },
+   {
+      "title": "Crimp Injury Risk",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "crimp",
+         "injury"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/crimp-injury-risk.html"
+   },
+   {
+      "title": "Crimp Strength Training",
+      "type": "Workout",
+      "length": "NaN",
+      "tags": [
+         "crimp",
+         "exercise"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/crimp-strength-training.html"
+   },
+   {
+      "title": "Intro to Slopers",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "sloper",
+         "intro"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/intro-slopers.html"
+   },
+   {
+      "title": "Sloper Body Position",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "sloper",
+         "technique"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/sloper-body-position.html"
+   },
+   {
+      "title": "Sloper Endurance",
+      "type": "Workout",
+      "length": "NaN",
+      "tags": [
+         "sloper",
+         "exercise"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/sloper-endurance.html"
+   },
+   {
+      "title": "Sloper-Only Sessions",
+      "type": "Practice",
+      "length": "NaN",
+      "tags": [
+         "sloper",
+         "practice"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/sloper-sessions.html"
+   },
+   {
+      "title": "Intro to Pockets",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "pocket",
+         "intro"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/intro-pockets.html"
+   },
+   {
+      "title": "2 vs 3 Finger Grips",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "pocket",
+         "technique"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/2v3-finger-grips.html"
+   },
+   {
+      "title": "Prevent Pulley Injuries",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "pocket",
+         "injury"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/prevent-pulley-injuries.html"
+   },
+   {
+      "title": "Pocket Finger Loading",
+      "type": "Workout",
+      "length": "NaN",
+      "tags": [
+         "pocket",
+         "exercise"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/pocket-finger-loading.html"
+   },
+   {
+      "title": "Intro to Sidepulls",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "sidepull",
+         "intro"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/intro-sidepulls.html"
+   },
+   {
+      "title": "Sidepull Body Tension",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "sidepull",
+         "technique"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/sidepull-body-tension.html"
+   },
+   {
+      "title": "Sidepull Footwork",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "sidepull",
+         "technique"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/sidepull-footwork.html"
+   },
+   {
+      "title": "Intro to Underclings",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "undercling",
+         "intro"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/intro-underclings.html"
+   },
+   {
+      "title": "Undercling Foot Placement",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "undercling",
+         "technique"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/undercling-foot-placement.html"
+   },
+   {
+      "title": "Undercling Core Engagement",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "undercling",
+         "technique"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/undercling-core-engagement.html"
+   },
+   {
+      "title": "Intro to Slabs",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "slab",
+         "intro"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/intro-slabs.html"
+   },
+   {
+      "title": "Balance and Smearing",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "slab",
+         "technique"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/balance-smearing.html"
+   },
+   {
+      "title": "Hip Position on Slabs",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "slab",
+         "technique"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/hip-position-slabs.html"
+   },
+   {
+      "title": "Intro to Slight Overhangs",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "slight-overhang",
+         "intro"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/intro-slight-overhangs.html"
+   },
+   {
+      "title": "Body Tension on Overhangs",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "slight-overhang",
+         "technique"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/body-tension-overhangs.html"
+   },
+   {
+      "title": "Core Training Basics",
+      "type": "Workout",
+      "length": "NaN",
+      "tags": [
+         "core",
+         "exercise"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/core-training-basics.html"
+   },
+   {
+      "title": "Intro to Overhangs",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "overhang",
+         "intro"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/intro-overhangs.html"
+   },
+   {
+      "title": "Overhang Core and Shoulders",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "overhang",
+         "technique"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/overhang-core-shoulders.html"
+   },
+   {
+      "title": "Heel and Toe Hooks",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "overhang",
+         "technique"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/heel-toe-hooks.html"
+   },
+   {
+      "title": "Intro to Roofs and Caves",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "roof",
+         "intro"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/intro-roofs-caves.html"
+   },
+   {
+      "title": "Extreme Tension Moves",
+      "type": "Workout",
+      "length": "NaN",
+      "tags": [
+         "roof",
+         "exercise"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/extreme-tension-moves.html"
+   },
+   {
+      "title": "Front Lever Progressions",
+      "type": "Workout",
+      "length": "NaN",
+      "tags": [
+         "roof",
+         "strength"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/front-lever-progressions.html"
+   },
+   {
+      "title": "Intro to Big Moves",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "big-move",
+         "intro"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/intro-big-moves.html"
+   },
+   {
+      "title": "Dynamic Movement",
+      "type": "Workout",
+      "length": "NaN",
+      "tags": [
+         "big-move",
+         "technique"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/dynamic-movement.html"
+   },
+   {
+      "title": "Plyometric Training",
+      "type": "Workout",
+      "length": "NaN",
+      "tags": [
+         "big-move",
+         "strength"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/plyometric-training.html"
+   },
+   {
+      "title": "Intro to Meticulous Climbing",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "meticulous",
+         "intro"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/intro-meticulous.html"
+   },
+   {
+      "title": "Precision Footwork",
+      "type": "Practice",
+      "length": "NaN",
+      "tags": [
+         "meticulous",
+         "technique"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/precision-footwork.html"
+   },
+   {
+      "title": "Controlled Movement",
+      "type": "Practice",
+      "length": "NaN",
+      "tags": [
+         "meticulous",
+         "technique"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/controlled-movement.html"
+   },
+   {
+      "title": "Intro to Powerful Climbing",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "powerful",
+         "intro"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/intro-powerful.html"
+   },
+   {
+      "title": "Max Strength Training",
+      "type": "Workout",
+      "length": "NaN",
+      "tags": [
+         "powerful",
+         "strength"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/max-strength-training.html"
+   },
+   {
+      "title": "Short Intense Problems",
+      "type": "Workout",
+      "length": "NaN",
+      "tags": [
+         "powerful",
+         "exercise"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/short-intense-problems.html"
+   },
+   {
+      "title": "Intro to Route Reading",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "route-reading",
+         "intro"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/intro-route-reading.html"
+   },
+   {
+      "title": "Sequence Visualization",
+      "type": "Practice",
+      "length": "NaN",
+      "tags": [
+         "route-reading",
+         "technique"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/sequence-visualization.html"
+   },
+   {
+      "title": "Memory Training",
+      "type": "Practice",
+      "length": "NaN",
+      "tags": [
+         "route-reading",
+         "exercise"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/lessons/memory-training.html"
+   }
 ]
