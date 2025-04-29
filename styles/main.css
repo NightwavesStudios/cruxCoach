@@ -125,7 +125,6 @@ header .logo:hover {
 header .mode {
     position: fixed;
     right: 10px;
-    width: 24px;
 }
 
 header .mode:hover {
