@@ -11,18 +11,7 @@
       "url": "/lessons/intro-crimps.html"
    },
    {
-      "title": "Crimp Finger Position",
-      "type": "Article",
-      "length": "NaN",
-      "tags": [
-         "crimp",
-         "technique"
-      ],
-      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
-      "url": "/lessons/crimp-finger-position.html"
-   },
-   {
-      "title": "Crimp Injury Risk",
+      "title": "Avoiding Injury from Crimping",
       "type": "Article",
       "length": "NaN",
       "tags": [
@@ -30,10 +19,10 @@
          "injury"
       ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
-      "url": "/lessons/crimp-injury-risk.html"
+      "url": "/lessons/crimp-injury.html"
    },
    {
-      "title": "Crimp Strength Training",
+      "title": "Long Hang Crimp Hangboarding Workout",
       "type": "Workout",
       "length": "NaN",
       "tags": [
@@ -41,7 +30,7 @@
          "exercise"
       ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
-      "url": "/lessons/crimp-strength-training.html"
+      "url": "/lessons/long-hang-crimp-hangboarding.html"
    },
    {
       "title": "Intro to Slopers",
@@ -53,17 +42,6 @@
       ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/lessons/intro-slopers.html"
-   },
-   {
-      "title": "Sloper Body Position",
-      "type": "Article",
-      "length": "NaN",
-      "tags": [
-         "sloper",
-         "technique"
-      ],
-      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
-      "url": "/lessons/sloper-body-position.html"
    },
    {
       "title": "Sloper Endurance",
@@ -99,28 +77,6 @@
       "url": "/lessons/intro-pockets.html"
    },
    {
-      "title": "2 vs 3 Finger Grips",
-      "type": "Article",
-      "length": "NaN",
-      "tags": [
-         "pocket",
-         "technique"
-      ],
-      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
-      "url": "/lessons/2v3-finger-grips.html"
-   },
-   {
-      "title": "Prevent Pulley Injuries",
-      "type": "Article",
-      "length": "NaN",
-      "tags": [
-         "pocket",
-         "injury"
-      ],
-      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
-      "url": "/lessons/prevent-pulley-injuries.html"
-   },
-   {
       "title": "Pocket Finger Loading",
       "type": "Workout",
       "length": "NaN",
@@ -154,17 +110,6 @@
       "url": "/lessons/sidepull-body-tension.html"
    },
    {
-      "title": "Sidepull Footwork",
-      "type": "Article",
-      "length": "NaN",
-      "tags": [
-         "sidepull",
-         "technique"
-      ],
-      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
-      "url": "/lessons/sidepull-footwork.html"
-   },
-   {
       "title": "Intro to Underclings",
       "type": "Article",
       "length": "NaN",
@@ -176,17 +121,6 @@
       "url": "/lessons/intro-underclings.html"
    },
    {
-      "title": "Undercling Foot Placement",
-      "type": "Article",
-      "length": "NaN",
-      "tags": [
-         "undercling",
-         "technique"
-      ],
-      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
-      "url": "/lessons/undercling-foot-placement.html"
-   },
-   {
       "title": "Undercling Core Engagement",
       "type": "Article",
       "length": "NaN",
@@ -196,17 +130,6 @@
       ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/lessons/undercling-core-engagement.html"
-   },
-   {
-      "title": "Intro to Slabs",
-      "type": "Article",
-      "length": "NaN",
-      "tags": [
-         "slab",
-         "intro"
-      ],
-      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
-      "url": "/lessons/intro-slabs.html"
    },
    {
       "title": "Balance and Smearing",
@@ -462,3 +385,4 @@
       "url": "/lessons/memory-training.html"
    }
 ]
+

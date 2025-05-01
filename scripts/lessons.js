@@ -49,3 +49,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.error("Failed to load lessons.json:", err);
     }
 });
+
+function updateTitleFromQuery() {
+
+    if (queryString) {
+
+        if (tag) {
+            document.title = `CruxCoach - Filter '${tag}' Tags`;
+        } else {
+            document.title = 'CruxCoach - Filter Lessons';
+        }
+    } else {
+        document.title = 'CruxCoach - Filter Lessons';
+    }
+
+}
+
+updateTitleFromQuery();
