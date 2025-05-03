@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>404 - Page Not Found</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="404 - Page not found">
+    <meta name="robots" content="noindex">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
+    <link rel="icon" href="/dark-favicon.png" type="image/x-icon" media="(prefers-color-scheme: light)">
+    <link rel="icon" href="/favicon.png" type="image/x-icon" media="(prefers-color-scheme: dark)">
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/styles/main.css">
+    
+    <!-- Error Styling -->
+    <style>
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            background-color: #fafafa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding-top: 60px;
+            text-align: center;
+        }
+
+        .error-container {
+            max-width: 500px;
+            padding: 20px;
+        }
+
+        .error-container h1 {
+            font-size: 80px;
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .error-container p {
+            font-size: 20px;
+            color: #666;
+        }
+
+        .error-container a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #444;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.2s ease;
+        }
+
+        .error-container a:hover {
+            background-color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img class="logo" src="/favicon.png" alt="CruxCoach Logo">
+        <h1>CruxCoach</h1>
+        <span class="mode" onclick="openStreaks();">
+            <img src="/streaks.gif" alt="streaks icon" width="24px" height="24px">
+        </span>
+    </header>
+
+    <div class="error-container">
+        <h1>404</h1>
+        <p>Oops. The page you’re looking for doesn’t exist.</p>
+        <a href="/index.html">Go to Homepage</a>
+    </div>
+</body>
+
+</html>
