@@ -36,7 +36,7 @@
     <meta name="msvalidate.01" content="BB322C2C4EBBD39CAF205F27773C4459" />
 
     <!-- Import Chart.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
 
     <!--  Import Stylesheet -->
     <link rel="stylesheet" href="/styles/main.css">
@@ -338,6 +338,18 @@
                 <p><span id="Cave">0</span> Roof/Cave</p>
             </div>
 
+        </div>
+
+        <!-- Holds Breakdown Chart Container -->
+        <div id="holdsBreakdownContainer">
+            <h3>Holds Breakdown</h3>
+            <canvas id="holdsBreakdownChart"></canvas>
+        </div>
+
+        <!-- Style Breakdown Chart Container -->
+        <div id="styleBreakdownContainer">
+            <h3>Style Breakdown</h3>
+            <canvas id="styleBreakdownChart"></canvas>
         </div>
 
         <!-- Nav -->

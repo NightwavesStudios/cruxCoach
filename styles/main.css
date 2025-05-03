@@ -516,8 +516,12 @@ nav a:hover {
 }
 
 #trainingDistributionChartContainer canvas {
+    max-width: 500px;
+    max-height: 500px;
     width: 100%;
-    max-width: 600px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
 }
 
 /* Struggle/Strongpoints Container Styling **/
@@ -538,6 +542,46 @@ nav a:hover {
 
 #struggleStrongContainer .down {
     color: red;
+}
+
+/* Holds Breakdown Container Styling */
+#holdsBreakdownContainer {
+    position: relative;
+    margin-top: 20px;
+    padding: 25px;
+    width: 95vw;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
+    align-items: center;
+    text-align: center;
+}
+
+#holdsBreakdownContainer canvas {
+    max-width: 1000px;
+    max-height: 500px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Style Breakdown Container Styling */
+#styleBreakdownContainer {
+    position: relative;
+        margin-top: 20px;
+        padding: 25px;
+        width: 95vw;
+        box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
+        align-items: center;
+        text-align: center;
+}
+
+#styleBreakdownContainer canvas {
+    max-width: 500px;
+    max-height: 500px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
 }
 
 /* Popular Resources Styling */
