@@ -524,6 +524,18 @@ nav a:hover {
     display: block;
 }
 
+@media (max-width: 600px) {
+
+    #trainingDistributionChartContainer canvas {
+            max-width: 300px;
+            max-height: 300px;
+            width: 100%;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+}
+
 /* Struggle/Strongpoints Container Styling **/
 #struggleStrongContainer {
     position: relative;
@@ -567,12 +579,13 @@ nav a:hover {
 /* Style Breakdown Container Styling */
 #styleBreakdownContainer {
     position: relative;
-        margin-top: 20px;
-        padding: 25px;
-        width: 95vw;
-        box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
-        align-items: center;
-        text-align: center;
+    margin-top: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+    width: 95vw;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
+    align-items: center;
+    text-align: center;
 }
 
 #styleBreakdownContainer canvas {
@@ -580,7 +593,7 @@ nav a:hover {
     max-height: 500px;
     width: 100%;
     height: auto;
-    margin: 0 auto;
+    margin: 0;
     display: block;
 }
 

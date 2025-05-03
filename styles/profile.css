@@ -1,45 +1,40 @@
 /* Profile Container */
 #profileInfo {
-    background-color: #f4f4f9;
-    width: 90%;
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    margin-top: 20px;
+    border-radius: 10px;
+    padding: 0px 25px;
+    width: 95vw;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
 }
 
 #profileInfo h2 {
     font-size: 24px;
-    color: #333;
     margin-bottom: 10px;
 }
 
 #profileInfo p {
     font-size: 16px;
-    color: #555;
     line-height: 1.6;
 }
 
 /* Customization Options */
 #customizationOptions {
-    background-color: #fff;
-    width: 90%;
-    padding: 20px;
-    margin: 20px 0;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    position: relative;
+    margin-top: 20px;
+    border-radius: 10px;
+    padding: 0px 10px 10px 10px;
+    width: 95vw;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
 }
 
 #customizationOptions h3 {
     font-size: 20px;
     margin-bottom: 10px;
-    color: #222;
 }
 
 #customizationOptions p {
     font-size: 15px;
-    color: #666;
     margin-bottom: 15px;
 }
 

@@ -274,6 +274,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     display: false
                 }
             }
+        },
+        layout: {
+            padding: {
+                top: 0,
+                bottom: 0
+            }
         }
     }
 });
