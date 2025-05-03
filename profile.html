@@ -2,40 +2,26 @@
 <html lang="en">
 
 <head>
-
     <!-- Title -->
     <title>CruxCoach - Profile</title>
 
     <!-- Description & Charset -->
     <meta name="description"
-        content="Create and view your account to see your progress and analytics and customize settings to fit your personal needs and preferences.">
-    <meta name="keywords" content="climb tracking, climbing profile, cruxcoach profile, climbing tracker settings, bouldering track">
+        content="View and customize your climbing profile. Track your goals, preferences, and training settings.">
+    <meta name="keywords" content="climbing profile, cruxcoach settings, climbing goals, bouldering tracker">
     <meta charset="utf-8">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
     <link rel="icon" href="/assets/dark-favicon.png" type="image/x-icon" media="(prefers-color-scheme: light)">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/assets/favicon.png" type="image/x-icon" media="(prefers-color-scheme: dark)">
-    
+
     <!-- Import Google Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQXN250GC5"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-WQXN250GC5');
-    </script>
-
-    <!-- Import Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
-
-    <!--  Import Stylesheet -->
+    <!-- Import Stylesheet -->
     <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/profile.css">
 
 </head>
 
@@ -45,17 +31,17 @@
     <header>
         <img class="logo" src="/assets/favicon.png" alt="Header Logo">
         <h1>CruxCoach</h1>
-        <span class="mode" onclick="openStreaks();"><img src="/assets/streaks.gif" alt="streaks icon" width="24px" height="24px"></img></span>
+        <span class="mode" onclick="openStreaks();"><img src="/assets/streaks.gif" alt="streaks icon" width="24px"
+                height="24px"></span>
     </header>
 
     <!-- Streaks Popup Container -->
     <div id="streaksPopup">
         <div class="streaks-header">
-            <h2>Streaks</h2>
+            <h2>Climbing Streaks</h2>
             <a><span class="material-icons exit" alt="Close Icon" title="Close">close</span></a>
         </div>
         <div class="streaks-content">
-            <br>
             <h3>Weekly Climbing Goal</h3>
             <p class="streak-display"><span class="material-icons">local_fire_department</span><span><b>4</b></span></p>
             <p>Goal: Climb <span>2</span> times a week</p>
@@ -64,26 +50,55 @@
                 <div class="filled-slider"></div>
             </div>
             <p><span>1/2</span></p>
-            <br><br><button>Edit Goal</button>
+            <button>Edit Goal</button>
         </div>
     </div>
 
     <!-- Content -->
     <div id="contentContainer">
 
-        <!-- Invalid Container -->
-        <br><div id="invalidContainer">
-            <p>You are not currently logged in. This feature is currently in development and is not available yet. Please browse as a guest.</p>
+        <!-- Guest Mode Notification --><br><br>
+        <div id="guestModeNotification">
+            <p>You are currently browsing as a guest. Log in is currently not available in the Alpha version of this application.</p>
         </div>
 
-        <!-- Nav -->
-        <br><br><br>
+        <!-- Profile Information -->
+        <div id="profileInfo">
+            <h2>Your Profile</h2>
+            <p><strong>Name:</strong> [User Name]</p>
+            <p><strong>Email:</strong> [User Email]</p>
+            <p><strong>Joined:</strong> [Join Date]</p>
+            <p><strong>Climbing Level:</strong> [Level]</p>
+        </div>
+
+        <!-- Customization Options -->
+        <div id="customizationOptions">
+            <h3>Customize Your Experience</h3>
+            <p>Adjust settings to improve your climbing journey. Set up your preferences for goals, username, email and more.</p>
+
+            <!-- Preferences Form -->
+            <form>
+                <label for="username">Update Username: </label>
+                <input type="text" id="username" name="username">
+                <label for="username">Update Email: </label>
+                <input type="email" id="email" name="email">
+                <label for="goal">Weekly Climbing Goal: </label>
+                <input type="number" id="goal" name="goal" min="1" max="7" value="2">
+                <button type="submit">Save Goal</button>
+            </form>
+        </div>
+
+        <!-- Logout Option (If Logged In) -->
+        <div id="logoutOption">
+            <button onclick="logout();">Logout</button>
+        </div>
+
+        <!-- Navigation -->
         <nav>
             <a href="/index.html" class="material-icons" alt="Dashboard Icon" title="Dashboard">show_chart</a>
             <a href="/../train/index.html" class="material-icons" alt="Lessons Icon" title="Lessons">school</a>
             <a href="/profile.html" class="material-icons" alt="Profile Icon" title="Profile">person</a>
         </nav>
-
     </div>
 
     <!-- Import Javascript -->
