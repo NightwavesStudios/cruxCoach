@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Title -->
+    <title>CruxCoach - Profile</title>
+
+    <!-- Description & Charset -->
+    <meta name="description"
+        content="Create and view your account to see your progress and analytics and customize settings to fit your personal needs and preferences.">
+    <meta name="keywords"
+        content="climb tracking, climbing profile, cruxcoach profile, climbing tracker settings, bouldering track">
+    <meta charset="utf-8">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
+    <link rel="icon" href="/assets/dark-favicon.png" type="image/x-icon" media="(prefers-color-scheme: light)">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/favicon.png" type="image/x-icon" media="(prefers-color-scheme: dark)">
+
+    <!-- Import Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQXN250GC5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-WQXN250GC5');
+    </script>
+
+    <!-- Import Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    <!--  Import Stylesheet -->
+    <link rel="stylesheet" href="/styles/main.css">
+
+    <style>
+        #contentContainer {
+            text-align: center !important;
+            padding: 15px !important;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <span class="logo material-icons" onclick="previousPage();">arrow_back</span>
+        <h1>CruxCoach</h1>
+        <span class="mode" onclick="openStreaks();"><img src="/assets/streaks.gif" alt="streaks icon" width="24px"
+                height="24px"></img></span>
+    </header>
+
+    <!-- Streaks Popup Container -->
+    <div id="streaksPopup">
+        <div class="streaks-header">
+            <h2>Streaks</h2>
+            <a><span class="material-icons exit" alt="Close Icon" title="Close">close</span></a>
+        </div>
+        <div class="streaks-content">
+            <br>
+            <h3>Weekly Climbing Goal</h3>
+            <p class="streak-display"><span class="material-icons">local_fire_department</span><span><b>4</b></span></p>
+            <p>Goal: Climb <span>2</span> times a week</p>
+            <div class="slider-container">
+                <div class="slider"></div>
+                <div class="filled-slider"></div>
+            </div>
+            <p><span>1/2</span></p>
+            <br><br><button>Edit Goal</button>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div id="contentContainer">
+        
+        <h1>Intro to Crimps</h1>
+
+        <h2>Overview</h2><br>
+        Crimping is a fundamental skill that can make a significant difference in your climbing performance. Learning how to use
+        various crimp positions and techniques effectively is essential to progress in climbing. Throughout the overview, we’ll
+        cover:
+        <br>
+        <ul>
+        <li>What is a crimp grip</li>
+        <li>The four most common grips</li>
+        <li>Body position and technique while crimping</li>
+        </ul>
+        <br><h2>What is a Crimp Grip</h2><br>
+        The crimp grip is characterized by an extension of the joints in the finger and sometimes the support of the thumb over
+        them or to the side. This will cause the hand to appear crimped or folded. When utilizing the crimp grip, your fingers
+        should be bent at approximately a 90-degree angle, creating a strong force against the hold. However, this may vary
+        depending on the type and situation (discussed below). Proper finger positioning is crucial for maximizing strength and
+        minimizing injury. However, there are multiple ways to crimp. The four most commonly used are the open hand, open crimp,
+        half crimp, and closed crimp.
+        <br><h2>Four Most Common Grips</h2><br>
+        [Image - Open Hand]
+        <br><br>
+        Open Hand - A grip where the fingers are curled around the hold but the thumb and finger tendons aren’t very engaged,
+        with the thumb being to the side and the finger tendons being slightly bent in a comfortable position. This grip
+        distributes force along the tendons rather than focusing on the last joint, which can put less stress on that joint
+        compared to a full crimp. It relies more on friction and tension. This position is best used on easier crimps to
+        conserve energy. It isn’t really a crimping position as much as it is a regular holding position.
+        <br><br>
+        [Image - Open Crimp]
+        <br><br>
+        Open Crimp - A grip where your fingers tendons are more engaged at a 90 degree angle but still not all the way up and
+        fully engaged. The thumb is still not active and not contributing to the grip. This grip position is best for easy
+        crimps that need little to no force. It can also be used for resting during a route.
+        <br><br>
+        [Image - Half Crimp]
+        <br><br>
+        Half Crimp - The half crimp is the most common and versatile crimp. It consists of your finger tendons being engaged at
+        a 90 degree angle. However, unlike the open crimp, the tendons will be more engaged and the thumb will also be playing a
+        part by being either on the side of the hold or pressed against the wall for additional balance. This crimp is used for
+        most crimping scenarios where you want to get the most out of the hold without risking injury or wasting energy through
+        an aggressive closed crimp.
+        <br><br>
+        [Image - Closed Crimp]
+        <br><br>
+        Closed Crimp - The closed crimp is the most aggressive type of grip where the tendons are >90 degrees and often fully
+        stretched. The thumb is either on the side of the hold or being used to hold down the gripping fingers. This grip is
+        used on extremely small holds when maximum force is required.
+        <br><br>
+        In all of these positions, it is essential to engage other parts of your body other than your fingers. Your body’s
+        position plays a crucial role in how effectively you can utilize your crimp grip.
+        <br><h2>Body Position and Techniques While Crimping</h2><br>
+        Low Center of Gravity - Keeping your hips low helps distribute your weight evenly and reduces the load on your fingers.
+        Engage your core muscles to achieve stability and counterbalance the weight of your upper body.
+        <br><br>
+        Foot Placement - Good footwork is vital for maintaining body position. Place your feet strategically to enhance your
+        reach and reduce strain on your hands. Good foot placements will allow you to push through your legs rather than relying
+        solely on your upper body and hands. When placing your feet, you should try to align your hips above your feet, and keep
+        your center of gravity close to the wall and lower. Furthermore, if you need to pull a certain direction away from the
+        hold, use your feet to shift your center of gravity in the way you will need to pull.
+        <br><br>
+        [Image - Arrows for Pulling on Angled Crimps]
+        <br><br>
+        Dynamic Movement - When transitioning between holds, do so with controlled, deliberate movements. Avoid sudden jerks
+        that can throw your body off balance and undermine your grip. Moving fluidly helps you use less of your energy and make
+        seamless transitions from hold to hold.
+        <br><br>
+        Balance - While crimping, practice balancing your body weight between your hands and feet. Mastering body positioning
+        and weight distribution is key to climbing efficiency. If you feel yourself barndooring while crimping, utilize flagging
+        and smearing. Also, try to keep your body close to the wall to remove some of the stress from your grip and put it on
+        your legs and feet.
+        <br><h2>Summary</h2><br>
+        Properly crimping is an essential technique for upping your climbing game and preventing injuries. You can utilize the
+        open hand, open crimp, half crimp, and closed crimp for different crimps and situations. Furthermore, you can use
+        dynamic movement, your center of gravity, and foot placement to maximize your efficiency while crimping.
+        <br>
+
+        <!-- Nav -->
+        <br><br><br>
+        <nav>
+            <a href="/index.html" class="material-icons" alt="Dashboard Icon" title="Dashboard">show_chart</a>
+            <a href="/../train/index.html" class="material-icons" alt="Lessons Icon" title="Lessons">school</a>
+            <a href="/profile.html" class="material-icons" alt="Profile Icon" title="Profile">person</a>
+        </nav>
+
+    </div>
+
+    <!-- Import Javascript -->
+    <script src="/scripts/main.js"></script>
+
+</body>
+
+</html>

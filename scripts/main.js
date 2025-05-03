@@ -2,10 +2,10 @@ console.log("scripts.js loaded");
 
 /* Data Variables (Placeholder) */
 const grades = {
-    flash: "V4",
-    project: "V5",
-    onsight: "5.10",
-    redpoint: "5.10+",
+    Flash: "V4",
+    Project: "V5",
+    Onsight: "5.10",
+    Redpoint: "5.10+",
 };
 
 const trainingData = {
