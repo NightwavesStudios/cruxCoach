@@ -16,19 +16,19 @@ const trainingData = {
 };
 
 const traits = {
-    crimp: 2,
-    sloper: -5,
-    pocket: -1,
-    sidepull: 1,
-    undercling: 3,
-    bigmove: 5,
-    meticulous: -1,
-    powerful: 2,
-    routereading: 3,
-    slab: -5,
-    slightoverhang: -2,
-    overhang: 10,
-    cave: 0,
+    Crimp: 2,
+    Sloper: -5,
+    Pocket: -1,
+    Sidepull: 1,
+    Undercling: 3,
+    Bigmove: 5,
+    Meticulous: -1,
+    Powerful: 2,
+    Routereading: 3,
+    Slab: -5,
+    Slightoverhang: -2,
+    Overhang: 10,
+    Cave: 0,
 };
 
 /* Utilities */
@@ -36,7 +36,7 @@ function updateElementText(id, value) {
     const el = document.getElementById(id);
     if (el) {
         el.innerHTML = value;
-        console.log(`Updated #${id} to "${value}"`);
+        console.log(`Updated #${id} to "${value}". Current innerHTML: ${el.innerHTML}`);
     } else {
         console.error(`Element with id "${id}" not found.`);
     }
@@ -89,7 +89,10 @@ document.addEventListener("DOMContentLoaded", () => {
     Object.entries(grades).forEach(([key, value]) => updateElementText(key, value));
 
     // Update trait values
-    Object.entries(traits).forEach(([key, value]) => updateElementText(key, value));
+    Object.entries(traits).forEach(([key, value]) => {
+        console.log(`Updating element with id "${key}" to value "${value}"`);
+        updateElementText(key, value);
+    });
 
     // Training Chart
     const chartElement = document.getElementById("trainingDistributionChart");
@@ -125,6 +128,20 @@ document.addEventListener("DOMContentLoaded", () => {
     // Scroll animations
     checkScroll();
     document.addEventListener("scroll", checkScroll);
+
+    // Mutation Observer
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            console.log(`Mutation detected: ${mutation.target.innerHTML}`);
+        });
+    });
+
+    Object.keys(traits).forEach((id) => {
+        const element = document.getElementById(id);
+        if (element) {
+            observer.observe(element, { childList: true });
+        }
+    });
 });
 
 /* Public Popup Control Functions */
@@ -143,6 +160,15 @@ function openLog(state) {
 
 function openCoach() {
     alert("This feature is not currently available.");
+}
+
+/* Previous Page Function */
+function previousPage() {
+    if (window.history.length > 1) {
+        window.history.back();
+    } else {
+        return;
+    }
 }
 
 /* Smooth Scroll */
