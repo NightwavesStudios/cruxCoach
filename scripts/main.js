@@ -1,57 +1,97 @@
 console.log("scripts.js loaded");
 
 /* Data Variables (Placeholder) */
-let flash = "V4";
-let project = "V5";
-let onsight = "5.10";
-let redpoint = "5.10+";
+const grades = {
+    flash: "V4",
+    project: "V5",
+    onsight: "5.10",
+    redpoint: "5.10+",
+};
 
-let bouldering = 32;
-let toprope = 20;
-let lead = 44;
-let other = 4;
+const trainingData = {
+    bouldering: 32,
+    toprope: 20,
+    lead: 44,
+    other: 4,
+};
 
-let crimp = 2;
-let sloper = -5;
-let pocket = -1;
-let sidepull = 1;
-let undercling = 3;
-let bigmove = 5;
-let meticulous = -1;
-let powerful = 2;
-let routereading = 3;
-let slab = -5;
-let slightoverhang = -2;
-let overhang = 10;
-let cave = 0;
+const traits = {
+    crimp: 2,
+    sloper: -5,
+    pocket: -1,
+    sidepull: 1,
+    undercling: 3,
+    bigmove: 5,
+    meticulous: -1,
+    powerful: 2,
+    routereading: 3,
+    slab: -5,
+    slightoverhang: -2,
+    overhang: 10,
+    cave: 0,
+};
 
-/* Write Data to HTML (Placeholder) */
-document.addEventListener("DOMContentLoaded", function () {
+/* Utilities */
+function updateElementText(id, value) {
+    const el = document.getElementById(id);
+    if (el) {
+        el.innerHTML = value;
+        console.log(`Updated #${id} to "${value}"`);
+    } else {
+        console.error(`Element with id "${id}" not found.`);
+    }
+}
+
+function bindClick(selector, handler) {
+    const el = document.querySelector(selector);
+    if (el) {
+        el.addEventListener("click", handler);
+    } else {
+        console.error(`Element "${selector}" not found.`);
+    }
+}
+
+function togglePopup(id, state = "open") {
+    const popup = document.getElementById(id);
+    if (!popup) {
+        console.error(`Popup "${id}" not found.`);
+        return;
+    }
+    const isOpening = state !== "close";
+    popup.style.display = isOpening ? "block" : "none";
+    popup.style.overflowY = isOpening ? "auto" : "";
+    document.body.style.overflow = isOpening ? "hidden" : "";
+    console.log(`Popup "${id}" toggled to "${isOpening ? "open" : "closed"}"`);
+}
+
+function safeLazyLoad() {
+    if (typeof lazyload === "function") {
+        lazyload();
+        console.log("Lazyload initialized.");
+    } else {
+        console.warn("Lazyload function not found.");
+    }
+}
+
+/* Scroll Animations */
+function checkScroll() {
+    document.querySelectorAll('.scroll-element').forEach(el => {
+        const inView = el.getBoundingClientRect().top < window.innerHeight;
+        el.classList.toggle('scrolled', inView);
+    });
+}
+
+/* DOM Ready */
+document.addEventListener("DOMContentLoaded", () => {
     console.log("DOMContentLoaded event triggered");
 
-    const gradeElements = ["flash", "project", "on-sight", "redpoint"];
-    const gradeValues = [flash, project, onsight, redpoint];
-    for (let i = 0; i < gradeElements.length; i++) {
-        const element = document.getElementById(gradeElements[i]);
-        if (element) {
-            element.innerHTML = gradeValues[i];
-        } else {
-            console.error(`Element with id "${gradeElements[i]}" not found in the DOM.`);
-        }
-    }
+    // Update grades
+    Object.entries(grades).forEach(([key, value]) => updateElementText(key, value));
 
-    const struggleStrongElements = ["crimp", "sloper", "pocket", "sidepull", "undercling", "bigmove", "meticulous", "powerful", "routereading", "slab", "slightoverhang", "overhang", "cave"];
-    const struggleStrongValues = [crimp, sloper, pocket, sidepull, undercling, bigmove, meticulous, powerful, routereading, slab, slightoverhang, overhang, cave];
-    for (let i = 0; i < struggleStrongElements.length; i++) {
-        const element = document.getElementById(struggleStrongElements[i]);
-        if (element) {
-            element.innerHTML = struggleStrongValues[i];
-        } else {
-            console.error(`Element with id "${struggleStrongElements[i]}" not found in the DOM.`);
-        }
-    }
+    // Update trait values
+    Object.entries(traits).forEach(([key, value]) => updateElementText(key, value));
 
-    // Training Distribution Chart
+    // Training Chart
     const chartElement = document.getElementById("trainingDistributionChart");
     if (chartElement) {
         new Chart(chartElement, {
@@ -60,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 labels: ["Bouldering", "Top Rope", "Lead", "Other"],
                 datasets: [{
                     backgroundColor: ["#34A85399", "#F28C2899", "#4285f499", "#e8c3b9"],
-                    data: [bouldering, toprope, lead, other],
+                    data: Object.values(trainingData),
                 }]
             },
             options: {
@@ -70,87 +110,35 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         });
+        console.log("Training distribution chart initialized.");
     } else {
-        console.error('Canvas element with id "trainingDistributionChart" not found in the DOM.');
+        console.error('Canvas element "trainingDistributionChart" not found.');
     }
 
-    // Popups
-    const streaksButton = document.querySelector(".mode");
-    if (streaksButton) {
-        streaksButton.addEventListener("click", function () {
-            console.log("Streaks button clicked");
-            openStreaks();
-        });
-    } else {
-        console.error("Streaks button not found in the DOM.");
-    }
+    // Bind popup buttons
+    bindClick(".mode", () => togglePopup("streaksPopup", "open"));
+    bindClick(".streaks-header .exit", () => togglePopup("streaksPopup", "close"));
 
-    const exitButton = document.querySelector(".streaks-header .exit");
-    if (exitButton) {
-        exitButton.addEventListener("click", function () {
-            console.log("Exit button clicked");
-            openStreaks("close");
-        });
-    } else {
-        console.error("Exit button not found in the DOM.");
-    }
+    // Lazyload
+    safeLazyLoad();
 
-    // Initialize Lazy Load
-    if (typeof lazyload === "function") {
-        lazyload();
-    } else {
-        console.error("Lazyload function not found.");
-    }
+    // Scroll animations
+    checkScroll();
+    document.addEventListener("scroll", checkScroll);
 });
 
-function handleStreaksButtonClick() {
-    console.log("Streaks button clicked");
-    openStreaks();
-}
-
-function handleExitButtonClick() {
-    console.log("Exit button clicked");
-    openStreaks("close");
-}
-
+/* Public Popup Control Functions */
 function openStreaks(state) {
-    const streaksPopup = document.getElementById("streaksPopup");
-    if (streaksPopup) {
-        if (state !== "close") {
-            document.body.style.overflow = "hidden";
-            streaksPopup.style.display = "block";
-            streaksPopup.style.overflowY = "auto";
-            console.log("Popup opened");
-        } else {
-            document.body.style.overflow = "";
-            streaksPopup.style.display = "none";
-            console.log("Popup closed");
-        }
-    } else {
-        console.error("Streaks popup not found in the DOM.");
-    }
+    togglePopup("streaksPopup", state);
 }
 openStreaks("close");
 
 function openJournal(state) {
-    if (state !== "close") {
-        document.body.style.overflow = "hidden";
-        document.getElementById("journalPopup").style.display = "block";
-        console.log("openJournal");
-    } else {
-        document.getElementById("journalPopup").style.display = "none";
-        console.log("closeJournal");
-    }
+    togglePopup("journalPopup", state);
 }
 
 function openLog(state) {
-    if (state !== "close") {
-        document.getElementById("logPopup").style.display = "block";
-        console.log("openLog");
-    } else {
-        document.getElementById("logPopup").style.display = "none";
-        console.log("closeLog");
-    }
+    togglePopup("logPopup", state);
 }
 
 function openCoach() {
@@ -164,17 +152,3 @@ function smoothScroll(y) {
         behavior: "smooth",
     });
 }
-
-/* Scroll Animations */
-function checkScroll() {
-    const scrollElements = document.querySelectorAll('.scroll-element');
-    for (let i = scrollElements.length; i--;) {
-        if (scrollElements[i].getBoundingClientRect().top < window.innerHeight) {
-            scrollElements[i].classList.add('scrolled');
-        } else {
-            scrollElements[i].classList.remove('scrolled');
-        }
-    }
-}
-checkScroll();
-document.addEventListener('scroll', checkScroll);

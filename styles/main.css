@@ -12,7 +12,15 @@ body {
     user-select: none;
 }
 
-h1, h2, h3, h4, h5, p, span, button, a {
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+span,
+button,
+a {
     user-select: text;
 }
 
@@ -87,7 +95,8 @@ a:hover {
 }
 
 /* Form Styling */
-input, textarea {
+input,
+textarea {
     font-size: 16px;
 }
 
@@ -116,18 +125,15 @@ header .logo {
     position: fixed;
     width: 25px;
     left: 10px;
-}
-
-header .logo:hover {
     cursor: pointer;
 }
 
 header .mode {
     position: fixed;
     right: 10px;
-}
-
-header .mode:hover {
+    display: flex;
+    align-items: center;
+    height: 100%;
     cursor: pointer;
 }
 
