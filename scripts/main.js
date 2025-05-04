@@ -79,6 +79,16 @@ function togglePopup(id, state = "open") {
     console.log(`Popup "${id}" toggled to "${isOpening ? "open" : "closed"}"`);
 }
 
+function toggleInfoPopup(popupId) {
+    const popup = document.getElementById(popupId);
+    if (!popup) {
+        console.error(`Popup with id "${popupId}" not found.`);
+        return;
+    }
+
+    popup.style.display = popup.style.display === "block" ? "none" : "block";
+}
+
 function safeLazyLoad() {
     if (typeof lazyload === "function") {
         lazyload();

@@ -307,7 +307,23 @@
 
         <!-- Training Distribution Chart Container -->
         <div id="trainingDistributionChartContainer">
+            <button class="info-button" onclick="toggleInfoPopup('trainingInfoPopup', this)">
+                <span class="material-icons">info</span>
+            </button>
             <canvas id="trainingDistributionChart"></canvas>
+
+            <!-- Info Popup -->
+            <div id="trainingInfoPopup" class="info-popup">
+                <p>This chart shows the distribution of your training types (e.g., Bouldering, Top Rope, Lead, etc.). Use this to analyze how you allocate your climbing time.</p>
+                <button onclick="toggleInfoPopup('trainingInfoPopup', this)">Close</button>
+            </div>
+        </div>
+
+        <!--Training Distribution Info Popup -->
+        <div id="trainingInfoPopup" class="info-popup">
+            <p>This chart shows the distribution of your training types (e.g., Bouldering, Top Rope, Lead, etc.). Use this to
+                analyze how you allocate your climbing time.</p>
+            <button onclick="toggleInfoPopup('trainingInfoPopup', this)">Close</button>
         </div>
 
         <!-- Struggle/Strongpoint Container -->
@@ -343,13 +359,31 @@
         <!-- Holds Breakdown Chart Container -->
         <div id="holdsBreakdownContainer">
             <h3>Holds Breakdown</h3>
+            <button class="info-button" onclick="toggleInfoPopup('holdsBreakdownInfoPopup', this)">
+                <span class="material-icons">info</span>
+            </button>
             <canvas id="holdsBreakdownChart"></canvas>
+        </div>
+
+        <!-- Holds Breakdown Info Popup -->
+        <div id="holdsBreakdownInfoPopup" class="info-popup">
+            <p>Shows the holds you are most and least comfortable. Holds far right you can focus less on while holds to the left you need to improve in. Holds near the center are neither a strong or weaksuit of yours.</p>
+            <button onclick="toggleInfoPopup('holdsBreakdownInfoPopup', this)">Close</button>
         </div>
 
         <!-- Style Breakdown Chart Container -->
         <div id="styleBreakdownContainer">
             <h3>Style Breakdown</h3>
+            <button class="info-button" onclick="toggleInfoPopup('styleBreakdownInfoPopup', this)">
+                <span class="material-icons">info</span>
+            </button>
             <canvas id="styleBreakdownChart"></canvas>
+        </div>
+
+        <!-- Style Breakdown Info Popup -->
+        <div id="styleBreakdownInfoPopup" class="info-popup">
+            <p>Datapoints close to their name making a nice smooth shape are good while others far away and on the opposite side are styles that aren't your best. Points in the middle are neutral and signify that you neither are strong or weak in that style of climbing.</p>
+            <button onclick="toggleInfoPopup('styleBreakdownInfoPopup', this)">Close</button>
         </div>
 
         <!-- Nav -->
