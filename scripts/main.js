@@ -251,28 +251,36 @@ document.addEventListener("DOMContentLoaded", () => {
 function handleJournalSubmit(event) {
     event.preventDefault();
 
-    const traitKeys = [
-        "crimp", "sloper", "pocket", "sidepull", "undercling",
-        "slab", "slight-overhang", "overhang", "cave",
-        "big-move", "meticulous", "powerful", "route-reading"
-    ];
+    const traitMap = {
+        crimp: "Crimp",
+        sloper: "Sloper",
+        pocket: "Pocket",
+        sidepull: "Sidepull",
+        undercling: "Undercling",
+        slab: "Slab",
+        "slight-overhang": "Slightoverhang",
+        overhang: "Overhang",
+        cave: "Cave",
+        "big-move": "Bigmove",
+        meticulous: "Meticulous",
+        powerful: "Powerful",
+        "route-reading": "Routereading"
+    };
 
-    traitKeys.forEach((id) => {
+    Object.keys(traitMap).forEach((id) => {
         const input = document.getElementById(id);
-        const val = parseInt(input.value, 10) || 0;
+        const val = parseInt(input?.value, 10) || 0;
+        const key = traitMap[id];
 
-        const key = id.charAt(0).toUpperCase() + id.slice(1);
-        if (traits.hasOwnProperty(key)) {
-    traits[key] = Math.max(-10, Math.min(10, traits[key] + val));
-} else {
-    traits[key] = Math.max(-10, Math.min(10, val));
-}
+        if (key && val !== 0) {
+            const current = traits[key] || 0;
+            traits[key] = Math.max(-10, Math.min(10, current + val));
+        }
     });
 
     saveToStorage("traits", traits);
-    location.reload();
     event.target.reset();
-
+    location.reload();
 }
 
 function handleLogSubmit(event) {
@@ -329,8 +337,10 @@ function handleLogSubmit(event) {
     // Update the chart dynamically
     updateTrainingChart();
 
-    togglePopup("logPopup", "close");
+    location.reload();
     event.target.reset();
+    
+    togglePopup("logPopup", "close");
 }
 
 
