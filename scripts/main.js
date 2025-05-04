@@ -16,17 +16,17 @@ function saveToStorage(key, data) {
 
 /* Default Data */
 const defaultGrades = {
-    Flash: "V4",
-    Project: "V5",
-    Onsight: "5.10",
-    Redpoint: "5.10+"
+    Flash: "None",
+    Project: "None",
+    Onsight: "None",
+    Redpoint: "None"
 };
 
 const defaultTrainingData = {
-    bouldering: 47,
-    toprope: 10,
-    lead: 53,
-    other: 4,
+    bouldering: 0,
+    toprope: 0,
+    lead: 0,
+    other: 0,
 };
 
 const defaultTraits = {
@@ -146,29 +146,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Training Chart
     const chartElement = document.getElementById("trainingDistributionChart");
     if (chartElement) {
-        new Chart(chartElement, {
-            type: "pie",
-            data: {
-                labels: ["Bouldering", "Top Rope", "Lead", "Other"],
-                datasets: [{
-                    backgroundColor: ["#34A85399", "#F28C2899", "#4285f499", "#e8c3b9"],
-                    data: Object.values(trainingData),
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: "Training Type Distribution"
-                    },
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }
-        });
+        updateTrainingChart();
     }
+    console.log(Object.values(trainingData));
 
     // Holds Breakdown Chart
     const holdsChartElement = document.getElementById("holdsBreakdownChart");
@@ -265,20 +245,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Scroll animations
     checkScroll();
     document.addEventListener("scroll", checkScroll);
-
-    // Mutation Observer
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            console.log(`Mutation detected: ${mutation.target.innerHTML}`);
-        });
-    });
-
-    Object.keys(traits).forEach((id) => {
-        const element = document.getElementById(id);
-        if (element) {
-            observer.observe(element, { childList: true });
-        }
-    });
 });
 
 /* Form Submission Actions */
@@ -287,15 +253,15 @@ function handleJournalSubmit(event) {
 
     const traitKeys = [
         "crimp", "sloper", "pocket", "sidepull", "undercling",
-        "slab", "slightOverhang", "overhang", "cave",
-        "bigMove", "meticulous", "powerful", "routeReading"
+        "slab", "slight-overhang", "overhang", "cave",
+        "big-move", "meticulous", "powerful", "route-reading"
     ];
 
     traitKeys.forEach((id) => {
         const input = document.getElementById(id);
         const val = parseInt(input.value, 10) || 0;
 
-        const key = id.charAt(0).toUpperCase() + id.slice(1); // Capitalize to match `traits` keys
+        const key = id.charAt(0).toUpperCase() + id.slice(1);
         if (traits.hasOwnProperty(key)) {
     traits[key] = Math.max(-10, Math.min(10, traits[key] + val));
 } else {
@@ -304,7 +270,9 @@ function handleJournalSubmit(event) {
     });
 
     saveToStorage("traits", traits);
-    location.reload(); // or call a chart update function instead
+    location.reload();
+    event.target.reset();
+
 }
 
 function handleLogSubmit(event) {
@@ -328,27 +296,41 @@ function handleLogSubmit(event) {
     saveToStorage("grades", grades);
     saveToStorage("trainingData", trainingData);
 
-    // Update the DOM elements without refreshing the page
-    updateElementText(difficulty, grade);  // Update the displayed grade for difficulty
-    updateElementText(type, trainingData[type]);  // Update the displayed session count for the type
+    updateElementText(difficulty, grade);
+    updateElementText(type, trainingData[type]);
 
-    // Specific logic to handle difficulty and climbing type relationships
+    //Initial Update
     if (type === "bouldering") {
-        if (difficulty === "flash") {
+        if (difficulty === "flash" && grades.Flash == "None") {
             updateElementText("Flash", grade);  // Update Flash with median grade
-        } else if (difficulty === "project") {
+        } else if (difficulty === "project" && grades.Project == "None") {
             updateElementText("Project", grade);  // Update Project with median grade
         }
-    } else if (type === "top rope" || type === "lead") {
-        if (difficulty === "flash") {
+    } else if (type === "toprope" || type === "lead") {
+        if (difficulty === "flash" && grades.Flash == "None") {
             updateElementText("Onsight", grade);  // Update Onsight with median grade for rope climbing
-        } else if (difficulty === "project") {
+        } else if (difficulty === "project" && grades.Project == "None") {
             updateElementText("Redpoint", grade);  // Update Redpoint with median grade for rope climbing
         }
     }
 
-    // Optionally, close the popup if needed
+    //Noninitial Update (TODO: Make it not overwrite the grade as a new grade but rather incrementally change the grade over a few higher or lower form fillouts)
+    if (type === "bouldering") {
+        if (difficulty === "onsight" && grades.Onsight !== "None") {
+            updateElementText("Onsight", grade);  // Update Onsight with median grade
+        } else if (difficulty === "redpoint" && grades.Redpoint !== "None") {
+            updateElementText("Redpoint", grade);  // Update Redpoint with median grade
+        }
+    }
+
+    // Save updated data to localStorage
+    saveToStorage("trainingData", trainingData);
+
+    // Update the chart dynamically
+    updateTrainingChart();
+
     togglePopup("logPopup", "close");
+    event.target.reset();
 }
 
 
@@ -397,5 +379,62 @@ function smoothScroll(y) {
     window.scroll({
         top: y,
         behavior: "smooth",
+    });
+}
+
+/* Clear Local Storage */
+function clearData() {
+    if (confirm("Are you sure you want to clear all data? This action cannot be undone.")) {
+        localStorage.clear(); // Clear all local storage
+        alert("All data has been cleared.");
+        location.reload(); // Reload the page to reflect changes
+    }
+}
+
+let trainingChart; // Global variable to store the chart instance
+
+function updateTrainingChart() {
+    
+    const chartElement = document.getElementById("trainingDistributionChart");
+    const noDataMessage = document.getElementById("noTrainingDataMessage");
+
+    const dataValues = Object.values(trainingData);
+    const allZero = dataValues.every(val => val === 0);
+
+    if (allZero) {
+        chartElement.style.display = "none";
+        noDataMessage.style.display = "block";
+        return;
+    } else {
+        chartElement.style.display = "block";
+        noDataMessage.style.display = "none";
+    }
+
+    if (trainingChart) {
+        trainingChart.destroy();
+    }
+
+    // Initialize a new chart instance
+    trainingChart = new Chart(chartElement, {
+        type: "pie",
+        data: {
+            labels: ["Bouldering", "Top Rope", "Lead", "Other"],
+            datasets: [{
+                backgroundColor: ["#34A85399", "#F28C2899", "#4285f499", "#e8c3b9"],
+                data: Object.values(trainingData),
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: "Training Type Distribution"
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
     });
 }

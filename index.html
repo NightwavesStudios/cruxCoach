@@ -226,7 +226,7 @@
             <label for="type">Climbing Type: </label>
             <select id="type" name="type">
                 <option value="bouldering">Bouldering</option>
-                <option value="top rope">Top Rope</option>
+                <option value="toprope">Top Rope</option>
                 <option value="lead">Lead</option>
                 <option value="other">Other</option>
             </select><br><br><br>
@@ -257,7 +257,7 @@
             <!-- Quick Log Option -->
             <button class="orange" onclick="openLog();">
                 <span class="material-icons" alt="Plus Button Icon">add_circle</span>
-                <h3>Quick Log</h3>
+                <h3>Log Session</h3>
                 <p>Log a climb or training session</p>
             </button>
 
@@ -277,28 +277,24 @@
             <div>
                 <p><b id="Flash">NaN</b></p>
                 <p>Flash</p>
-                <p><span class="up">+2</span></p>
             </div>
 
             <!-- Boulder Project -->
             <div>
                 <p><b id="Project">NaN</b></p>
                 <p>Project</p>
-                <p><span>0</span></p>
             </div>
 
             <!--Sport On-Sight -->
             <div>
                 <p><b id="Onsight">NaN</b></p>
                 <p>On-Sight</p>
-                <p><span class="up">+1</span></p>
             </div>
 
             <!-- Sport Redpoint -->
             <div>
                 <p><b id="Redpoint">NaN</b></p>
                 <p>Redpoint</p>
-                <p><span class="down">-0.5</span></p>
             </div>
 
         </div>
@@ -309,6 +305,7 @@
                 <span class="material-icons">info</span>
             </button>
             <canvas id="trainingDistributionChart"></canvas>
+            <p id="noTrainingDataMessage" style="display:none;">No Data Available Yet. Log a Session!</p>
 
             <!-- Info Popup -->
             <div id="trainingInfoPopup" class="info-popup">
@@ -329,26 +326,26 @@
 
             <!-- Holds -->
             <div>
-                <p><span class="up" id="Crimp">0</span> Crimp</p>
-                <p><span class="down" id="Sloper">0</span> Sloper</p>
-                <p><span class="down" id="Pocket">0</span> Pocket</p>
-                <p><span class="up" id="Sidepull">0</span> Sidepull</p>
-                <p><span class="up" id="Undercling">0</span> Undercling</p>
+                <p><span id="Crimp">0</span> Crimp</p>
+                <p><span id="Sloper">0</span> Sloper</p>
+                <p><span id="Pocket">0</span> Pocket</p>
+                <p><span id="Sidepull">0</span> Sidepull</p>
+                <p><span id="Undercling">0</span> Undercling</p>
             </div>
 
             <!-- Style -->
             <div>
-                <p><span class="up" id="Bigmove">0</span> Big Move</p>
-                <p><span class="down" id="Meticulous">0</span> Meticulous</p>
-                <p><span class="up" id="Powerful">0</span> Powerful</p>
-                <p><span class="up" id="Routereading">0</span> Route-Reading</p>
+                <p><span id="Bigmove">0</span> Big Move</p>
+                <p><span id="Meticulous">0</span> Meticulous</p>
+                <p><span id="Powerful">0</span> Powerful</p>
+                <p><span id="Routereading">0</span> Route-Reading</p>
             </div>
 
             <!-- Angle -->
             <div>
-                <p><span class="down" id="Slab">0</span> Slab</p>
-                <p><span class="down" id="Slightoverhang">0</span> Slight Overhang</p>
-                <p><span class="up" id="Overhang">0</span> Overhang</p>
+                <p><span id="Slab">0</span> Slab</p>
+                <p><span id="Slightoverhang">0</span> Slight Overhang</p>
+                <p><span id="Overhang">0</span> Overhang</p>
                 <p><span id="Cave">0</span> Roof/Cave</p>
             </div>
 
