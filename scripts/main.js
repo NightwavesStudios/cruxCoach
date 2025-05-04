@@ -4,8 +4,10 @@ console.log("scripts.js loaded");
 function loadSafe(key, fallback = {}) {
     try {
         const parsed = JSON.parse(localStorage.getItem(key));
+        console.log(`Loaded key "${key}":`, parsed);
         return parsed && typeof parsed === "object" ? parsed : fallback;
     } catch (e) {
+        console.warn(`Failed to load key "${key}" from localStorage. Using fallback.`);
         return fallback;
     }
 }
@@ -65,6 +67,21 @@ const holdsTraits = {
     Undercling: traits.Undercling,
 };
 
+Object.keys(localStorage).forEach(key => {
+    if (key.endsWith("Grades") && key !== "grades") {
+        const type = key.replace("Grades", "");
+        const data = JSON.parse(localStorage.getItem(key));
+        if (Array.isArray(data) && data.length) {
+            const sorted = data.slice().sort((a, b) => a - b);
+            const median = sorted.length % 2 === 0
+                ? (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2
+                : sorted[Math.floor(sorted.length / 2)];
+            grades[type] = numberToGrade(Math.round(median));
+        }
+    }
+});
+Object.entries(grades).forEach(([key, value]) => updateElementText(key, value));
+
 /* Utilities */
 function updateElementText(id, value) {
     const el = document.getElementById(id);
@@ -74,6 +91,58 @@ function updateElementText(id, value) {
     } else {
         console.error(`Element with id "${id}" not found.`);
     }
+}
+
+function gradeToNumber(grade) {
+    const gradeMap = {
+        "VB": 0,
+        "V0": 0,
+        "V1": 1,
+        "V2": 2,
+        "V3": 3,
+        "V4": 4,
+        "V5": 5,
+        "V6": 6,
+        "V7": 7,
+        "V8": 8,
+        "V9": 9,
+        "V10": 10,
+        "V11": 11,
+        "V12": 12,
+        "V13": 13,
+        "V14": 14,
+        "V15": 15,
+        "V16": 16,
+        "V17": 17,
+    };
+
+    return gradeMap[grade] !== undefined ? gradeMap[grade] : NaN;
+}
+
+function numberToGrade(number) {
+    const gradeMap = {
+        0: "VB",
+        0: "V0",
+        1: "V1",
+        2: "V2",
+        3: "V3",
+        4: "V4",
+        5: "V5",
+        6: "V6",
+        7: "V7",
+        8: "V8",
+        9: "V9",
+        10: "V10",
+        11: "V11",
+        12: "V12",
+        13: "V13",
+        14: "V14",
+        15: "V15",
+        16: "V16",
+        17: "V17",
+    };
+
+    return gradeMap[number] !== undefined ? gradeMap[number] : "None";
 }
 
 function bindClick(selector, handler) {
@@ -248,6 +317,62 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* Form Submission Actions */
+function updateAverageGrade(difficulty, grade) {
+    const logKey = `${difficulty}Grades`; // Combine difficulty as the key
+    const logArrayJSON = localStorage.getItem(logKey);
+    let logArray = [];
+
+    try {
+        logArray = JSON.parse(logArrayJSON) || [];
+    } catch (e) {
+        console.warn(`Corrupted data in localStorage for ${logKey}. Resetting.`);
+        logArray = [];
+    }
+
+    // Validate and add the new grade entry
+    const newGrade = gradeToNumber(grade);
+    if (isNaN(newGrade)) {
+        console.error(`Invalid grade: ${grade}`);
+        return;
+    }
+
+    // Add the new grade to the array
+    logArray.push(newGrade);
+
+    // Keep only the last 10 grades
+    if (logArray.length > 10) {
+        logArray.shift(); // Remove the oldest grade
+    }
+
+    // Save the updated log array back to localStorage
+    localStorage.setItem(logKey, JSON.stringify(logArray));
+
+    // Calculate the median grade
+    const sortedGrades = logArray.slice().sort((a, b) => a - b); // Sort grades in ascending order
+    let medianGrade;
+
+    if (sortedGrades.length % 2 === 0) {
+        // Even number of grades: average the two middle values
+        const mid1 = sortedGrades[sortedGrades.length / 2 - 1];
+        const mid2 = sortedGrades[sortedGrades.length / 2];
+        medianGrade = (mid1 + mid2) / 2;
+    } else {
+        // Odd number of grades: take the middle value
+        medianGrade = sortedGrades[Math.floor(sortedGrades.length / 2)];
+    }
+
+    const medianGradeText = numberToGrade(Math.round(medianGrade)); // Convert the median to a grade
+    grades[difficulty] = medianGradeText; // Update the grades object with the new median
+
+    // Save the updated grades object to localStorage
+    saveToStorage("grades", grades);
+
+    // Update the UI with the new median
+    updateElementText(difficulty, medianGradeText);
+    saveToStorage("grades", grades);
+    console.log(`Updated median grade for ${difficulty}: ${medianGradeText}`);
+}
+
 function handleJournalSubmit(event) {
     event.preventDefault();
 
@@ -283,64 +408,90 @@ function handleJournalSubmit(event) {
     location.reload();
 }
 
+/* Form Submission Actions */
+function updateAverageGrade(difficulty, grade) {
+    const logKey = `${difficulty}Grades`; // Combine difficulty as the key
+    const logArrayJSON = localStorage.getItem(logKey);
+    let logArray = [];
+
+    try {
+        logArray = JSON.parse(logArrayJSON) || [];
+    } catch (e) {
+        console.warn(`Corrupted data in localStorage for ${logKey}. Resetting.`);
+        logArray = [];
+    }
+
+    // Validate and add the new grade entry
+    const newGrade = gradeToNumber(grade);
+    if (isNaN(newGrade)) {
+        console.error(`Invalid grade: ${grade}`);
+        return;
+    }
+
+    // Add the new grade to the array
+    logArray.push(newGrade);
+
+    // Keep only the last 10 grades
+    if (logArray.length > 10) {
+        logArray.shift(); // Remove the oldest grade
+    }
+
+    // Save the updated log array back to localStorage
+    localStorage.setItem(logKey, JSON.stringify(logArray));
+
+    // Calculate the median grade
+    const sortedGrades = logArray.slice().sort((a, b) => a - b); // Sort grades in ascending order
+    let medianGrade;
+
+    if (sortedGrades.length % 2 === 0) {
+        // Even number of grades: average the two middle values
+        const mid1 = sortedGrades[sortedGrades.length / 2 - 1];
+        const mid2 = sortedGrades[sortedGrades.length / 2];
+        medianGrade = (mid1 + mid2) / 2;
+    } else {
+        // Odd number of grades: take the middle value
+        medianGrade = sortedGrades[Math.floor(sortedGrades.length / 2)];
+    }
+
+    const medianGradeText = numberToGrade(Math.round(medianGrade)); // Convert the median to a grade
+    grades[`${difficulty}`] = medianGradeText; // Update the grades object with the new median
+    updateElementText(`${difficulty}`, medianGradeText); // Update the UI with the new median
+
+    console.log(`Updated median grade for ${difficulty}: ${medianGradeText}`);
+}
+
 function handleLogSubmit(event) {
     event.preventDefault();
 
-    const type = document.getElementById("type").value;
-    const grade = document.getElementById("grade").value;
-    const difficulty = document.getElementById("difficulty").value;
+    const difficulty = document.getElementById("difficulty").value.toLowerCase(); // Get difficulty (e.g., "flash")
+    const grade = document.getElementById("grade").value; // Get the grade (e.g., "V4")
+    let type = document.getElementById("type").value.toLowerCase();
+    const isRoped = (type === "lead" || type === "toprope");
+    const typeKey = isRoped ? "roped" : type;  // for grades/traits
 
-    // Update median grade
-    grades[difficulty] = grade;
+    // Combine type and difficulty to create a unique key (e.g., "boulderingFlash")
+    const key = `${type}${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}`;
 
-    // Count session type
+    // Make sure grade and difficulty are valid before calling the function
+    if (grade && difficulty && type) {
+        updateAverageGrade(key, grade);
+    }
+
+    // Update training data
     if (trainingData.hasOwnProperty(type)) {
         trainingData[type]++;
     } else {
         trainingData[type] = 1;
     }
 
-    // Save to localStorage
-    saveToStorage("grades", grades);
     saveToStorage("trainingData", trainingData);
-
-    updateElementText(difficulty, grade);
-    updateElementText(type, trainingData[type]);
-
-    //Initial Update
-    if (type === "bouldering") {
-        if (difficulty === "flash" && grades.Flash == "None") {
-            updateElementText("Flash", grade);  // Update Flash with median grade
-        } else if (difficulty === "project" && grades.Project == "None") {
-            updateElementText("Project", grade);  // Update Project with median grade
-        }
-    } else if (type === "toprope" || type === "lead") {
-        if (difficulty === "flash" && grades.Flash == "None") {
-            updateElementText("Onsight", grade);  // Update Onsight with median grade for rope climbing
-        } else if (difficulty === "project" && grades.Project == "None") {
-            updateElementText("Redpoint", grade);  // Update Redpoint with median grade for rope climbing
-        }
-    }
-
-    //Noninitial Update (TODO: Make it not overwrite the grade as a new grade but rather incrementally change the grade over a few higher or lower form fillouts)
-    if (type === "bouldering") {
-        if (difficulty === "onsight" && grades.Onsight !== "None") {
-            updateElementText("Onsight", grade);  // Update Onsight with median grade
-        } else if (difficulty === "redpoint" && grades.Redpoint !== "None") {
-            updateElementText("Redpoint", grade);  // Update Redpoint with median grade
-        }
-    }
-
-    // Save updated data to localStorage
-    saveToStorage("trainingData", trainingData);
-
-    // Update the chart dynamically
     updateTrainingChart();
-
-    location.reload();
-    event.target.reset();
     
+
     togglePopup("logPopup", "close");
+
+    // Reset the form
+    event.target.reset();
 }
 
 
@@ -448,3 +599,27 @@ function updateTrainingChart() {
         }
     });
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOMContentLoaded event triggered");
+
+    // Update grades
+    Object.entries(grades).forEach(([key, value]) => updateElementText(key, value));
+
+    // Update trait values
+    Object.entries(traits).forEach(([key, value]) => {
+        updateElementText(key, value);
+        const el = document.getElementById(key);
+        if (el) {
+            el.classList.remove("up", "down");
+            if (value > 0) el.classList.add("up");
+            else if (value < 0) el.classList.add("down");
+        }
+    });
+
+    // Update training chart
+    const chartElement = document.getElementById("trainingDistributionChart");
+    if (chartElement) {
+        updateTrainingChart();
+    }
+});
