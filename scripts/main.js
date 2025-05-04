@@ -383,13 +383,13 @@ function handleJournalSubmit(event) {
         sidepull: "Sidepull",
         undercling: "Undercling",
         slab: "Slab",
-        "slight-overhang": "Slightoverhang",
+        slightOverhang: "Slightoverhang",
         overhang: "Overhang",
         cave: "Cave",
-        "big-move": "Bigmove",
+        bigMove: "Bigmove",
         meticulous: "Meticulous",
         powerful: "Powerful",
-        "route-reading": "Routereading"
+        routeReading: "Routereading"
     };
 
     Object.keys(traitMap).forEach((id) => {
