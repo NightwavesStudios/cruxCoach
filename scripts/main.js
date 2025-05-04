@@ -1,35 +1,54 @@
 console.log("scripts.js loaded");
 
-/* Data Variables (Placeholder) */
-const grades = {
+/* Safe Storage Utilities */
+function loadSafe(key, fallback = {}) {
+    try {
+        const parsed = JSON.parse(localStorage.getItem(key));
+        return parsed && typeof parsed === "object" ? parsed : fallback;
+    } catch (e) {
+        return fallback;
+    }
+}
+
+function saveToStorage(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+}
+
+/* Default Data */
+const defaultGrades = {
     Flash: "V4",
     Project: "V5",
     Onsight: "5.10",
-    Redpoint: "5.10+",
+    Redpoint: "5.10+"
 };
 
-const trainingData = {
+const defaultTrainingData = {
     bouldering: 47,
     toprope: 10,
     lead: 53,
     other: 4,
 };
 
-const traits = {
-    Crimp: -5,
-    Sloper: 2,
-    Pocket: 1,
-    Sidepull: 6,
+const defaultTraits = {
+    Crimp: 0,
+    Sloper: 0,
+    Pocket: 0,
+    Sidepull: 0,
     Undercling: 0,
-    Bigmove: 10,
-    Meticulous: -2,
+    Bigmove: 0,
+    Meticulous: 0,
     Powerful: 0,
-    Routereading: -7,
-    Slab: -3,
-    Slightoverhang: 2,
-    Overhang: 5,
-    Cave: -1,
+    Routereading: 0,
+    Slab: 0,
+    Slightoverhang: 0,
+    Overhang: 0,
+    Cave: 0,
 };
+
+/* Load Data from Storage */
+const grades = loadSafe("grades", defaultGrades);
+const trainingData = loadSafe("trainingData", defaultTrainingData);
+const traits = loadSafe("traits", defaultTraits);
 
 const styleTraits = {
     Bigmove: traits.Bigmove,
@@ -115,193 +134,128 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Update trait values
     Object.entries(traits).forEach(([key, value]) => {
-        console.log(`Updating element with id "${key}" to value "${value}"`);
         updateElementText(key, value);
-
         const el = document.getElementById(key);
         if (el) {
             el.classList.remove("up", "down");
-        if (value > 0) {
-            el.classList.add("up");
-        } else if (value < 0) {
-            el.classList.add("down");
-        } else {}
-        }   
+            if (value > 0) el.classList.add("up");
+            else if (value < 0) el.classList.add("down");
+        }
     });
-
 
     // Training Chart
     const chartElement = document.getElementById("trainingDistributionChart");
     if (chartElement) {
         new Chart(chartElement, {
-    type: "pie",
-    data: {
-        labels: ["Bouldering", "Top Rope", "Lead", "Other"],
-        datasets: [{
-            backgroundColor: ["#34A85399", "#F28C2899", "#4285f499", "#e8c3b9"],
-            data: Object.values(trainingData),
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            title: {
-                display: true,
-                text: "Training Type Distribution"
+            type: "pie",
+            data: {
+                labels: ["Bouldering", "Top Rope", "Lead", "Other"],
+                datasets: [{
+                    backgroundColor: ["#34A85399", "#F28C2899", "#4285f499", "#e8c3b9"],
+                    data: Object.values(trainingData),
+                }]
             },
-            legend: {
-                position: 'bottom'
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: "Training Type Distribution"
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
             }
-        }
-    }
-});
-        console.log("Training distribution chart initialized.");
-    } else {
-        console.error('Canvas element "trainingDistributionChart" not found.');
+        });
     }
 
-    //Holds Breakdown Chart
+    // Holds Breakdown Chart
     const holdsChartElement = document.getElementById("holdsBreakdownChart");
     if (holdsChartElement) {
-        const maxAbs = Math.max(...Object.values(holdsTraits).map(Math.abs), 1);
-
         new Chart(holdsChartElement, {
-    type: "bar",
-    data: {
-        labels: Object.keys(holdsTraits),
-        datasets: [{
-            label: "Trait Strength",
-            data: Object.values(holdsTraits),
-            backgroundColor: Object.values(holdsTraits).map(val =>
-                val > 0 ? "#34A853cc" : val < 0 ? "#EA4335cc" : "#999999cc"
-            ),
-        }]
-    },
-    options: {
-        indexAxis: 'y', // ← replaces horizontalBar
-        responsive: true,
-        plugins: {
-            legend: {
-                display: false
+            type: "bar",
+            data: {
+                labels: Object.keys(holdsTraits),
+                datasets: [{
+                    label: "Trait Strength",
+                    data: Object.values(holdsTraits),
+                    backgroundColor: Object.values(holdsTraits).map(val =>
+                        val > 0 ? "#34A853cc" : val < 0 ? "#EA4335cc" : "#999999cc"
+                    ),
+                }]
             },
-            title: {
-                display: false
-            },
-            tooltip: {
-                callbacks: {
-                    label: (ctx) => {
-                        const value = ctx.raw;
-                        return `${ctx.label}: ${value > 0 ? '+' : ''}${value}`;
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => `${ctx.label}: ${ctx.raw > 0 ? '+' : ''}${ctx.raw}`
+                        }
                     }
-                }
-            }
-        },
-        scales: {
-            x: {
-                min: -10,
-                max: 10,
-                ticks: {
-                    callback: (value) => `${value > 0 ? '+' : ''}${value}`
                 },
-                title: {
-                    display: true,
-                    text: 'Weak ←→ Strong'
+                scales: {
+                    x: {
+                        min: -10,
+                        max: 10,
+                        ticks: {
+                            callback: value => `${value > 0 ? '+' : ''}${value}`
+                        },
+                        title: {
+                            display: true,
+                            text: 'Weak ←→ Strong'
+                        }
+                    },
+                    y: { beginAtZero: true }
                 }
-            },
-            y: {
-                beginAtZero: true
             }
-        }
-    }
-});
-
+        });
     }
 
-    //Style Breakdown Chart
+    // Style Breakdown Chart
     const styleChartElement = document.getElementById("styleBreakdownChart");
     if (styleChartElement) {
-        const maxAbs = Math.max(...Object.values(styleTraits).map(Math.abs), 1);
-
         new Chart(styleChartElement, {
-    type: "radar",
-    data: {
-        labels: Object.keys(styleTraits),
-        datasets: [{
-            label: "Style Traits",
-            data: Object.values(styleTraits),
-            backgroundColor: "rgba(66, 133, 244, 0.2)",
-            borderColor: "rgba(66, 133, 244, 0.8)",
-            borderWidth: 2,
-            pointBackgroundColor: "rgba(66, 133, 244, 1)",
-            pointRadius: 3,
-            pointHoverRadius: 5,
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: true,
-        plugins: {
-            legend: {
-                display: false
+            type: "radar",
+            data: {
+                labels: Object.keys(styleTraits),
+                datasets: [{
+                    label: "Style Traits",
+                    data: Object.values(styleTraits),
+                    backgroundColor: "rgba(66, 133, 244, 0.2)",
+                    borderColor: "rgba(66, 133, 244, 0.8)",
+                    borderWidth: 2,
+                    pointBackgroundColor: "rgba(66, 133, 244, 1)",
+                }]
             },
-            title: {
-                display: false,
-                text: "Style Trait Radar",
-                font: {
-                    size: 16
-                }
-            },
-            tooltip: {
-                callbacks: {
-                    label: (ctx) => {
-                        const label = ctx.label;
-                        const value = ctx.raw;
-                        return `${label}: ${value > 0 ? '+' : ''}${value}`;
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => `${ctx.label}: ${ctx.raw > 0 ? '+' : ''}${ctx.raw}`
+                        }
                     }
-                }
-            }
-        },
-        scales: {
-            r: {
-                min: -5,
-                max: 10,
-                beginAtZero: true,
-                ticks: {
-                    stepSize: 5,
-                    display: false
                 },
-                pointLabels: {
-                    font: {
-                        size: 12
-                    },
-                    color: "#333"
+                scales: {
+                    r: {
+                        min: -5,
+                        max: 10,
+                        ticks: { stepSize: 5, display: false },
+                        pointLabels: { font: { size: 12 }, color: "#333" },
+                        grid: { circular: true, color: "rgba(0,0,0,0.25)" },
+                        angleLines: { display: false }
+                    }
                 },
-                grid: {
-                    circular: true,
-                    color: "rgba(0,0,0,0.25)"
-                },
-                angleLines: {
-                    display: false
-                }
+                layout: { padding: { top: 0, bottom: 0 } }
             }
-        },
-        layout: {
-            padding: {
-                top: 0,
-                bottom: 0
-            }
-        }
-    }
-});
-
-
-
-        console.log("Style breakdown chart initialized.");
-    } else {
-        console.error('Canvas element "styleBreakdownChart" not found.');
+        });
     }
 
-    // Bind popup buttons
+    // Popup Bindings
     bindClick(".mode", () => togglePopup("streaksPopup", "open"));
     bindClick(".streaks-header .exit", () => togglePopup("streaksPopup", "close"));
 
@@ -327,6 +281,77 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+/* Form Submission Actions */
+function handleJournalSubmit(event) {
+    event.preventDefault();
+
+    const traitKeys = [
+        "crimp", "sloper", "pocket", "sidepull", "undercling",
+        "slab", "slightOverhang", "overhang", "cave",
+        "bigMove", "meticulous", "powerful", "routeReading"
+    ];
+
+    traitKeys.forEach((id) => {
+        const input = document.getElementById(id);
+        const val = parseInt(input.value, 10) || 0;
+
+        const key = id.charAt(0).toUpperCase() + id.slice(1); // Capitalize to match `traits` keys
+        if (traits.hasOwnProperty(key)) {
+    traits[key] = Math.max(-10, Math.min(10, traits[key] + val));
+} else {
+    traits[key] = Math.max(-10, Math.min(10, val));
+}
+    });
+
+    saveToStorage("traits", traits);
+    location.reload(); // or call a chart update function instead
+}
+
+function handleLogSubmit(event) {
+    event.preventDefault();
+
+    const type = document.getElementById("type").value;
+    const grade = document.getElementById("grade").value;
+    const difficulty = document.getElementById("difficulty").value;
+
+    // Update median grade
+    grades[difficulty] = grade;
+
+    // Count session type
+    if (trainingData.hasOwnProperty(type)) {
+        trainingData[type]++;
+    } else {
+        trainingData[type] = 1;
+    }
+
+    // Save to localStorage
+    saveToStorage("grades", grades);
+    saveToStorage("trainingData", trainingData);
+
+    // Update the DOM elements without refreshing the page
+    updateElementText(difficulty, grade);  // Update the displayed grade for difficulty
+    updateElementText(type, trainingData[type]);  // Update the displayed session count for the type
+
+    // Specific logic to handle difficulty and climbing type relationships
+    if (type === "bouldering") {
+        if (difficulty === "flash") {
+            updateElementText("Flash", grade);  // Update Flash with median grade
+        } else if (difficulty === "project") {
+            updateElementText("Project", grade);  // Update Project with median grade
+        }
+    } else if (type === "top rope" || type === "lead") {
+        if (difficulty === "flash") {
+            updateElementText("Onsight", grade);  // Update Onsight with median grade for rope climbing
+        } else if (difficulty === "project") {
+            updateElementText("Redpoint", grade);  // Update Redpoint with median grade for rope climbing
+        }
+    }
+
+    // Optionally, close the popup if needed
+    togglePopup("logPopup", "close");
+}
+
+
 /* Public Popup Control Functions */
 function openStreaks(state) {
     togglePopup("streaksPopup", state);
@@ -349,26 +374,20 @@ function openCoach() {
 function previousPage() {
     if (window.history.length > 1) {
         window.history.back();
-    } else {
-        return;
     }
 }
 
 /* Flesh Options Container JS */
-window.onload = window.onresize = function() {
+window.onload = window.onresize = function () {
     var buttons = document.querySelectorAll('#optionsContainer button');
     var maxHeight = 0;
 
-    // Find the tallest button
-    buttons.forEach(function(button) {
+    buttons.forEach(function (button) {
         var buttonHeight = button.offsetHeight;
-        if (buttonHeight > maxHeight) {
-            maxHeight = buttonHeight;
-        }
+        if (buttonHeight > maxHeight) maxHeight = buttonHeight;
     });
 
-    // Set all buttons to the height of the tallest button
-    buttons.forEach(function(button) {
+    buttons.forEach(function (button) {
         button.style.height = maxHeight + 'px';
     });
 };
