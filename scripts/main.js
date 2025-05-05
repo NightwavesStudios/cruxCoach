@@ -1,10 +1,7 @@
-console.log("scripts.js loaded");
-
 /* Safe Storage Utilities */
 function loadSafe(key, fallback = {}) {
     try {
         const parsed = JSON.parse(localStorage.getItem(key));
-        console.log(`Loaded key "${key}":`, parsed);
         return parsed && typeof parsed === "object" ? parsed : fallback;
     } catch (e) {
         console.warn(`Failed to load key "${key}" from localStorage. Using fallback.`);
@@ -87,7 +84,6 @@ function updateElementText(id, value) {
     const el = document.getElementById(id);
     if (el) {
         el.innerHTML = value;
-        console.log(`Updated #${id} to "${value}". Current innerHTML: ${el.innerHTML}`);
     } else {
         console.error(`Element with id "${id}" not found.`);
     }
@@ -164,7 +160,6 @@ function togglePopup(id, state = "open") {
     popup.style.display = isOpening ? "block" : "none";
     popup.style.overflowY = isOpening ? "auto" : "";
     document.body.style.overflow = isOpening ? "hidden" : "";
-    console.log(`Popup "${id}" toggled to "${isOpening ? "open" : "closed"}"`);
 }
 
 function toggleInfoPopup(popupId) {
@@ -180,7 +175,6 @@ function toggleInfoPopup(popupId) {
 function safeLazyLoad() {
     if (typeof lazyload === "function") {
         lazyload();
-        console.log("Lazyload initialized.");
     } else {
         console.warn("Lazyload function not found.");
     }
@@ -196,12 +190,10 @@ function checkScroll() {
 
 /* DOM Ready */
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOMContentLoaded event triggered");
 
-    // Update grades
     Object.entries(grades).forEach(([key, value]) => updateElementText(key, value));
 
-    // Update trait values
+
     Object.entries(traits).forEach(([key, value]) => {
         updateElementText(key, value);
         const el = document.getElementById(key);
@@ -217,7 +209,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (chartElement) {
         updateTrainingChart();
     }
-    console.log(Object.values(trainingData));
 
     // Holds Breakdown Chart
     const holdsChartElement = document.getElementById("holdsBreakdownChart");
@@ -344,33 +335,31 @@ function updateAverageGrade(difficulty, grade) {
         logArray.shift(); // Remove the oldest grade
     }
 
-    // Save the updated log array back to localStorage
     localStorage.setItem(logKey, JSON.stringify(logArray));
 
     // Calculate the median grade
-    const sortedGrades = logArray.slice().sort((a, b) => a - b); // Sort grades in ascending order
+    const sortedGrades = logArray.slice().sort((a, b) => a - b);
     let medianGrade;
 
     if (sortedGrades.length % 2 === 0) {
-        // Even number of grades: average the two middle values
         const mid1 = sortedGrades[sortedGrades.length / 2 - 1];
         const mid2 = sortedGrades[sortedGrades.length / 2];
         medianGrade = (mid1 + mid2) / 2;
     } else {
-        // Odd number of grades: take the middle value
         medianGrade = sortedGrades[Math.floor(sortedGrades.length / 2)];
     }
 
-    const medianGradeText = numberToGrade(Math.round(medianGrade)); // Convert the median to a grade
-    grades[difficulty] = medianGradeText; // Update the grades object with the new median
+    // Log the raw median grade without rounding
+    console.log(`Raw median grade for ${difficulty} (unrounded):`, medianGrade);
 
-    // Save the updated grades object to localStorage
+    // Convert the median grade to a grade string (without rounding)
+    const medianGradeText = numberToGrade(Math.floor(medianGrade));
+    grades[difficulty] = medianGradeText;
+
     saveToStorage("grades", grades);
 
-    // Update the UI with the new median
     updateElementText(difficulty, medianGradeText);
     saveToStorage("grades", grades);
-    console.log(`Updated median grade for ${difficulty}: ${medianGradeText}`);
 }
 
 function handleJournalSubmit(event) {
@@ -406,58 +395,6 @@ function handleJournalSubmit(event) {
     saveToStorage("traits", traits);
     event.target.reset();
     location.reload();
-}
-
-/* Form Submission Actions */
-function updateAverageGrade(difficulty, grade) {
-    const logKey = `${difficulty}Grades`; // Combine difficulty as the key
-    const logArrayJSON = localStorage.getItem(logKey);
-    let logArray = [];
-
-    try {
-        logArray = JSON.parse(logArrayJSON) || [];
-    } catch (e) {
-        console.warn(`Corrupted data in localStorage for ${logKey}. Resetting.`);
-        logArray = [];
-    }
-
-    // Validate and add the new grade entry
-    const newGrade = gradeToNumber(grade);
-    if (isNaN(newGrade)) {
-        console.error(`Invalid grade: ${grade}`);
-        return;
-    }
-
-    // Add the new grade to the array
-    logArray.push(newGrade);
-
-    // Keep only the last 10 grades
-    if (logArray.length > 10) {
-        logArray.shift(); // Remove the oldest grade
-    }
-
-    // Save the updated log array back to localStorage
-    localStorage.setItem(logKey, JSON.stringify(logArray));
-
-    // Calculate the median grade
-    const sortedGrades = logArray.slice().sort((a, b) => a - b); // Sort grades in ascending order
-    let medianGrade;
-
-    if (sortedGrades.length % 2 === 0) {
-        // Even number of grades: average the two middle values
-        const mid1 = sortedGrades[sortedGrades.length / 2 - 1];
-        const mid2 = sortedGrades[sortedGrades.length / 2];
-        medianGrade = (mid1 + mid2) / 2;
-    } else {
-        // Odd number of grades: take the middle value
-        medianGrade = sortedGrades[Math.floor(sortedGrades.length / 2)];
-    }
-
-    const medianGradeText = numberToGrade(Math.round(medianGrade)); // Convert the median to a grade
-    grades[`${difficulty}`] = medianGradeText; // Update the grades object with the new median
-    updateElementText(`${difficulty}`, medianGradeText); // Update the UI with the new median
-
-    console.log(`Updated median grade for ${difficulty}: ${medianGradeText}`);
 }
 
 function handleLogSubmit(event) {
@@ -601,12 +538,9 @@ function updateTrainingChart() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOMContentLoaded event triggered");
 
-    // Update grades
     Object.entries(grades).forEach(([key, value]) => updateElementText(key, value));
 
-    // Update trait values
     Object.entries(traits).forEach(([key, value]) => {
         updateElementText(key, value);
         const el = document.getElementById(key);
@@ -616,8 +550,6 @@ document.addEventListener("DOMContentLoaded", () => {
             else if (value < 0) el.classList.add("down");
         }
     });
-
-    // Update training chart
     const chartElement = document.getElementById("trainingDistributionChart");
     if (chartElement) {
         updateTrainingChart();
