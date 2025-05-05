@@ -225,6 +225,7 @@
         <form id="logForm" onsubmit="handleLogSubmit(event)">
             <label for="type">Climbing Type: </label>
             <select id="type" name="type">
+                <option disabled selected hidden>Select Climbing Type</option>
                 <option value="bouldering">Bouldering</option>
                 <option value="toprope">Top Rope</option>
                 <option value="lead">Lead</option>
@@ -234,6 +235,7 @@
             <input id="grade"></input><br><br><br>
             <label for="difficulty">Climbing Difficulty: </label>
             <select id="difficulty" name="difficulty">
+                <option disabled selected hidden>Select Difficulty</option>
                 <option value="flash">Flash/On-Sight</option>
                 <option value="project">Project/Redpoint</option>
             </select><br><br><br>
@@ -287,13 +289,13 @@
 
             <!--Sport On-Sight -->
             <div>
-                <p><b id="leadonsight">NaN</b></p>
+                <p><b id="ropedOnsight">NaN</b></p>
                 <p>On-Sight</p>
             </div>
 
             <!-- Sport Redpoint -->
             <div>
-                <p><b id="leadredpoint">NaN</b></p>
+                <p><b id="ropedRedpoint">NaN</b></p>
                 <p>Redpoint</p>
             </div>
 
