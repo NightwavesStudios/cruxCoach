@@ -223,23 +223,38 @@
             <p>Log a climbing session with the type of climbing, average grade you climbed on, and the difficulty you would assocoiate with that median grade.</p>
         </div>
         <form id="logForm" onsubmit="handleLogSubmit(event)">
-            <label for="type">Climbing Type: </label>
-            <select id="type" name="type">
-                <option disabled selected hidden>Select Climbing Type</option>
-                <option value="bouldering">Bouldering</option>
-                <option value="toprope">Top Rope</option>
-                <option value="lead">Lead</option>
-                <option value="other">Other</option>
-            </select><br><br><br>
-            <label for="grade">Median Grade:</label>
-            <input id="grade"></input><br><br><br>
-            <label for="difficulty">Climbing Difficulty: </label>
-            <select id="difficulty" name="difficulty">
-                <option disabled selected hidden>Select Difficulty</option>
-                <option value="flash">Flash/On-Sight</option>
-                <option value="project">Project/Redpoint</option>
-            </select><br><br><br>
-            <button type="submit" onclick="openLog('close');">Submit</button>
+            <div id="logSessionsContainer">
+                <!-- Initial Session Fields -->
+                <div class="log-session">
+                    <label for="type">Climbing Type: </label>
+                    <select id="type" name="type">
+                        <option disabled selected hidden>Select Climbing Type</option>
+                        <option value="bouldering">Bouldering</option>
+                        <option value="toprope">Top Rope</option>
+                        <option value="lead">Lead</option>
+                        <option value="other">Other</option>
+                    </select><br><br>
+            
+                    <label for="grade">Median Grade:</label>
+                    <input id="grade" name="grade" placeholder="Average Grade Climbed for Difficulty (V5, 5.11b, or None if 'Other')"></input><br><br>
+            
+                    <label for="difficulty">Climbing Difficulty: </label>
+                    <select id="difficulty" name="difficulty">
+                        <option disabled selected hidden>Select Difficulty</option>
+                        <option value="flash">Flash/On-Sight</option>
+                        <option value="project">Project/Redpoint</option>
+                    </select><br><br>
+                </div>
+            </div>
+            
+            <div class="button-container">
+                <!-- Button to Add More Sessions -->
+                <button type="button" id="addSessionButton">Add Type/Difficulty</button>
+            
+                <!-- Submit Button -->
+                <button type="submit" id="submitSessionsButton">Submit Sessions</button>
+            </div>
+
         </form>
     </div>
 

@@ -1,4 +1,3 @@
-//TODO: At type local variable reconizing toprope and lead as the same and writing them respectively to either ropedOnsight or ropedRedpoint. Have different array for averaging again and create another conversion above for roped with 5.5-5.15.. Code: /* Default Data */
 const defaultGrades = {
     boulderingFlash: "None",
     boulderingProject: "None",
@@ -472,7 +471,7 @@ function handleLogSubmit(event) {
     const difficulty = difficultySelect.value;
 
     if (!type || !grade || !difficulty) {
-        alert("Please complete all fields.");
+        alert("Please Complete All Fields.");
         return;
     }
 
@@ -619,6 +618,117 @@ function updateTrainingChart() {
         }
     });
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const logSessionsContainer = document.getElementById("logSessionsContainer");
+    const addSessionButton = document.getElementById("addSessionButton");
+    const submitSessionsButton = document.getElementById("submitSessionsButton");
+    const closeLogButton = document.createElement("button"); // Create a Close Button
+    closeLogButton.textContent = "Close";
+    closeLogButton.type = "button";
+    closeLogButton.id = "closeLogButton";
+    closeLogButton.style.marginTop = "10px";
+    document.querySelector(".button-container").appendChild(closeLogButton);
+
+    let sessionCount = 1;
+
+    addSessionButton.addEventListener("click", () => {
+        if (sessionCount >= 4) {
+            alert("You Can Only Log a Grade for each Type (Roped, Bouldering), and Each Difficulty (Flash/Onsight, Project/Redpoint).");
+            return;
+        }
+
+        const firstSession = document.querySelector(".log-session");
+        const newSession = firstSession.cloneNode(true);
+
+        newSession.querySelectorAll("select, input").forEach(field => {
+            field.value = "";
+        });
+
+        logSessionsContainer.appendChild(newSession);
+        sessionCount++;
+    });
+
+    // Handle form submission
+    submitSessionsButton.addEventListener("click", (event) => {
+        event.preventDefault(); // Prevent default form submission behavior
+
+        const sessions = [];
+
+        // Collect data from all session fields
+        document.querySelectorAll(".log-session").forEach(session => {
+            const type = session.querySelector("select[name='type']").value;
+            const grade = session.querySelector("input[name='grade']").value.trim();
+            const difficulty = session.querySelector("select[name='difficulty']").value;
+
+            if (type && grade && difficulty) {
+                sessions.push({ type, grade, difficulty });
+            }
+        });
+
+        if (sessions.length === 0) {
+            alert("Please fill out at least one session.");
+            return;
+        }
+
+        console.log("Logged Sessions:", sessions);
+
+        // Process each session (e.g., save to localStorage or send to backend)
+        sessions.forEach(session => {
+            let gradeDifficultyKey;
+
+            // Determine the key based on type and difficulty
+            if (session.type === "toprope" || session.type === "lead") {
+                gradeDifficultyKey = session.difficulty === "flash" ? "ropedOnsight" : "ropedRedpoint";
+            } else if (session.type === "bouldering") {
+                gradeDifficultyKey = session.difficulty === "flash" ? "boulderingFlash" : "boulderingProject";
+            }
+
+            if (gradeDifficultyKey) {
+                updateAverageGrade(gradeDifficultyKey, session.grade);
+            }
+        });
+
+        alert("Sessions logged successfully!");
+
+        // Reset the form
+        logSessionsContainer.innerHTML = ""; // Clear all session fields
+        sessionCount = 1; // Reset session count
+
+        // Add back the original session fields
+        const originalSession = document.createElement("div");
+        originalSession.className = "log-session";
+        originalSession.innerHTML = `
+            <label for="type">Climbing Type: </label>
+            <select id="type" name="type">
+                <option disabled selected hidden>Select Climbing Type</option>
+                <option value="bouldering">Bouldering</option>
+                <option value="toprope">Top Rope</option>
+                <option value="lead">Lead</option>
+                <option value="other">Other</option>
+            </select><br><br>
+
+            <label for="grade">Median Grade:</label>
+            <input id="grade" name="grade"></input><br><br>
+
+            <label for="difficulty">Climbing Difficulty: </label>
+            <select id="difficulty" name="difficulty">
+                <option disabled selected hidden>Select Difficulty</option>
+                <option value="flash">Flash/On-Sight</option>
+                <option value="project">Project/Redpoint</option>
+            </select><br><br>
+        `;
+        logSessionsContainer.appendChild(originalSession);
+
+        // Close the popup
+        togglePopup("logPopup", "close");
+    });
+
+    // Close the log popup when the close button is clicked
+    closeLogButton.addEventListener("click", () => {
+        togglePopup("logPopup", "close");
+    });
+});
 
 document.addEventListener("DOMContentLoaded", () => {
 

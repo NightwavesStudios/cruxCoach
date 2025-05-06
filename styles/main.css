@@ -151,20 +151,30 @@ header .mode {
   z-index: 200;
 }
 
-.popup button {
-  position: fixed;
-  bottom: 0px;
-  left: 0px;
-  width: 100vw;
-  height: 40px;
-  color: black;
-  border: none;
-  font-size: 20px;
-  transition: 0.5s;
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
 
-.popup button:hover {
+.button-container button {
+  flex: 1;
+  height: 40px;
+  font-size: 16px;
+  border: none;
   cursor: pointer;
+  text-align: center;
+}
+
+#addSessionButton {
+  width: 50vw;
+}
+
+#submitSessionsButton {
+  width: 50vw;
 }
 
 #journalPopup button {
@@ -176,7 +186,7 @@ header .mode {
 }
 
 #logPopup button {
-  background-color: #4285f499;
+  background-color: #f28c2899;
 }
 
 #logPopup button:hover {
