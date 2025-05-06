@@ -65,26 +65,28 @@ const holdsTraits = {
 };
 
 /* Load Grades from Local Storage */
-Object.keys(localStorage).forEach(key => {
-    if (key.endsWith("Grades") && key !== "grades") {
-        const type = key.replace("Grades", "");
-        const data = JSON.parse(localStorage.getItem(key));
-        if (Array.isArray(data) && data.length) {
-            const sorted = data.slice().sort((a, b) => a - b);
-            const median = sorted.length % 2 === 0
-                ? (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2
-                : sorted[Math.floor(sorted.length / 2)];
-            if (type === "topropeOnsight" || type === "leadOnsight") {
-                grades.ropedOnsight = sportNumberToGrade(Math.round(median));
-            } else if (type === "topropeRedpoint" || type === "leadRedpoint") {
-                grades.ropedRedpoint = sportNumberToGrade(Math.round(median));
-            } else {
-                grades[type] = numberToGrade(Math.round(median));
+document.addEventListener("DOMContentLoaded", () => {
+    Object.keys(localStorage).forEach(key => {
+        if (key.endsWith("Grades") && key !== "grades") {
+            const type = key.replace("Grades", "");
+            const data = JSON.parse(localStorage.getItem(key));
+            if (Array.isArray(data) && data.length) {
+                const sorted = data.slice().sort((a, b) => a - b);
+                const median = sorted.length % 2 === 0
+                    ? (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2
+                    : sorted[Math.floor(sorted.length / 2)];
+
+                if (type === "topropeOnsight" || type === "leadOnsight" || type === "ropedOnsight") {
+                    grades.ropedOnsight = sportNumberToGrade(Math.round(median));
+                } else if (type === "topropeRedpoint" || type === "leadRedpoint" || type === "ropedRedpoint") {
+                    grades.ropedRedpoint = sportNumberToGrade(Math.round(median));
+                } else {
+                    grades[type] = numberToGrade(Math.round(median));
+                }
             }
         }
-    }
-});
-Object.entries(grades).forEach(([key, value]) => updateElementText(key, value)); //Update the UI with the loaded grades
+    });
+    Object.entries(grades).forEach(([key, value]) => updateElementText(key, value)); 
 
 /* Utilities */
 function updateElementText(id, value) {
