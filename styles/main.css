@@ -138,70 +138,75 @@ header .mode {
 }
 
 /* Popup Styling */
+/* Popup Styling */
 .popup {
-  display: none;
+  display: none; /* Ensure it is hidden by default */
   position: fixed;
-  overflow: auto;
+  overflow: auto; /* Allow for scrolling if content is too large */
   top: 0px;
   left: 0px;
   width: 100vw;
   height: 100vh;
   background-color: white;
   text-align: center;
-  z-index: 200;
+  z-index: 200; /* Popup should be above other content */
+  padding-bottom: 60px; /* Ensure space for fixed button container */
+  box-sizing: border-box; /* Include padding in height calculation */
 }
 
+/* Button Container Styling */
 .button-container {
   display: flex;
-  justify-content: space-between;
-  /* Ensure buttons are spaced evenly */
-  position: absolute;
+  flex-direction: row;
+  justify-content: space-between; /* Evenly space buttons */
+  align-items: center;
+  position: fixed;
   bottom: 0;
-  /* Position the container at the bottom */
   left: 0;
   width: 100%;
-  /* Make the container span the full width */
+  z-index: 1000; /* Ensure buttons are above other elements */
   padding: 10px;
-  /* Add padding around the container */
-  box-sizing: border-box;
-  /* Include padding in width calculation */
+  box-sizing: border-box; /* Include padding in width calculation */
+  background-color: white;
 }
 
+/* Individual Button Styling */
 .button-container button {
-  flex: 1;
-  /* Make both buttons take up equal width */
+  flex: 1; /* Buttons will take equal width */
   height: 50px;
-  /* Increase height for better visibility */
   font-size: 16px;
-  /* Adjust font size */
   border: none;
-  /* Remove default borders */
   cursor: pointer;
-  /* Change cursor to pointer on hover */
   text-align: center;
-  /* Center the text inside the buttons */
-  margin: 0 5px;
-  /* Add spacing between buttons */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 5px; /* Horizontal margin between buttons */
+}
+
+/* Remove margin for first and last button */
+.button-container button:first-child {
+  margin-left: 0;
+}
+
+.button-container button:last-child {
+  margin-right: 0;
 }
 
 /* Responsive Styling for Mobile */
 @media (max-width: 600px) {
   .button-container {
-    flex-direction: column;
-    /* Stack buttons vertically on small screens */
-    align-items: center;
-    /* Center align the buttons */
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: stretch; /* Make buttons stretch to full width */
     padding: 10px 0;
-    /* Add padding for better spacing */
   }
 
   .button-container button {
-    width: 90%;
-    /* Make buttons take up most of the screen width */
-    margin: 5px 0;
-    /* Add vertical spacing between buttons */
+    width: 90%; /* Make buttons take up 90% of screen width */
+    margin: 5px auto; /* Center buttons and add margin */
   }
 }
+
 
 /* Streaks Styling */
 #streaksPopup {
