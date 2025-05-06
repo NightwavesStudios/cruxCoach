@@ -69,17 +69,25 @@ Object.keys(localStorage).forEach(key => {
     if (key.endsWith("Grades") && key !== "grades") {
         const type = key.replace("Grades", "");
         const data = JSON.parse(localStorage.getItem(key));
-        if (Array.isArray(data) && data.length) {
-            const sorted = data.slice().sort((a, b) => a - b);
+
+        if (data && Array.isArray(data.grades) && data.grades.length) {
+            const sorted = data.grades.slice().sort((a, b) => a - b);
             const median = sorted.length % 2 === 0
                 ? (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2
                 : sorted[Math.floor(sorted.length / 2)];
-            if (type === "topropeOnsight" || type === "leadOnsight") {
-                grades.ropedOnsight = sportNumberToGrade(Math.round(median));
-            } else if (type === "topropeRedpoint" || type === "leadRedpoint") {
-                grades.ropedRedpoint = sportNumberToGrade(Math.round(median));
-            } else {
+
+            if (data.type === "yds") {
+                // Handle YDS grades
+                if (type === "ropedOnsight" || type === "topropeOnsight" || type === "leadOnsight") {
+                    grades.ropedOnsight = sportNumberToGrade(median);
+                } else if (type === "ropedRedpoint" || type === "topropeRedpoint" || type === "leadRedpoint") {
+                    grades.ropedRedpoint = sportNumberToGrade(median);
+                }
+            } else if (data.type === "vscale") {
+                // Handle V-scale grades
                 grades[type] = numberToGrade(Math.round(median));
+            } else {
+                console.warn(`Unknown grade type for ${type}:`, data.type);
             }
         }
     }
@@ -387,24 +395,27 @@ const holdsChartElement = document.getElementById("holdsBreakdownChart");
 });
 
 /* Form Submission Actions */
-// Updated `updateAverageGrade` function
 function updateAverageGrade(difficulty, grade) {
-    const logKey = `${difficulty}Grades`; // Combine Difficulty as the Key
-    const logArrayJSON = localStorage.getItem(logKey); // Get the Log Array from Local Storage
-    let logArray = []; // Initialize the Log Array
+    const logKey = `${difficulty}Grades`; // Combine difficulty as the key
+    const logArrayJSON = localStorage.getItem(logKey); // Get the log array from localStorage
+    let logArray = []; // Initialize the log array
 
     try {
-        logArray = JSON.parse(logArrayJSON) || []; // Parse the Log Array
+        logArray = JSON.parse(logArrayJSON)?.grades || []; // Parse the log array
     } catch (e) {
         console.warn(`Corrupted data in localStorage for ${logKey}. Resetting.`);
-        logArray = []; // Reset the Log Array if Corrupted Local Storage
+        logArray = []; // Reset the log array if corrupted
     }
 
     let newGradeNumber;
+    let gradeType; // Track the grade type (vscale or yds)
+
     if (difficulty.startsWith("roped")) {
         newGradeNumber = sportGradeToNumber(grade); // Convert to roped grade number
+        gradeType = "yds"; // Mark as YDS scale
     } else {
-        newGradeNumber = gradeToNumber(grade); // Convert standard grade to number
+        newGradeNumber = gradeToNumber(grade); // Convert to bouldering grade number
+        gradeType = "vscale"; // Mark as V-scale
     }
 
     if (isNaN(newGradeNumber)) {
@@ -412,45 +423,40 @@ function updateAverageGrade(difficulty, grade) {
         return;
     }
 
-    logArray.push(newGradeNumber); // Add New Grade to Array
+    logArray.push(newGradeNumber); // Add the new grade to the array
 
-    if (logArray.length >= 10) {
-        logArray.shift(); // Remove Oldest Grade Entry if Exceeds 10
+    if (logArray.length > 10) {
+        logArray.shift(); // Remove the oldest grade if the array exceeds 10 entries
     }
 
-    localStorage.setItem(logKey, JSON.stringify(logArray)); // Save the Log Array to Local Storage
+    // Save the grade type and log array to localStorage
+    localStorage.setItem(logKey, JSON.stringify({ grades: logArray, type: gradeType }));
 
-    const sortedGrades = logArray.slice().sort((a, b) => a - b); // Sort Grades in Ascending Order
-    let medianGrade; // Initialize Median Grade
+    // Calculate the median grade
+    const sortedGrades = logArray.slice().sort((a, b) => a - b); // Sort grades in ascending order
+    let medianGrade;
 
     if (sortedGrades.length % 2 === 0) {
-        const mid1 = sortedGrades[sortedGrades.length / 2 - 1]; // Get the First Middle Value
-        const mid2 = sortedGrades[sortedGrades.length / 2]; // Get the Second Middle Value
-        medianGrade = (mid1 + mid2) / 2; // Calculate the Median Grade
+        const mid1 = sortedGrades[sortedGrades.length / 2 - 1];
+        const mid2 = sortedGrades[sortedGrades.length / 2];
+        medianGrade = (mid1 + mid2) / 2; // Average the two middle values
     } else {
-        medianGrade = sortedGrades[Math.floor(sortedGrades.length / 2)]; // Get the Middle Value
+        medianGrade = sortedGrades[Math.floor(sortedGrades.length / 2)]; // Take the middle value
     }
 
     console.log(`Raw median grade for ${difficulty} (unrounded):`, medianGrade);
 
     let medianGradeText;
-    if (difficulty.startsWith("roped")) {
-        medianGradeText = sportNumberToGrade(Math.round(medianGrade)); // Convert Median Grade to Text
+    if (gradeType === "yds") {
+        medianGradeText = sportNumberToGrade(Math.round(medianGrade)); // Convert median grade to text
     } else {
-        medianGradeText = numberToGrade(Math.floor(medianGrade)); // Convert Median Grade to Text
+        medianGradeText = numberToGrade(Math.floor(medianGrade)); // Convert median grade to text
     }
 
-    // Update the Grades Object for toprope and lead grades into roped grades
-    if (difficulty.startsWith("toprope") || difficulty.startsWith("lead")) {
-        grades.ropedOnsight = medianGradeText; // Assuming we want to write to ropedOnsight for Onsight and Flash
-        grades.ropedRedpoint = medianGradeText; // Assuming we want to write to ropedRedpoint for Project and Redpoint
-    } else {
-        grades[difficulty] = medianGradeText;
-    }
+    grades[difficulty] = medianGradeText;
 
-    saveToStorage("grades", grades); // Save Grades Object to Local Storage
-    updateElementText(difficulty.replace("toprope", "roped").replace("lead", "roped"), medianGradeText); // Update UI with New Median Grade
-    saveToStorage("grades", grades); // Save Grades Object to Local Storage
+    saveToStorage("grades", grades); // Save grades object to localStorage
+    updateElementText(difficulty, medianGradeText); // Update UI with the new median grade
 }
 
 // Modified `handleLogSubmit` to properly map difficulty
@@ -492,6 +498,7 @@ function handleLogSubmit(event) {
     } else {
         console.warn("Unknown difficulty key:", type, difficulty);
     }
+
     // Update training data separately by actual type
     if (trainingData[type] !== undefined) {
         trainingData[type]++;
@@ -503,7 +510,6 @@ function handleLogSubmit(event) {
     gradeInput.value = "";
     difficultySelect.value = "";
 }
-
 
 /* Public Popup Control Functions */
 function openStreaks(state) {
