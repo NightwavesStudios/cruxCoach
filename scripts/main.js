@@ -66,8 +66,11 @@ const holdsTraits = {
 
 /* Load Grades from Local Storage */
 document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", () => {
+    const processedKeys = {}; // Keep track of processed localStorage keys
+
     Object.keys(localStorage).forEach(key => {
-        if (key.endsWith("Grades") && key !== "grades") {
+        if (key.endsWith("Grades") && key !== "grades" && !processedKeys[key]) {
             const type = key.replace("Grades", "");
             const data = JSON.parse(localStorage.getItem(key));
             if (Array.isArray(data) && data.length) {
@@ -76,17 +79,22 @@ document.addEventListener("DOMContentLoaded", () => {
                     ? (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2
                     : sorted[Math.floor(sorted.length / 2)];
 
-                if (type === "topropeOnsight" || type === "leadOnsight" || type === "ropedOnsight") {
+                if (type === "topropeOnsight" || type === "leadOnsight") {
                     grades.ropedOnsight = sportNumberToGrade(Math.round(median));
-                } else if (type === "topropeRedpoint" || type === "leadRedpoint" || type === "ropedRedpoint") {
+                } else if (type === "topropeRedpoint" || type === "leadRedpoint") {
+                    grades.ropedRedpoint = sportNumberToGrade(Math.round(median));
+                } else if (type === "ropedOnsight") {
+                    grades.ropedOnsight = sportNumberToGrade(Math.round(median));
+                } else if (type === "ropedRedpoint") {
                     grades.ropedRedpoint = sportNumberToGrade(Math.round(median));
                 } else {
                     grades[type] = numberToGrade(Math.round(median));
                 }
+                processedKeys[key] = true; // Mark this key as processed
             }
         }
     });
-    Object.entries(grades).forEach(([key, value]) => updateElementText(key, value)); 
+    Object.entries(grades).forEach(([key, value]) => updateElementText(key, value));
 
 /* Utilities */
 function updateElementText(id, value) {
