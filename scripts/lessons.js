@@ -20,12 +20,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             );
 
         console.log("Filtered lessons:", filtered);
-        titleElem.innerHTML = tag.toLowerCase() === "all"
-    ? "<br>All Lessons"
-    : `<br>${tag.charAt(0).toUpperCase() + tag.slice(1)} Lessons`;
+        titleElem.textContent = tag.toLowerCase() === "all"
+    ? "All Lessons"
+    : `${tag.charAt(0).toUpperCase() + tag.slice(1)} Lessons`;
 
         if (filtered.length === 0) {
-            container.innerHTML = `<p class="no-results">No lessons found for "${tag}".</p>`;
+            const noResultsMessage = document.createElement("p");
+            noResultsMessage.className = "no-results";
+            noResultsMessage.textContent = `No lessons found for "${tag}".`;
+            container.innerHTML = "";
+            container.appendChild(noResultsMessage);
             return;
         }
 
