@@ -154,43 +154,53 @@ header .mode {
 .button-container {
   display: flex;
   justify-content: space-between;
+  /* Ensure buttons are spaced evenly */
   position: absolute;
   bottom: 0;
+  /* Position the container at the bottom */
   left: 0;
   width: 100%;
+  /* Make the container span the full width */
+  padding: 10px;
+  /* Add padding around the container */
+  box-sizing: border-box;
+  /* Include padding in width calculation */
 }
 
 .button-container button {
   flex: 1;
-  height: 40px;
+  /* Make both buttons take up equal width */
+  height: 50px;
+  /* Increase height for better visibility */
   font-size: 16px;
+  /* Adjust font size */
   border: none;
+  /* Remove default borders */
   cursor: pointer;
+  /* Change cursor to pointer on hover */
   text-align: center;
+  /* Center the text inside the buttons */
+  margin: 0 5px;
+  /* Add spacing between buttons */
 }
 
-#addSessionButton {
-  width: 50vw;
-}
+/* Responsive Styling for Mobile */
+@media (max-width: 600px) {
+  .button-container {
+    flex-direction: column;
+    /* Stack buttons vertically on small screens */
+    align-items: center;
+    /* Center align the buttons */
+    padding: 10px 0;
+    /* Add padding for better spacing */
+  }
 
-#submitSessionsButton {
-  width: 50vw;
-}
-
-#journalPopup button {
-  background-color: #4285f499;
-}
-
-#journalPopup button:hover {
-  background-color: #4285f477;
-}
-
-#logPopup button {
-  background-color: #f28c2899;
-}
-
-#logPopup button:hover {
-  background-color: #f28c2877;
+  .button-container button {
+    width: 90%;
+    /* Make buttons take up most of the screen width */
+    margin: 5px 0;
+    /* Add vertical spacing between buttons */
+  }
 }
 
 /* Streaks Styling */
