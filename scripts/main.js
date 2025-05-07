@@ -245,6 +245,37 @@ function togglePopup(id, state = "open") {
     popup.style.display = isOpening ? "block" : "none";
     popup.style.overflowY = isOpening ? "auto" : "";
     document.body.style.overflow = isOpening ? "hidden" : "";
+
+    // Reset log session form when closing the logPopup
+    if (id === "logPopup" && state === "close") {
+        const logSessionsContainer = document.getElementById("logSessionsContainer");
+        logSessionsContainer.innerHTML = ""; // Clear all session fields
+
+        // Add back the original session fields
+        const originalSession = document.createElement("div");
+        originalSession.className = "log-session";
+        originalSession.innerHTML = `
+            <label for="type">Climbing Type: </label>
+            <select id="type" name="type">
+                <option disabled selected hidden>Select Climbing Type</option>
+                <option value="bouldering">Bouldering</option>
+                <option value="toprope">Top Rope</option>
+                <option value="lead">Lead</option>
+                <option value="other">Other</option>
+            </select><br><br>
+
+            <label for="grade">Median Grade:</label>
+            <input id="grade" name="grade"></input><br><br>
+
+            <label for="difficulty">Climbing Difficulty: </label>
+            <select id="difficulty" name="difficulty">
+                <option disabled selected hidden>Select Difficulty</option>
+                <option value="flash">Flash/On-Sight</option>
+                <option value="project">Project/Redpoint</option>
+            </select><br><br>
+        `;
+        logSessionsContainer.appendChild(originalSession);
+    }
 }
 
 function toggleInfoPopup(popupId) {
