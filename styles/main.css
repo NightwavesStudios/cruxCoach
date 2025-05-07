@@ -421,6 +421,68 @@ header .mode {
   margin: 0 0 20px 0;
 }
 
+/* Journal Submit Button Styling */
+#journalForm button[type="submit"] {
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  width: 90%;
+  margin: 0px auto;
+  display: block;
+  padding: 10px 0px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: 1s;
+}
+
+#journalForm button[type="submit"]:hover {
+  background-color: #4285f499;
+}
+@media (max-width: 600px) {
+  #journalPopup {
+    padding-bottom: 30px;
+  }
+
+  #journalForm {
+    margin-bottom: 50px;
+  }
+
+}
+
+/* Shared Style for Log Session Buttons */
+#logPopup .button-container button {
+  background-color: #4285f4; /* Blue background */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Add rounded corners */
+  width: 90%; /* Full width with margin auto */
+  margin: 0px auto; /* Center the button */
+  display: block; /* Block display for full width */
+  padding: 10px 0px; /* Add padding for better appearance */
+  font-size: 16px; /* Adjust font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin-top: 20px; /* Add spacing above the button */
+  transition: 1s; /* Smooth transition for hover effect */
+}
+
+#logPopup .button-container button:hover {
+  background-color: #4285f499; /* Lighter blue on hover */
+}
+
+/* Responsive Styling for Mobile */
+@media (max-width: 600px) {
+  #logPopup .button-container {
+    padding-bottom: 30px; /* Add padding at the bottom */
+  }
+
+  #logPopup .button-container button {
+    width: 90%; /* Ensure buttons take up most of the screen width */
+    margin: 10px auto; /* Center buttons and add spacing */
+  }
+}
+
 /* Content Container Styling */
 #contentContainer {
   position: relative;
