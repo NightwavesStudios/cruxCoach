@@ -511,6 +511,41 @@ function handleLogSubmit(event) {
     difficultySelect.value = "";
 }
 
+function handleJournalSubmit(event) {
+    event.preventDefault();
+
+    const traitMap = {
+        crimp: "Crimp",
+        sloper: "Sloper",
+        pocket: "Pocket",
+        sidepull: "Sidepull",
+        undercling: "Undercling",
+        slab: "Slab",
+        slightOverhang: "Slightoverhang",
+        overhang: "Overhang",
+        cave: "Cave",
+        bigMove: "Bigmove",
+        meticulous: "Meticulous",
+        powerful: "Powerful",
+        routeReading: "Routereading"
+    };
+
+    Object.keys(traitMap).forEach((id) => {
+        const input = document.getElementById(id);
+        const val = parseInt(input?.value, 10) || 0;
+        const key = traitMap[id];
+
+        if (key && val !== 0) {
+            const current = traits[key] || 0;
+            traits[key] = Math.max(-10, Math.min(10, current + val));
+        }
+    });
+
+    saveToStorage("traits", traits);
+    event.target.reset();
+    location.reload();
+}
+
 /* Public Popup Control Functions */
 function openStreaks(state) {
     togglePopup("streaksPopup", state);
