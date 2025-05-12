@@ -9,7 +9,8 @@
     <!-- Description & Charset -->
     <meta name="description"
         content="CruxCoach is a platform to track your climbing progress and improve your skills through advanced tracking and analytics as well as handcrafted multimedia lessons.">
-    <meta name="keywords" content="learn climbing, learn bouldering, bouldering tracker, climbing tracker, rock climbing, climbing tips, bouldering, climbing lessons, climbing training">
+    <meta name="keywords"
+        content="learn climbing, learn bouldering, bouldering tracker, climbing tracker, rock climbing, climbing tips, bouldering, climbing lessons, climbing training">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
 
@@ -18,7 +19,7 @@
     <link rel="icon" href="/assets/dark-favicon.png" type="image/x-icon" media="(prefers-color-scheme: light)">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/assets/favicon.png" type="image/x-icon" media="(prefers-color-scheme: dark)">
-    
+
     <!-- Import Google Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
 
@@ -53,7 +54,8 @@
     <header>
         <img class="logo" src="/assets/favicon.png" alt="Header Logo">
         <h1>CruxCoach</h1>
-        <span class="mode" onclick="openStreaks();"><img src="/assets/streaks.gif" alt="streaks icon" width="24px" height="24px"></img></span>
+        <span class="mode" onclick="openStreaks();"><img src="/assets/streaks.gif" alt="streaks icon" width="24px"
+                height="24px"></img></span>
     </header>
 
     <!-- Streaks Popup Container -->
@@ -80,16 +82,19 @@
     <div class="popup" id="journalPopup">
         <h1>Journal</h1>
         <div id="journalDirectionsContainer">
-        <p>Reflect on your last few climbing sessions and assess each point based on your personal performance. Use the following
-        scale to rate each item:
-        <br><br>
-        -2 = Major Struggle<br>
-        -1 = Minor Struggle<br>
-        0 = Neutral (neither good nor bad)<br>
-        1 = Minor Strength<br>
-        2 = Major Strength<br><br>
-        Leave any field blank if it doesn't apply or you have no input—these will default to zero and will not affect your
-        overall data.</p>
+            <p>Reflect on your last few climbing sessions and assess each point based on your personal performance. Use
+                the following
+                scale to rate each item:
+                <br><br>
+                -2 = Major Struggle<br>
+                -1 = Minor Struggle<br>
+                0 = Neutral (neither good nor bad)<br>
+                1 = Minor Strength<br>
+                2 = Major Strength<br><br>
+                Leave any field blank if it doesn't apply or you have no input—these will default to zero and will not
+                affect your
+                overall data.
+            </p>
         </div>
         <form id="journalForm" onsubmit="handleJournalSubmit(event)">
             <h2>Holds Review</h2>
@@ -220,42 +225,28 @@
     <div class="popup" id="logPopup">
         <h1>Log Session</h1>
         <div id="quickLogDirectionsContainer">
-            <p>Log a climbing session with the type of climbing, average grade you climbed on, and the difficulty you would assocoiate with that median grade.</p>
+            <p>Log a climbing session with the type of climbing, average grade you climbed on, and the difficulty you
+                would assocoiate with that median grade.</p>
         </div>
         <form id="logForm" onsubmit="handleLogSubmit(event)">
-            <div id="logSessionsContainer">
-                <!-- Initial Session Fields -->
-                <div class="log-session">
-                    <label for="type">Climbing Type: </label>
-                    <select id="type" name="type">
-                        <option disabled selected hidden>Select Climbing Type</option>
-                        <option value="bouldering">Bouldering</option>
-                        <option value="toprope">Top Rope</option>
-                        <option value="lead">Lead</option>
-                        <option value="other">Other</option>
-                    </select><br><br>
-            
-                    <label for="grade">Median Grade:</label>
-                    <input id="grade" name="grade" placeholder="Average Grade Climbed for Difficulty (V5, 5.11b, or None if 'Other')"></input><br><br>
-            
-                    <label for="difficulty">Climbing Difficulty: </label>
-                    <select id="difficulty" name="difficulty">
-                        <option disabled selected hidden>Select Difficulty</option>
-                        <option value="flash">Flash/On-Sight</option>
-                        <option value="project">Project/Redpoint</option>
-                    </select><br><br>
-                </div>
-            </div>
+            <label for="type">Climbing Type: </label>
+            <select id="type" name="type">
+                <option disabled selected hidden>Select Climbing Type</option>
+                <option value="bouldering">Bouldering</option>
+                <option value="toprope">Top Rope</option>
+                <option value="lead">Lead</option>
+                <option value="other">Other</option>
+            </select><br><br><br>
+            <label for="grade">Median Grade:</label>
+            <input id="grade"></input><br><br><br>
+            <label for="difficulty">Climbing Difficulty: </label>
+            <select id="difficulty" name="difficulty">
+                <option disabled selected hidden>Select Difficulty</option>
+                <option value="flash">Flash/On-Sight</option>
+                <option value="project">Project/Redpoint</option>
+            </select><br><br><br>
+            <button type="submit" onclick="openLog('close');">Submit</button>
         </form>
-
-                    <div class="button-container">
-                        <!-- Button to Add More Sessions -->
-                        <button type="button" id="addSessionButton">Add Type/Difficulty</button>
-                    
-                        <!-- Submit Button -->
-                        <button type="submit" id="submitSessionsButton">Submit Sessions</button>
-                    </div>
-                    
     </div>
 
     <!-- Content -->
@@ -326,14 +317,16 @@
 
             <!-- Info Popup -->
             <div id="trainingInfoPopup" class="info-popup">
-                <p>This chart shows the distribution of your training types (e.g., Bouldering, Top Rope, Lead, etc.). Use this to analyze how you allocate your climbing time.</p>
+                <p>This chart shows the distribution of your training types (e.g., Bouldering, Top Rope, Lead, etc.).
+                    Use this to analyze how you allocate your climbing time.</p>
                 <button onclick="toggleInfoPopup('trainingInfoPopup', this)">Close</button>
             </div>
         </div>
 
         <!--Training Distribution Info Popup -->
         <div id="trainingInfoPopup" class="info-popup">
-            <p>This chart shows the distribution of your training types (e.g., Bouldering, Top Rope, Lead, etc.). Use this to
+            <p>This chart shows the distribution of your training types (e.g., Bouldering, Top Rope, Lead, etc.). Use
+                this to
                 analyze how you allocate your climbing time.</p>
             <button onclick="toggleInfoPopup('trainingInfoPopup', this)">Close</button>
         </div>
@@ -379,7 +372,8 @@
 
         <!-- Holds Breakdown Info Popup -->
         <div id="holdsBreakdownInfoPopup" class="info-popup">
-            <p>Shows the holds you are most and least comfortable. Holds far right you can focus less on while holds to the left you need to improve in. Holds near the center are neither a strong or weaksuit of yours.</p>
+            <p>Shows the holds you are most and least comfortable. Holds far right you can focus less on while holds to
+                the left you need to improve in. Holds near the center are neither a strong or weaksuit of yours.</p>
             <button onclick="toggleInfoPopup('holdsBreakdownInfoPopup', this)">Close</button>
         </div>
 
@@ -394,7 +388,9 @@
 
         <!-- Style Breakdown Info Popup -->
         <div id="styleBreakdownInfoPopup" class="info-popup">
-            <p>Datapoints close to their name making a nice smooth shape are good while others far away and on the opposite side are styles that aren't your best. Points in the middle are neutral and signify that you neither are strong or weak in that style of climbing.</p>
+            <p>Datapoints close to their name making a nice smooth shape are good while others far away and on the
+                opposite side are styles that aren't your best. Points in the middle are neutral and signify that you
+                neither are strong or weak in that style of climbing.</p>
             <button onclick="toggleInfoPopup('styleBreakdownInfoPopup', this)">Close</button>
         </div>
 
