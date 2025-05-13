@@ -67,19 +67,22 @@
         <div class="streaks-content">
             <br>
             <h3>Weekly Climbing Goal</h3>
-            <p class="streak-display"><span class="material-icons">local_fire_department</span><span><b>4</b></span></p>
-            <p>Goal: Climb <span>2</span> times a week</p>
+            <p class="streak-display"><span class="material-icons">local_fire_department</span><span id="streakCount"><b>0</b></span></p>
+            <p>Goal: Climb <span id="weeklyGoal">2</span> times a week</p>
+
             <div class="slider-container">
                 <div class="slider"></div>
                 <div class="filled-slider"></div>
             </div>
             <p><span>1/2</span></p>
-            <br><br><button>Edit Goal</button>
+            <br><br><button>Edut Goal</button>
         </div>
+
     </div>
 
     <!-- Journal Popup Container -->
     <div class="popup" id="journalPopup">
+                <span class="exit material-icons" onclick="openJournal('close');">close</span>
         <h1>Journal</h1>
         <div id="journalDirectionsContainer">
             <p>Reflect on your last few climbing sessions and assess each point based on your personal performance. Use
@@ -223,6 +226,7 @@
 
     <!-- Quick Log Popup Container -->
     <div class="popup" id="logPopup">
+        <span class="exit material-icons" onclick="openLog('close');">close</span>
         <h1>Log Session</h1>
         <div id="quickLogDirectionsContainer">
             <p>Log a climbing session with the type of climbing, average grade you climbed on, and the difficulty you
@@ -230,22 +234,22 @@
         </div>
         <form id="logForm" onsubmit="handleLogSubmit(event)">
             <label for="type">Climbing Type: </label>
-            <select id="type" name="type">
-                <option disabled selected hidden>Select Climbing Type</option>
+            <select id="type" name="type" required>
+                <option value="" disabled selected>Select Climbing Type</option>
                 <option value="bouldering">Bouldering</option>
                 <option value="toprope">Top Rope</option>
                 <option value="lead">Lead</option>
                 <option value="other">Other</option>
             </select><br><br><br>
             <label for="grade">Median Grade:</label>
-            <input id="grade"></input><br><br><br>
+            <input id="grade" placeholder="Ex: V4, 5.9, 5.11c" required></input><br><br><br>
             <label for="difficulty">Climbing Difficulty: </label>
-            <select id="difficulty" name="difficulty">
-                <option disabled selected hidden>Select Difficulty</option>
+            <select id="difficulty" name="difficulty" required>
+                <option value="" disabled selected>Select Difficulty</option>
                 <option value="flash">Flash/On-Sight</option>
                 <option value="project">Project/Redpoint</option>
             </select><br><br><br>
-            <button type="submit" onclick="openLog('close');">Submit</button>
+            <button type="submit">Submit</button>
         </form>
     </div>
 

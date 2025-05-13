@@ -176,11 +176,21 @@ header .mode {
 }
 
 #logPopup button {
-  background-color: #4285f499;
+  background-color: #f28c2899;
 }
 
 #logPopup button:hover {
   background-color: #f28c2877;
+}
+
+.popup .exit {
+  position: fixed;
+  cursor: pointer;
+  top: 5px;
+  right: 5px;
+  color: black;
+  border: none;
+  font-size: 25px;
 }
 
 /* Streaks Styling */

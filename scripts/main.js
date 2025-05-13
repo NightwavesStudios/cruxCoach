@@ -1,4 +1,4 @@
-//TODO: At type local variable reconizing toprope and lead as the same and writing them respectively to either ropedOnsight or ropedRedpoint. Have different array for averaging again and create another conversion above for roped with 5.5-5.15.. Code: /* Default Data */
+/* Data Storage */
 const defaultGrades = {
     boulderingFlash: "None",
     boulderingProject: "None",
@@ -29,7 +29,7 @@ const defaultTraits = {
     Cave: 0,
 };
 
-/* Safe Storage Utilities */
+/* Load Utility and Save Local Storage Function */
 function loadSafe(key, fallback = {}) {
     try {
         const parsed = JSON.parse(localStorage.getItem(key));
@@ -94,7 +94,7 @@ Object.keys(localStorage).forEach(key => {
 });
 Object.entries(grades).forEach(([key, value]) => updateElementText(key, value)); //Update the UI with the loaded grades
 
-/* Utilities */
+/* Update Text in Element */
 function updateElementText(id, value) {
     const el = document.getElementById(id);
     if (el) {
@@ -163,26 +163,33 @@ function sportGradeToNumber(grade) {
         "5.7": 2,
         "5.8": 3,
         "5.9": 4,
+        "5.10": 6,
         "5.10a": 5,
         "5.10b": 6,
         "5.10c": 7,
         "5.10d": 8,
+        "5.11": 10,
         "5.11a": 9,
         "5.11b": 10,
         "5.11c": 11,
         "5.11d": 12,
+        "5.12": 14,
         "5.12a": 13,
         "5.12b": 14,
         "5.12c": 15,
         "5.12d": 16,
+        "5.13": 18,
         "5.13a": 17,
         "5.13b": 18,
+        "5.13": 20,
         "5.13c": 19,
         "5.13d": 20,
+        "5.14": 22,
         "5.14a": 21,
         "5.14b": 22,
         "5.14c": 23,
         "5.14d": 24,
+        "5.15": 26,
         "5.15a": 25,
         "5.15b": 26,
         "5.15c": 27,
@@ -267,15 +274,7 @@ function safeLazyLoad() {
     }
 }
 
-/* Scroll Animations */
-function checkScroll() {
-    document.querySelectorAll('.scroll-element').forEach(el => {
-        const inView = el.getBoundingClientRect().top < window.innerHeight;
-        el.classList.toggle('scrolled', inView);
-    });
-}
-
-/* DOM Ready */
+/* DOM Loaded Safety Function */
 document.addEventListener("DOMContentLoaded", () => {
 
     Object.entries(grades).forEach(([key, value]) => updateElementText(key, value));
@@ -291,14 +290,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Training Chart
+    /** Training Distribution Pie Chart **/
     const chartElement = document.getElementById("trainingDistributionChart");
     if (chartElement) {
         updateTrainingChart();
     }
 
-    // Holds Breakdown Chart
-const holdsChartElement = document.getElementById("holdsBreakdownChart");
+    /** Holds Breakdown Chart **/
+  const holdsChartElement = document.getElementById("holdsBreakdownChart");
     if (holdsChartElement) {
         new Chart(holdsChartElement, {
             type: "bar",
@@ -341,7 +340,7 @@ const holdsChartElement = document.getElementById("holdsBreakdownChart");
         });
     }
 
-    // Style Breakdown Chart
+    /** Style Breakdown Chart **/
     const styleChartElement = document.getElementById("styleBreakdownChart");
     if (styleChartElement) {
         new Chart(styleChartElement, {
@@ -382,16 +381,13 @@ const holdsChartElement = document.getElementById("holdsBreakdownChart");
         });
     }
 
-    // Popup Bindings
+    /** Bind Streaks Buttons **/
     bindClick(".mode", () => togglePopup("streaksPopup", "open"));
     bindClick(".streaks-header .exit", () => togglePopup("streaksPopup", "close"));
 
-    // Lazyload
+    /** Lazyload Images **/
     safeLazyLoad();
 
-    // Scroll animations
-    checkScroll();
-    document.addEventListener("scroll", checkScroll);
 });
 
 /* Form Submission Actions */
@@ -459,7 +455,6 @@ function updateAverageGrade(difficulty, grade) {
     updateElementText(difficulty, medianGradeText); // Update UI with the new median grade
 }
 
-// Modified `handleLogSubmit` to properly map difficulty
 function handleLogSubmit(event) {
     event.preventDefault();
 
@@ -471,9 +466,11 @@ function handleLogSubmit(event) {
     const grade = gradeInput.value.trim();
     const difficulty = difficultySelect.value;
 
-    if (!type || !grade || !difficulty) {
-        alert("Please complete all fields.");
+    if (!type || (type !== "other" && (!grade || !difficulty))) {
+        alert("Please complete all required fields.");
         return;
+    } else {
+        openLog('close');
     }
 
     let gradeDifficultyKey;
@@ -550,7 +547,7 @@ function handleJournalSubmit(event) {
 function openStreaks(state) {
     togglePopup("streaksPopup", state);
 }
-openStreaks("close");
+openStreaks("close"); //Default to Closed Popup
 
 function openJournal(state) {
     togglePopup("journalPopup", state);
@@ -607,7 +604,7 @@ function clearData() {
     }
 }
 
-let trainingChart; // Global Variable to Store Chart Instance
+let trainingChart;
 
 function updateTrainingChart() {
     
