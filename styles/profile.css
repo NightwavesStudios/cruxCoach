@@ -60,6 +60,7 @@
     border-radius: 6px;
     border: 1px solid #1f1f1f;
     font-size: 16px;
+    max-width: 95%;
     background-color: white;
     cursor: pointer;
 }
