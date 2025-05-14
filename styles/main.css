@@ -6,6 +6,7 @@
 body {
   font-family: arial;
   margin: 0px;
+  overflow-x: hidden;
   background-color: #fff;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -103,7 +104,7 @@ textarea {
 /* Header Styling */
 header {
   position: fixed;
-  z-index: 100;
+  z-index: 1000;
   height: 40px;
   width: 100vw;
   top: 0px;
@@ -619,7 +620,6 @@ nav a:hover {
   cursor: pointer;
   font-size: 24px;
   color: #666;
-  z-index: 10;
 }
 
 .info-button:hover {

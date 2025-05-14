@@ -18,7 +18,53 @@
     line-height: 1.6;
 }
 
-/* Customization Options */
+/* Save/Upload Data Styling */
+#dataControls {
+    position: relative;
+    margin-top: 20px;
+    width: 95vw;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    justify-content: center;
+}
+
+#dataControls h2 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#dataControls button {
+    background-color: #4285f4;
+    color: white;
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+#dataControls button:hover {
+    background-color: #356ec9;
+}
+
+#dataControls input[type="file"] {
+    padding: 8px;
+    margin: 5px;
+    border-radius: 6px;
+    border: 1px solid #1f1f1f;
+    font-size: 16px;
+    background-color: white;
+    cursor: pointer;
+}
+
+/* Customization Options Styling */
 #customizationOptions {
     position: relative;
     margin-top: 20px;
@@ -69,7 +115,7 @@
     cursor: pointer;
 }
 
-/* Guest Notice */
+/* Guest Notice Styling */
 #guestModeNotification {
     background-color: #fff3cd;
     border: 1px solid #ffeeba;
@@ -80,7 +126,7 @@
     font-size: 14px;
 }
 
-/* Logout Button */
+/* Logout Styling */
 #logoutOption {
     margin: 20px 0;
 }
@@ -99,7 +145,6 @@
     cursor: pointer;
 }
 
-/* Responsive Fixes */
 @media (max-width: 600px) {
 
     #profileInfo,
