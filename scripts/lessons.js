@@ -1,72 +1,71 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    let tag = urlParams.get("tag");
+  const urlParams = new URLSearchParams(window.location.search);
+  let tag = urlParams.get("tag");
 
-    if (!tag) tag = "all";
+  if (!tag) tag = "all";
 
-    console.log(`Filtering lessons for tag: ${tag}`);
-    const titleElem = document.getElementById("filterTitle");
-    const container = document.getElementById("filteredCardsContainer");
+  console.log(`Filtering lessons for tag: ${tag}`);
+  const titleElem = document.getElementById("filterTitle");
+  const container = document.getElementById("filteredCardsContainer");
 
-    try {
-        const response = await fetch("/train/data/lessons.json");
-        const lessons = await response.json();
-        console.log("Fetched lessons:", lessons);
+  try {
+    const response = await fetch("/train/data/lessons.json");
+    const lessons = await response.json();
+    console.log("Fetched lessons:", lessons);
 
-        const filtered = tag.toLowerCase() === "all"
-            ? lessons
-            : lessons.filter(lesson =>
-                lesson.tags.some(t => t.toLowerCase() === tag.toLowerCase())
-            );
+    const filtered =
+      tag.toLowerCase() === "all"
+        ? lessons
+        : lessons.filter((lesson) =>
+            lesson.tags.some((t) => t.toLowerCase() === tag.toLowerCase())
+          );
 
-        console.log("Filtered lessons:", filtered);
-        titleElem.textContent = tag.toLowerCase() === "all"
-    ? "All Lessons"
-    : `${tag.charAt(0).toUpperCase() + tag.slice(1)} Lessons`;
+    console.log("Filtered lessons:", filtered);
+    titleElem.textContent =
+      tag.toLowerCase() === "all"
+        ? "All Lessons"
+        : `${tag.charAt(0).toUpperCase() + tag.slice(1)} Lessons`;
 
-        if (filtered.length === 0) {
-            const noResultsMessage = document.createElement("p");
-            noResultsMessage.className = "no-results";
-            noResultsMessage.textContent = `No lessons found for "${tag}".`;
-            container.innerHTML = "";
-            container.appendChild(noResultsMessage);
-            return;
-        }
+    if (filtered.length === 0) {
+      const noResultsMessage = document.createElement("p");
+      noResultsMessage.className = "no-results";
+      noResultsMessage.textContent = `No lessons found for "${tag}".`;
+      container.innerHTML = "";
+      container.appendChild(noResultsMessage);
+      return;
+    }
 
-        filtered.forEach(lesson => {
-            const card = document.createElement("a");
-            card.href = lesson.url;
-            card.innerHTML = `
+    filtered.forEach((lesson) => {
+      const card = document.createElement("a");
+      card.href = lesson.url;
+      card.innerHTML = `
                 <div class="lesson-card">
                     <img class="lazyload" src="${lesson.thumbnail}" alt="${lesson.title}">
                     <h4>${lesson.title}</h4>
                     <p><span class="type">${lesson.type}</span>, <span class="length">${lesson.length}</span></p>
                 </div>
             `;
-            container.appendChild(card);
-        });
+      container.appendChild(card);
+    });
 
-        if (typeof lazyload === "function") {
-            lazyload();
-        }
-    } catch (err) {
-        console.error("Failed to load lessons.json:", err);
+    if (typeof lazyload === "function") {
+      lazyload();
     }
+  } catch (err) {
+    console.error("Failed to load lessons.json:", err);
+  }
 });
 
 function updateTitleFromQuery() {
-
-    if (queryString) {
-
-        if (tag) {
-            document.title = `CruxCoach - Filter '${tag}' Tags`;
-        } else {
-            document.title = 'CruxCoach - Filter Lessons';
-        }
+  if (queryString) {
+    if (tag) {
+      document.title = `CruxCoach - Filter '${tag}' Tags`;
     } else {
-        document.title = 'CruxCoach - Filter Lessons';
+      document.title = "CruxCoach - Filter Lessons";
     }
-
+  } else {
+    document.title = "CruxCoach - Filter Lessons";
+  }
 }
 
 updateTitleFromQuery();
