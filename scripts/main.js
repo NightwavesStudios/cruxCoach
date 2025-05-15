@@ -681,5 +681,3 @@ document.addEventListener("DOMContentLoaded", () => {
     updateTrainingChart();
   }
 });
-
-myUndefinedFunction(); //Sentry Test Commit (Remove After Verification)
