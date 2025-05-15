@@ -26,6 +26,14 @@
         gtag('config', 'G-WQXN250GC5');
     </script>
 
+    <!-- Sentry -->
+    <script src="https://js.sentry-cdn.com/6ca1c24a7e126c48e74a0c8c90ccacda.min.js" crossorigin="anonymous"></script>
+    <script>
+        Sentry.onLoad(function () {
+            Sentry.init({});
+        });
+    </script>
+
     <!-- Import Google Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
 
@@ -41,15 +49,17 @@
     <header>
         <img class="logo" src="/assets/favicon.png" alt="Header Logo">
         <h1>CruxCoach</h1>
-        <span class="material-icons mode">notifications</span>
+        <span class="material-icons mode">login</span>
+
     </header>
-    
+
     <!-- Content -->
     <div id="contentContainer">
 
         <!-- Guest Mode Notification --><br><br>
         <div id="guestModeNotification">
-            <p>You are currently browsing as a guest. Log in is currently not available in the Alpha version of this application.</p>
+            <p>You are currently browsing as a guest. Log in is currently not available in the Alpha version of this
+                application.</p>
         </div>
 
         <!-- Profile Information -->
@@ -72,7 +82,8 @@
         <!-- Customization Options -->
         <div id="customizationOptions">
             <h3>Customize Your Experience</h3>
-            <p>Adjust settings to improve your climbing journey. Set up your preferences for goals, username, email and more.</p>
+            <p>Adjust settings to improve your climbing journey. Set up your preferences for goals, username, email and
+                more.</p>
 
             <!-- Preferences Form -->
             <form>

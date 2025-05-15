@@ -24,12 +24,20 @@
         gtag('config', 'G-WQXN250GC5');
     </script>
 
+    <!-- Sentry -->
+    <script src="https://js.sentry-cdn.com/6ca1c24a7e126c48e74a0c8c90ccacda.min.js" crossorigin="anonymous"></script>
+    <script>
+        Sentry.onLoad(function () {
+            Sentry.init({});
+        });
+    </script>
+
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
 
     <!-- Styles -->
     <link rel="stylesheet" href="/styles/main.css">
-    
+
     <!-- Error Styling -->
     <style>
         body {
@@ -83,7 +91,8 @@
     <header>
         <img class="logo" src="/assets/favicon.png" alt="CruxCoach Logo">
         <h1>CruxCoach</h1>
-        <span class="material-icons mode">notifications</span>
+        <span class="material-icons mode">login</span>
+
     </header>
 
     <div class="error-container">

@@ -9,7 +9,8 @@
     <!-- Description & Charset -->
     <meta name="description"
         content="Discover custom curated workouts, articles, and videos to help improve your climbing based on your strong and strugglepoints.">
-    <meta name="keywords" content="learn climbing, learn bouldering, climb coaching, progress tracking, rock climbing, climbing tips, bouldering">
+    <meta name="keywords"
+        content="learn climbing, learn bouldering, climb coaching, progress tracking, rock climbing, climbing tips, bouldering">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
 
@@ -32,6 +33,14 @@
         gtag('config', 'G-WQXN250GC5');
     </script>
 
+    <!-- Sentry -->
+    <script src="https://js.sentry-cdn.com/6ca1c24a7e126c48e74a0c8c90ccacda.min.js" crossorigin="anonymous"></script>
+    <script>
+        Sentry.onLoad(function () {
+            Sentry.init({});
+        });
+    </script>
+
     <!-- Import External Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
@@ -47,7 +56,8 @@
     <header>
         <img class="logo" src="/assets/favicon.png" alt="Header Logo">
         <h1>CruxCoach</h1>
-        <span class="material-icons mode">notifications</span>
+        <span class="material-icons mode">login</span>
+
     </header>
 
     <!-- Content -->
@@ -56,13 +66,13 @@
         <!-- Popular Training Container -->
         <div id="popularTrainingContainer">
 
-            <br><h3 class="align-center">Popular Resources</h3>
+            <br>
+            <h3 class="align-center">Popular Resources</h3>
 
             <div id="popularCardsContainer">
 
                 <div class="popular-card">
-                    <img
-                        class="lazyload"
+                    <img class="lazyload"
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s"
                         alt="Popular Resource Cover Image">
                     <h4>Title</h4>
@@ -73,8 +83,7 @@
                 </div>
 
                 <div class="popular-card">
-                    <img
-                        class="lazyload"
+                    <img class="lazyload"
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s"
                         alt="Popular Resource Cover Image">
                     <h4>Title</h4>
@@ -85,8 +94,7 @@
                 </div>
 
                 <div class="popular-card">
-                    <img
-                        class="lazyload"
+                    <img class="lazyload"
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s"
                         alt="Popular Resource Cover Image">
                     <h4>Title</h4>
@@ -113,39 +121,44 @@
                 <!-- Crimps Collection -->
                 <a href="/train/filter.html?tag=crimp">
                     <div class="collection-card">
-                        <img class="lazyload" src="https://i.ibb.co/s90Yms7M/crimp-Cover.jpg" alt="Crimp Collection Cover">
+                        <img class="lazyload" src="https://i.ibb.co/s90Yms7M/crimp-Cover.jpg"
+                            alt="Crimp Collection Cover">
                         <h4>Crimps</h4>
                     </div>
                 </a>
-                
+
                 <!-- Slopers Collection -->
                 <a href="/train/filter.html?tag=sloper">
                     <div class="collection-card">
-                        <img class="lazyload" src="https://i.ibb.co/nSRY9tF/sloper-Cover.jpg" alt="Sloper Collection Cover">
+                        <img class="lazyload" src="https://i.ibb.co/nSRY9tF/sloper-Cover.jpg"
+                            alt="Sloper Collection Cover">
                         <h4>Slopers</h4>
                     </div>
                 </a>
-                
+
                 <!-- Pockets Collection -->
                 <a href="/train/filter.html?tag=pocket">
                     <div class="collection-card">
-                        <img class="lazyload" src="https://i.ibb.co/d4rJMYFm/pocket-Cover.jpg" alt="Pockets Collection Cover">
+                        <img class="lazyload" src="https://i.ibb.co/d4rJMYFm/pocket-Cover.jpg"
+                            alt="Pockets Collection Cover">
                         <h4>Pockets</h4>
                     </div>
                 </a>
-                
+
                 <!-- Sidepulls Collection -->
                 <a href="/train/filter.html?tag=sidepull">
                     <div class="collection-card">
-                        <img class="lazyload" src="https://i.ibb.co/dCKZ9hZ/sidepull-Cover.jpg" alt="Sidepull Collection Cover">
+                        <img class="lazyload" src="https://i.ibb.co/dCKZ9hZ/sidepull-Cover.jpg"
+                            alt="Sidepull Collection Cover">
                         <h4>Sidepulls</h4>
                     </div>
                 </a>
-                
+
                 <!-- Underclings Collection -->
                 <a href="/train/filter.html?tag=undercling">
                     <div class="collection-card">
-                        <img class="lazyload" src="https://i.ibb.co/53q55TK/Round-Undercling.jpg" alt="Undercling Collection Cover">
+                        <img class="lazyload" src="https://i.ibb.co/53q55TK/Round-Undercling.jpg"
+                            alt="Undercling Collection Cover">
                         <h4>Underclings</h4>
                     </div>
                 </a>
@@ -171,7 +184,7 @@
                         <h4>Slabs</h4>
                     </div>
                 </a>
-                
+
                 <!-- Slight Overhang Collection -->
                 <a href="/train/filter.html?tag=slight-overhang">
                     <div class="collection-card">
@@ -181,7 +194,7 @@
                         <h4>Slight Overhangs</h4>
                     </div>
                 </a>
-                
+
                 <!-- Overhang Collection -->
                 <a href="/train/filter.html?tag=overhang">
                     <div class="collection-card">
@@ -191,7 +204,7 @@
                         <h4>Overhangs</h4>
                     </div>
                 </a>
-                
+
                 <!-- Roof/Cave Collection -->
                 <a href="/train/filter.html?tag=cave">
                     <div class="collection-card">
@@ -223,7 +236,7 @@
                         <h4>Big Move</h4>
                     </div>
                 </a>
-                
+
                 <!-- Meticulous Collection -->
                 <a href="/train/filter.html?tag=meticulous">
                     <div class="collection-card">
@@ -233,7 +246,7 @@
                         <h4>Meticulous</h4>
                     </div>
                 </a>
-                
+
                 <!-- Powerful Collection -->
                 <a href="/train/filter.html?tag=powerful">
                     <div class="collection-card">
@@ -243,7 +256,7 @@
                         <h4>Powerful</h4>
                     </div>
                 </a>
-                
+
                 <!-- Route Reading Collection -->
                 <a href="/train/filter.html?tag=route-reading">
                     <div class="collection-card">
@@ -253,7 +266,7 @@
                         <h4>Route Reading</h4>
                     </div>
                 </a>
-                
+
             </div>
 
         </div>

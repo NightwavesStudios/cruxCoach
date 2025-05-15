@@ -134,7 +134,6 @@ header .mode {
   right: 10px;
   display: flex;
   align-items: center;
-  height: 100%;
   cursor: pointer;
 }
 

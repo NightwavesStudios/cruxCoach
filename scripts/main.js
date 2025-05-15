@@ -245,15 +245,6 @@ function sportNumberToGrade(number) {
 }
 
 /* Popup Functions */
-function bindClick(selector, handler) {
-  const el = document.querySelector(selector);
-  if (el) {
-    el.addEventListener("click", handler);
-  } else {
-    console.error(`Element "${selector}" not found.`);
-  }
-}
-
 function togglePopup(id, state = "open") {
   const popup = document.getElementById(id);
   if (!popup) {
@@ -595,7 +586,7 @@ window.onload = window.onresize = function () {
 
   /* Set All Buttons to the Maximum Height */
   buttons.forEach(function (button) {
-    button.style.height = maxHeight + "px"; //Set Each Button's Height to maxHeight
+    button.style.height = maxHeight + 10 + "px"; //Set Each Button's Height to maxHeight
   });
 };
 
@@ -672,7 +663,7 @@ function updateTrainingChart() {
 document.addEventListener("DOMContentLoaded", () => {
   Object.entries(grades).forEach(([key, value]) =>
     updateElementText(key, value)
-  ); //Update the UI with Loaded Grades
+  );
 
   /* Update Traits */
   Object.entries(traits).forEach(([key, value]) => {
@@ -690,3 +681,5 @@ document.addEventListener("DOMContentLoaded", () => {
     updateTrainingChart();
   }
 });
+
+myUndefinedFunction(); //Sentry Test Commit (Remove After Verification)
