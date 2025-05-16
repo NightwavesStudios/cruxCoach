@@ -584,13 +584,13 @@ function handleLogSubmit(event) {
     console.warn("Unknown difficulty key:", type, difficulty);
   }
 
-  // Update training data separately by actual type
   if (trainingData[type] !== undefined) {
     trainingData[type]++;
     saveToStorage("trainingData", trainingData);
   }
 
-  // Clear form fields
+  updateTrainingChart();
+
   typeSelect.value = "";
   gradeInput.value = "";
   difficultySelect.value = "";
