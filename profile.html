@@ -26,14 +26,6 @@
         gtag('config', 'G-WQXN250GC5');
     </script>
 
-    <!-- Sentry -->
-    <script src="https://js.sentry-cdn.com/6ca1c24a7e126c48e74a0c8c90ccacda.min.js" crossorigin="anonymous"></script>
-    <script>
-        Sentry.onLoad(function () {
-            Sentry.init({});
-        });
-    </script>
-
     <!-- Import Google Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
 
@@ -89,10 +81,12 @@
             <form>
                 <label for="username">Update Username: </label>
                 <input type="text" id="username" name="username">
-                <label for="username">Update Email: </label>
+                <label for="email">Update Email: </label>
                 <input type="email" id="email" name="email">
-                <label for="goal">Weekly Climbing Goal: </label>
-                <input type="number" id="goal" name="goal" min="1" max="7" value="2">
+                <label for="password">Update Password: </label>
+                <input type="password" id="password" name="password" pattern=".{8,}">
+                <label for="confirmPassword">Confirm Password: </label>
+                <input type="password" id="confirmPassword" name="password" pattern=".{8,}">
                 <button type="submit">Save</button>
             </form>
         </div>

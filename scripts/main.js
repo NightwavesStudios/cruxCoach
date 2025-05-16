@@ -357,9 +357,12 @@ document.addEventListener("DOMContentLoaded", () => {
             label: "Style Traits",
             data: Object.values(styleTraits),
             backgroundColor: "rgba(66, 133, 244, 0.2)",
-            borderColor: "rgba(66, 133, 244, 0.8)",
+            borderColor: "#0073ff",
+            pointBackgroundColor: "#0073ff",
+            pointBorderColor: "#0073ff",
+            pointHoverBackgroundColor: "#0073ff",
+            pointHoverBorderColor: "#0073ff",
             borderWidth: 2,
-            pointBackgroundColor: "rgba(66, 133, 244, 1)",
           },
         ],
       },
@@ -586,7 +589,7 @@ window.onload = window.onresize = function () {
 
   /* Set All Buttons to the Maximum Height */
   buttons.forEach(function (button) {
-    button.style.height = maxHeight + 10 + "px"; //Set Each Button's Height to maxHeight
+    button.style.height = maxHeight + "px"; //Set Each Button's Height to maxHeight
   });
 };
 

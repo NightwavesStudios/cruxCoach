@@ -91,7 +91,7 @@
   gap: 10px;
 }
 
-#customizationOptions input[type="number"],
+#customizationOptions input[type="password"],
 #customizationOptions input[type="text"],
 #customizationOptions input[type="email"] {
   padding: 10px;
