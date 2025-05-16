@@ -66,6 +66,13 @@ const holdsTraits = {
   Undercling: traits.Undercling,
 };
 
+const wallTraits = {
+  Slab: traits.Slab,
+  Slightoverhang: traits.Slightoverhang,
+  Overhang: traits.Overhang,
+  Cave: traits.Cave,
+};
+
 /* Load Grades from Local Storage */
 Object.keys(localStorage).forEach((key) => {
   if (key.endsWith("Grades") && key !== "grades") {
@@ -141,7 +148,6 @@ function gradeToNumber(grade) {
 
   return gradeMap[grade] !== undefined ? gradeMap[grade] : NaN; //Return NaN for invalid grades
 }
-
 function numberToGrade(number) {
   const gradeMap = {
     0: "VB",
@@ -166,7 +172,6 @@ function numberToGrade(number) {
 
   return gradeMap[number] !== undefined ? gradeMap[number] : "None"; //Return "None" for invalid numbers
 }
-
 function sportGradeToNumber(grade) {
   const gradeMap = {
     5.5: 0,
@@ -208,7 +213,6 @@ function sportGradeToNumber(grade) {
   };
   return gradeMap[grade] !== undefined ? gradeMap[grade] : NaN;
 }
-
 function sportNumberToGrade(number) {
   const gradeMap = {
     0: "5.5",
@@ -274,6 +278,32 @@ function safeLazyLoad() {
   } else {
     console.warn("Lazyload function not found.");
   }
+}
+
+/* Display Tip */
+const tipDisplay = document.getElementById("tipDisplay");
+const tips = [
+  "Only your last 10 logged grades are saved, keeping your data fresh and recent!",
+  "It can take up to 5-10 journals for your data to fully reflect your climbing style and skills.",
+  "The more you log, the more accurate your data becomes!",
+  "You can download your data on the profile page as a backup, and upload it later as a backup or onto a different device!",
+  "You can use the 'Clear Data' button on the profile page to reset your data if you want to start fresh. Do this with caution!",
+  "The train page is a place to learn through articles and videos, and practice through exercises!",
+  "If you just want to expore all the content, click the 'view all' button on the train page!",
+  "To sort the content, click a collection to view articles, videos, and exercises specific to that collection!",
+  "View the Holds Breakdown Chart to see your strengths and weaknesses in different climbing holds.",
+  "View the Style Breakdown Chart to see your strengths and weaknesses in different climbing styles.",
+  "The Training Distribution Chart shows where you spend most of your climbing time.",
+];
+function updateTip() {
+  let previousIndex = -1;
+  let randomIndex;
+  do {
+    randomIndex = Math.floor(Math.random() * tips.length);
+  } while (randomIndex === previousIndex && tips.length > 1);
+
+  previousIndex = randomIndex;
+  tipDisplay.innerHTML = tips[randomIndex];
 }
 
 /* DOM Loaded Safety Function */
@@ -390,6 +420,53 @@ document.addEventListener("DOMContentLoaded", () => {
           },
         },
         layout: { padding: { top: 0, bottom: 0 } },
+      },
+    });
+  }
+
+  /** Wall Angle Breakdown Chart **/
+  const angleChartElement = document.getElementById("wallAngleChart");
+  if (angleChartElement) {
+    new Chart(angleChartElement, {
+      type: "bar",
+      data: {
+        labels: Object.keys(wallTraits),
+        datasets: [
+          {
+            label: "Trait Strength",
+            data: Object.values(wallTraits),
+            backgroundColor: Object.values(wallTraits).map((val) =>
+              val > 0 ? "#34A853cc" : val < 0 ? "#EA4335cc" : "#999999cc"
+            ),
+          },
+        ],
+      },
+      options: {
+        indexAxis: "y",
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: (ctx) =>
+                `${ctx.label}: ${ctx.raw > 0 ? "+" : ""}${ctx.raw}`,
+            },
+          },
+        },
+        scales: {
+          x: {
+            min: -10,
+            max: 10,
+            ticks: {
+              callback: (value) => `${value > 0 ? "+" : ""}${value}`,
+            },
+            title: {
+              display: true,
+              text: "Weak ←→ Strong",
+            },
+          },
+          y: { beginAtZero: true },
+        },
       },
     });
   }
@@ -683,4 +760,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (chartElement) {
     updateTrainingChart();
   }
+
+  updateTip();
 });

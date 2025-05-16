@@ -377,6 +377,21 @@
             <button onclick="toggleInfoPopup('styleBreakdownInfoPopup', this)">Close</button>
         </div>
 
+        <!-- Angle Breakdown Chart Container -->
+        <div id="angleBreakdownContainer">
+            <h3>Wall Angle Breakdown</h3>
+            <button class="info-button" onclick="toggleInfoPopup('angleInfoPopup', this)">
+                <span class="material-icons">info</span>
+            </button>
+            <canvas id="wallAngleChart"></canvas>
+        </div>
+
+        <!-- Angle Breakdown Info Popup -->
+        <div id="angleInfoPopup" class="info-popup">
+            <p>Show your strong and weak climbing wall angles.</p>
+            <button onclick="toggleInfoPopup('angleInfoPopup', this)">Close</button>
+        </div>
+
         <!-- Nav -->
         <br><br><br>
         <nav>

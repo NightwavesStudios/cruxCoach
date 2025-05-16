@@ -486,6 +486,26 @@ nav a:hover {
   display: block;
 }
 
+/* Angle Breakdown Container Styling */
+#angleBreakdownContainer {
+  position: relative;
+  margin-top: 20px;
+  padding: 25px;
+  width: 95vw;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
+  align-items: center;
+  text-align: center;
+}
+
+#angleBreakdownContainer canvas {
+  max-width: 800px;
+  max-height: 400px;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
 /* Info Button Styling */
 .info-button {
   position: absolute;
@@ -536,6 +556,18 @@ nav a:hover {
 
 .info-popup button:hover {
   background-color: #356ac3;
+}
+
+/* Tips Container Styling */
+#tipsContainer {
+  position: relative;
+  margin-top: 50px;
+  padding: 15px;
+  border-radius: 10px;
+  width: 95vw;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  cursor: pointer;
 }
 
 /* Popular Resources Styling */
