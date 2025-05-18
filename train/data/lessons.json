@@ -1,8 +1,9 @@
 [
    {
+      "id": "intro-crimps",
       "title": "Intro to Crimps",
       "type": "Article",
-      "length": "NaN",
+      "length": "5min",
       "tags": [
          "crimp",
          "intro"
@@ -11,6 +12,7 @@
       "url": "/train/lessons/intro-crimps.html"
    },
    {
+      "id": "crimp-technique",
       "title": "Avoiding Injury from Crimping",
       "type": "Article",
       "length": "NaN",
@@ -18,21 +20,24 @@
          "crimp",
          "injury"
       ],
-      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "thumbnail": "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
       "url": "/train/lessons/crimp-injury.html"
    },
    {
+      "id": "long-hang-crimp-workout",
       "title": "Long Hang Crimp Hangboarding Workout",
       "type": "Workout",
-      "length": "NaN",
+      "length": "20-45min",
       "tags": [
          "crimp",
          "exercise"
       ],
-      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
-      "url": "/train/lessons/long-hang-crimp-hangboarding.html"
+      "thumbnail": "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
+      "url": "/train/lessons/long-hang-crimp-workout.html"
    },
+
    {
+      "id": "intro-slopers",
       "title": "Intro to Slopers",
       "type": "Article",
       "length": "NaN",
@@ -44,6 +49,7 @@
       "url": "/train/lessons/intro-slopers.html"
    },
    {
+      "id": "sloper-endurance",
       "title": "Sloper Endurance",
       "type": "Workout",
       "length": "NaN",
@@ -55,6 +61,7 @@
       "url": "/train/lessons/sloper-endurance.html"
    },
    {
+      "id": "sloper-sessions",
       "title": "Sloper-Only Sessions",
       "type": "Practice",
       "length": "NaN",
@@ -66,9 +73,10 @@
       "url": "/train/lessons/sloper-sessions.html"
    },
    {
+      "id": "intro-pockets",
       "title": "Intro to Pockets",
       "type": "Article",
-      "length": "NaN",
+      "length": "5min",
       "tags": [
          "pocket",
          "intro"
@@ -77,6 +85,7 @@
       "url": "/train/lessons/intro-pockets.html"
    },
    {
+      "id": "pocket-finger-loading",
       "title": "Pocket Finger Loading",
       "type": "Workout",
       "length": "NaN",
@@ -87,7 +96,9 @@
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/pocket-finger-loading.html"
    },
+
    {
+      "id": "intro-sidepulls",
       "title": "Intro to Sidepulls",
       "type": "Article",
       "length": "NaN",
@@ -99,6 +110,7 @@
       "url": "/train/lessons/intro-sidepulls.html"
    },
    {
+      "id": "sidepull-body-tension",
       "title": "Sidepull Body Tension",
       "type": "Article",
       "length": "NaN",
@@ -109,7 +121,9 @@
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/sidepull-body-tension.html"
    },
+
    {
+      "id": "intro-underclings",
       "title": "Intro to Underclings",
       "type": "Article",
       "length": "NaN",
@@ -121,6 +135,7 @@
       "url": "/train/lessons/intro-underclings.html"
    },
    {
+      "id": "undercling-core-engagement",
       "title": "Undercling Core Engagement",
       "type": "Article",
       "length": "NaN",
@@ -131,7 +146,21 @@
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/undercling-core-engagement.html"
    },
+
    {
+      "id": "intro-slab",
+      "title": "Intro to Slabs",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "slab",
+         "intro"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/train/lessons/intro-slab.html"
+   },
+   {
+      "id": "balance-smearing",
       "title": "Balance and Smearing",
       "type": "Article",
       "length": "NaN",
@@ -143,6 +172,7 @@
       "url": "/train/lessons/balance-smearing.html"
    },
    {
+      "id": "hip-position-slabs",
       "title": "Hip Position on Slabs",
       "type": "Article",
       "length": "NaN",
@@ -153,7 +183,9 @@
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/hip-position-slabs.html"
    },
+
    {
+      "id": "intro-slight-overhangs",
       "title": "Intro to Slight Overhangs",
       "type": "Article",
       "length": "NaN",
@@ -165,6 +197,7 @@
       "url": "/train/lessons/intro-slight-overhangs.html"
    },
    {
+      "id": "body-tension-overhangs",
       "title": "Body Tension on Overhangs",
       "type": "Article",
       "length": "NaN",
@@ -176,17 +209,20 @@
       "url": "/train/lessons/body-tension-overhangs.html"
    },
    {
+      "id": "core-training-basics",
       "title": "Core Training Basics",
       "type": "Workout",
       "length": "NaN",
       "tags": [
          "core",
+         "slight-overhang",
          "exercise"
       ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/core-training-basics.html"
    },
    {
+      "id": "intro-overhangs",
       "title": "Intro to Overhangs",
       "type": "Article",
       "length": "NaN",
@@ -198,6 +234,7 @@
       "url": "/train/lessons/intro-overhangs.html"
    },
    {
+      "id": "overhang-core-shoulders",
       "title": "Overhang Core and Shoulders",
       "type": "Article",
       "length": "NaN",
@@ -209,6 +246,7 @@
       "url": "/train/lessons/overhang-core-shoulders.html"
    },
    {
+      "id": "heel-toe-hooks",
       "title": "Heel and Toe Hooks",
       "type": "Article",
       "length": "NaN",
@@ -220,6 +258,7 @@
       "url": "/train/lessons/heel-toe-hooks.html"
    },
    {
+      "id": "intro-roofs-caves",
       "title": "Intro to Roofs and Caves",
       "type": "Article",
       "length": "NaN",
@@ -231,6 +270,7 @@
       "url": "/train/lessons/intro-roofs-caves.html"
    },
    {
+      "id": "extreme-tension-moves",
       "title": "Extreme Tension Moves",
       "type": "Workout",
       "length": "NaN",
@@ -242,6 +282,7 @@
       "url": "/train/lessons/extreme-tension-moves.html"
    },
    {
+      "id": "front-lever-progressions",
       "title": "Front Lever Progressions",
       "type": "Workout",
       "length": "NaN",
@@ -253,6 +294,7 @@
       "url": "/train/lessons/front-lever-progressions.html"
    },
    {
+      "id": "intro-big-moves",
       "title": "Intro to Big Moves",
       "type": "Article",
       "length": "NaN",
@@ -264,6 +306,7 @@
       "url": "/train/lessons/intro-big-moves.html"
    },
    {
+      "id": "dynamic-movement",
       "title": "Dynamic Movement",
       "type": "Workout",
       "length": "NaN",
@@ -275,6 +318,7 @@
       "url": "/train/lessons/dynamic-movement.html"
    },
    {
+      "id": "plyometric-training",
       "title": "Plyometric Training",
       "type": "Workout",
       "length": "NaN",
@@ -286,6 +330,7 @@
       "url": "/train/lessons/plyometric-training.html"
    },
    {
+      "id": "intro-meticulous",
       "title": "Intro to Meticulous Climbing",
       "type": "Article",
       "length": "NaN",
@@ -297,6 +342,7 @@
       "url": "/train/lessons/intro-meticulous.html"
    },
    {
+      "id": "precision-footwork",
       "title": "Precision Footwork",
       "type": "Practice",
       "length": "NaN",
@@ -308,6 +354,7 @@
       "url": "/train/lessons/precision-footwork.html"
    },
    {
+      "id": "controlled-movement",
       "title": "Controlled Movement",
       "type": "Practice",
       "length": "NaN",
@@ -319,6 +366,7 @@
       "url": "/train/lessons/controlled-movement.html"
    },
    {
+      "id": "intro-powerful",
       "title": "Intro to Powerful Climbing",
       "type": "Article",
       "length": "NaN",
@@ -330,6 +378,7 @@
       "url": "/train/lessons/intro-powerful.html"
    },
    {
+      "id": "max-strength-training",
       "title": "Max Strength Training",
       "type": "Workout",
       "length": "NaN",
@@ -341,6 +390,7 @@
       "url": "/train/lessons/max-strength-training.html"
    },
    {
+      "id": "short-intense-problems",
       "title": "Short Intense Problems",
       "type": "Workout",
       "length": "NaN",
@@ -352,6 +402,19 @@
       "url": "/train/lessons/short-intense-problems.html"
    },
    {
+      "id": "breath-control",
+      "title": "Breath Control",
+      "type": "Practice",
+      "length": "NaN",
+      "tags": [
+         "powerful",
+         "technique"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/train/lessons/breath-control.html"
+   },
+   {
+      "id": "intro-route-reading",
       "title": "Intro to Route Reading",
       "type": "Article",
       "length": "NaN",
@@ -363,6 +426,7 @@
       "url": "/train/lessons/intro-route-reading.html"
    },
    {
+      "id": "sequence-visualization",
       "title": "Sequence Visualization",
       "type": "Practice",
       "length": "NaN",
@@ -374,6 +438,7 @@
       "url": "/train/lessons/sequence-visualization.html"
    },
    {
+      "id": "memory-training",
       "title": "Memory Training",
       "type": "Practice",
       "length": "NaN",
@@ -383,5 +448,41 @@
       ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/memory-training.html"
+   },
+   {
+      "id": "auto-belay-circuit",
+      "title": "Auto-Belay Endurance Circuit",
+      "type": "Workout",
+      "length": "45min",
+      "tags": [
+         "endurance",
+         "exercise"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/train/lessons/auto-belay-circuit.html"
+   },
+   {
+      "id": "treadmill-hangboard-circuit",
+      "title": "Treadmill and Hangboard Circuit",
+      "type": "Workout",
+      "length": "30min",
+      "tags": [
+         "endurance",
+         "exercise"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/train/lessons/treadmill-hangboard-circuit.html"
+   },
+   {
+      "id": "power-endurance-replacement-circuit",
+      "title": "Power Endurance Replacement Circuit",
+      "type": "Workout",
+      "length": "30min",
+      "tags": [
+         "endurance",
+         "exercise"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/train/lessons/power-endurance-replacement-circuit.html"
    }
 ]

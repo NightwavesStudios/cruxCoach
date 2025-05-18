@@ -22,12 +22,23 @@ document.addEventListener("DOMContentLoaded", async () => {
           );
 
     console.log("Filtered lessons:", filtered);
+
+    const sortedLessons = filtered.sort((a, b) => {
+      const isIntroA = a.tags.includes("intro");
+      const isIntroB = b.tags.includes("intro");
+
+      if (isIntroA && !isIntroB) return -1;
+      if (!isIntroA && isIntroB) return 1;
+
+      return a.title.localeCompare(b.title);
+    });
+
     titleElem.textContent =
       tag.toLowerCase() === "all"
         ? "All Lessons"
         : `${tag.charAt(0).toUpperCase() + tag.slice(1)} Lessons`;
 
-    if (filtered.length === 0) {
+    if (sortedLessons.length === 0) {
       const noResultsMessage = document.createElement("p");
       noResultsMessage.className = "no-results";
       noResultsMessage.textContent = `No lessons found for "${tag}".`;
@@ -36,7 +47,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    filtered.forEach((lesson) => {
+    container.innerHTML = ""; // Clear previous results
+    sortedLessons.forEach((lesson) => {
       const card = document.createElement("a");
       card.href = lesson.url;
       card.innerHTML = `

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Title -->
+    <title>CruxCoach - Profile</title>
+
+    <!-- Description & Charset -->
+    <meta name="description"
+        content="Create and view your account to see your progress and analytics and customize settings to fit your personal needs and preferences.">
+    <meta name="keywords"
+        content="climb tracking, climbing profile, cruxcoach profile, climbing tracker settings, bouldering track">
+    <meta charset="utf-8">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
+    <link rel="icon" href="/assets/dark-favicon.png" type="image/x-icon" media="(prefers-color-scheme: light)">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/favicon.png" type="image/x-icon" media="(prefers-color-scheme: dark)">
+
+    <!-- Import Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQXN250GC5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-WQXN250GC5');
+    </script>
+
+
+
+    <!-- Import Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+
+    <!--  Import Stylesheet -->
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/lessons.css">
+
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <span class="logo material-icons" onclick="previousPage();">arrow_back</span>
+        <h1>CruxCoach</h1>
+        <span class="material-icons mode">login</span>
+
+    </header>
+
+    <!-- Content -->
+    <div id="contentContainer">
+
+        <h1>Long Hang Crimp Workout</h1>
+
+        <h2>Overview</h2>
+        <p>Long hanging is used to train grip strength over an extended period rather than immediate outbursts of
+            strength. It
+            consists of 3-5 hangs holding on for as long as possible. You can add weight to these exercises if needed to
+            target
+            around 15-30 seconds, or remove weight by putting your feet partially on the ground.</p>
+
+        <h2>Warmup</h2>
+        <p>Arm Circles<br><br>[Image - Arm Circle]<br><br>Finger Flicks<br><br>[Image - Finger Flicks]<br><br>Pullups
+            (Pullup Bar or Large Jugs)<br><br>[Image - Pullups]<br><br>Dead Hangs /w Shoulder Shrugs (Pullup Bar or
+            Large Jugs)<br><br>[Image - Shoulder Shrugs]</p>
+
+        <h2>Crimp Long Hangs</h2>
+        <p>Pick a crimp hold you believe you can hang on for at least 15 seconds. For more advanced climbers, you can
+            add weight
+            while hanging to target around 15-30 seconds. Then, pick to focus on either an open, half, or full crimp
+            position. This
+            exercise will target 3-5 hangs of 15-30 seconds with 2-4 minute rests. You can do 1-3 sets of various crimp
+            positions.</p>
+        <section class="exercise-section">
+            <div class="card">
+                <h3>Open Crimp</h3>
+                <p><strong>Reps:</strong> 3–5</p>
+                <p><strong>Duration:</strong> Until technical failure or max 30 sec</p>
+                <p><em>No thumb engagement</em></p>
+            </div>
+            <div class="card">
+                <h3>Half Crimp</h3>
+                <p><strong>Reps:</strong> 3–5</p>
+                <p><strong>Duration:</strong> Until failure or max 30 sec</p>
+                <p><em>Most versatile—build your baseline here</em></p>
+            </div>
+            <div class="card">
+                <h3>Full Crimp (Advanced)</h3>
+                <p><strong>Reps:</strong> 1–3</p>
+                <p><strong>Duration:</strong> Technical failure only (max 30 sec)</p>
+                <p><em>Use sparingly—high injury risk if overtrained</em></p>
+            </div>
+        </section>
+
+        <div id="tipsContainer">
+            <h2>Progress Tips</h2>
+            <ul>
+                <li>If you're easily holding >30 seconds, increase load by 2.5–5 lbs. Over time, this will start to
+                    stack as
+                    you get stronger.</li>
+                <li>Try to maintain a 2:1 ratio of open to closed crimping. This will help prevent injury and overuse.
+                </li>
+                <li>If grip fails before 10 seconds, reduce intensity through on using partial bodyweight (feet
+                    supporting
+                    you on ground) or use a bigger edge.</li>
+                <li>Only train full crimp once per week (or less) to minimize tendon strain.</li>
+            </ul>
+        </div>
+
+        <!-- Read Next Button Container -->
+        <div id="readNextContainer">
+
+        </div>
+
+        <!-- Nav -->
+        <br><br><br>
+        <nav>
+            <a href="/index.html" class="material-icons" alt="Dashboard Icon" title="Dashboard">show_chart</a>
+            <a href="/../train/index.html" class="material-icons" alt="Lessons Icon" title="Lessons">school</a>
+            <a href="/profile.html" class="material-icons" alt="Profile Icon" title="Profile">person</a>
+        </nav>
+
+    </div>
+
+    <!-- Import Javascript -->
+    <script src="/scripts/main.js"></script>
+    <script src="/scripts/lessons.js"></script>
+
+</body>
+
+</html>
