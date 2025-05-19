@@ -8,11 +8,12 @@
          "crimp",
          "intro"
       ],
+      "difficulty": "beginner",
       "thumbnail": "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
       "url": "/train/lessons/intro-crimps.html"
    },
    {
-      "id": "crimp-technique",
+      "id": "crimp-injury",
       "title": "Avoiding Injury from Crimping",
       "type": "Article",
       "length": "NaN",
@@ -20,6 +21,7 @@
          "crimp",
          "injury"
       ],
+      "difficulty": "intermediate",
       "thumbnail": "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
       "url": "/train/lessons/crimp-injury.html"
    },
@@ -31,6 +33,10 @@
       "tags": [
          "crimp",
          "exercise"
+      ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
       ],
       "thumbnail": "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
       "url": "/train/lessons/long-hang-crimp-workout.html"
@@ -45,6 +51,7 @@
          "sloper",
          "intro"
       ],
+      "difficulty": "beginner",
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/intro-slopers.html"
    },
@@ -56,6 +63,10 @@
       "tags": [
          "sloper",
          "exercise"
+      ],
+      "difficulty": [
+         "beginner",
+         "intermediate"
       ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/sloper-endurance.html"
@@ -69,6 +80,10 @@
          "sloper",
          "practice"
       ],
+      "difficulty": [
+         "beginner",
+         "intermediate"
+      ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/sloper-sessions.html"
    },
@@ -81,6 +96,7 @@
          "pocket",
          "intro"
       ],
+      "difficulty": "beginner",
       "thumbnail": "https://i.ibb.co/d4rJMYFm/pocket-Cover.jpg",
       "url": "/train/lessons/intro-pockets.html"
    },
@@ -92,6 +108,10 @@
       "tags": [
          "pocket",
          "exercise"
+      ],
+      "difficulty": [
+         "beginner",
+         "intermediate"
       ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/pocket-finger-loading.html"
@@ -106,6 +126,7 @@
          "sidepull",
          "intro"
       ],
+      "difficulty": "beginner",
       "thumbnail": "https://i.ibb.co/dCKZ9hZ/sidepull-Cover.jpg",
       "url": "/train/lessons/intro-sidepulls.html"
    },
@@ -118,6 +139,7 @@
          "sidepull",
          "technique"
       ],
+      "difficulty": "intermediate",
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/sidepull-body-tension.html"
    },
@@ -131,6 +153,7 @@
          "undercling",
          "intro"
       ],
+      "difficulty": "beginner",
       "thumbnail": "https://i.ibb.co/53q55TK/Round-Undercling.jpg",
       "url": "/train/lessons/intro-underclings.html"
    },
@@ -142,6 +165,10 @@
       "tags": [
          "undercling",
          "technique"
+      ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
       ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/undercling-core-engagement.html"
@@ -156,6 +183,7 @@
          "slab",
          "intro"
       ],
+      "difficulty": "beginner",
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/intro-slab.html"
    },
@@ -168,6 +196,7 @@
          "slab",
          "technique"
       ],
+      "difficulty": "intermediate",
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/balance-smearing.html"
    },
@@ -179,6 +208,10 @@
       "tags": [
          "slab",
          "technique"
+      ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
       ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/hip-position-slabs.html"
@@ -193,6 +226,7 @@
          "slight-overhang",
          "intro"
       ],
+      "difficulty": "beginner",
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/intro-slight-overhangs.html"
    },
@@ -205,6 +239,7 @@
          "slight-overhang",
          "technique"
       ],
+      "difficulty": "intermediate",
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/body-tension-overhangs.html"
    },
@@ -218,6 +253,10 @@
          "slight-overhang",
          "exercise"
       ],
+      "difficulty": [
+         "beginner",
+         "intermediate"
+      ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/core-training-basics.html"
    },
@@ -230,6 +269,7 @@
          "overhang",
          "intro"
       ],
+      "difficulty": "beginner",
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/intro-overhangs.html"
    },
@@ -242,6 +282,7 @@
          "overhang",
          "technique"
       ],
+      "difficulty": "intermediate",
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/overhang-core-shoulders.html"
    },
@@ -253,6 +294,10 @@
       "tags": [
          "overhang",
          "technique"
+      ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
       ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/heel-toe-hooks.html"
@@ -266,6 +311,7 @@
          "cave",
          "intro"
       ],
+      "difficulty": "beginner",
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/intro-roofs-caves.html"
    },
@@ -277,6 +323,10 @@
       "tags": [
          "cave",
          "exercise"
+      ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
       ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/extreme-tension-moves.html"
@@ -290,6 +340,10 @@
          "cave",
          "strength"
       ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
+      ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/front-lever-progressions.html"
    },
@@ -302,6 +356,7 @@
          "big-move",
          "intro"
       ],
+      "difficulty": "beginner",
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/intro-big-moves.html"
    },
@@ -313,6 +368,10 @@
       "tags": [
          "big-move",
          "technique"
+      ],
+      "difficulty": [
+         "beginner",
+         "intermediate"
       ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/dynamic-movement.html"
@@ -326,6 +385,10 @@
          "big-move",
          "strength"
       ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
+      ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/plyometric-training.html"
    },
@@ -338,20 +401,35 @@
          "meticulous",
          "intro"
       ],
+      "difficulty": "beginner",
       "thumbnail": "https://i.ibb.co/xNpkgcG/meticulous-Footholds.jpg",
       "url": "/train/lessons/intro-meticulous.html"
    },
    {
-      "id": "precision-footwork",
-      "title": "Precision Footwork",
+      "id": "silent-feet",
+      "title": "Silent Feet",
       "type": "Practice",
       "length": "NaN",
       "tags": [
          "meticulous",
          "technique"
       ],
+      "difficulty": "beginner",
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
-      "url": "/train/lessons/precision-footwork.html"
+      "url": "/train/lessons/silent-feet.html"
+   },
+   {
+      "id": "silent-hands",
+      "title": "Silent Hands",
+      "type": "Practice",
+      "length": "NaN",
+      "tags": [
+         "meticulous",
+         "technique"
+      ],
+      "difficulty": "beginner",
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/train/lessons/silent-hands.html"
    },
    {
       "id": "controlled-movement",
@@ -362,6 +440,7 @@
          "meticulous",
          "technique"
       ],
+      "difficulty": "beginner",
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/controlled-movement.html"
    },
@@ -374,6 +453,7 @@
          "powerful",
          "intro"
       ],
+      "difficulty": "beginner",
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/intro-powerful.html"
    },
@@ -385,6 +465,10 @@
       "tags": [
          "powerful",
          "strength"
+      ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
       ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/max-strength-training.html"
@@ -398,6 +482,10 @@
          "powerful",
          "exercise"
       ],
+      "difficulty": [
+         "beginner",
+         "intermediate"
+      ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/short-intense-problems.html"
    },
@@ -410,6 +498,7 @@
          "powerful",
          "technique"
       ],
+      "difficulty": "advanced",
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/breath-control.html"
    },
@@ -422,6 +511,7 @@
          "route-reading",
          "intro"
       ],
+      "difficulty": "beginner",
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/intro-route-reading.html"
    },
@@ -433,6 +523,10 @@
       "tags": [
          "route-reading",
          "technique"
+      ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
       ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/sequence-visualization.html"
@@ -446,6 +540,10 @@
          "route-reading",
          "exercise"
       ],
+      "difficulty": [
+         "beginner",
+         "intermediate"
+      ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/memory-training.html"
    },
@@ -457,6 +555,10 @@
       "tags": [
          "endurance",
          "exercise"
+      ],
+      "difficulty": [
+         "beginner",
+         "intermediate"
       ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/auto-belay-circuit.html"
@@ -470,6 +572,10 @@
          "endurance",
          "exercise"
       ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
+      ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/treadmill-hangboard-circuit.html"
    },
@@ -481,6 +587,10 @@
       "tags": [
          "endurance",
          "exercise"
+      ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
       ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/power-endurance-replacement-circuit.html"

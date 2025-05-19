@@ -5,6 +5,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (!tag) tag = "all";
 
+  if (tag) {
+    document.title = `CruxCoach - Filter '${tag}' Tags`;
+  } else {
+    document.title = "CruxCoach - Filter Lessons";
+  }
+
   console.log(`Filtering lessons for tag: ${tag}`);
   const titleElem = document.getElementById("filterTitle");
   const container = document.getElementById("filteredCardsContainer");
@@ -47,7 +53,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    container.innerHTML = ""; // Clear previous results
+    container.innerHTML = "";
     sortedLessons.forEach((lesson) => {
       const card = document.createElement("a");
       card.href = lesson.url;
@@ -68,17 +74,3 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Failed to load lessons.json:", err);
   }
 });
-
-function updateTitleFromQuery() {
-  if (queryString) {
-    if (tag) {
-      document.title = `CruxCoach - Filter '${tag}' Tags`;
-    } else {
-      document.title = "CruxCoach - Filter Lessons";
-    }
-  } else {
-    document.title = "CruxCoach - Filter Lessons";
-  }
-}
-
-updateTitleFromQuery();

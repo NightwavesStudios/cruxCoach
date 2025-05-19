@@ -118,7 +118,7 @@ function updateElementText(id, value) {
   if (el) {
     el.innerHTML = value;
   } else {
-    console.error(`Element with id "${id}" not found.`);
+    //console.error(`Element with id "${id}" not found.`);
   }
 }
 

@@ -41,7 +41,6 @@
 
     <!--  Import Stylesheet -->
     <link rel="stylesheet" href="/styles/main.css">
-
 </head>
 
 <body>
@@ -66,46 +65,37 @@
         <div id="popularTrainingContainer">
 
             <br>
-            <h3 class="align-center">Popular Resources</h3>
+            <h3 class="align-center">Suggested Collections</h3>
 
-            <div id="popularCardsContainer">
-
-                <div class="popular-card">
-                    <img class="lazyload"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s"
-                        alt="Popular Resource Cover Image">
-                    <h4>Title</h4>
-                    <p>
-                        <span class="type">Article</span>,
-                        <span class="category">Holds</span>
-                    </p>
+            <div id="collectionCardsContainer">
+                <div id="suggestedCollections" class="collection-cards-container"
+                    style="display: flex; justify-content: center;   align-items: center; flex-wrap: wrap; gap: 20px;">
                 </div>
-
-                <div class="popular-card">
-                    <img class="lazyload"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s"
-                        alt="Popular Resource Cover Image">
-                    <h4>Title</h4>
-                    <p>
-                        <span class="type">Article</span>,
-                        <span class="category">Angles</span>
-                    </p>
-                </div>
-
-                <div class="popular-card">
-                    <img class="lazyload"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s"
-                        alt="Popular Resource Cover Image">
-                    <h4>Title</h4>
-                    <p>
-                        <span class="type">Article</span>,
-                        <span class="category">Type</span>
-                    </p>
-                </div>
-
             </div>
 
-            <a href="/train/filter.html?tag=all"><button class="align-center">View All</button></a>
+            <a href="#holdsCollectionContainer"><button class="align-center">All Collections</button></a>
+
+            <h3 class="align-center">Suggested Articles</h3>
+
+            <div id="filteredCardsContainer">
+                <div id="suggestedArticles" class="lesson-cards-container"
+                    style="display: flex; justify-content: center;   align-items: center; flex-wrap: wrap; gap: 20px;">
+                </div>
+            </div>
+
+            <a href="/train/filter.html?type='article'">
+                <button class="align-center">All Articles</button>
+            </a>
+
+            <h3 class="align-center">Suggested Workouts</h3>
+
+            <div id="filteredCardsContainer">
+                <div id="suggestedWorkouts" class="lesson-cards-container"
+                    style="display: flex; justify-content: center;   align-items: center; flex-wrap: wrap; gap: 20px;">
+                </div>
+            </div>
+
+            <a href="/train/filter.html?type='workout'"><button class="align-center">All Workouts</button></a>
 
         </div>
 
@@ -303,6 +293,7 @@
 
     <!-- Import Javascript -->
     <script src="/scripts/main.js"></script>
+    <script src="/scripts/train.js"></script>
 
 </body>
 
