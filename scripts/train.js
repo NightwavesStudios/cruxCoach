@@ -1,7 +1,4 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const suggestedCollectionsContainer = document.getElementById(
-    "suggestedCollections"
-  );
   const suggestedArticlesContainer =
     document.getElementById("suggestedArticles");
   const suggestedWorkoutsContainer =
@@ -9,7 +6,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   console.log("Initializing Suggested Collections, Articles, and Workouts...");
 
-  // Load traits from localStorage
   const defaultTraits = {
     Crimp: 0,
     Sloper: 0,
@@ -27,10 +23,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   const traits = loadSafe("traits", defaultTraits);
-  console.log("Loaded traits:", traits);
 
   try {
-    // Fetch lessons data
     const response = await fetch("/train/data/lessons.json");
     if (!response.ok) {
       throw new Error(`Failed to fetch lessons.json: ${response.status}`);
@@ -38,21 +32,42 @@ document.addEventListener("DOMContentLoaded", async () => {
     const lessons = await response.json();
     console.log("Fetched lessons:", lessons);
 
-    // Sort traits to get the weakest categories
     const sortedTraits = Object.entries(traits).sort(([, a], [, b]) => a - b);
     console.log("Sorted traits:", sortedTraits);
 
     const bottom3Categories = sortedTraits.slice(0, 3).map(([key]) => key);
     console.log("Bottom 3 categories:", bottom3Categories);
 
-    // Helper function to filter lessons by type and category
-    const filterLessons = (type, category) => {
-      console.log(`Filtering ${type} lessons for category "${category}"`);
+    const traitToTagMap = {
+      Crimp: "crimp",
+      Sloper: "sloper",
+      Pocket: "pocket",
+      Sidepull: "sidepull",
+      Undercling: "undercling",
+      Bigmove: "big-move",
+      Meticulous: "meticulous",
+      Powerful: "powerful",
+      Routereading: "route-reading",
+      Slab: "slab",
+      Slightoverhang: "slight-overhang",
+      Overhang: "overhang",
+      Cave: "cave",
+    };
+
+    const filterLessons = (types, category) => {
+      const mappedCategory = traitToTagMap[category] || category;
+      const typeList = Array.isArray(types) ? types : [types];
+
+      console.log(
+        `Filtering lessons for types "${typeList.join(
+          ", "
+        )}" and category "${category}" (mapped: "${mappedCategory}")`
+      );
 
       const filtered = lessons.filter((lesson) => {
-        const matchesType = lesson.type.toLowerCase() === type.toLowerCase();
+        const matchesType = typeList.includes(lesson.type.toLowerCase());
         const matchesCategory = lesson.tags.some(
-          (tag) => tag.toLowerCase() === category.toLowerCase()
+          (tag) => tag.toLowerCase() === mappedCategory.toLowerCase()
         );
 
         console.log(`Lesson: ${lesson.title}`);
@@ -62,14 +77,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         return matchesType && matchesCategory;
       });
 
-      console.log(
-        `Filtered ${type} lessons for category "${category}":`,
-        filtered
-      );
+      if (filtered.length === 0) {
+        console.warn(
+          `No lessons found for category: "${category}" (mapped: "${mappedCategory}") with types: ${typeList.join(
+            ", "
+          )}`
+        );
+      }
+
       return filtered;
     };
 
-    // Populate Suggested Collections
     const suggestedCollectionsContainer = document.getElementById(
       "suggestedCollections"
     );
@@ -81,110 +99,104 @@ document.addEventListener("DOMContentLoaded", async () => {
       bottom2Categories
     );
 
+    const traitToImageMap = {
+      Crimp: "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
+      Sloper: "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      Pocket: "https://i.ibb.co/d4rJMYFm/pocket-Cover.jpg",
+      Sidepull: "https://i.ibb.co/dCKZ9hZ/sidepull-Cover.jpg",
+      Undercling: "https://i.ibb.co/53q55TK/Round-Undercling.jpg",
+      Bigmove:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
+      Meticulous: "https://i.ibb.co/xNpkgcG/meticulous-Footholds.jpg",
+      Powerful:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
+      Routereading:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
+      Slab: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
+      Slightoverhang:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
+      Overhang:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
+      Cave: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
+      Bigmove:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
+      Meticulous:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
+      Powerful:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
+      Routereading:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
+    };
+
     bottom2Categories.forEach((category) => {
       const collectionCard = `
-    <a href="/train/filter.html?tag=${category.toLowerCase()}">
-      <div class="collection-card">
-        <img class="lazyload" src="https://via.placeholder.com/150" alt="${category} Collection Cover">
-        <h4>${category}</h4>
-      </div>
-    </a>`;
+  <a href="/train/filter.html?tag=${
+    traitToTagMap[category] || category.toLowerCase()
+  }">
+    <div class="collection-card">
+      <img class="lazyload" src="${
+        traitToImageMap[category] || "/assets/fallback.jpg"
+      }" alt="${category} Collection Cover">
+      <h4>${category}</h4>
+    </div>
+  </a>`;
+
       suggestedCollectionsContainer.innerHTML += collectionCard;
     });
 
-    console.log("Rendered Suggested Collections.");
-
-    // Populate Suggested Articles
     const usedArticles = new Set();
     suggestedArticlesContainer.innerHTML = "";
     let articlesAdded = 0;
 
     bottom3Categories.forEach((category) => {
+      if (articlesAdded >= 3) return;
+
       const articles = filterLessons("article", category);
-      articles.forEach((article) => {
-        if (articlesAdded < 3 && !usedArticles.has(article.id)) {
-          usedArticles.add(article.id);
-          const articleCard = `
-        <a href="${article.url}">
-          <div class="lesson-card">
-            <img class="lazyload" src="${article.thumbnail}" alt="${article.title}">
-            <h4>${article.title}</h4>
-            <p><span class="type">${article.type}</span>, <span class="length">${article.length}</span></p>
-          </div>
-        </a>`;
-          suggestedArticlesContainer.innerHTML += articleCard;
-          articlesAdded++;
-        }
-      });
+      const firstNewArticle = articles.find(
+        (article) => !usedArticles.has(article.id)
+      );
+
+      if (firstNewArticle) {
+        usedArticles.add(firstNewArticle.id);
+        const articleCard = `
+      <a href="${firstNewArticle.url}">
+        <div class="lesson-card">
+          <img class="lazyload" src="${firstNewArticle.thumbnail}" alt="${firstNewArticle.title}">
+          <h4>${firstNewArticle.title}</h4>
+          <p><span class="type">${firstNewArticle.type}</span>, <span class="length">${firstNewArticle.length}</span></p>
+        </div>
+      </a>`;
+        suggestedArticlesContainer.innerHTML += articleCard;
+        articlesAdded++;
+      }
     });
 
-    // Fallback: Add random articles if fewer than 3 were added
-    if (articlesAdded < 3) {
-      const fallbackArticles = lessons.filter(
-        (lesson) =>
-          lesson.type.toLowerCase() === "article" &&
-          !usedArticles.has(lesson.id)
-      );
-      fallbackArticles.slice(0, 3 - articlesAdded).forEach((article) => {
-        usedArticles.add(article.id);
-        const articleCard = `
-          <a href="${article.url}">
-            <div class="lesson-card">
-              <img class="lazyload" src="${article.thumbnail}" alt="${article.title}">
-              <h4>${article.title}</h4>
-              <p><span class="type">${article.type}</span>, <span class="length">${article.length}</span></p>
-            </div>
-          </a>`;
-        suggestedArticlesContainer.innerHTML += articleCard;
-      });
-    }
-    console.log("Rendered Suggested Articles.");
-
-    // Populate Suggested Workouts
     const usedWorkouts = new Set();
     suggestedWorkoutsContainer.innerHTML = "";
     let workoutsAdded = 0;
 
     bottom3Categories.forEach((category) => {
-      const workouts = filterLessons("workout", category);
-      workouts.forEach((workout) => {
-        if (workoutsAdded < 3 && !usedWorkouts.has(workout.id)) {
-          usedWorkouts.add(workout.id);
-          const workoutCard = `
-        <a href="${workout.url}">
-          <div class="lesson-card">
-            <img class="lazyload" src="${workout.thumbnail}" alt="${workout.title}">
-            <h4>${workout.title}</h4>
-            <p><span class="type">${workout.type}</span>, <span class="length">${workout.length}</span></p>
-          </div>
-        </a>`;
-          suggestedWorkoutsContainer.innerHTML += workoutCard;
-          workoutsAdded++;
-        }
-      });
-    });
+      if (workoutsAdded >= 3) return;
 
-    // Fallback: Add random workouts if fewer than 3 were added
-    if (workoutsAdded < 3) {
-      const fallbackWorkouts = lessons.filter(
-        (lesson) =>
-          lesson.type.toLowerCase() === "workout" &&
-          !usedWorkouts.has(lesson.id)
+      const workouts = filterLessons(["workout", "practice"], category);
+      const firstNewWorkout = workouts.find(
+        (workout) => !usedWorkouts.has(workout.id)
       );
-      fallbackWorkouts.slice(0, 3 - workoutsAdded).forEach((workout) => {
-        usedWorkouts.add(workout.id);
+
+      if (firstNewWorkout) {
+        usedWorkouts.add(firstNewWorkout.id);
         const workoutCard = `
-          <a href="${workout.url}">
-            <div class="lesson-card">
-              <img class="lazyload" src="${workout.thumbnail}" alt="${workout.title}">
-              <h4>${workout.title}</h4>
-              <p><span class="type">${workout.type}</span>, <span class="length">${workout.length}</span></p>
-            </div>
-          </a>`;
+      <a href="${firstNewWorkout.url}">
+        <div class="lesson-card">
+          <img class="lazyload" src="${firstNewWorkout.thumbnail}" alt="${firstNewWorkout.title}">
+          <h4>${firstNewWorkout.title}</h4>
+          <p><span class="type">${firstNewWorkout.type}</span>, <span class="length">${firstNewWorkout.length}</span></p>
+        </div>
+      </a>`;
         suggestedWorkoutsContainer.innerHTML += workoutCard;
-      });
-    }
-    console.log("Rendered Suggested Workouts.");
+        workoutsAdded++;
+      }
+    });
   } catch (error) {
     console.error("Error fetching or processing lessons data:", error);
   }
