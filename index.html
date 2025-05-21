@@ -123,6 +123,15 @@
                 <p>1</p>
                 <p>2</p>
             </div><br><br>
+            <label for="pinch">Pinch:</label><br>
+            <input type="range" min="-2" max="2" value="0" class="slider" id="pinch">
+            <div class="sliderticks">
+                <p>-2</p>
+                <p>-1</p>
+                <p>0</p>
+                <p>1</p>
+                <p>2</p>
+            </div><br><br>
             <h2>Angles Review</h2>
             <label for="slab">Slab:</label><br>
             <input type="range" min="-2" max="2" value="0" class="slider" id="slab">
@@ -161,6 +170,15 @@
                 <p>2</p>
             </div><br><br>
             <h2>Type Review</h2>
+            <label for="endurance">Endurance:</label><br>
+            <input type="range" min="-2" max="2" value="0" class="slider" id="endurance">
+            <div class="sliderticks">
+                <p>-2</p>
+                <p>-1</p>
+                <p>0</p>
+                <p>1</p>
+                <p>2</p>
+            </div><br><br>
             <label for="bigMove">Big Move:</label><br>
             <input type="range" min="-2" max="2" value="0" class="slider" id="bigMove">
             <div class="sliderticks">
@@ -317,7 +335,7 @@
         <!-- Struggle/Strongpoint Container -->
         <div id="struggleStrongContainer">
 
-            <!-- Holds -->
+            <!-- Column 1 -->
             <div>
                 <p><span id="Crimp">0</span> Crimp</p>
                 <p><span id="Sloper">0</span> Sloper</p>
@@ -326,16 +344,18 @@
                 <p><span id="Undercling">0</span> Undercling</p>
             </div>
 
-            <!-- Style -->
+            <!-- Column 2 -->
             <div>
+                <p><span id="Pinch">0</span> Pinch</p>
                 <p><span id="Bigmove">0</span> Big Move</p>
                 <p><span id="Meticulous">0</span> Meticulous</p>
                 <p><span id="Powerful">0</span> Powerful</p>
                 <p><span id="Routereading">0</span> Route-Reading</p>
             </div>
 
-            <!-- Angle -->
+            <!-- Column 3 -->
             <div>
+                <p><span id="Endurance">0</span> Endurance</p>
                 <p><span id="Slab">0</span> Slab</p>
                 <p><span id="Slightoverhang">0</span> Slight Overhang</p>
                 <p><span id="Overhang">0</span> Overhang</p>

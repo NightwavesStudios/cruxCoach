@@ -19,14 +19,22 @@ const defaultTraits = {
   Pocket: 0,
   Sidepull: 0,
   Undercling: 0,
+  Pinch: 0,
   Bigmove: 0,
   Meticulous: 0,
   Powerful: 0,
   Routereading: 0,
+  Endurance: 0,
   Slab: 0,
   Slightoverhang: 0,
   Overhang: 0,
   Cave: 0,
+};
+
+const defaultAccountInfo = {
+  username: "Guest",
+  email: "guest@example.com",
+  joinDate: new Date().toISOString().split("T")[0], // Default to today's date
 };
 
 /* Load Utility and Save Local Storage Function */
@@ -51,11 +59,14 @@ const grades = loadSafe("grades", defaultGrades);
 const trainingData = loadSafe("trainingData", defaultTrainingData);
 const traits = loadSafe("traits", defaultTraits);
 
+const accountInfo = loadSafe("accountInfo", defaultAccountInfo);
+
 const styleTraits = {
-  Bigmove: traits.Bigmove,
-  Meticulous: traits.Meticulous,
-  Powerful: traits.Powerful,
-  Routereading: traits.Routereading,
+  ...(traits.Crimp !== 0 && { Crimp: traits.Crimp }),
+  ...(traits.Meticulous !== 0 && { Meticulous: traits.Meticulous }),
+  ...(traits.Powerful !== 0 && { Powerful: traits.Powerful }),
+  ...(traits.Routereading !== 0 && { Routereading: traits.Routereading }),
+  ...(traits.Endurance !== 0 && { Endurance: traits.Endurance }),
 };
 
 const holdsTraits = {
@@ -64,6 +75,7 @@ const holdsTraits = {
   Pocket: traits.Pocket,
   Sidepull: traits.Sidepull,
   Undercling: traits.Undercling,
+  Pinch: traits.Pinch,
 };
 
 const wallTraits = {
@@ -330,6 +342,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /** Holds Breakdown Chart **/
   const holdsChartElement = document.getElementById("holdsBreakdownChart");
+
   if (holdsChartElement) {
     new Chart(holdsChartElement, {
       type: "bar",
@@ -369,7 +382,12 @@ document.addEventListener("DOMContentLoaded", () => {
               text: "Weak ←→ Strong",
             },
           },
-          y: { beginAtZero: true },
+          y: {
+            beginAtZero: false,
+            ticks: {
+              autoSkip: false,
+            },
+          },
         },
       },
     });
@@ -605,6 +623,7 @@ function handleJournalSubmit(event) {
     pocket: "Pocket",
     sidepull: "Sidepull",
     undercling: "Undercling",
+    pinch: "Pinch",
     slab: "Slab",
     slightOverhang: "Slightoverhang",
     overhang: "Overhang",
@@ -613,6 +632,7 @@ function handleJournalSubmit(event) {
     meticulous: "Meticulous",
     powerful: "Powerful",
     routeReading: "Routereading",
+    endurance: "Endurance",
   };
 
   Object.keys(traitMap).forEach((id) => {

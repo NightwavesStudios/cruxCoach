@@ -13,17 +13,37 @@
       "url": "/train/lessons/intro-crimps.html"
    },
    {
-      "id": "crimp-injury",
-      "title": "Avoiding Injury from Crimping",
+      "id": "tendon-pulley-care",
+      "title": "Tendon and Pulley Care",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "crimp",
+         "pocket",
+         "injury"
+      ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
+      ],
+      "thumbnail": "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
+      "url": "/train/lessons/tendon-pulley-care.html"
+   },
+   {
+      "id": "crimp-thumb-engagement",
+      "title": "Crimp Thumb Engagement",
       "type": "Article",
       "length": "NaN",
       "tags": [
          "crimp",
          "injury"
       ],
-      "difficulty": "intermediate",
+      "difficulty": [
+         "intermediate",
+         "advanced"
+      ],
       "thumbnail": "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
-      "url": "/train/lessons/crimp-injury.html"
+      "url": "/train/lessons/crimp-thumb-engagement.html"
    },
    {
       "id": "long-hang-crimp-workout",
@@ -41,7 +61,22 @@
       "thumbnail": "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
       "url": "/train/lessons/long-hang-crimp-workout.html"
    },
-
+   {
+      "id": "crimp-hangboarding-repeaters",
+      "title": "Crimp Hangboarding Repeaters",
+      "type": "Workout",
+      "length": "NaN",
+      "tags": [
+         "crimp",
+         "exercise"
+      ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
+      ],
+      "thumbnail": "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
+      "url": "/train/lessons/crimp-hangboarding-repeaters.html"
+   },
    {
       "id": "intro-slopers",
       "title": "Intro to Slopers",
@@ -88,6 +123,32 @@
       "url": "/train/lessons/sloper-sessions.html"
    },
    {
+      "id": "surface-contact-friction-slopers",
+      "title": "Surface Contact and Friction on Slopers",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "sloper",
+         "technique"
+      ],
+      "difficulty": "intermediate",
+      "thumbnail": "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
+      "url": "/train/lessons/surface-contact-friction-slopers.html"
+   },
+   {
+      "id": "sloper-shoulder-engagement",
+      "title": "Sloper Shoulder Engagement",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "sloper",
+         "technique"
+      ],
+      "difficulty": "intermediate",
+      "thumbnail": "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
+      "url": "/train/lessons/sloper-shoulder-engagement.html"
+   },
+   {
       "id": "intro-pockets",
       "title": "Intro to Pockets",
       "type": "Article",
@@ -99,6 +160,22 @@
       "difficulty": "beginner",
       "thumbnail": "https://i.ibb.co/d4rJMYFm/pocket-Cover.jpg",
       "url": "/train/lessons/intro-pockets.html"
+   },
+   {
+      "id": "pocket-repeaters",
+      "title": "Pocket Repeaters",
+      "type": "Exercise",
+      "length": "NaN",
+      "tags": [
+         "pocket",
+         "exercise"
+      ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
+      ],
+      "thumbnail": "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
+      "url": "/train/lessons/pocket-repeaters.html"
    },
    {
       "id": "pocket-finger-loading",
@@ -116,7 +193,6 @@
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/pocket-finger-loading.html"
    },
-
    {
       "id": "intro-sidepulls",
       "title": "Intro to Sidepulls",
@@ -131,6 +207,68 @@
       "url": "/train/lessons/intro-sidepulls.html"
    },
    {
+      "id": "cog-on-sidepulls",
+      "title": "Center of Gravity on Sidepulls",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "sidepull",
+         "technique"
+      ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
+      ],
+      "thumbnail": "https://i.ibb.co/dCKZ9hZ/sidepull-Cover.jpg",
+      "url": "/train/lessons/cog-on-sidepulls.html"
+   },
+   {
+      "id": "heel-hooks",
+      "title": "Heel Hooks",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "sidepull",
+         "technique"
+      ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
+      ],
+      "thumbnail": "https://i.ibb.co/dCKZ9hZ/sidepull-Cover.jpg",
+      "url": "/train/lessons/heel-hooks.html"
+   },
+   {
+      "id": "toe-hooks",
+      "title": "Toe Hooks",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "sidepull",
+         "undercling",
+         "technique"
+      ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
+      ],
+      "thumbnail": "https://i.ibb.co/dCKZ9hZ/sidepull-Cover.jpg",
+      "url": "/train/lessons/toe-hooks.html"
+   },
+   {
+      "id": "sidepull-flagging-counterbalance",
+      "title": "Sidepull Flagging Counterbalance",
+      "type": "Exercise",
+      "length": "NaN",
+      "tags": [
+         "sidepull",
+         "technique"
+      ],
+      "difficulty": "intermediate",
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/train/lessons/sidepull-flagging-counterbalance.html"
+   },
+   {
       "id": "sidepull-body-tension",
       "title": "Sidepull Body Tension",
       "type": "Article",
@@ -143,7 +281,6 @@
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/sidepull-body-tension.html"
    },
-
    {
       "id": "intro-underclings",
       "title": "Intro to Underclings",
@@ -156,6 +293,22 @@
       "difficulty": "beginner",
       "thumbnail": "https://i.ibb.co/53q55TK/Round-Undercling.jpg",
       "url": "/train/lessons/intro-underclings.html"
+   },
+   {
+      "id": "undercling-isometric-workout",
+      "title": "Undercling Isometric Workout",
+      "type": "Workout",
+      "length": "NaN",
+      "tags": [
+         "undercling",
+         "workout"
+      ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
+      ],
+      "thumbnail": "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
+      "url": "/train/lessons/undercling-isometric-workout.html"
    },
    {
       "id": "undercling-core-engagement",
@@ -173,7 +326,23 @@
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/undercling-core-engagement.html"
    },
-
+   {
+      "id": "kneebar",
+      "title": "The Kneebar",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "undercling",
+         "cave",
+         "technique"
+      ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
+      ],
+      "thumbnail": "https://i.ibb.co/dCKZ9hZ/sidepull-Cover.jpg",
+      "url": "/train/lessons/kneebar.html"
+   },
    {
       "id": "intro-slab",
       "title": "Intro to Slabs",
@@ -361,6 +530,19 @@
       "url": "/train/lessons/intro-big-moves.html"
    },
    {
+      "id": "types-of-dynos",
+      "title": "Types of Dynos",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "big-move",
+         "technique"
+      ],
+      "difficulty": "intermediate",
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/train/lessons/types-of-dynos.html"
+   },
+   {
       "id": "dynamic-movement",
       "title": "Dynamic Movement",
       "type": "Workout",
@@ -412,6 +594,7 @@
       "length": "NaN",
       "tags": [
          "meticulous",
+         "slab",
          "technique"
       ],
       "difficulty": "beginner",
@@ -548,8 +731,38 @@
       "url": "/train/lessons/memory-training.html"
    },
    {
+      "id": "add-on",
+      "title": "Add On",
+      "type": "Practice",
+      "length": "20min",
+      "tags": [
+         "route-reading",
+         "exercise"
+      ],
+      "difficulty": [
+         "beginner",
+         "intermediate",
+         "advanced"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/train/lessons/add-on.html"
+   },
+   {
+      "id": "intro-endurance",
+      "title": "Intro to Endurance",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "endurance",
+         "intro"
+      ],
+      "difficulty": "beginner",
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/train/lessons/intro-endurance.html"
+   },
+   {
       "id": "auto-belay-circuit",
-      "title": "Auto-Belay Endurance Circuit",
+      "title": "Auto-Belay Endurance Circuit (ARC)",
       "type": "Workout",
       "length": "45min",
       "tags": [
@@ -565,7 +778,7 @@
    },
    {
       "id": "treadmill-hangboard-circuit",
-      "title": "Treadmill and Hangboard Circuit",
+      "title": "Treadmill and Hangboard Circuit (ARC)",
       "type": "Workout",
       "length": "30min",
       "tags": [

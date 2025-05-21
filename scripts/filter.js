@@ -3,10 +3,22 @@ document.addEventListener("DOMContentLoaded", async () => {
   const urlParams = new URLSearchParams(window.location.search);
   let tag = urlParams.get("tag");
   let typeParam = urlParams.get("type");
+  let sortParam = urlParams.get("sort")?.toLowerCase();
 
   if (!tag && !typeParam) {
     tag = "all";
   }
+
+  const difficultyOrder = {
+    beginner: 1,
+    intermediate: 2,
+    advanced: 3,
+  };
+
+  const getDifficultyRank = (lesson) => {
+    const val = lesson.difficulty?.toLowerCase?.();
+    return difficultyOrder[val] ?? Infinity;
+  };
 
   // Sanitize and parse type (e.g. "article,workout" -> ["article", "workout"])
   let typeList = [];
@@ -62,9 +74,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     const sortedLessons = filtered.sort((a, b) => {
       const isIntroA = a.tags.includes("intro");
       const isIntroB = b.tags.includes("intro");
-
       if (isIntroA && !isIntroB) return -1;
       if (!isIntroA && isIntroB) return 1;
+
+      const diffCompare = getDifficultyRank(a) - getDifficultyRank(b);
+      if (diffCompare !== 0) return diffCompare;
 
       return a.title.localeCompare(b.title);
     });

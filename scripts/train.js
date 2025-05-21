@@ -12,10 +12,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     Pocket: 0,
     Sidepull: 0,
     Undercling: 0,
+    Pinch: 0,
     Bigmove: 0,
     Meticulous: 0,
     Powerful: 0,
     Routereading: 0,
+    Endurance: 0,
     Slab: 0,
     Slightoverhang: 0,
     Overhang: 0,
@@ -44,10 +46,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       Pocket: "pocket",
       Sidepull: "sidepull",
       Undercling: "undercling",
+      Pinch: "pinch",
       Bigmove: "big-move",
       Meticulous: "meticulous",
       Powerful: "powerful",
       Routereading: "route-reading",
+      Endurance: "endurance",
       Slab: "slab",
       Slightoverhang: "slight-overhang",
       Overhang: "overhang",
@@ -105,6 +109,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       Pocket: "https://i.ibb.co/d4rJMYFm/pocket-Cover.jpg",
       Sidepull: "https://i.ibb.co/dCKZ9hZ/sidepull-Cover.jpg",
       Undercling: "https://i.ibb.co/53q55TK/Round-Undercling.jpg",
+      Pinch:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
       Bigmove:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
       Meticulous: "https://i.ibb.co/xNpkgcG/meticulous-Footholds.jpg",
@@ -112,20 +118,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
       Routereading:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
+      Endurance:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
       Slab: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
       Slightoverhang:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
       Overhang:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
       Cave: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
-      Bigmove:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
-      Meticulous:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
-      Powerful:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
-      Routereading:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHe0OUpCfc4jyRbopTr5flXNU3B4cNOnjOAMtlljKedkEHSwEnhB8uqo&s",
     };
 
     bottom2Categories.forEach((category) => {

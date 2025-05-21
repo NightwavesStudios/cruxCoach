@@ -57,10 +57,9 @@
         <!-- Profile Information -->
         <div id="profileInfo">
             <h2>Your Profile</h2>
-            <p><strong>Name:</strong> [User Name]</p>
-            <p><strong>Email:</strong> [User Email]</p>
-            <p><strong>Joined:</strong> [Join Date]</p>
-            <p><strong>Climbing Level:</strong> [Level]</p>
+            <p><strong>Name:</strong> <span id="usernameDisplay">[User Name]</span></p>
+            <p><strong>Email:</strong> <span id="emailDisplay">[User Email]</span></p>
+            <p><strong>Joined:</strong> <span id="joinDateDisplay">[Join Date]</span></p>
         </div>
 
         <div id="dataControls">
@@ -78,15 +77,11 @@
                 more.</p>
 
             <!-- Preferences Form -->
-            <form>
+            <form id="accountInfoForm">
                 <label for="username">Update Username: </label>
-                <input type="text" id="username" name="username">
+                <input type="text" id="username" name="username" placeholder="[User Name]">
                 <label for="email">Update Email: </label>
-                <input type="email" id="email" name="email">
-                <label for="password">Update Password: </label>
-                <input type="password" id="password" name="password" pattern=".{8,}">
-                <label for="confirmPassword">Confirm Password: </label>
-                <input type="password" id="confirmPassword" name="password" pattern=".{8,}">
+                <input type="email" id="email" name="email" placeholder="[User Email]">
                 <button type="submit">Save</button>
             </form>
         </div>
