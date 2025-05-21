@@ -26,6 +26,33 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const traits = loadSafe("traits", defaultTraits);
 
+  const SUGGESTION_CACHE_KEY = "cachedSuggestions";
+
+  function shouldRegenerateSuggestions(currentBottom3) {
+    const cache = loadSafe(SUGGESTION_CACHE_KEY, null);
+    if (!cache) return true;
+
+    const oneHour = 60 * 60 * 1000;
+    const now = Date.now();
+    const isExpired = now - cache.timestamp > oneHour;
+
+    const sameTraits =
+      JSON.stringify(currentBottom3.sort()) ===
+      JSON.stringify(cache.bottom3.sort());
+
+    return isExpired || !sameTraits;
+  }
+
+  function saveSuggestionCache(suggestions, bottom3) {
+    const cache = {
+      timestamp: Date.now(),
+      bottom3: bottom3,
+      articles: suggestions.articles,
+      workouts: suggestions.workouts,
+    };
+    localStorage.setItem(SUGGESTION_CACHE_KEY, JSON.stringify(cache));
+  }
+
   try {
     const response = await fetch("/train/data/lessons.json");
     if (!response.ok) {
@@ -144,58 +171,87 @@ document.addEventListener("DOMContentLoaded", async () => {
       suggestedCollectionsContainer.innerHTML += collectionCard;
     });
 
-    const usedArticles = new Set();
-    suggestedArticlesContainer.innerHTML = "";
-    let articlesAdded = 0;
+    const cached = loadSafe(SUGGESTION_CACHE_KEY, null);
+    let articlesToUse = [];
+    let workoutsToUse = [];
 
-    bottom3Categories.forEach((category) => {
-      if (articlesAdded >= 3) return;
+    if (!shouldRegenerateSuggestions(bottom3Categories)) {
+      console.log("Using cached suggestions");
+      articlesToUse = cached.articles;
+      workoutsToUse = cached.workouts;
+    } else {
+      console.log("Regenerating suggestions");
+      const usedArticles = new Set();
+      const usedWorkouts = new Set();
 
-      const articles = filterLessons("article", category);
-      const firstNewArticle = articles.find(
-        (article) => !usedArticles.has(article.id)
+      bottom3Categories.forEach((category) => {
+        const articles = filterLessons("article", category);
+        const availableArticles = articles.filter(
+          (article) => !usedArticles.has(article.id)
+        );
+        if (availableArticles.length) {
+          const randomArticle =
+            availableArticles[
+              Math.floor(Math.random() * availableArticles.length)
+            ];
+          if (randomArticle) {
+            usedArticles.add(randomArticle.id);
+            articlesToUse.push(randomArticle);
+          }
+        }
+
+        const workouts = filterLessons(["workout", "practice"], category);
+        const availableWorkouts = workouts.filter(
+          (workout) => !usedWorkouts.has(workout.id)
+        );
+        if (availableWorkouts.length) {
+          const randomWorkout =
+            availableWorkouts[
+              Math.floor(Math.random() * availableWorkouts.length)
+            ];
+          if (randomWorkout) {
+            usedWorkouts.add(randomWorkout.id);
+            workoutsToUse.push(randomWorkout);
+          }
+        }
+      });
+
+      // Trim to 3 max
+      articlesToUse = articlesToUse.slice(0, 3);
+      workoutsToUse = workoutsToUse.slice(0, 3);
+
+      saveSuggestionCache(
+        { articles: articlesToUse, workouts: workoutsToUse },
+        bottom3Categories
       );
+    }
 
-      if (firstNewArticle) {
-        usedArticles.add(firstNewArticle.id);
-        const articleCard = `
-      <a href="${firstNewArticle.url}">
-        <div class="lesson-card">
-          <img class="lazyload" src="${firstNewArticle.thumbnail}" alt="${firstNewArticle.title}">
-          <h4>${firstNewArticle.title}</h4>
-          <p><span class="type">${firstNewArticle.type}</span>, <span class="length">${firstNewArticle.length}</span></p>
-        </div>
-      </a>`;
-        suggestedArticlesContainer.innerHTML += articleCard;
-        articlesAdded++;
-      }
+    // Render Articles
+    suggestedArticlesContainer.innerHTML = "";
+    articlesToUse.forEach((article) => {
+      const articleCard = `
+    <a href="${article.url}">
+      <div class="lesson-card">
+        <img class="lazyload" src="${article.thumbnail}" alt="${article.title}">
+        <h4>${article.title}</h4>
+        <p><span class="type">${article.type}</span>, <span class="length">${article.length}</span></p>
+      </div>
+    </a>`;
+      suggestedArticlesContainer.innerHTML += articleCard;
     });
 
-    const usedWorkouts = new Set();
+    // Render Workouts
     suggestedWorkoutsContainer.innerHTML = "";
-    let workoutsAdded = 0;
-
-    bottom3Categories.forEach((category) => {
-      if (workoutsAdded >= 3) return;
-
-      const workouts = filterLessons(["workout", "practice"], category);
-      const firstNewWorkout = workouts.find(
-        (workout) => !usedWorkouts.has(workout.id)
-      );
-
-      if (firstNewWorkout) {
-        usedWorkouts.add(firstNewWorkout.id);
-        const workoutCard = `
-      <a href="${firstNewWorkout.url}">
-        <div class="lesson-card">
-          <img class="lazyload" src="${firstNewWorkout.thumbnail}" alt="${firstNewWorkout.title}">
-          <h4>${firstNewWorkout.title}</h4>
-          <p><span class="type">${firstNewWorkout.type}</span>, <span class="length">${firstNewWorkout.length}</span></p>
-        </div>
-      </a>`;
-        suggestedWorkoutsContainer.innerHTML += workoutCard;
-        workoutsAdded++;
-      }
+    workoutsToUse.forEach((workout) => {
+      const workoutCard = `
+    <a href="${workout.url}">
+      <div class="lesson-card">
+        <img class="lazyload" src="${workout.thumbnail}" alt="${workout.title}">
+        <h4>${workout.title}</h4>
+        <p><span class="type">${workout.type}</span>, <span class="length">${workout.length}</span></p>
+      </div>
+    </a>`;
+      suggestedWorkoutsContainer.innerHTML += workoutCard;
     });
   } catch (error) {
     console.error("Error fetching or processing lessons data:", error);
