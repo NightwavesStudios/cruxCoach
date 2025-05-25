@@ -293,7 +293,9 @@ function safeLazyLoad() {
 }
 
 /* Display Tip */
+const tipsContainer = document.getElementById("tipsContainer");
 const tipDisplay = document.getElementById("tipDisplay");
+
 const tips = [
   "Only your last 10 logged grades are saved, keeping your data fresh and recent!",
   "It can take up to 5-10 journals for your data to fully reflect your climbing style and skills.",
@@ -301,21 +303,35 @@ const tips = [
   "You can download your data on the profile page as a backup, and upload it later as a backup or onto a different device!",
   "You can use the 'Clear Data' button on the profile page to reset your data if you want to start fresh. Do this with caution!",
   "The train page is a place to learn through articles and videos, and practice through exercises!",
-  "If you just want to expore all the content, click the 'view all' button on the train page!",
+  "If you just want to explore all the content, click the 'view all' button on the train page!",
   "To sort the content, click a collection to view articles, videos, and exercises specific to that collection!",
   "View the Holds Breakdown Chart to see your strengths and weaknesses in different climbing holds.",
   "View the Style Breakdown Chart to see your strengths and weaknesses in different climbing styles.",
   "The Training Distribution Chart shows where you spend most of your climbing time.",
+  "The Train Page will recommend content based on your struggle traits and current grade.",
+  "You can update your username and email through the Profile Page's customization form.",
 ];
-function updateTip() {
-  let previousIndex = -1;
-  let randomIndex;
-  do {
-    randomIndex = Math.floor(Math.random() * tips.length);
-  } while (randomIndex === previousIndex && tips.length > 1);
 
-  previousIndex = randomIndex;
-  tipDisplay.innerHTML = tips[randomIndex];
+let previousIndex = -1;
+
+function getNewTipIndex() {
+  let index;
+  do {
+    index = Math.floor(Math.random() * tips.length);
+  } while (index === previousIndex && tips.length > 1);
+  previousIndex = index;
+  return index;
+}
+
+function updateTip() {
+  tipDisplay.classList.remove("fade-in"); // reset
+  tipDisplay.classList.add("fade-out");
+
+  setTimeout(() => {
+    tipDisplay.innerHTML = `<b>Tip:</b> ${tips[getNewTipIndex()]}`;
+    tipDisplay.classList.remove("fade-out");
+    tipDisplay.classList.add("fade-in");
+  }, 500);
 }
 
 /* DOM Loaded Safety Function */
@@ -690,14 +706,6 @@ window.onload = window.onresize = function () {
   });
 };
 
-/* Smooth Scroll */
-function smoothScroll(y) {
-  window.scroll({
-    top: y,
-    behavior: "smooth",
-  });
-}
-
 /* Clear Local Storage */
 function clearData() {
   if (
@@ -782,4 +790,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   updateTip();
+  setInterval(updateTip, 30000);
 });

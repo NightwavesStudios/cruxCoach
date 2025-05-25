@@ -132,7 +132,7 @@
          "technique"
       ],
       "difficulty": "intermediate",
-      "thumbnail": "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/surface-contact-friction-slopers.html"
    },
    {
@@ -144,8 +144,8 @@
          "sloper",
          "technique"
       ],
-      "difficulty": "intermediate",
-      "thumbnail": "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
+      "difficulty": "advanced",
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/sloper-shoulder-engagement.html"
    },
    {
@@ -174,7 +174,7 @@
          "intermediate",
          "advanced"
       ],
-      "thumbnail": "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
+      "thumbnail": "https://i.ibb.co/d4rJMYFm/pocket-Cover.jpg",
       "url": "/train/lessons/pocket-repeaters.html"
    },
    {
@@ -190,7 +190,7 @@
          "beginner",
          "intermediate"
       ],
-      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "thumbnail": "https://i.ibb.co/d4rJMYFm/pocket-Cover.jpg",
       "url": "/train/lessons/pocket-finger-loading.html"
    },
    {
@@ -265,7 +265,7 @@
          "technique"
       ],
       "difficulty": "intermediate",
-      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "thumbnail": "https://i.ibb.co/dCKZ9hZ/sidepull-Cover.jpg",
       "url": "/train/lessons/sidepull-flagging-counterbalance.html"
    },
    {
@@ -278,7 +278,7 @@
          "technique"
       ],
       "difficulty": "intermediate",
-      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "thumbnail": "https://i.ibb.co/dCKZ9hZ/sidepull-Cover.jpg",
       "url": "/train/lessons/sidepull-body-tension.html"
    },
    {
@@ -307,7 +307,7 @@
          "intermediate",
          "advanced"
       ],
-      "thumbnail": "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
+      "thumbnail": "https://i.ibb.co/53q55TK/Round-Undercling.jpg",
       "url": "/train/lessons/undercling-isometric-workout.html"
    },
    {
@@ -323,7 +323,7 @@
          "intermediate",
          "advanced"
       ],
-      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "thumbnail": "https://i.ibb.co/53q55TK/Round-Undercling.jpg",
       "url": "/train/lessons/undercling-core-engagement.html"
    },
    {
@@ -340,7 +340,7 @@
          "intermediate",
          "advanced"
       ],
-      "thumbnail": "https://i.ibb.co/dCKZ9hZ/sidepull-Cover.jpg",
+      "thumbnail": "https://i.ibb.co/53q55TK/Round-Undercling.jpg",
       "url": "/train/lessons/kneebar.html"
    },
    {
@@ -807,5 +807,35 @@
       ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
       "url": "/train/lessons/power-endurance-replacement-circuit.html"
+   },
+   {
+      "id": "intro-pinch",
+      "title": "Intro to Pinch",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "intro",
+         "pinch",
+         "article"
+      ],
+      "difficulty": "beginner",
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/train/lessons/intro-pinch.html"
+   },
+   {
+      "id": "pinch-block-training",
+      "title": "Pinch Block Training",
+      "type": "Exercise",
+      "length": "NaN",
+      "tags": [
+         "pinch",
+         "exercise"
+      ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/train/lessons/pinch-block-training.html"
    }
 ]

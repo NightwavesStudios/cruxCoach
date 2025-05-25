@@ -16,8 +16,33 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   const getDifficultyRank = (lesson) => {
-    const val = lesson.difficulty?.toLowerCase?.();
-    return difficultyOrder[val] ?? Infinity;
+    const raw = lesson.difficulty;
+
+    if (!raw) return Infinity;
+
+    const difficulties = Array.isArray(raw)
+      ? raw
+      : String(raw)
+          .split(",")
+          .map((d) => d.trim().toLowerCase());
+
+    let minRank = Infinity;
+    for (const diff of difficulties) {
+      const rank = difficultyOrder[diff];
+      if (rank && rank < minRank) {
+        minRank = rank;
+      }
+    }
+
+    return minRank;
+  };
+
+  const getDifficultyCount = (lesson) => {
+    const raw = lesson.difficulty;
+    if (!raw) return Infinity;
+    return Array.isArray(raw)
+      ? raw.length
+      : String(raw).split(",").filter(Boolean).length;
   };
 
   // Sanitize and parse type (e.g. "article,workout" -> ["article", "workout"])
@@ -74,12 +99,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     const sortedLessons = filtered.sort((a, b) => {
       const isIntroA = a.tags.includes("intro");
       const isIntroB = b.tags.includes("intro");
+
+      // 1. Intro first
       if (isIntroA && !isIntroB) return -1;
       if (!isIntroA && isIntroB) return 1;
 
-      const diffCompare = getDifficultyRank(a) - getDifficultyRank(b);
-      if (diffCompare !== 0) return diffCompare;
+      // 2. Difficulty rank (lowest first)
+      const diffRankA = getDifficultyRank(a);
+      const diffRankB = getDifficultyRank(b);
+      if (diffRankA !== diffRankB) return diffRankA - diffRankB;
 
+      // 3. Single difficulty before multiple
+      const countA = getDifficultyCount(a);
+      const countB = getDifficultyCount(b);
+      if (countA !== countB) return countA - countB;
+
+      // 4. Alphabetical by title
       return a.title.localeCompare(b.title);
     });
 
@@ -97,13 +132,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     container.innerHTML = "";
     sortedLessons.forEach((lesson) => {
       const card = document.createElement("a");
-      card.href = lesson.url;
+      card.href = card.href = `${lesson.url}?from=${encodeURIComponent(tag)}`;
       card.innerHTML = `
         <div class="lesson-card">
             <img class="lazyload" src="${lesson.thumbnail}" alt="${lesson.title}">
             <h4>${lesson.title}</h4>
-            <p><span class="type">${lesson.type}</span>, <span class="length">${lesson.length}</span></p>
-        </div>
+            <p>
+  <span class="type">${lesson.type}</span>, 
+  <span class="length">${lesson.length}</span> 
+</p>
+</div>
       `;
       container.appendChild(card);
     });
