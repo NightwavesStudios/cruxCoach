@@ -12,12 +12,6 @@ body {
   margin: 0px;
   overflow-x: hidden;
   background-color: #fff;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-}
-
-body.loaded {
-  opacity: 1;
 }
 
 h1,
@@ -39,9 +33,6 @@ img {
 
 button {
   color: black;
-}
-
-button:hover {
   cursor: pointer;
 }
 
@@ -337,6 +328,7 @@ nav a:hover {
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
   justify-content: space-around;
   align-items: center;
+  cursor: pointer;
 }
 
 #optionsContainer button {

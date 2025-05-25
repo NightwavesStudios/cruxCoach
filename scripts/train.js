@@ -289,6 +289,15 @@ function getNewTipIndex() {
   return index;
 }
 
+let intervalId;
+
+function startTipInterval() {
+  if (intervalId) {
+    clearInterval(intervalId);
+  }
+  intervalId = setInterval(updateTip, 5000);
+}
+
 let firstLoad = true;
 
 function updateTip() {
@@ -307,9 +316,11 @@ function updateTip() {
     tipDisplay.classList.remove("fade-out");
     tipDisplay.classList.add("fade-in");
   }, 500);
+
+  startTipInterval();
 }
 
 window.addEventListener("load", () => {
-  setInterval(updateTip, 5000);
   updateTip();
+  startTipInterval();
 });
