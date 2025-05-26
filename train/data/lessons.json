@@ -598,7 +598,7 @@
          "technique"
       ],
       "difficulty": "beginner",
-      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "thumbnail": "https://i.ibb.co/xNpkgcG/meticulous-Footholds.jpg",
       "url": "/train/lessons/silent-feet.html"
    },
    {
@@ -611,7 +611,7 @@
          "technique"
       ],
       "difficulty": "beginner",
-      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "thumbnail": "https://i.ibb.co/xNpkgcG/meticulous-Footholds.jpg",
       "url": "/train/lessons/silent-hands.html"
    },
    {
@@ -624,8 +624,24 @@
          "technique"
       ],
       "difficulty": "beginner",
-      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "thumbnail": "https://i.ibb.co/xNpkgcG/meticulous-Footholds.jpg",
       "url": "/train/lessons/controlled-movement.html"
+   },
+   {
+      "id": "one-limb-drills",
+      "title": "One Limb Drills",
+      "type": "Practice",
+      "length": "NaN",
+      "tags": [
+         "meticulous",
+         "technique"
+      ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
+      ],
+      "thumbnail": "https://i.ibb.co/xNpkgcG/meticulous-Footholds.jpg",
+      "url": "/train/lessons/one-limb-drills.html"
    },
    {
       "id": "intro-powerful",

@@ -33,13 +33,13 @@ img {
 
 button {
   color: black;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 a {
   color: inherit;
   text-decoration: none;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .link {
@@ -127,7 +127,7 @@ header .logo {
   position: fixed;
   width: 25px;
   left: 10px;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 header .mode {
@@ -135,7 +135,7 @@ header .mode {
   right: 10px;
   display: flex;
   align-items: center;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 /* Popup Styling */
@@ -162,7 +162,7 @@ header .mode {
   border: none;
   font-size: 20px;
   transition: 0.5s;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .submit-button-cover {
@@ -195,7 +195,7 @@ header .mode {
 
 .popup .exit {
   position: fixed;
-  cursor: pointer;
+  cursor: pointer !important;
   top: 5px;
   right: 5px;
   color: black;
@@ -251,14 +251,14 @@ header .mode {
   height: 15px;
   border-radius: 50%;
   background-color: black;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .slider::-moz-range-thumb {
   width: 25px;
   height: 25px;
   background: #ff0000;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .sliderticks {
@@ -316,7 +316,7 @@ nav a {
 }
 
 nav a:hover {
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 /* Quick Options Container Styling */
@@ -328,7 +328,7 @@ nav a:hover {
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
   justify-content: space-around;
   align-items: center;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 #optionsContainer button {
@@ -345,7 +345,7 @@ nav a:hover {
 
 #optionsContainer .blue:hover {
   background-color: #4285f477;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 #optionsContainer .orange {
@@ -356,7 +356,7 @@ nav a:hover {
 
 #optionsContainer .orange:hover {
   background-color: #f28c2877;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 #optionsContainer .green {
@@ -367,7 +367,7 @@ nav a:hover {
 
 #optionsContainer .green:hover {
   background-color: #34a85355;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 /* Grade Progression Container Styling */
@@ -515,7 +515,7 @@ nav a:hover {
   right: 10px;
   background: none;
   border: none;
-  cursor: pointer;
+  cursor: pointer !important;
   font-size: 24px;
   color: #666;
 }
@@ -552,7 +552,7 @@ nav a:hover {
   border: none;
   border-radius: 5px;
   padding: 5px 10px;
-  cursor: pointer;
+  cursor: pointer !important;
   font-size: 12px;
 }
 
@@ -569,7 +569,7 @@ nav a:hover {
   width: 95vw;
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
   text-align: center;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 #tipDisplay {
@@ -604,7 +604,7 @@ nav a:hover {
 .popular-card:hover {
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
   transition: 0.2s ease-in-out;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .popular-card img {
@@ -660,7 +660,7 @@ nav a:hover {
 }
 
 #popularTrainingContainer button:hover {
-  cursor: pointer;
+  cursor: pointer !important;
   background-color: lightgray;
   transition: 0.2s ease-in-out;
 }
@@ -684,7 +684,7 @@ nav a:hover {
 .collection-card:hover {
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
   transition: 0.2s ease-in-out;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .collection-card img {
@@ -750,7 +750,7 @@ nav a:hover {
 .lesson-card:hover {
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
   transition: 0.2s ease-in-out;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .lesson-card img {

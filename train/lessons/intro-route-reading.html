@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Title -->
+    <title>CruxCoach - Intro to Route Reading</title>
+
+    <!-- Description & Charset -->
+    <meta name="description"
+        content="Route reading is your first ascent — done with your eyes. Learn to anticipate movement, spot cruxes, and mentally rehearse the send before leaving the ground.">
+    <meta name="keywords"
+        content="route reading, onsight strategy, visualization, climbing beta, problem solving, mental rehearsal, cruxcoach route reading lesson">
+    <meta charset="utf-8">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
+    <link rel="icon" href="/assets/dark-favicon.png" type="image/x-icon" media="(prefers-color-scheme: light)">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/favicon.png" type="image/x-icon" media="(prefers-color-scheme: dark)">
+
+    <!-- Import Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQXN250GC5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-WQXN250GC5');
+    </script>
+
+    <!-- Import Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+
+    <!-- Import Stylesheet -->
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/lessons.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <span class="logo material-icons" onclick="previousPage();">arrow_back</span>
+        <h1>CruxCoach</h1>
+        <span class="material-icons mode">login</span>
+    </header>
+
+    <!-- Content -->
+    <div id="contentContainer">
+
+        <h1>Intro to Route Reading</h1>
+
+        <h2>Overview</h2>
+        <p>Route reading is how you climb before you climb. It’s the process of studying a boulder or route and solving
+            it with your eyes before pulling on. This lesson covers:</p>
+        <ul>
+            <li>Identifying sequences and possible cruxes</li>
+            <li>Visualizing moves and body positions</li>
+            <li>Improving onsight efficiency and redpoint planning</li>
+        </ul>
+
+        <h2>What is Route Reading?</h2>
+        <p>Route reading is part detective work, part movement rehearsal. It sharpens your mental map of the climb — and
+            helps avoid costly mid-route surprises. Look for:</p>
+        <ul>
+            <li><strong>Hold Types:</strong> Are they incuts, slopers, crimps? What direction will they pull best?</li>
+            <li><strong>Foot Options:</strong> Spot edges, smears, or sneaky toe hooks before you commit</li>
+            <li><strong>Body Flow:</strong> Is the route right-left-right? Does it rise diagonally or demand
+                compression?</li>
+        </ul>
+        <p>Every good climber builds the send twice — first in their head, then on the wall.</p>
+
+        <h2>The Process: Read, Rehearse, Refine</h2>
+        <p>
+            [Image - Climber Pointing Out a Crux Sequence]
+            <br><br>
+            Route reading isn’t just passive scanning. It’s active rehearsal. Here’s how to do it well:
+        </p>
+        <ul>
+            <li><strong>Bottom-Up Pass:</strong> Start with your hands — what’s your likely first sequence?</li>
+            <li><strong>Foot Path Pass:</strong> Rewalk it with eyes, focusing just on feet. They’ll make or break flow.
+            </li>
+            <li><strong>Crux Scan:</strong> Look for the most uncertain or powerful move. That’s your mental anchor —
+                solve that, and the rest will follow.</li>
+            <li><strong>Full Rehearsal:</strong> Mimic the movement. Gesture with your hands, step through in place,
+                imagine the shift in weight and direction.</li>
+        </ul>
+
+        <h2>Route Reading vs Improvising</h2>
+        <p>
+            <strong>Reading:</strong> Plan A. Structured. Efficient. Based on visual logic and past experience.<br><br>
+            <strong>Improvising:</strong> What happens when Plan A breaks. Still valuable — but slower and more prone to
+            errors.<br><br>
+            Ideally, you want your read to be 90% right. Improvisation should be a backup — not the whole performance.
+        </p>
+
+        <h2>Common Pitfalls and Fixes</h2>
+        <ul>
+            <li><strong>Overconfidence:</strong> Don’t assume it’s easy because it looks simple. Check the angle, the
+                reach, the match points.</li>
+            <li><strong>Skipping Feet:</strong> Hands don’t move without feet. If you didn’t spot the smear, your
+                sequence will feel off mid-send.</li>
+            <li><strong>Reading Too Fast:</strong> Especially on onsight. Slow down. A 30-second scan can prevent a
+                2-minute flail.</li>
+            <li><strong>Not Re-reading After Fails:</strong> Don’t just throw yourself at it again. Re-check the problem
+                and revise the beta.</li>
+        </ul>
+
+        <div id="tipsContainer">
+            <h2>Quick Tips:</h2>
+            <ul>
+                <li>Film your flash attempts and compare to your initial plan.</li>
+                <li>Practice silent rehearsals — visualize full routes in your head start to finish.</li>
+                <li>In comps or onsight practice, treat preview time like gold. Don’t talk. Read.</li>
+                <li>Use hand gestures to walk the sequence — even pros do it.</li>
+                <li>Do post-send reviews. What did your initial read miss?</li>
+            </ul>
+        </div>
+
+        <h2>Summary</h2>
+        <p>Route reading is one of the most underrated skills in climbing. It’s the difference between a clean flash and
+            a sloppy burn. Build the habit of intentional pre-send analysis — scan, visualize, rehearse. The more you
+            climb with your brain first, the less your body has to guess. And in climbing, guessing costs energy — or
+            the send.</p>
+        <br>
+
+        <!-- Read Next Button Container -->
+        <div id="readNextContainer">
+        </div>
+
+        <!-- Nav -->
+        <br><br><br>
+        <nav>
+            <a href="/index.html" class="material-icons" alt="Dashboard Icon" title="Dashboard">show_chart</a>
+            <a href="/../train/index.html" class="material-icons" alt="Lessons Icon" title="Lessons">school</a>
+            <a href="/profile.html" class="material-icons" alt="Profile Icon" title="Profile">person</a>
+        </nav>
+
+    </div>
+
+    <!-- Import Javascript -->
+    <script src="/scripts/main.js"></script>
+    <script src="/scripts/lessons.js"></script>
+
+</body>
+
+</html>
