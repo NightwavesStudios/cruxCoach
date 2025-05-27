@@ -485,6 +485,22 @@
       "url": "/train/lessons/intro-roofs-caves.html"
    },
    {
+      "id": "turning-flagging",
+      "title": "Turning and Flagging",
+      "type": "Article",
+      "length": "NaN",
+      "tags": [
+         "cave",
+         "technique"
+      ],
+      "difficulty": [
+         "intermediate",
+         "advanced"
+      ],
+      "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
+      "url": "/train/lessons/turning-flagging.html"
+   },
+   {
       "id": "extreme-tension-moves",
       "title": "Extreme Tension Moves",
       "type": "Workout",
@@ -731,9 +747,9 @@
       "url": "/train/lessons/sequence-visualization.html"
    },
    {
-      "id": "memory-training",
-      "title": "Memory Training",
-      "type": "Practice",
+      "id": "movement-learning",
+      "title": "Movement Learning & Practice",
+      "type": "Article",
       "length": "NaN",
       "tags": [
          "route-reading",
@@ -741,10 +757,11 @@
       ],
       "difficulty": [
          "beginner",
-         "intermediate"
+         "intermediate",
+         "advanced"
       ],
       "thumbnail": "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
-      "url": "/train/lessons/memory-training.html"
+      "url": "/train/lessons/movement-learning.html"
    },
    {
       "id": "add-on",

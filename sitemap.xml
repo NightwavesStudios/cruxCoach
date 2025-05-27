@@ -4,94 +4,115 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
 <url>
   <loc>https://cruxcoach.vercel.app/</loc>
-  <lastmod>2025-05-16T21:40:43+00:00</lastmod>
+  <lastmod>2025-05-27T13:06:53+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://cruxcoach.vercel.app/index.html</loc>
-  <lastmod>2025-05-16T21:40:43+00:00</lastmod>
+  <lastmod>2025-05-27T13:06:53+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://cruxcoach.vercel.app/train/index.html</loc>
-  <lastmod>2025-05-16T21:40:43+00:00</lastmod>
+  <lastmod>2025-05-27T13:06:53+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://cruxcoach.vercel.app/profile.html</loc>
-  <lastmod>2025-05-16T21:40:44+00:00</lastmod>
+  <lastmod>2025-05-27T13:06:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=all</loc>
-  <lastmod>2025-05-16T21:40:44+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/lessons/intro-crimps.html</loc>
+  <lastmod>2025-05-27T13:06:54+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=crimp</loc>
-  <lastmod>2025-05-16T21:40:44+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/lessons/intro-slopers.html</loc>
+  <lastmod>2025-05-27T13:06:54+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=sloper</loc>
-  <lastmod>2025-05-16T21:40:44+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/lessons/intro-pockets.html</loc>
+  <lastmod>2025-05-27T13:06:55+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=pocket</loc>
-  <lastmod>2025-05-16T21:40:44+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/lessons/intro-sidepulls.html</loc>
+  <lastmod>2025-05-27T13:06:55+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=sidepull</loc>
-  <lastmod>2025-05-16T21:40:44+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/lessons/intro-underclings.html</loc>
+  <lastmod>2025-05-27T13:06:55+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=undercling</loc>
-  <lastmod>2025-05-16T21:40:44+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/lessons/intro-pinch.html</loc>
+  <lastmod>2025-05-27T13:06:55+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=slab</loc>
-  <lastmod>2025-05-16T21:40:44+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/lessons/intro-big-moves.html</loc>
+  <lastmod>2025-05-27T13:06:55+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=slight-overhang</loc>
-  <lastmod>2025-05-16T21:40:44+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/lessons/intro-meticulous.html</loc>
+  <lastmod>2025-05-27T13:06:55+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=overhang</loc>
-  <lastmod>2025-05-16T21:40:44+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/lessons/intro-powerful.html</loc>
+  <lastmod>2025-05-27T13:06:55+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=cave</loc>
-  <lastmod>2025-05-16T21:40:44+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/lessons/intro-route-reading.html</loc>
+  <lastmod>2025-05-27T13:06:56+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=big-move</loc>
-  <lastmod>2025-05-16T21:40:44+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/lessons/intro-endurance.html</loc>
+  <lastmod>2025-05-27T13:06:56+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=meticulous</loc>
-  <lastmod>2025-05-16T21:40:44+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/lessons/intro-slab.html</loc>
+  <lastmod>2025-05-27T13:06:56+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=powerful</loc>
-  <lastmod>2025-05-16T21:40:44+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/lessons/intro-slight-overhangs.html</loc>
+  <lastmod>2025-05-27T13:06:56+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://cruxcoach.vercel.app/train/filter.html?tag=route-reading</loc>
-  <lastmod>2025-05-16T21:40:44+00:00</lastmod>
+  <loc>https://cruxcoach.vercel.app/train/lessons/intro-overhangs.html</loc>
+  <lastmod>2025-05-27T13:06:56+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://cruxcoach.vercel.app/train/lessons/intro-roofs-caves.html</loc>
+  <lastmod>2025-05-27T13:06:56+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://cruxcoach.vercel.app/train/lessons/long-hang-crimp-workout.html</loc>
+  <lastmod>2025-05-27T13:06:56+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://cruxcoach.vercel.app/train/lessons/silent-feet.html</loc>
+  <lastmod>2025-05-27T13:06:56+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://cruxcoach.vercel.app/train/lessons/sloper-sessions.html</loc>
+  <lastmod>2025-05-27T13:06:57+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 
