@@ -682,6 +682,18 @@ nav a:hover {
   transition: 0.2s ease-in-out;
 }
 
+.reason {
+  text-align: center;
+  width: 95vw;
+  padding: 10px;
+  margin: -10px;
+  border-radius: 10px;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  line-height: 1.25;
+  cursor: inherit !important;
+}
+
 /* Collection Cards Styling */
 #collectionCardsContainer {
   display: flex;
@@ -693,7 +705,6 @@ nav a:hover {
 
 .collection-card {
   width: 45vw;
-  margin-bottom: 20px;
   border-radius: 20px;
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
 }

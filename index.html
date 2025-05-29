@@ -20,6 +20,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/assets/favicon.png" type="image/x-icon" media="(prefers-color-scheme: dark)">
 
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="CruxCoach - Dashboard" />
+    <meta property="og:description"
+        content="Track your climbing progress and improve your skills with advanced tracking and analytics." />
+    <meta property="og:image" content="https://cruxcoach.vercel.app/assets/favicon.png" />
+    <meta property="og:url" content="https://cruxcoach.vercel.app/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="CruxCoach" />
+
     <!-- Import Google Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
 
@@ -83,9 +92,8 @@
                 0 = Neutral (neither good nor bad)<br>
                 1 = Minor Strength<br>
                 2 = Major Strength<br><br>
-                Leave any field blank if it doesn't apply or you have no input—these will default to zero and will not
-                affect your
-                overall data.
+                Leave any field blank that you did not find struggle or ease in during your session. These will not
+                impact your data in any way.
             </p>
         </div>
         <form id="journalForm" onsubmit="handleJournalSubmit(event)">
@@ -282,11 +290,11 @@
                 <p>Log a climb or training session</p>
             </button>
 
-            <!-- Coach Analysis Option -->
+            <!-- Coach Option -->
             <button class="green" onclick="openCoach();">
                 <span class="material-icons" alt="Phone Camera Icon">screenshot</span>
-                <h3>Coach Analysis</h3>
-                <p>Get feedback from uploaded clips.</p>
+                <h3>Coach</h3>
+                <p>Get prescribed training plans from a coach</p>
             </button>
 
         </div>
