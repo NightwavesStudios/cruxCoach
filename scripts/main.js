@@ -40,12 +40,12 @@ const defaultAccountInfo = {
 /* Load Utility and Save Local Storage Function */
 function loadSafe(key, fallback = {}) {
   try {
-    const parsed = JSON.parse(localStorage.getItem(key));
-    return parsed && typeof parsed === "object" ? parsed : fallback;
+    const raw = localStorage.getItem(key);
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed)
+      ? parsed
+      : fallback;
   } catch (e) {
-    console.warn(
-      `Failed to load key "${key}" from localStorage. Using fallback.`
-    );
     return fallback;
   }
 }
@@ -128,7 +128,7 @@ Object.entries(grades).forEach(([key, value]) => updateElementText(key, value));
 function updateElementText(id, value) {
   const el = document.getElementById(id);
   if (el) {
-    el.innerHTML = value;
+    el.textContent = value;
   } else {
     //console.error(`Element with id "${id}" not found.`);
   }

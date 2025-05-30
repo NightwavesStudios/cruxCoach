@@ -4,8 +4,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const suggestedWorkoutsContainer =
     document.getElementById("suggestedWorkouts");
 
-  console.log("Initializing Suggested Collections, Articles, and Workouts...");
-
+  /** Load in Data **/
   const defaultTraits = {
     Crimp: 0,
     Sloper: 0,
@@ -25,7 +24,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
   const traits = loadSafe("traits", defaultTraits);
 
-  // Replace mocked user data with real data from localStorage
   const trainingData = loadSafe("trainingData", {
     lead: 0,
     bouldering: 0,
@@ -39,8 +37,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     ropedOnsight: "None",
   });
 
-  // Heuristic functions
-  function getClimbingProfile(trainingData, grades) {
+  /** Function to find User's Main Discipline (Bouldering, Top Rope, or Lead) **/
+  function getMainDiscipline(trainingData, grades) {
     let primaryDiscipline = "bouldering";
     if (
       trainingData.lead > trainingData.bouldering &&
@@ -65,25 +63,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     return { primaryDiscipline, skillLevel };
   }
 
+  /** Weight Certain Traits Based on Discipline **/
   const traitWeights = {
     bouldering: {
       Crimp: 2,
       Sloper: 2,
       Bigmove: 3,
       Powerful: 3,
-      Endurance: 1,
       Routereading: 1,
+      Slab: 1,
+      Slightoverhang: 1,
+      Overhang: 1,
     },
     lead: {
       Endurance: 3,
       Routereading: 3,
       Meticulous: 2,
+      Slab: 1,
       Slightoverhang: 2,
       Overhang: 2,
     },
     toprope: {
       Endurance: 2,
       Slab: 2,
+      Routereading: 1,
       Meticulous: 2,
     },
   };
@@ -98,8 +101,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return adjusted;
   }
 
-  const profile = getClimbingProfile(trainingData, grades);
-  console.log("User climbing profile:", profile);
+  const profile = getMainDiscipline(trainingData, grades);
 
   const adjustedTraits = getAdjustedTraits(traits, profile);
   const sortedAdjustedTraits = Object.entries(adjustedTraits).sort(
@@ -115,6 +117,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     .map(([trait]) => trait);
   console.log("Focus traits (adjusted):", bottomFocusTraits);
 
+  /** Regenerate/Save Smart Suggestions **/
   const SUGGESTION_CACHE_KEY = "cachedSuggestions";
   const shouldRegenerateSuggestions = () => {
     const cache = loadSafe(SUGGESTION_CACHE_KEY, null);
@@ -144,8 +147,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!response.ok)
       throw new Error(`Failed to fetch lessons.json: ${response.status}`);
     const lessons = await response.json();
-    console.log("Fetched lessons:", lessons);
 
+    /** Map Traits to thier Tags **/
     const traitToTagMap = {
       Crimp: "crimp",
       Sloper: "sloper",
@@ -188,12 +191,22 @@ document.addEventListener("DOMContentLoaded", async () => {
         { articles: filteredArticles, workouts: filteredWorkouts },
         bottomFocusTraits
       );
+    }
 
-      console.log("Regenerated suggestions.");
+    /** Verify URL **/
+    function isSafeUrl(url) {
+      try {
+        const parsedUrl = new URL(url, window.location.origin);
+        const allowedProtocols = ["http:", "https:"];
+        return allowedProtocols.includes(parsedUrl.protocol);
+      } catch (e) {
+        return false;
+      }
     }
 
     const cache = loadSafe(SUGGESTION_CACHE_KEY, null);
     if (cache) {
+      /** Map Traits to their Cover Images **/
       const traitToImageMap = {
         Crimp: "https://i.ibb.co/s90Yms7M/crimp-Cover.jpg",
         Sloper: "https://i.ibb.co/nSRY9tF/sloper-Cover.jpg",
@@ -222,6 +235,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         "suggestedCollections"
       );
 
+      /** Render Reommended Collections **/
       bottomFocusTraits.forEach((category) => {
         const collectionCard = `
   <a href="/train/filter.html?tag=${
@@ -234,26 +248,33 @@ document.addEventListener("DOMContentLoaded", async () => {
       <h4>${category}</h4>
     </div>
   </a>`;
-        suggestedCollectionsContainer.innerHTML += collectionCard;
+        suggestedCollectionsContainer.innerHTML +=
+          DOMPurify.sanitize(collectionCard);
       });
-      // Render Suggested Articles with full card layout
-      suggestedArticlesContainer.innerHTML = cache.articles
-        .map(
-          (article) => `
-    <a href="${article.url}">
+
+      /** Render Suggested Articles **/
+      suggestedArticlesContainer.innerHTML = DOMPurify.sanitize(
+        cache.articles
+          .map(
+            (article) => `
+    <a href="${isSafeUrl(article.url) ? article.url : "#"}">
       <div class="lesson-card">
         <img class="lazyload" src="${article.thumbnail}" alt="${article.title}">
         <h4>${article.title}</h4>
-        <p><span class="type">${article.type}</span>, <span class="length">${article.length}</span></p>
+        <p><span class="type">${article.type}</span>, <span class="length">${
+              article.length
+            }</span></p>
       </div>
     </a>`
-        )
-        .join("");
+          )
+          .join("")
+      );
 
-      // Render Suggested Workouts with full card layout
-      suggestedWorkoutsContainer.innerHTML = cache.workouts
-        .map(
-          (workout) => `
+      /** Render Suggested Workouts **/
+      suggestedWorkoutsContainer.innerHTML = DOMPurify.sanitize(
+        cache.workouts
+          .map(
+            (workout) => `
     <a href="${workout.url}">
       <div class="lesson-card">
         <img class="lazyload" src="${workout.thumbnail}" alt="${workout.title}">
@@ -261,9 +282,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         <p><span class="type">${workout.type}</span>, <span class="length">${workout.length}</span></p>
       </div>
     </a>`
-        )
-        .join("");
+          )
+          .join("")
+      );
 
+      /** Render "Reasoning" Text **/
       document.querySelector(
         ".reason.collections"
       ).textContent = `Suggestions based on your ${
@@ -291,7 +314,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-/* Display Tip */
+/* Tip Functionality */
 const tipsContainer = document.getElementById("tipsContainer");
 const tipDisplay = document.getElementById("tipDisplay");
 

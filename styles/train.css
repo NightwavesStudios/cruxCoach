@@ -1,0 +1,86 @@
+/* Training Pre-Set Cards Styling */
+#trainingCardsContainer {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto !important;
+  overflow-y: hidden;
+  max-width: 100vw;
+  padding: 20px;
+  gap: 20px;
+  scroll-behavior: smooth;
+  white-space: nowrap;
+}
+
+.prebuilt-card {
+  width: 45vw;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.prebuilt-card:hover {
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
+  transition: 0.2s ease-in-out;
+  cursor: pointer !important;
+}
+
+.prebuilt-card img {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  width: 45vw;
+  height: 175px;
+}
+
+.prebuilt-card h4 {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  padding: 0px 0px 10px 0px;
+}
+
+.prebuilt-card p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5px;
+  padding: 10px;
+  margin: 0;
+  align-items: center;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  padding: 0px 0px 15px 15px;
+  margin-top: -10px;
+}
+
+.prebuilt-card span {
+  padding: 5px 10px;
+  border-radius: 50px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.prebuilt-card span {
+  padding: 2px 5px 2px 5px;
+  border-radius: 50px;
+}
+
+.prebuilt-card .type {
+  background-color: #f28c2877;
+}
+
+.prebuilt-card .length {
+  background-color: #4285f477;
+}
+
+button {
+  background-color: default;
+  margin-top: 25px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+}
+
+button:hover {
+  cursor: pointer !important;
+  background-color: lightgray;
+  transition: 0.2s ease-in-out;
+}

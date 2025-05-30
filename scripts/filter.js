@@ -64,12 +64,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Page title
   if (typeList.length > 0) {
-    titleElem.textContent = `${typeList
+    titleElem.innerHTML = `${typeList
       .map((t) => t.charAt(0).toUpperCase() + t.slice(1))
       .join(" & ")} Lessons`;
     document.title = `CruxCoach - Filter by Type: ${typeList.join(" & ")}`;
   } else if (tag && tag.toLowerCase() !== "all") {
-    titleElem.textContent = `${
+    titleElem.innerHTML = `${
       tag.charAt(0).toUpperCase() + tag.slice(1)
     } Lessons`;
     document.title = `CruxCoach - Filter by Tag: ${tag}`;
@@ -121,15 +121,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (sortedLessons.length === 0) {
       const noResultsMessage = document.createElement("p");
       noResultsMessage.className = "no-results";
-      noResultsMessage.textContent = `No lessons found${
+      noResultsMessage.innerHTML = `No lessons found${
         typeList.length ? ` for type(s): ${typeList.join(" & ")}` : ""
       }${tag && tag.toLowerCase() !== "all" ? ` and tag: ${tag}` : ""}.`;
-      container.innerHTML = "";
+      container.textContent = "";
       container.appendChild(noResultsMessage);
       return;
     }
 
-    container.innerHTML = "";
+    container.textContent = "";
     sortedLessons.forEach((lesson) => {
       const card = document.createElement("a");
       card.href = card.href = `${lesson.url}?from=${encodeURIComponent(tag)}`;
