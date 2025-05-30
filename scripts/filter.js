@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Page title
   if (typeList.length > 0) {
-    titleElem.innerHTML = `${typeList
+    titleElem.textContent = `${typeList
       .map((t) => t.charAt(0).toUpperCase() + t.slice(1))
       .join(" & ")} Lessons`;
     document.title = `CruxCoach - Filter by Type: ${typeList.join(" & ")}`;
