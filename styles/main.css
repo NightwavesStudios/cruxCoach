@@ -194,11 +194,11 @@ header .mode {
   font-size: 20px;
 }
 
-#journalPopup button {
+#reflectPopup button {
   background-color: #4285f499;
 }
 
-#journalPopup button:hover {
+#reflectPopup button:hover {
   background-color: #4285f477;
 }
 
@@ -221,7 +221,7 @@ header .mode {
 }
 
 /* Directions Form Styling */
-#journalDirectionsContainer {
+#reflectDirectionsContainer {
   position: relative;
   margin-top: 20px;
   width: 90vw;
@@ -297,6 +297,17 @@ header .mode {
   height: 10px;
   line-height: 40px;
   margin: 0 0 20px 0;
+}
+
+#notes {
+  width: 90vw;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  resize: none;
+  font-size: 16px;
+  font-family: arial;
 }
 
 /* Content Container Styling */

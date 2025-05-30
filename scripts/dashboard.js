@@ -24,7 +24,14 @@ function updateTrainingChart() {
   trainingChart = new Chart(chartElement, {
     type: "pie",
     data: {
-      labels: ["Bouldering", "Top Rope", "Lead", "Other"],
+      labels: [
+        "Bouldering",
+        "Top Rope",
+        "Lead",
+        "Aerobic Training",
+        "Anerobic Training",
+        "Other",
+      ],
       datasets: [
         {
           backgroundColor: ["#34A85399", "#F28C2899", "#4285f499", "#e8c3b9"],
@@ -140,7 +147,7 @@ function updateAverageGrade(difficulty, grade) {
 function handleLogSubmit(event) {
   event.preventDefault();
 
-  const typeSelect = document.getElementById("type");
+  const typeSelect = document.getElementById("discipline");
   const gradeInput = document.getElementById("grade");
   const difficultySelect = document.getElementById("difficulty");
 
@@ -190,7 +197,7 @@ function handleLogSubmit(event) {
   difficultySelect.value = "";
 }
 
-function handleJournalSubmit(event) {
+function handleReflectSubmit(event) {
   event.preventDefault();
 
   const traitMap = {
@@ -417,8 +424,8 @@ window.onload = window.onresize = function () {
 };
 
 /* Public Popup Control Functions */
-function openJournal(state) {
-  togglePopup("journalPopup", state);
+function openReflect(state) {
+  togglePopup("reflectPopup", state);
 }
 
 function openLog(state) {

@@ -1,6 +1,6 @@
 /* Export Local Storage Function */
 function exportLocalStorage() {
-  const keysToSave = ["grades", "trainingData", "traits", "accountInfo"]; // Include accountInfo
+  const keysToSave = ["grades", "trainingData", "traits", "accountInfo"];
 
   // Include any other keys ending in "Grades"
   Object.keys(localStorage).forEach((key) => {

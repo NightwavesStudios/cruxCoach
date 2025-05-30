@@ -10,6 +10,8 @@ const defaultTrainingData = {
   bouldering: 0,
   toprope: 0,
   lead: 0,
+  aerobic: 0,
+  anerobic: 0,
   other: 0,
 };
 

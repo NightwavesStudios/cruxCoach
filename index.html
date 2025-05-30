@@ -8,7 +8,7 @@
 
     <!-- Description & Charset -->
     <meta name="description"
-        content="CruxCoach is a platform to track your climbing progress and improve your skills through advanced tracking and analytics as well as handcrafted multimedia lessons.">
+        content="CruxCoach is a platform to track your climbing progress and improve your skills through advanced tracking and analytics and use them to offer training plans and resources catered towards you and your training needs.">
     <meta name="keywords"
         content="cruxcoach, crux coach, crux-coach, learn climbing, learn bouldering, bouldering tracker, climbing tracker, rock climbing, tracker for climbing">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,11 +74,11 @@
         <a class="material-icons mode" alt="Profile Icon" title="Profile" href="/profile.html">person</a>
     </header>
 
-    <!-- Journal Popup Container -->
-    <div class="popup" id="journalPopup">
-        <span class="exit material-icons" onclick="openJournal('close');">close</span>
-        <h1>Journal</h1>
-        <div id="journalDirectionsContainer">
+    <!-- Reflect Popup Container -->
+    <div class="popup" id="reflectPopup">
+        <span class="exit material-icons" onclick="openReflect('close');">close</span>
+        <h1>Session Reflection</h1>
+        <div id="reflectDirectionsContainer">
             <p>Reflect on your last few climbing sessions and assess each point based on your personal performance. Use
                 the following
                 scale to rate each item:
@@ -92,7 +92,7 @@
                 impact your data in any way.
             </p>
         </div>
-        <form id="journalForm" onsubmit="handleJournalSubmit(event)">
+        <form id="reflectForm" onsubmit="handleReflectSubmit(event)">
             <h2>Holds Review</h2>
             <label for="crimp">Crimp:</label><br>
             <input type="range" min="-2" max="2" value="0" class="slider" id="crimp">
@@ -230,9 +230,13 @@
                 <p>0</p>
                 <p>1</p>
                 <p>2</p>
-            </div><br><br><br><br><br><br><br><br>
+            </div><br><br>
+            <h2>Additional Notes (Optional)</h2>
+            <textarea id="notes"
+                placeholder="Write anything that stuck out or you want to note from your session."></textarea>
+            <br><br><br><br><br><br><br><br>
             <div class="submit-button-cover"></div>
-            <button type="submit" onclick="openJournal('close');">Submit</button>
+            <button type="submit" onclick="openReflect('close');">Submit</button>
         </form>
     </div>
 
@@ -242,16 +246,21 @@
         <h1>Log Session</h1>
         <div id="quickLogDirectionsContainer">
             <p>Log a climbing session with the type of climbing, average grade you climbed on, and the difficulty you
-                would assocoiate with that median grade.</p>
+                would assocoiate with that median grade, or log a training session.</p>
         </div>
         <form id="logForm" onsubmit="handleLogSubmit(event)">
-            <label for="type">Climbing Type: </label>
+            <label for="type">Training Type: </label>
             <select id="type" name="type" required>
+                <option value="" disabled selected>Select Type</option>
+                <option value="climbing">Climbing</option>
+                <option value="training">Training</option>
+            </select><br><br><br>
+            <label for="discipline">Climbing Discipline: </label>
+            <select id="discipline" name="discipline" required>
                 <option value="" disabled selected>Select Climbing Type</option>
                 <option value="bouldering">Bouldering</option>
                 <option value="toprope">Top Rope</option>
                 <option value="lead">Lead</option>
-                <option value="other">Other</option>
             </select><br><br><br>
             <label for="grade">Median Grade:</label>
             <input id="grade" placeholder="Ex: V4, 5.9, 5.11c" required></input><br><br><br>
@@ -273,9 +282,9 @@
         <div id="optionsContainer">
 
             <!-- Form Option -->
-            <button class="blue" onclick="openJournal();">
-                <span class="material-icons" alt="Journal Icon">description</span>
-                <h3>Journal Entry</h3>
+            <button class="blue" onclick="openReflect();">
+                <span class="material-icons" alt="Reflect Icon">psychology</span>
+                <h3>Session Reflection</h3>
                 <p>Log your various climbing points</p>
             </button>
 
@@ -286,11 +295,11 @@
                 <p>Log a climb or training session</p>
             </button>
 
-            <!-- Coach Option -->
+            <!-- Journal Option -->
             <button class="green" onclick="openCoach();">
-                <span class="material-icons" alt="Phone Camera Icon">screenshot</span>
-                <h3>Coach</h3>
-                <p>Get prescribed training plans from a coach</p>
+                <span class="material-icons" alt="Phone Camera Icon">description</span>
+                <h3>View Journal</h3>
+                <p>View your past logged grades, reflections, and notes.</p>
             </button>
 
         </div>

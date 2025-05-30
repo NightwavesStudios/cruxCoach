@@ -12,7 +12,6 @@
 }
 
 .prebuilt-card {
-  width: 45vw;
   margin-bottom: 20px;
   border-radius: 20px;
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
@@ -27,7 +26,6 @@
 .prebuilt-card img {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  width: 45vw;
   height: 175px;
 }
 

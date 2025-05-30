@@ -28,6 +28,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     lead: 0,
     bouldering: 0,
     toprope: 0,
+    aerobic: 0,
+    anerobic: 0,
+    other: 0,
   });
 
   const grades = loadSafe("grades", {
@@ -320,7 +323,7 @@ const tipDisplay = document.getElementById("tipDisplay");
 
 const tips = [
   "Only your last 10 logged grades are saved, keeping your data fresh and recent!",
-  "It can take up to 5-10 journals for your data to fully reflect your climbing style and skills.",
+  "It can take up to 5-10 reflects for your data to fully reflect your climbing style and skills.",
   "The more you log, the more accurate your data becomes!",
   "You can download your data on the profile page as a backup, and upload it later as a backup or onto a different device!",
   "You can use the 'Clear Data' button on the profile page to reset your data if you want to start fresh. Do this with caution!",
