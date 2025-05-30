@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       .join(" & ")} Lessons`;
     document.title = `CruxCoach - Filter by Type: ${typeList.join(" & ")}`;
   } else if (tag && tag.toLowerCase() !== "all") {
-    titleElem.innerHTML = `${
+    titleElem.textContent = `${
       tag.charAt(0).toUpperCase() + tag.slice(1)
     } Lessons`;
     document.title = `CruxCoach - Filter by Tag: ${tag}`;
