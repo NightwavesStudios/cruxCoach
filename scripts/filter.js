@@ -121,9 +121,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (sortedLessons.length === 0) {
       const noResultsMessage = document.createElement("p");
       noResultsMessage.className = "no-results";
-      noResultsMessage.innerHTML = `No lessons found${
+      const sanitizedTag = tag && tag.toLowerCase() !== "all" ? ` and tag: ${tag.replace(/</g, "&lt;").replace(/>/g, "&gt;")}` : "";
+      const message = `No lessons found${
         typeList.length ? ` for type(s): ${typeList.join(" & ")}` : ""
-      }${tag && tag.toLowerCase() !== "all" ? ` and tag: ${tag}` : ""}.`;
+      }${sanitizedTag}.`;
+      noResultsMessage.textContent = message;
       container.textContent = "";
       container.appendChild(noResultsMessage);
       return;
