@@ -11,7 +11,7 @@ const defaultTrainingData = {
   toprope: 0,
   lead: 0,
   aerobic: 0,
-  anerobic: 0,
+  anaerobic: 0,
   other: 0,
 };
 

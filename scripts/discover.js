@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     bouldering: 0,
     toprope: 0,
     aerobic: 0,
-    anerobic: 0,
+    anaerobic: 0,
     other: 0,
   });
 

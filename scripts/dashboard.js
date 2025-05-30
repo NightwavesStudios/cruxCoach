@@ -4,8 +4,8 @@ function updateTrainingChart() {
   const chartElement = document.getElementById("trainingDistributionChart");
   const noDataMessage = document.getElementById("noTrainingDataMessage");
 
-  const dataValues = Object.values(trainingData); // Get Values from trainingData
-  const allZero = dataValues.every((val) => val === 0); // Check if all Values are Zero
+  const dataValues = Object.values(trainingData);
+  const allZero = dataValues.every((val) => val === 0);
 
   if (allZero) {
     chartElement.style.display = "none";
@@ -17,10 +17,9 @@ function updateTrainingChart() {
   }
 
   if (trainingChart) {
-    trainingChart.destroy(); // Destroy Existing Chart Instance
+    trainingChart.destroy();
   }
 
-  /* Create New Chart Instance */
   trainingChart = new Chart(chartElement, {
     type: "pie",
     data: {
@@ -28,14 +27,21 @@ function updateTrainingChart() {
         "Bouldering",
         "Top Rope",
         "Lead",
-        "Aerobic Training",
-        "Anerobic Training",
+        "Aerobic",
+        "Anaerobic",
         "Other",
       ],
       datasets: [
         {
-          backgroundColor: ["#34A85399", "#F28C2899", "#4285f499", "#e8c3b9"],
           data: Object.values(trainingData),
+          backgroundColor: [
+            "#34A85399",
+            "#F28C2899",
+            "#4285F499",
+            "#e8c3b9",
+            "#f3a683",
+            "#786fa6",
+          ],
         },
       ],
     },
@@ -144,57 +150,66 @@ function updateAverageGrade(difficulty, grade) {
   updateElementText(difficulty, medianGradeText); // Update UI with the new median grade
 }
 
+function toggleFormFields() {
+  const type = document.getElementById("type").value;
+  const climbingFields = document.getElementById("climbingFields");
+  const trainingFields = document.getElementById("trainingFields");
+
+  if (type === "climbing") {
+    climbingFields.style.display = "block";
+    trainingFields.style.display = "none";
+    document.getElementById("discipline").required = true;
+    document.getElementById("grade").required = true;
+    document.getElementById("difficulty").required = true;
+    document.getElementById("trainingType").required = false;
+  } else if (type === "training") {
+    climbingFields.style.display = "none";
+    trainingFields.style.display = "block";
+    document.getElementById("discipline").required = false;
+    document.getElementById("grade").required = false;
+    document.getElementById("difficulty").required = false;
+    document.getElementById("trainingType").required = true;
+  }
+}
+
 function handleLogSubmit(event) {
   event.preventDefault();
 
-  const typeSelect = document.getElementById("discipline");
-  const gradeInput = document.getElementById("grade");
-  const difficultySelect = document.getElementById("difficulty");
+  const type = document.getElementById("type").value;
 
-  const type = typeSelect.value;
-  const grade = gradeInput.value.trim();
-  const difficulty = difficultySelect.value;
+  if (type === "climbing") {
+    const discipline = document.getElementById("discipline").value;
+    const grade = document.getElementById("grade").value;
+    const difficulty = document.getElementById("difficulty").value;
 
-  if (!type || (type !== "other" && (!grade || !difficulty))) {
-    alert("Please complete all required fields.");
-    return;
-  } else {
-    openLog("close");
-  }
-
-  let gradeDifficultyKey;
-
-  // Modified handling to recognize toprope and lead as the same
-  if (type === "toprope" || type === "lead") {
-    if (difficulty === "flash" || difficulty === "onsight") {
-      gradeDifficultyKey = "ropedOnsight"; // map to ropedOnsight
-    } else if (difficulty === "redpoint" || difficulty === "project") {
-      gradeDifficultyKey = "ropedRedpoint"; // map to ropedRedpoint
+    if (!discipline || !grade || !difficulty) {
+      alert("Please fill out all climbing fields.");
+      return;
     }
-  } else if (type === "bouldering") {
-    if (difficulty === "flash") {
-      gradeDifficultyKey = "boulderingFlash";
-    } else if (difficulty === "project") {
-      gradeDifficultyKey = "boulderingProject";
-    }
-  }
 
-  if (gradeDifficultyKey) {
+    // Save climbing data (already works)
+    const gradeDifficultyKey =
+      difficulty === "flash" ? `${discipline}Flash` : `${discipline}Project`;
     updateAverageGrade(gradeDifficultyKey, grade);
-  } else {
-    console.warn("Unknown difficulty key:", type, difficulty);
+  } else if (type === "training") {
+    const trainingType = document.getElementById("trainingType").value;
+
+    if (!trainingType) {
+      alert("Please select a training type.");
+      return;
+    }
+
+    // Save training data
+    if (trainingData[trainingType] !== undefined) {
+      trainingData[trainingType]++;
+      saveToStorage("trainingData", trainingData);
+    }
   }
 
-  if (trainingData[type] !== undefined) {
-    trainingData[type]++;
-    saveToStorage("trainingData", trainingData);
-  }
-
-  updateTrainingChart();
-
-  typeSelect.value = "";
-  gradeInput.value = "";
-  difficultySelect.value = "";
+  // Reset form
+  document.getElementById("logForm").reset();
+  toggleFormFields(); // Reset visibility
+  updateTrainingChart(); // Update the training distribution chart
 }
 
 function handleReflectSubmit(event) {

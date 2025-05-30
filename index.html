@@ -249,27 +249,45 @@
                 would assocoiate with that median grade, or log a training session.</p>
         </div>
         <form id="logForm" onsubmit="handleLogSubmit(event)">
+
+            <!-- Type -->
             <label for="type">Training Type: </label>
-            <select id="type" name="type" required>
+            <select id="type" name="type" required onchange="toggleFormFields()">
                 <option value="" disabled selected>Select Type</option>
                 <option value="climbing">Climbing</option>
                 <option value="training">Training</option>
             </select><br><br><br>
-            <label for="discipline">Climbing Discipline: </label>
-            <select id="discipline" name="discipline" required>
-                <option value="" disabled selected>Select Climbing Type</option>
-                <option value="bouldering">Bouldering</option>
-                <option value="toprope">Top Rope</option>
-                <option value="lead">Lead</option>
-            </select><br><br><br>
-            <label for="grade">Median Grade:</label>
-            <input id="grade" placeholder="Ex: V4, 5.9, 5.11c" required></input><br><br><br>
-            <label for="difficulty">Climbing Difficulty: </label>
-            <select id="difficulty" name="difficulty" required>
-                <option value="" disabled selected>Select Difficulty</option>
-                <option value="flash">Flash/On-Sight</option>
-                <option value="project">Project/Redpoint</option>
-            </select><br><br><br>
+
+            <!-- For Climbing -->
+            <div id="climbingFields">
+                <label for="discipline">Climbing Discipline: </label>
+                <select id="discipline" name="discipline">
+                    <option value="" disabled selected>Select Climbing Type</option>
+                    <option value="bouldering">Bouldering</option>
+                    <option value="toprope">Top Rope</option>
+                    <option value="lead">Lead</option>
+                </select><br><br><br>
+                <label for="grade">Median Grade:</label>
+                <input id="grade" placeholder="Ex: V4, 5.9, 5.11c"></input><br><br><br>
+                <label for="difficulty">Climbing Difficulty: </label>
+                <select id="difficulty" name="difficulty">
+                    <option value="" disabled selected>Select Difficulty</option>
+                    <option value="flash">Flash/On-Sight</option>
+                    <option value="project">Project/Redpoint</option>
+                </select><br><br><br>
+            </div>
+
+            <!-- For Training -->
+            <div id="trainingFields" style="display: none;">
+                <label for="trainingType">Training Type: </label>
+                <select id="trainingType" name="trainingType">
+                    <option value="" disabled selected>Select Training Type</option>
+                    <option value="aerobic">Aerobic</option>
+                    <option value="anaerobic">Anaerobic</option>
+                    <option value="other">Other</option>
+                </select><br><br><br>
+            </div>
+
             <div class="submit-button-cover"></div>
             <button type="submit">Submit</button>
         </form>
