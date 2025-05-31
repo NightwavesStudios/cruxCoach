@@ -14,18 +14,6 @@ Training Distribution Graph: Show your training distribution (lead, toprope, bou
 
 Struggle & Strongpoint Graph: Show your struggles and strongpoints between two charts and a text display.
 
-Profile Page: Create a profile (to-come) or stay local using local storage and download data to save it and reupload it later to the same, or different device.
+Profile Page: Create a profile or stay local using local storage and download data to save it and reupload it later to the same, or different device.
 
 Content: Explore various content through categories shown by your needs. Content is in the form of articles, videos, and training exercises.
-
-## Technologies Used
-
-Frontend: HTML, CSS, JavaScript
-
-Backend (To Be): NodeJS, ExpressJS, MongoDB (Atlas)
-
-Hosting: Vercel
-
-## Getting Started
-
-This repository is currently not open to contributors freely, but if you would like to contribute contact me through the discussions page to see how you can contribute. Furthermore, once this application is launched more fully and completely, contributions will be open.
