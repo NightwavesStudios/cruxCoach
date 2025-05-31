@@ -45,9 +45,9 @@ function updateTrainingChart() {
             "#34A85399", // Bouldering
             "#F28C2899", // Top Rope
             "#4285F499", // Lead
-            "#e8c3b9", // Aerobic
-            "#f3a683", // Anaerobic
-            "#786fa6", // Other
+            "#34A85377", // Aerobic
+            "#F28C2877", // Anaerobic
+            "#4285F477", // Other
           ],
         },
       ],
@@ -194,14 +194,22 @@ function handleLogSubmit(event) {
       return;
     }
 
-    const gradeDifficultyKey =
-      difficulty === "flash" ? `${discipline}Flash` : `${discipline}Project`;
-    updateAverageGrade(gradeDifficultyKey, grade);
+    let gradeDifficultyKey;
 
-    // Add this block to record climbing discipline in trainingData
-    if (trainingData[discipline] !== undefined) {
-      trainingData[discipline]++;
-      saveToStorage("trainingData", trainingData);
+    if (discipline === "toprope" || discipline === "lead") {
+      if (difficulty === "flash" || difficulty === "onsight") {
+        gradeDifficultyKey = "ropedOnsight"; // map to ropedOnsight
+      } else if (difficulty === "redpoint" || difficulty === "project") {
+        gradeDifficultyKey = "ropedRedpoint"; // map to ropedRedpoint
+      }
+      updateAverageGrade(gradeDifficultyKey, grade);
+    } else if (discipline === "bouldering") {
+      if (difficulty === "flash") {
+        gradeDifficultyKey = "boulderingFlash";
+      } else if (difficulty === "project") {
+        gradeDifficultyKey = "boulderingProject";
+      }
+      updateAverageGrade(gradeDifficultyKey, grade);
     }
   } else if (type === "training") {
     const trainingType = document.getElementById("trainingType").value;
