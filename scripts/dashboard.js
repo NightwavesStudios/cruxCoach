@@ -33,14 +33,21 @@ function updateTrainingChart() {
       ],
       datasets: [
         {
-          data: Object.values(trainingData),
+          data: [
+            trainingData.bouldering,
+            trainingData.toprope,
+            trainingData.lead,
+            trainingData.aerobic,
+            trainingData.anaerobic,
+            trainingData.other,
+          ],
           backgroundColor: [
-            "#34A85399",
-            "#F28C2899",
-            "#4285F499",
-            "#e8c3b9",
-            "#f3a683",
-            "#786fa6",
+            "#34A85399", // Bouldering
+            "#F28C2899", // Top Rope
+            "#4285F499", // Lead
+            "#e8c3b9", // Aerobic
+            "#f3a683", // Anaerobic
+            "#786fa6", // Other
           ],
         },
       ],
@@ -173,7 +180,7 @@ function toggleFormFields() {
 }
 
 function handleLogSubmit(event) {
-  event.preventDefault();
+  event.preventDefault(); // Prevent form refresh
 
   const type = document.getElementById("type").value;
 
@@ -187,10 +194,15 @@ function handleLogSubmit(event) {
       return;
     }
 
-    // Save climbing data (already works)
     const gradeDifficultyKey =
       difficulty === "flash" ? `${discipline}Flash` : `${discipline}Project`;
     updateAverageGrade(gradeDifficultyKey, grade);
+
+    // Add this block to record climbing discipline in trainingData
+    if (trainingData[discipline] !== undefined) {
+      trainingData[discipline]++;
+      saveToStorage("trainingData", trainingData);
+    }
   } else if (type === "training") {
     const trainingType = document.getElementById("trainingType").value;
 
@@ -209,6 +221,9 @@ function handleLogSubmit(event) {
   // Reset form
   document.getElementById("logForm").reset();
   toggleFormFields(); // Reset visibility
+
+  // Close the form popup
+  openLog("close"); // Assuming `openLog` handles opening/closing the form
   updateTrainingChart(); // Update the training distribution chart
 }
 
