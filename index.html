@@ -2,32 +2,15 @@
 <html lang="en">
 
 <head>
-
-    <!-- Title -->
-    <title>CruxCoach - Dashboard</title>
-
-    <!-- Description & Charset -->
-    <meta name="description"
-        content="CruxCoach is a platform to track your climbing progress and improve your skills through advanced tracking and analytics and use them to offer training plans and resources catered towards you and your training needs.">
-    <meta name="keywords"
-        content="cruxcoach, crux coach, crux-coach, learn climbing, learn bouldering, bouldering tracker, climbing tracker, rock climbing, tracker for climbing">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CruxCoach - Train Smarter. Climb Harder</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
     <link rel="icon" href="/assets/dark-favicon.png" type="image/x-icon" media="(prefers-color-scheme: light)">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/assets/favicon.png" type="image/x-icon" media="(prefers-color-scheme: dark)">
-
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="CruxCoach - Dashboard" />
-    <meta property="og:description"
-        content="Track your climbing progress and improve your skills with advanced tracking and analytics." />
-    <meta property="og:image" content="https://cruxcoach.vercel.app/assets/favicon.png" />
-    <meta property="og:url" content="https://cruxcoach.vercel.app/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="CruxCoach" />
 
     <!-- Import Google Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
@@ -43,7 +26,7 @@
     </script>
 
     <!-- Supabase SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <!-- Hotjar Tracking Code for https://cruxcoach.vercel.app -->
     <script>
@@ -57,420 +40,99 @@
         })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
     </script>
 
-    <!-- Bing Webmaster Tools -->
-    <meta name="msvalidate.01" content="BB322C2C4EBBD39CAF205F27773C4459" />
-
-    <!-- Import Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
-
     <!--  Import Stylesheet -->
-    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/landing.css">
 
 </head>
 
 <body>
 
-    <!-- Header -->
     <header>
-        <img class="logo" src="/assets/favicon.png" alt="Header Logo">
-        <h1>CruxCoach</h1>
-        <a class="material-icons mode" alt="Profile Icon" title="Profile" href="/profile.html">person</a>
+        <div class="logo-container">
+            <img src="/assets/favicon.png" alt="CruxCoach Logo" class="logo" />
+            <h1>CruxCoach</h1>
+        </div>
+        <nav>
+            <a href="#features">Features</a>
+            <a href="#" onclick="location.href='dashboard.html'">Demo</a>
+            <a href="#">Login</a>
+        </nav>
     </header>
 
-    <!-- Reflect Popup Container -->
-    <div class="popup" id="reflectPopup">
-        <span class="exit material-icons" onclick="openReflect('close');">close</span>
-        <h1>Session Reflection</h1>
-        <div id="reflectDirectionsContainer">
-            <p>Reflect on your last few climbing sessions and assess each point based on your personal performance. Use
-                the following
-                scale to rate each item:
-                <br><br>
-                -2 = Major Struggle<br>
-                -1 = Minor Struggle<br>
-                0 = Neutral (neither good nor bad)<br>
-                1 = Minor Strength<br>
-                2 = Major Strength<br><br>
-                Leave any field blank that you did not find struggle or ease in during your session. These will not
-                impact your data in any way.
-            </p>
-        </div>
-        <form id="reflectForm" onsubmit="handleReflectSubmit(event)">
-            <h2>Holds Review</h2>
-            <label for="crimp">Crimp:</label><br>
-            <input type="range" min="-2" max="2" value="0" class="slider" id="crimp">
-            <div class="sliderticks">
-                <p>-2</p>
-                <p>-1</p>
-                <p>0</p>
-                <p>1</p>
-                <p>2</p>
-            </div><br><br>
-            <label for="sloper">Sloper:</label><br>
-            <input type="range" min="-2" max="2" value="0" class="slider" id="sloper">
-            <div class="sliderticks">
-                <p>-2</p>
-                <p>-1</p>
-                <p>0</p>
-                <p>1</p>
-                <p>2</p>
-            </div><br><br>
-            <label for="pocket">Pocket:</label><br>
-            <input type="range" min="-2" max="2" value="0" class="slider" id="pocket">
-            <div class="sliderticks">
-                <p>-2</p>
-                <p>-1</p>
-                <p>0</p>
-                <p>1</p>
-                <p>2</p>
-            </div><br><br>
-            <label for="sidepull">Sidepull:</label><br>
-            <input type="range" min="-2" max="2" value="0" class="slider" id="sidepull">
-            <div class="sliderticks">
-                <p>-2</p>
-                <p>-1</p>
-                <p>0</p>
-                <p>1</p>
-                <p>2</p>
-            </div><br><br>
-            <label for="undercling">Undercling:</label><br>
-            <input type="range" min="-2" max="2" value="0" class="slider" id="undercling">
-            <div class="sliderticks">
-                <p>-2</p>
-                <p>-1</p>
-                <p>0</p>
-                <p>1</p>
-                <p>2</p>
-            </div><br><br>
-            <label for="pinch">Pinch:</label><br>
-            <input type="range" min="-2" max="2" value="0" class="slider" id="pinch">
-            <div class="sliderticks">
-                <p>-2</p>
-                <p>-1</p>
-                <p>0</p>
-                <p>1</p>
-                <p>2</p>
-            </div><br><br>
-            <h2>Angles Review</h2>
-            <label for="slab">Slab:</label><br>
-            <input type="range" min="-2" max="2" value="0" class="slider" id="slab">
-            <div class="sliderticks">
-                <p>-2</p>
-                <p>-1</p>
-                <p>0</p>
-                <p>1</p>
-                <p>2</p>
-            </div><br><br>
-            <label for="slightOverhang">Slight Overhang:</label><br>
-            <input type="range" min="-2" max="2" value="0" class="slider" id="slightOverhang">
-            <div class="sliderticks">
-                <p>-2</p>
-                <p>-1</p>
-                <p>0</p>
-                <p>1</p>
-                <p>2</p>
-            </div><br><br>
-            <label for="overhang">Overhang:</label><br>
-            <input type="range" min="-2" max="2" value="0" class="slider" id="overhang">
-            <div class="sliderticks">
-                <p>-2</p>
-                <p>-1</p>
-                <p>0</p>
-                <p>1</p>
-                <p>2</p>
-            </div><br><br>
-            <label for="cave">Roof/Cave:</label><br>
-            <input type="range" min="-2" max="2" value="0" class="slider" id="cave">
-            <div class="sliderticks">
-                <p>-2</p>
-                <p>-1</p>
-                <p>0</p>
-                <p>1</p>
-                <p>2</p>
-            </div><br><br>
-            <h2>Type Review</h2>
-            <label for="endurance">Endurance:</label><br>
-            <input type="range" min="-2" max="2" value="0" class="slider" id="endurance">
-            <div class="sliderticks">
-                <p>-2</p>
-                <p>-1</p>
-                <p>0</p>
-                <p>1</p>
-                <p>2</p>
-            </div><br><br>
-            <label for="bigMove">Big Move:</label><br>
-            <input type="range" min="-2" max="2" value="0" class="slider" id="bigMove">
-            <div class="sliderticks">
-                <p>-2</p>
-                <p>-1</p>
-                <p>0</p>
-                <p>1</p>
-                <p>2</p>
-            </div><br><br>
-            <label for="meticulous">Meticulous:</label><br>
-            <input type="range" min="-2" max="2" value="0" class="slider" id="meticulous">
-            <div class="sliderticks">
-                <p>-2</p>
-                <p>-1</p>
-                <p>0</p>
-                <p>1</p>
-                <p>2</p>
-            </div><br><br>
-            <label for="powerful">Powerful:</label><br>
-            <input type="range" min="-2" max="2" value="0" class="slider" id="powerful">
-            <div class="sliderticks">
-                <p>-2</p>
-                <p>-1</p>
-                <p>0</p>
-                <p>1</p>
-                <p>2</p>
-            </div><br><br>
-            <label for="routeReading">Route Reading:</label><br>
-            <input type="range" min="-2" max="2" value="0" class="slider" id="routeReading">
-            <div class="sliderticks">
-                <p>-2</p>
-                <p>-1</p>
-                <p>0</p>
-                <p>1</p>
-                <p>2</p>
-            </div><br><br>
-            <h2>Additional Notes (Optional)</h2>
-            <textarea id="notes"
-                placeholder="Write anything that stuck out or you want to note from your session."></textarea>
-            <br><br><br><br><br><br><br><br>
-            <div class="submit-button-cover"></div>
-            <button type="submit" onclick="openReflect('close');">Submit</button>
-        </form>
-    </div>
 
-    <!-- Quick Log Popup Container -->
-    <div class="popup" id="logPopup">
-        <span class="exit material-icons" onclick="openLog('close');">close</span>
-        <h1>Log Session</h1>
-        <div id="quickLogDirectionsContainer">
-            <p>Log a climbing session with the type of climbing, average grade you climbed on, and the difficulty you
-                would assocoiate with that median grade, or log a training session.</p>
-        </div>
-        <form id="logForm" onsubmit="handleLogSubmit(event)">
+    <section class="hero">
+        <h2>Train Smarter. Climb Harder.</h2>
+        <p>Your personal climbing training companion – plan workouts, track progress, and discover exercises built for
+            beinner and elite alike, progressing you over your entire climbing journey.</p>
+        <button class="cta-button" onclick="location.href='dashboard.html'">Try the Demo</button>
+    </section>
 
-            <!-- Type -->
-            <label for="type">Training Type: </label>
-            <select id="type" name="type" required onchange="toggleFormFields()">
-                <option value="" disabled selected>Select Type</option>
-                <option value="climbing">Climbing</option>
-                <option value="training">Training</option>
-            </select><br><br><br>
-
-            <!-- For Climbing -->
-            <div id="climbingFields">
-                <label for="discipline">Climbing Discipline: </label>
-                <select id="discipline" name="discipline">
-                    <option value="" disabled selected>Select Climbing Type</option>
-                    <option value="bouldering">Bouldering</option>
-                    <option value="toprope">Top Rope</option>
-                    <option value="lead">Lead</option>
-                </select><br><br><br>
-                <label for="grade">Median Grade:</label>
-                <input id="grade" placeholder="Ex: V4, 5.9, 5.11c"></input><br><br><br>
-                <label for="difficulty">Climbing Difficulty: </label>
-                <select id="difficulty" name="difficulty">
-                    <option value="" disabled selected>Select Difficulty</option>
-                    <option value="flash">Flash/On-Sight</option>
-                    <option value="project">Project/Redpoint</option>
-                </select><br><br><br>
+    <section class="features" id="features">
+        <div class="feature-row">
+            <div class="feature-img">
+                <img src="https://i.ibb.co/j7X6LRh/Screenshot-2025-05-31-at-12-21-35.png" alt="Training Image">
             </div>
-
-            <!-- For Training -->
-            <div id="trainingFields" style="display: none;">
-                <label for="trainingType">Training Type: </label>
-                <select id="trainingType" name="trainingType">
-                    <option value="" disabled selected>Select Training Type</option>
-                    <option value="aerobic">Aerobic</option>
-                    <option value="anaerobic">Anaerobic</option>
-                    <option value="other">Other</option>
-                </select><br><br><br>
-            </div>
-
-            <div class="submit-button-cover"></div>
-            <button type="submit">Submit</button>
-        </form>
-    </div>
-
-    <!-- Content -->
-    <div id="contentContainer">
-
-        <!-- Options Container --><br>
-        <div id="optionsContainer">
-
-            <!-- Form Option -->
-            <button class="blue" onclick="openReflect();">
-                <span class="material-icons" alt="Reflect Icon">psychology</span>
-                <h3>Session Reflection</h3>
-                <p>Log your various climbing points</p>
-            </button>
-
-            <!-- Quick Log Option -->
-            <button class="orange" onclick="openLog();">
-                <span class="material-icons" alt="Plus Button Icon">add_circle</span>
-                <h3>Log Session</h3>
-                <p>Log a climb or training session</p>
-            </button>
-
-            <!-- Journal Option -->
-            <button class="green" onclick="openCoach();">
-                <span class="material-icons" alt="Phone Camera Icon">description</span>
-                <h3>View Journal</h3>
-                <p>View your past logged grades, reflections, and notes.</p>
-            </button>
-
-        </div>
-
-        <!-- Grade Progression Container -->
-        <div id="gradeProgressionContainer">
-
-            <!-- Boulder Flash -->
-            <div>
-                <p><b id="boulderingFlash">NaN</b></p>
-                <p>Flash</p>
-            </div>
-
-            <!-- Boulder Project -->
-            <div>
-                <p><b id="boulderingProject">NaN</b></p>
-                <p>Project</p>
-            </div>
-
-            <!--Sport On-Sight -->
-            <div>
-                <p><b id="ropedOnsight">NaN</b></p>
-                <p>On-Sight</p>
-            </div>
-
-            <!-- Sport Redpoint -->
-            <div>
-                <p><b id="ropedRedpoint">NaN</b></p>
-                <p>Redpoint</p>
-            </div>
-
-        </div>
-
-        <!-- Training Distribution Chart Container -->
-        <div id="trainingDistributionChartContainer">
-            <button class="info-button" onclick="toggleInfoPopup('trainingInfoPopup', this)">
-                <span class="material-icons">info</span>
-            </button>
-            <canvas id="trainingDistributionChart"></canvas>
-            <p id="noTrainingDataMessage" style="display:none;">No Data Available Yet. Log a Session!</p>
-
-            <!-- Info Popup -->
-            <div id="trainingInfoPopup" class="info-popup">
-                <p>This chart shows the distribution of your training types (e.g., Bouldering, Top Rope, Lead, etc.).
-                    Use this to analyze how you allocate your climbing time.</p>
-                <button onclick="toggleInfoPopup('trainingInfoPopup', this)">Close</button>
+            <div class="feature-text">
+                <h2>Personalized Training</h2>
+                <p>Adaptive plans tailored to your skill level and climbing goals. Whether you're projecting your first
+                    V4 or chasing V10, CruxCoach adapts with you. Create 2-8 week plans catered around your needs and
+                    data or select a pre-made plan, both following a intensity cycle for peak performance and recovery.
+                </p>
             </div>
         </div>
 
-        <!--Training Distribution Info Popup -->
-        <div id="trainingInfoPopup" class="info-popup">
-            <p>This chart shows the distribution of your training types (e.g., Bouldering, Top Rope, Lead, etc.). Use
-                this to
-                analyze how you allocate your climbing time.</p>
-            <button onclick="toggleInfoPopup('trainingInfoPopup', this)">Close</button>
-        </div>
-
-        <!-- Struggle/Strongpoint Container -->
-        <div id="struggleStrongContainer">
-
-            <!-- Column 1 -->
-            <div>
-                <p><span id="Crimp">0</span> Crimp</p>
-                <p><span id="Sloper">0</span> Sloper</p>
-                <p><span id="Pocket">0</span> Pocket</p>
-                <p><span id="Sidepull">0</span> Sidepull</p>
-                <p><span id="Undercling">0</span> Undercling</p>
+        <div class="feature-row reverse">
+            <div class="feature-img">
+                <img src="https://i.ibb.co/Xhz1FCW/Screenshot-2025-05-31-at-13-22-53.png" alt="Reflect Image">
             </div>
-
-            <!-- Column 2 -->
-            <div>
-                <p><span id="Pinch">0</span> Pinch</p>
-                <p><span id="Bigmove">0</span> Big Move</p>
-                <p><span id="Meticulous">0</span> Meticulous</p>
-                <p><span id="Powerful">0</span> Powerful</p>
-                <p><span id="Routereading">0</span> Route-Reading</p>
+            <div class="feature-text">
+                <h2>Reflect on Sessions</h2>
+                <p>Reflect on sessions to expose your strengths and weaknesses, update your data, and track your
+                    sessions through comments and other features long-term.</p>
             </div>
+        </div>
 
-            <!-- Column 3 -->
-            <div>
-                <p><span id="Endurance">0</span> Endurance</p>
-                <p><span id="Slab">0</span> Slab</p>
-                <p><span id="Slightoverhang">0</span> Slight Overhang</p>
-                <p><span id="Overhang">0</span> Overhang</p>
-                <p><span id="Cave">0</span> Roof/Cave</p>
+        <div class="feature-row">
+            <div class="feature-img">
+                <img src="https://i.ibb.co/PsQDsL7b/Screenshot-2025-05-31-at-12-19-32.png" alt="Anayltics Image">
             </div>
-
+            <div class="feature-text">
+                <h2>Analytics</h2>
+                <p>Visualize where your spending your time, your strengths and weaknesses on holds, wall angles, and
+                    styles, your climbing style, your onsight, flash, redpoint and project level for all of your
+                    climbing types, and so much more.</p>
+            </div>
         </div>
 
-        <!-- Holds Breakdown Chart Container -->
-        <div id="holdsBreakdownContainer">
-            <h3>Holds Breakdown</h3>
-            <button class="info-button" onclick="toggleInfoPopup('holdsBreakdownInfoPopup', this)">
-                <span class="material-icons">info</span>
-            </button>
-            <canvas id="holdsBreakdownChart"></canvas>
+        <div class="feature-row reverse">
+            <div class="feature-img">
+                <img src="https://i.ibb.co/F41vXJp5/Screenshot-2025-05-31-at-13-24-46.png" alt="Reflect Image">
+            </div>
+            <div class="feature-text">
+                <h2>Log Sessions</h2>
+                <p>Log your climbing and training sessions, logging aspects like type, difficulty, median grade, and
+                    other customizable attributes to see reflected in your data, charts, training recommendations, and
+                    journal.</p>
+            </div>
         </div>
 
-        <!-- Holds Breakdown Info Popup -->
-        <div id="holdsBreakdownInfoPopup" class="info-popup">
-            <p>Shows the holds you are most and least comfortable. Holds far right you can focus less on while holds to
-                the left you need to improve in. Holds near the center are neither a strong or weaksuit of yours.</p>
-            <button onclick="toggleInfoPopup('holdsBreakdownInfoPopup', this)">Close</button>
+        <div class="feature-row">
+            <div class="feature-img">
+                <img src="https://i.ibb.co/RGn07bMY/Screenshot-2025-05-31-at-12-36-15.png" alt="Discover Content Image">
+            </div>
+            <div class="feature-text">
+                <h2>Explore Content</h2>
+                <p>Find engaging lessons and workouts following a progressive structure allowing you to improve and
+                    delve deeper and intensify as you improve over time. Explore the content seperately or add them to
+                    you training plan to review and train later on a schedule.</p>
+            </div>
         </div>
+    </section>
 
-        <!-- Style Breakdown Chart Container -->
-        <div id="styleBreakdownContainer">
-            <h3>Style Breakdown</h3>
-            <button class="info-button" onclick="toggleInfoPopup('styleBreakdownInfoPopup', this)">
-                <span class="material-icons">info</span>
-            </button>
-            <canvas id="styleBreakdownChart"></canvas>
-        </div>
 
-        <!-- Style Breakdown Info Popup -->
-        <div id="styleBreakdownInfoPopup" class="info-popup">
-            <p>Datapoints close to their name making a nice smooth shape are good while others far away and on the
-                opposite side are styles that aren't your best. Points in the middle are neutral and signify that you
-                neither are strong or weak in that style of climbing.</p>
-            <button onclick="toggleInfoPopup('styleBreakdownInfoPopup', this)">Close</button>
-        </div>
-
-        <!-- Angle Breakdown Chart Container -->
-        <div id="angleBreakdownContainer">
-            <h3>Wall Angle Breakdown</h3>
-            <button class="info-button" onclick="toggleInfoPopup('angleInfoPopup', this)">
-                <span class="material-icons">info</span>
-            </button>
-            <canvas id="wallAngleChart"></canvas>
-        </div>
-
-        <!-- Angle Breakdown Info Popup -->
-        <div id="angleInfoPopup" class="info-popup">
-            <p>Show your strong and weak climbing wall angles.</p>
-            <button onclick="toggleInfoPopup('angleInfoPopup', this)">Close</button>
-        </div>
-
-        <!-- Nav -->
-        <br><br><br>
-        <nav>
-            <a href="/index.html" class="material-icons" alt="Dashboard Icon" title="Dashboard">show_chart</a>
-            <a href="/../train/index.html" class="material-icons" alt="Lessons Icon" title="Lessons">school</a>
-            <a href="/discover.html" class="material-icons" alt="Explore Icon" title="Explore">explore</a>
-        </nav>
-
-    </div>
-
-    <!-- Import Javascript -->
-    <script src="/scripts/main.js"></script>
-    <script src="/scripts/dashboard.js"></script>
+    <footer class="footer">
+        &copy; 2025 CruxCoach. All rights reserved.
+    </footer>
 
 </body>
 
