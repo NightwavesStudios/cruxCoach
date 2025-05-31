@@ -4,7 +4,27 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="canonical" href="https://cruxcoach.vercel.app/" />
+    <meta name="description"
+        content="CruxCoach is a free all-in-one climbing app for training, journaling, analytics, and progress tracking. Built by climbers, for climbers." />
+    <meta name="keywords"
+        content="climbing app, training for climbing, bouldering training, climbing analytics, climbing tracker, free climbing app, cruxcoach" />
     <title>CruxCoach - Train Smarter. Climb Harder</title>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="CruxCoach - Train Smarter. Climb Harder." />
+    <meta property="og:description"
+        content="Free climbing training app with adaptive plans, session logging, analytics, and more." />
+    <meta property="og:image" content="https://cruxcoach.vercel.app/assets/favicon.png" />
+    <meta property="og:url" content="https://cruxcoach.vercel.app/" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CruxCoach - Train Smarter. Climb Harder." />
+    <meta name="twitter:description"
+        content="Free climbing training app with adaptive plans, logging, analytics and more." />
+    <meta name="twitter:image" content="https://cruxcoach.vercel.app/assets/favicon.png" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
@@ -52,11 +72,25 @@
             <img src="/assets/favicon.png" alt="CruxCoach Logo" class="logo" />
             <h1>CruxCoach</h1>
         </div>
-        <nav>
+        <nav class="nav-desktop">
             <a href="#features">Features</a>
-            <a href="#" onclick="location.href='dashboard.html'">Demo</a>
-            <a href="#">Login</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#about">About</a>
+            <a class="nav-demo-button" href="dashboard.html">Try Demo →</a>
         </nav>
+
+
+        <!-- Mobile Nav -->
+        <div class="mobile-menu-icon" onclick="toggleMobileMenu()">
+            <span class="material-icons">menu</span>
+        </div>
+
+        <div class="mobile-nav" id="mobileNav">
+            <a href="#features" onclick="toggleMobileMenu()">Features</a>
+            <a href="#pricing" onclick="toggleMobileMenu()">Pricing</a>
+            <a href="#about" onclick="toggleMobileMenu()">About</a>
+        </div>
+
     </header>
 
 
@@ -129,10 +163,42 @@
         </div>
     </section>
 
+    <section class="pricing" id="pricing">
+        <div>
+            <h2>Free, Forever</h2>
+            <p>
+                No subscriptions. No paywalls. No “14-day free trial” nonsense. CruxCoach is — and always will be —
+                completely free.
+                Why?
+                Because we built this for climbers, not profit. Other apps felt limited or expensive, so we made
+                something better —
+                and decided to share it with the community.
+            </p>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="about-content">
+            <h2>About CruxCoach</h2>
+            <p>CruxCoach originated from the need of an online journaling, tracking, analytics, and training platform
+                for climbing, all in one. I found myself constantly switching from app to app that just barely met my
+                needs and coping with the limited "free" tier. So...CruxCoach came to be. You can now journal, track,
+                view analytics, and train for climbing all in one, for the sweet price of $0.</p>
+        </div>
+    </section>
 
     <footer class="footer">
         &copy; 2025 CruxCoach. All rights reserved.
     </footer>
+
+    <!-- Javascript -->
+    <script>
+        function toggleMobileMenu() {
+            const nav = document.getElementById('mobileNav');
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        }
+    </script>
+
 
 </body>
 

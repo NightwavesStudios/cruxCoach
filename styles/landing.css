@@ -163,7 +163,127 @@ nav a {
   line-height: 1.5;
 }
 
-/* Mobile Layout */
+.pricing {
+  background: #fffefc;
+  padding: 4rem 2rem;
+  margin: 4rem auto;
+  text-align: center;
+  max-width: min(800px, 90vw);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.pricing h2 {
+  font-size: 2.25rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.pricing p {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #333;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.pricing::before {
+  content: "No Paywalls";
+  display: block;
+  font-size: 0.875rem;
+  color: #f28c28aa;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.about {
+  background: #fffefc;
+  padding: 4rem 2rem;
+  text-align: center;
+  max-width: min(800px, 90vw);
+  margin: 4rem auto;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.about::before {
+  content: "Who We Are";
+  display: block;
+  font-size: 0.875rem;
+  color: #f28c28aa;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.about h2 {
+  font-size: 2.25rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.about p {
+  font-size: 1.125rem;
+  color: #333;
+  line-height: 1.7;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.nav-demo-button {
+  background: var(--accent);
+  color: white !important;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.nav-demo-button:hover {
+  background: #f28c2877;
+}
+
+/* Mobile Styling */
+.mobile-menu-icon {
+  display: none;
+  cursor: pointer;
+  font-size: 2rem;
+}
+
+.mobile-nav {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 70px;
+  right: 2rem;
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 1rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.mobile-nav a {
+  margin: 0.5rem 0;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .nav-desktop {
+    display: none;
+  }
+
+  .mobile-menu-icon {
+    display: block;
+  }
+}
+
 @media (max-width: 768px) {
   .feature-row,
   .feature-row.reverse {
