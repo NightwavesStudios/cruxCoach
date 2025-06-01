@@ -216,6 +216,12 @@ function handleLogSubmit(event) {
       updateAverageGrade(gradeDifficultyKey, grade);
     }
 
+    // Update trainingData for climbing discipline
+    if (trainingData[discipline] !== undefined) {
+      trainingData[discipline]++;
+      saveToStorage("trainingData", trainingData); // Save updated training data
+    }
+
     // Create the log entry
     const logEntry = {
       type: "climbing",
@@ -228,7 +234,7 @@ function handleLogSubmit(event) {
     // Add the log entry to the top of the journal
     journalData.unshift(logEntry);
     saveToStorage("journalData", journalData); // Save journal data to localStorage
-    renderJournal(); // Update the UI
+    renderJournal(); // Update the journal UI
   } else if (type === "training") {
     const trainingType = document.getElementById("trainingType").value;
 
@@ -253,7 +259,7 @@ function handleLogSubmit(event) {
     // Add the training log entry to the top of the journal
     journalData.unshift(logEntry);
     saveToStorage("journalData", journalData); // Save journal data to localStorage
-    renderJournal(); // Update the UI
+    renderJournal(); // Update the journal UI
   }
 
   // Reset form
@@ -306,11 +312,11 @@ function handleReflectSubmit(event) {
         reflection.strengths.push({ trait: key, value: val });
       }
 
-      // Update the traits object
+      // Update the traits object and clamp values to -10 to 10
       if (traits[key] !== undefined) {
-        traits[key] += val; // Add the reflection value to the existing trait value
+        traits[key] = Math.max(-10, Math.min(10, traits[key] + val)); // Clamp to [-10, 10]
       } else {
-        traits[key] = val; // Initialize the trait if it doesn't exist
+        traits[key] = Math.max(-10, Math.min(10, val)); // Initialize and clamp
       }
     }
   });
@@ -325,9 +331,9 @@ function handleReflectSubmit(event) {
   // Add the reflection to the top of the journal
   journalData.unshift(reflection);
   saveToStorage("journalData", journalData); // Save journal data to localStorage
-  renderJournal(); // Update the UI
+  renderJournal(); // Update the journal UI
 
-  // Reset form and reload journal
+  // Reset form
   event.target.reset();
   location.reload();
 }
