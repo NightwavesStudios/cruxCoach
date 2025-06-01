@@ -300,8 +300,18 @@ function handleReflectSubmit(event) {
     const key = traitMap[id];
 
     if (key && val !== 0) {
-      const current = traits[key] || 0;
-      traits[key] = Math.max(-10, Math.min(10, current + val));
+      if (val < 0) {
+        reflection.struggles.push({ trait: key, value: val });
+      } else if (val > 0) {
+        reflection.strengths.push({ trait: key, value: val });
+      }
+
+      // Update the traits object
+      if (traits[key] !== undefined) {
+        traits[key] += val; // Add the reflection value to the existing trait value
+      } else {
+        traits[key] = val; // Initialize the trait if it doesn't exist
+      }
     }
   });
 
