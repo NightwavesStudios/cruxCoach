@@ -296,6 +296,14 @@
         </form>
     </div>
 
+    <!-- Journal Popup Container -->
+    <div class="popup" id="journalPopup">
+        <span class="exit material-icons" onclick="openJournal('close');">close</span>
+        <h1>Journal</h1>
+        <div id="journalContainer">
+        </div>
+    </div>
+
     <!-- Content -->
     <div id="contentContainer">
 
@@ -317,7 +325,7 @@
             </button>
 
             <!-- Journal Option -->
-            <button class="green" onclick="openCoach();">
+            <button class="green" onclick="openJournal();">
                 <span class="material-icons" alt="Phone Camera Icon">description</span>
                 <h3>View Journal</h3>
                 <p>View your past logged grades, reflections, and notes.</p>

@@ -40,19 +40,18 @@ const defaultAccountInfo = {
 };
 
 /* Load Utility and Save Local Storage Function */
-function loadSafe(key, fallback = {}) {
+function loadSafe(key, defaultValue = []) {
   try {
-    const raw = localStorage.getItem(key);
-    const parsed = JSON.parse(raw);
-    return parsed && typeof parsed === "object" && !Array.isArray(parsed)
-      ? parsed
-      : fallback;
-  } catch (e) {
-    return fallback;
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : defaultValue;
+  } catch (err) {
+    console.warn(`Failed to load key "${key}" from localStorage:`, err);
+    return defaultValue;
   }
 }
 
 function saveToStorage(key, data) {
+  console.log(`Saving ${key}:`, data); // Debugging log
   localStorage.setItem(key, JSON.stringify(data));
 }
 

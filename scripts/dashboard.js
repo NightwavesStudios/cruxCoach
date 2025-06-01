@@ -1,5 +1,9 @@
 let trainingChart;
 
+const defaultJournal = [];
+const journalData = loadSafe("journalData", defaultJournal);
+console.log("Initialized journalData:", journalData);
+
 function updateTrainingChart() {
   const chartElement = document.getElementById("trainingDistributionChart");
   const noDataMessage = document.getElementById("noTrainingDataMessage");
@@ -211,6 +215,20 @@ function handleLogSubmit(event) {
       }
       updateAverageGrade(gradeDifficultyKey, grade);
     }
+
+    // Create the log entry
+    const logEntry = {
+      type: "climbing",
+      discipline,
+      grade,
+      difficulty,
+      timestamp: new Date().toISOString(),
+    };
+
+    // Add the log entry to the top of the journal
+    journalData.unshift(logEntry);
+    saveToStorage("journalData", journalData); // Save journal data to localStorage
+    renderJournal(); // Update the UI
   } else if (type === "training") {
     const trainingType = document.getElementById("trainingType").value;
 
@@ -224,6 +242,18 @@ function handleLogSubmit(event) {
       trainingData[trainingType]++;
       saveToStorage("trainingData", trainingData);
     }
+
+    // Create the training log entry
+    const logEntry = {
+      type: "training",
+      trainingType,
+      timestamp: new Date().toISOString(),
+    };
+
+    // Add the training log entry to the top of the journal
+    journalData.unshift(logEntry);
+    saveToStorage("journalData", journalData); // Save journal data to localStorage
+    renderJournal(); // Update the UI
   }
 
   // Reset form
@@ -256,6 +286,14 @@ function handleReflectSubmit(event) {
     endurance: "Endurance",
   };
 
+  const reflection = {
+    type: "reflection",
+    timestamp: new Date().toISOString(),
+    struggles: [],
+    strengths: [],
+    comments: document.getElementById("notes").value || "",
+  };
+
   Object.keys(traitMap).forEach((id) => {
     const input = document.getElementById(id);
     const val = parseInt(input?.value, 10) || 0;
@@ -267,9 +305,73 @@ function handleReflectSubmit(event) {
     }
   });
 
+  // Save the updated traits to localStorage
   saveToStorage("traits", traits);
+
+  // Sort struggles and strengths by value
+  reflection.struggles.sort((a, b) => a.value - b.value);
+  reflection.strengths.sort((a, b) => b.value - a.value);
+
+  // Add the reflection to the top of the journal
+  journalData.unshift(reflection);
+  saveToStorage("journalData", journalData); // Save journal data to localStorage
+  renderJournal(); // Update the UI
+
+  // Reset form and reload journal
   event.target.reset();
   location.reload();
+}
+
+function renderJournal() {
+  console.log("Rendering journalData:", journalData); // Debugging log
+  const journalContainer = document.getElementById("journalContainer");
+  journalContainer.innerHTML = ""; // Clear existing entries
+
+  journalData.forEach((entry, index) => {
+    const entryCard = document.createElement("div");
+    entryCard.className = "journal-card";
+
+    if (entry.type === "climbing" || entry.type === "training") {
+      entryCard.innerHTML = `
+        <h4>${entry.type === "climbing" ? "Climbing Log" : "Training Log"}</h4>
+        ${
+          entry.type === "climbing"
+            ? `
+          <p><strong>Discipline:</strong> ${entry.discipline}</p>
+          <p><strong>Grade:</strong> ${entry.grade}</p>
+          <p><strong>Difficulty:</strong> ${entry.difficulty}</p>
+        `
+            : `
+          <p><strong>Training Type:</strong> ${entry.trainingType}</p>
+        `
+        }
+        <p><strong>Date:</strong> ${new Date(
+          entry.timestamp
+        ).toLocaleString()}</p>
+      `;
+    } else if (entry.type === "reflection") {
+      entryCard.innerHTML = `
+        <h4>Reflection</h4>
+        <p><strong>Struggles:</strong> ${entry.struggles
+          .map((s) => s.trait)
+          .join(", ")}</p>
+        <p><strong>Strengths:</strong> ${entry.strengths
+          .map((s) => s.trait)
+          .join(", ")}</p>
+        <p><strong>Comments:</strong> ${entry.comments}</p>
+        <p><strong>Date:</strong> ${new Date(
+          entry.timestamp
+        ).toLocaleString()}</p>
+      `;
+    }
+
+    journalContainer.appendChild(entryCard);
+  });
+}
+
+function saveJournal() {
+  console.log("Saving journalData:", journalData);
+  saveToStorage("journalData", journalData); // Save journal data to localStorage
 }
 
 /* DOM Loaded Safety Function */
@@ -293,6 +395,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (chartElement) {
     updateTrainingChart();
   }
+
+  renderJournal();
 
   /** Holds Breakdown Chart **/
   const holdsChartElement = document.getElementById("holdsBreakdownChart");
@@ -470,6 +574,16 @@ function openLog(state) {
   togglePopup("logPopup", state);
 }
 
-function openCoach() {
-  alert("This feature is not currently available.");
+function openJournal(state = "open") {
+  const journalPopup = document.getElementById("journalPopup");
+  if (state === "open") {
+    renderJournal(); // Render journal entries
+    journalPopup.style.display = "block";
+    document.body.classList.add("no-scroll"); // Disable scrolling on the dashboard
+  } else {
+    journalPopup.style.display = "none";
+    document.body.classList.remove("no-scroll"); // Enable scrolling on the dashboard
+  }
 }
+
+renderJournal();

@@ -210,6 +210,47 @@ header .mode {
   background-color: #f28c2877;
 }
 
+#journalPopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: #fff;
+  z-index: 1000;
+  padding: 20px;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+.journal-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+}
+
+.journal-card h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.journal-card p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
 .popup .exit {
   position: fixed;
   cursor: pointer !important;
@@ -218,6 +259,17 @@ header .mode {
   color: black;
   border: none;
   font-size: 25px;
+}
+
+#journalPopup .exit {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1100;
+  background-color: transparent;
+  border: none;
+  font-size: 25px;
+  cursor: pointer;
 }
 
 /* Directions Form Styling */
