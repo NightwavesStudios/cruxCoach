@@ -22,6 +22,7 @@ body {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 /* Module Image Styling */
@@ -44,7 +45,7 @@ body {
   transform: scale(1.05);
 }
 
-/* Gradient Overlay */
+/* Default Gradient Overlay for Non-Completed Modules */
 .module-image .gradient-overlay {
   position: absolute;
   top: 0;
@@ -55,14 +56,18 @@ body {
     to bottom,
     rgba(0, 0, 0, 0.3),
     rgba(0, 0, 0, 0.7)
-  );
+  ); /* Default gray gradient */
   z-index: 1;
-  transition: ease-in-out 0.5s;
+  transition: background 0.3s ease-in-out; /* Smooth transition for gradient change */
 }
 
-.module-image .gradient-overlay:hover {
-  cursor: pointer;
-  opacity: 0.5;
+/* Gradient Overlay for Completed Modules */
+.module.completed .gradient-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(52, 168, 83, 0.2),
+    rgba(0, 0, 0, 0.5)
+  ); /* Subtle greenish gradient */
 }
 
 /* Module Text Styling */
@@ -74,4 +79,35 @@ body {
   font-size: 18px;
   z-index: 2;
   margin: 0;
+}
+
+/* Styling for Completed Modules */
+.module.completed {
+  background: linear-gradient(
+    to bottom,
+    rgba(52, 168, 83, 0.3),
+    rgba(52, 168, 83, 0.7)
+  ); /* Green gradient */
+  border: 2px solid #34a853; /* Green border */
+  position: relative;
+}
+
+/* Module Image Styling */
+.module-image {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+}
+
+.module-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+  transition: transform 0.5s ease-in-out;
+}
+
+.module-image:hover img {
+  transform: scale(1.05);
 }
