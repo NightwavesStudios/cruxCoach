@@ -1,0 +1,77 @@
+/* Overall Styling */
+body {
+  text-align: center;
+}
+
+/* Modules Container Styling */
+#modulesContainer {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  z-index: 0;
+}
+
+/* Individual Module Styling */
+.module {
+  position: relative;
+  width: 95vw;
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Module Image Styling */
+.module-image {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+}
+
+.module-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+  transition: transform 0.5s ease-in-out;
+}
+
+.module-image:hover img {
+  transform: scale(1.05);
+}
+
+/* Gradient Overlay */
+.module-image .gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.7)
+  );
+  z-index: 1;
+  transition: ease-in-out 0.5s;
+}
+
+.module-image .gradient-overlay:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+/* Module Text Styling */
+.module h2 {
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+  color: white;
+  font-size: 18px;
+  z-index: 2;
+  margin: 0;
+}

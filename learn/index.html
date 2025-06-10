@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Title -->
+    <title>CruxCoach - Train</title>
+
+    <!-- Description & Charset -->
+    <meta name="description"
+        content="Search from a wide collection of custom curated workouts, articles, and videos to help improve your climbing.">
+    <meta name="keywords"
+        content="search climbing, climbing articles, bouldering articles, climbing lessons, climbing coaching, limbing tips">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
+    <link rel="icon" href="/assets/dark-favicon.png" type="image/x-icon" media="(prefers-color-scheme: light)">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/favicon.png" type="image/x-icon" media="(prefers-color-scheme: dark)">
+
+    <!-- Import Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=exercise" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQXN250GC5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-WQXN250GC5');
+    </script>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Hotjar Tracking Code for https://cruxcoach.vercel.app -->
+    <script>
+        (function (h, o, t, j, a, r) {
+            h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
+            h._hjSettings = { hjid: 6417580, hjsv: 6 };
+            a = o.getElementsByTagName('head')[0];
+            r = o.createElement('script'); r.async = 1;
+            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+    </script>
+
+    <!-- Import External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
+
+    <!--  Import Stylesheet -->
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/learn.css">
+
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <span class="logo material-icons" onclick="previousPage();">arrow_back</span>
+        <h1>CruxCoach</h1>
+        <a class="material-icons mode" alt="Profile Icon" title="Profile" href="/profile.html">person</a>
+
+    </header>
+
+    <!-- Content -->
+    <div id="contentContainer">
+
+        <!-- Modules --><br>
+        <div id="modulesContainer">
+
+            <h2>Section 1: Climbing Fundamentals</h2>
+            <div class="module">
+                <div class="module-image">
+                    <img src="https://i.ibb.co/nSRY9tF/sloper-Cover.jpg" alt="Fundamentals Image">
+                    <div class="gradient-overlay"></div>
+                </div>
+                <h2>Module 1: Fundamentals</h2>
+            </div>
+            <div class="module">
+                <div class="module-image">
+                    <img src="https://i.ibb.co/xNpkgcG/meticulous-Footholds.jpg" alt="Footwork Image">
+                    <div class="gradient-overlay"></div>
+                </div>
+                <h2>Module 2: Footwork</h2>
+            </div>
+
+            <h2>Section 2: Hold Types</h2>
+            <div class="module">
+                <div class="module-image">
+                    <img src="https://i.ibb.co/nSRY9tF/sloper-Cover.jpg" alt="Jugs Image">
+                    <div class="gradient-overlay"></div>
+                </div>
+                <h2>Module 3: Jugs</h2>
+            </div>
+            <div class="module">
+                <div class="module-image">
+                    <img src="https://i.ibb.co/zVyvnPd0/crimp-Cover.jpg" alt="Crimp Image">
+                    <div class="gradient-overlay"></div>
+                </div>
+                <h2>Module 4: Crimps</h2>
+            </div>
+            <div class="module">
+                <div class="module-image">
+                    <img src="https://i.ibb.co/nSRY9tF/sloper-Cover.jpg" alt="Sloper Image">
+                    <div class="gradient-overlay"></div>
+                </div>
+                <h2>Module 5: Slopers</h2>
+            </div>
+            <div class="module">
+                <div class="module-image">
+                    <img src="https://i.ibb.co/nSRY9tF/sloper-Cover.jpg" alt="Pinches Image">
+                    <div class="gradient-overlay"></div>
+                </div>
+                <h2>Module 6: Pinches</h2>
+            </div>
+            <div class="module">
+                <div class="module-image">
+                    <img src="https://i.ibb.co/d4rJMYFm/pocket-Cover.jpg" alt="Pocket Image">
+                    <div class="gradient-overlay"></div>
+                </div>
+                <h2>Module 7: Pockets</h2>
+            </div>
+            <div class="module">
+                <div class="module-image">
+                    <img src="https://i.ibb.co/dCKZ9hZ/sidepull-Cover.jpg" alt="Sidepull Image">
+                    <div class="gradient-overlay"></div>
+                </div>
+                <h2>Module 8: Sidepulls</h2>
+            </div>
+            <div class="module">
+                <div class="module-image">
+                    <img src="https://i.ibb.co/53q55TK/Round-Undercling.jpg" alt="Undercling Image">
+                    <div class="gradient-overlay"></div>
+                </div>
+                <h2>Module 9: Underclings</h2>
+            </div>
+            <div class="module">
+                <div class="module-image">
+                    <img src="https://i.ibb.co/zVyvnPd0/crimp-Cover.jpg" alt="Volume Image">
+                    <div class="gradient-overlay"></div>
+                </div>
+                <h2>Module 10: Volumes</h2>
+            </div>
+
+            <h2>Section 3: Movement & Technique</h2>
+            <div class="module">
+                <div class="module-image">
+                    <img src="https://i.ibb.co/zVyvnPd0/crimp-Cover.jpg" alt="Flagging Image">
+                    <div class="gradient-overlay"></div>
+                </div>
+                <h2>Module 11: Flagging</h2>
+            </div>
+            <div class="module">
+                <div class="module-image">
+                    <img src="https://i.ibb.co/zVyvnPd0/crimp-Cover.jpg" alt="Dynamic Image">
+                    <div class="gradient-overlay"></div>
+                </div>
+                <h2>Module 12: Dynamic Movement</h2>
+            </div>
+            <div class="module">
+                <div class="module-image">
+                    <img src="https://i.ibb.co/zVyvnPd0/crimp-Cover.jpg" alt="Static Image">
+                    <div class="gradient-overlay"></div>
+                </div>
+                <h2>Module 13: Static Movement</h2>
+            </div>
+
+            <h2>Section 4: Strength, Endurance, & Style</h2>
+            <div class="module">
+                <div class="module-image">
+                    <img src="https://i.ibb.co/xNpkgcG/meticulous-Footholds.jpg" alt="Body Tension Image">
+                    <div class="gradient-overlay"></div>
+                </div>
+                <h2>Module 14: Body Tension</h2>
+            </div>
+            <div class="module">
+                <div class="module-image">
+                    <img src="https://i.ibb.co/xNpkgcG/meticulous-Footholds.jpg" alt="Endurance Image">
+                    <div class="gradient-overlay"></div>
+                </div>
+                <h2>Module 15: Endurance</h2>
+            </div>
+            <div class="module">
+                <div class="module-image">
+                    <img src="https://i.ibb.co/xNpkgcG/meticulous-Footholds.jpg" alt="Sport Climbing Image">
+                    <div class="gradient-overlay"></div>
+                </div>
+                <h2>Module 16: Sport Climbing</h2>
+            </div>
+
+        </div>
+
+
+        <!-- Nav -->
+        <br><br><br>
+        <nav>
+            <a href="/dashboard.html" class="material-icons" alt="Dashboard Icon" title="Dashboard">show_chart</a>
+            <a href="/../learn/index.html" class="material-icons" alt="Lessons Icon" title="Lessons">school</a>
+            <a href="/../train/index.html" class="material-symbols-outlined" alt="Explore Icon"
+                title="Explore">exercise</a>
+        </nav>
+
+    </div>
+
+    <!-- Import Javascript -->
+    <script src="/scripts/main.js"></script>
+    <script src="/scripts/filter.js"></script>
+
+</body>
+
+</html>

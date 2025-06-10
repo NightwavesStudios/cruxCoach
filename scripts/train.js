@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const suggestedArticlesContainer =
-    document.getElementById("suggestedArticles");
   const suggestedWorkoutsContainer =
     document.getElementById("suggestedWorkouts");
 
@@ -59,7 +57,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     ) {
       skillLevel = "intermediate";
     }
-    if (grades.boulderingFlash === "V8" || grades.ropedOnsight === "5.12") {
+    if (grades.boulderingProject === "V8" || grades.ropedRedpoint >= "5.12b") {
       skillLevel = "advanced";
     }
 
@@ -139,7 +137,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const cache = {
       timestamp: Date.now(),
       bottom3,
-      articles: suggestions.articles,
       workouts: suggestions.workouts,
     };
     localStorage.setItem(SUGGESTION_CACHE_KEY, JSON.stringify(cache));
@@ -183,17 +180,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
 
     if (shouldRegenerateSuggestions()) {
-      const filteredArticles = bottomFocusTraits.flatMap((trait) =>
-        filterLessons(["article"], trait)
-      );
       const filteredWorkouts = bottomFocusTraits.flatMap((trait) =>
         filterLessons(["workout"], trait)
       );
 
-      saveSuggestionCache(
-        { articles: filteredArticles, workouts: filteredWorkouts },
-        bottomFocusTraits
-      );
+      saveSuggestionCache({ workouts: filteredWorkouts }, bottomFocusTraits);
     }
 
     /** Verify URL **/
@@ -255,24 +246,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           DOMPurify.sanitize(collectionCard);
       });
 
-      /** Render Suggested Articles **/
-      suggestedArticlesContainer.innerHTML = DOMPurify.sanitize(
-        cache.articles
-          .map(
-            (article) => `
-    <a href="${isSafeUrl(article.url) ? article.url : "#"}">
-      <div class="lesson-card">
-        <img class="lazyload" src="${article.thumbnail}" alt="${article.title}">
-        <h4>${article.title}</h4>
-        <p><span class="type">${article.type}</span>, <span class="length">${
-              article.length
-            }</span></p>
-      </div>
-    </a>`
-          )
-          .join("")
-      );
-
       /** Render Suggested Workouts **/
       suggestedWorkoutsContainer.innerHTML = DOMPurify.sanitize(
         cache.workouts
@@ -298,13 +271,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         profile.skillLevel
       }): ${bottomFocusTraits.join(", ")}`;
     }
-    document.querySelector(
-      ".reason.articles"
-    ).textContent = `Suggestions based on your ${
-      profile.primaryDiscipline
-    } profile and skill level (${profile.skillLevel}): ${bottomFocusTraits.join(
-      ", "
-    )}`;
     document.querySelector(
       ".reason.workouts"
     ).textContent = `Suggestions based on your ${
