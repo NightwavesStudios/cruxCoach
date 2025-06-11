@@ -3,6 +3,16 @@ body {
   text-align: center;
 }
 
+.progression {
+  position: relative;
+  padding: 15px;
+  border-radius: 10px;
+  width: 95vw;
+  max-width: 600px;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
 /* Modules Container Styling */
 #modulesContainer {
   overflow: hidden;
@@ -16,13 +26,19 @@ body {
 /* Individual Module Styling */
 .module {
   position: relative;
-  width: 95vw;
+  width: 95%;
   max-width: 600px;
   margin: 0 auto;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.module:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Module Image Styling */
@@ -92,22 +108,29 @@ body {
   position: relative;
 }
 
-/* Module Image Styling */
-.module-image {
-  position: relative;
-  width: 100%;
-  height: 150px;
-  overflow: hidden;
+/* Articles Container Styling */
+.articles-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
 }
 
-.module-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.8;
-  transition: transform 0.5s ease-in-out;
+/* Individual Article Styling */
+.article {
+  display: block;
+  padding: 10px 15px;
+  margin: 5px 0;
+  background-color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.module-image:hover img {
-  transform: scale(1.05);
+.article:hover {
+  background-color: #e0f7fa; /* Subtle hover effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
