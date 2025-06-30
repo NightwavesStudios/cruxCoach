@@ -946,3 +946,37 @@ footer {
   justify-content: space-around;
   align-items: center;
 }
+
+/* Overlay Styling */
+#developmentOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 40px); /* Exclude navbar height */
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+#developmentOverlay p {
+  font-size: 20px;
+  text-align: center;
+  pointer-events: auto;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+header,
+nav {
+  z-index: 1100;
+  pointer-events: auto;
+  opacity: 1;
+}
