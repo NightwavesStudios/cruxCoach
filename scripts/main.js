@@ -39,279 +39,28 @@ const defaultAccountInfo = {
   joinDate: new Date().toISOString().split("T")[0], // Default to today's date
 };
 
-/* Load Utility and Save Database Function */
-async function loadFromDatabase(dataType, defaultValue = {}) {
+/* Load Utility and Save Local Storage Function */
+function loadSafe(key, defaultValue = []) {
   try {
-    // First check if Supabase is available and user is authenticated
-    if (typeof supabase === "undefined") {
-      console.warn("Supabase not initialized, falling back to localStorage");
-      return loadSafe(dataType, defaultValue);
-    }
-
-    const user = await getUser();
-    if (!user) {
-      console.warn("No authenticated user, falling back to localStorage");
-      return loadSafe(dataType, defaultValue);
-    }
-
-    let data;
-    switch (dataType) {
-      case "grades":
-        const { data: gradesData, error: gradesError } = await supabase
-          .from("user_grades")
-          .select("*")
-          .eq("user_id", user.id)
-          .single();
-
-        if (gradesError && gradesError.code !== "PGRST116") {
-          // PGRST116 is "no rows returned"
-          throw gradesError;
-        }
-
-        data = gradesData
-          ? {
-              boulderingFlash: gradesData.bouldering_flash,
-              boulderingProject: gradesData.bouldering_project,
-              ropedOnsight: gradesData.roped_onsight,
-              ropedRedpoint: gradesData.roped_redpoint,
-            }
-          : defaultValue;
-        break;
-
-      case "trainingData":
-        const { data: trainingData, error: trainingError } = await supabase
-          .from("training_data")
-          .select("*")
-          .eq("user_id", user.id)
-          .single();
-
-        if (trainingError && trainingError.code !== "PGRST116") {
-          throw trainingError;
-        }
-
-        data = trainingData
-          ? {
-              bouldering: trainingData.bouldering,
-              toprope: trainingData.toprope,
-              lead: trainingData.lead,
-              aerobic: trainingData.aerobic,
-              anaerobic: trainingData.anaerobic,
-              other: trainingData.other,
-            }
-          : defaultValue;
-        break;
-
-      case "traits":
-        const { data: traitsData, error: traitsError } = await supabase
-          .from("user_traits")
-          .select("*")
-          .eq("user_id", user.id)
-          .single();
-
-        if (traitsError && traitsError.code !== "PGRST116") {
-          throw traitsError;
-        }
-
-        data = traitsData
-          ? {
-              Crimp: traitsData.crimp,
-              Sloper: traitsData.sloper,
-              Pocket: traitsData.pocket,
-              Sidepull: traitsData.sidepull,
-              Undercling: traitsData.undercling,
-              Pinch: traitsData.pinch,
-              Bigmove: traitsData.bigmove,
-              Meticulous: traitsData.meticulous,
-              Powerful: traitsData.powerful,
-              Routereading: traitsData.routereading,
-              Endurance: traitsData.endurance,
-              Slab: traitsData.slab,
-              Slightoverhang: traitsData.slightoverhang,
-              Overhang: traitsData.overhang,
-              Cave: traitsData.cave,
-            }
-          : defaultValue;
-        break;
-
-      case "accountInfo":
-        const { data: profileData, error: profileError } = await supabase
-          .from("profiles")
-          .select("*")
-          .eq("id", user.id)
-          .single();
-
-        if (profileError && profileError.code !== "PGRST116") {
-          throw profileError;
-        }
-
-        data = profileData
-          ? {
-              username: profileData.username,
-              email: profileData.email,
-              joinDate: profileData.join_date,
-            }
-          : defaultValue;
-        break;
-
-      case "journalData":
-        const { data: journalData, error: journalError } = await supabase
-          .from("journal_entries")
-          .select("*")
-          .eq("user_id", user.id)
-          .order("created_at", { ascending: false });
-
-        if (journalError) {
-          throw journalError;
-        }
-
-        data = journalData
-          ? journalData.map((entry) => ({
-              type: entry.entry_type,
-              discipline: entry.discipline,
-              grade: entry.grade,
-              difficulty: entry.difficulty,
-              trainingType: entry.training_type,
-              struggles: entry.struggles,
-              strengths: entry.strengths,
-              comments: entry.comments,
-              timestamp: entry.created_at,
-            }))
-          : defaultValue;
-        break;
-
-      default:
-        data = defaultValue;
-    }
-
-    return data;
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : defaultValue;
   } catch (err) {
-    console.warn(`Failed to load ${dataType} from database:`, err);
-    // Fallback to localStorage
-    return loadSafe(dataType, defaultValue);
+    console.warn(`Failed to load key "${key}" from localStorage:`, err);
+    return defaultValue;
   }
 }
 
-async function saveToDatabase(dataType, data) {
-  try {
-    // Check if Supabase is available
-    if (typeof supabase === "undefined") {
-      console.warn("Supabase not initialized, data only saved to localStorage");
-      return;
-    }
-
-    const user = await getUser();
-    if (!user) {
-      console.warn("No authenticated user, data only saved to localStorage");
-      return;
-    }
-
-    console.log(`Saving ${dataType} to database:`, data);
-
-    switch (dataType) {
-      case "grades":
-        const { error: gradesError } = await supabase
-          .from("user_grades")
-          .upsert({
-            user_id: user.id,
-            bouldering_flash: data.boulderingFlash,
-            bouldering_project: data.boulderingProject,
-            roped_onsight: data.ropedOnsight,
-            roped_redpoint: data.ropedRedpoint,
-          });
-        if (gradesError) throw gradesError;
-        break;
-
-      case "trainingData":
-        const { error: trainingError } = await supabase
-          .from("training_data")
-          .upsert({
-            user_id: user.id,
-            bouldering: data.bouldering,
-            toprope: data.toprope,
-            lead: data.lead,
-            aerobic: data.aerobic,
-            anaerobic: data.anaerobic,
-            other: data.other,
-          });
-        if (trainingError) throw trainingError;
-        break;
-
-      case "traits":
-        const { error: traitsError } = await supabase
-          .from("user_traits")
-          .upsert({
-            user_id: user.id,
-            crimp: data.Crimp || 0,
-            sloper: data.Sloper || 0,
-            pocket: data.Pocket || 0,
-            sidepull: data.Sidepull || 0,
-            undercling: data.Undercling || 0,
-            pinch: data.Pinch || 0,
-            bigmove: data.Bigmove || 0,
-            meticulous: data.Meticulous || 0,
-            powerful: data.Powerful || 0,
-            routereading: data.Routereading || 0,
-            endurance: data.Endurance || 0,
-            slab: data.Slab || 0,
-            slightoverhang: data.Slightoverhang || 0,
-            overhang: data.Overhang || 0,
-            cave: data.Cave || 0,
-          });
-        if (traitsError) throw traitsError;
-        break;
-
-      case "accountInfo":
-        const { error: profileError } = await supabase.from("profiles").upsert({
-          id: user.id,
-          username: data.username,
-          email: data.email,
-          join_date: data.joinDate,
-        });
-        if (profileError) throw profileError;
-        break;
-
-      case "journalData":
-        // Journal data is handled individually in dashboard.js
-        break;
-    }
-  } catch (err) {
-    console.error(`Failed to save ${dataType} to database:`, err);
-    throw err; // Re-throw so calling code can handle it
-  }
+function saveToStorage(key, data) {
+  console.log(`Saving ${key}:`, data); // Debugging log
+  localStorage.setItem(key, JSON.stringify(data));
 }
 
-/* Load Data from Database or localStorage */
-let grades = defaultGrades;
-let trainingData = defaultTrainingData;
-let traits = defaultTraits;
-let accountInfo = defaultAccountInfo;
+/* Load Data from Storage */
+const grades = loadSafe("grades", defaultGrades);
+const trainingData = loadSafe("trainingData", defaultTrainingData);
+const traits = loadSafe("traits", defaultTraits);
 
-// Initialize data when page loads
-async function initializeData() {
-  try {
-    grades = await loadFromDatabase("grades", defaultGrades);
-    trainingData = await loadFromDatabase("trainingData", defaultTrainingData);
-    traits = await loadFromDatabase("traits", defaultTraits);
-    accountInfo = await loadFromDatabase("accountInfo", defaultAccountInfo);
-
-    console.log("Data initialized:", {
-      grades,
-      trainingData,
-      traits,
-      accountInfo,
-    });
-  } catch (error) {
-    console.error("Error initializing data:", error);
-    // Fallback to localStorage defaults
-    grades = loadSafe("grades", defaultGrades);
-    trainingData = loadSafe("trainingData", defaultTrainingData);
-    traits = loadSafe("traits", defaultTraits);
-    accountInfo = loadSafe("accountInfo", defaultAccountInfo);
-  }
-}
-
-// Call initialize function when DOM is loaded
-document.addEventListener("DOMContentLoaded", initializeData);
+const accountInfo = loadSafe("accountInfo", defaultAccountInfo);
 
 const styleTraits = {
   ...(traits.Crimp !== 0 && { Crimp: traits.Crimp }),
@@ -337,7 +86,7 @@ const wallTraits = {
   Cave: traits.Cave,
 };
 
-/* Load Grades from Local Storage (for backwards compatibility) */
+/* Load Grades from Local Storage */
 Object.keys(localStorage).forEach((key) => {
   if (key.endsWith("Grades") && key !== "grades") {
     const type = key.replace("Grades", "");
@@ -374,7 +123,6 @@ Object.keys(localStorage).forEach((key) => {
     }
   }
 });
-
 Object.entries(grades).forEach(([key, value]) => updateElementText(key, value)); //Update the UI with the loaded grades
 
 /* Update Text in Element */
