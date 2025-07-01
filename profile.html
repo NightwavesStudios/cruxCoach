@@ -103,6 +103,13 @@
             </form>
         </div>
 
+        <!-- Authentication Options -->
+        <div id="authOptions">
+            <h3>Authentication</h3>
+            <p>Already have an account? <a href="/login.html" class="link">Login</a></p>
+            <p>Don't have an account? <a href="/signup.html" class="link">Sign Up</a></p>
+        </div>
+
         <!-- Logout Option (If Logged In) -->
         <div id="logoutOption">
             <button onclick="logout();">Logout</button>
@@ -123,6 +130,20 @@
     <script src="/scripts/supabase.js"></script>
     <script src="/scripts/main.js"></script>
     <script src="/scripts/profile.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const user = await ensureAuthenticated(); // Redirects to login if not authenticated
+            document.getElementById("usernameDisplay").textContent = user.email;
+            document.getElementById("emailDisplay").textContent = user.email;
+            document.getElementById("joinDateDisplay").textContent = new Date(
+                user.created_at
+            ).toLocaleDateString();
+        });
+
+        async function logout() {
+            await signOut(); // Logs out and redirects to login
+        }
+    </script>
 
 </body>
 

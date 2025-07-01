@@ -976,7 +976,7 @@ footer {
 
 header,
 nav {
-  z-index: 1100;
+  z-index: 100;
   pointer-events: auto;
   opacity: 1;
 }
