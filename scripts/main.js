@@ -40,27 +40,213 @@ const defaultAccountInfo = {
 };
 
 /* Load Utility and Save Local Storage Function */
-function loadSafe(key, defaultValue = []) {
+async function loadFromDatabase(dataType, defaultValue = {}) {
   try {
-    const item = localStorage.getItem(key);
-    return item ? JSON.parse(item) : defaultValue;
+    await ensureUser();
+    const user = await getUser();
+    if (!user) throw new Error("No user found");
+
+    let data;
+    switch (dataType) {
+      case "grades":
+        const { data: gradesData } = await supabase
+          .from("user_grades")
+          .select("*")
+          .eq("user_id", user.id)
+          .single();
+        data = gradesData
+          ? {
+              boulderingFlash: gradesData.bouldering_flash,
+              boulderingProject: gradesData.bouldering_project,
+              ropedOnsight: gradesData.roped_onsight,
+              ropedRedpoint: gradesData.roped_redpoint,
+            }
+          : defaultValue;
+        break;
+
+      case "trainingData":
+        const { data: trainingData } = await supabase
+          .from("training_data")
+          .select("*")
+          .eq("user_id", user.id)
+          .single();
+        data = trainingData
+          ? {
+              bouldering: trainingData.bouldering,
+              toprope: trainingData.toprope,
+              lead: trainingData.lead,
+              aerobic: trainingData.aerobic,
+              anaerobic: trainingData.anaerobic,
+              other: trainingData.other,
+            }
+          : defaultValue;
+        break;
+
+      case "traits":
+        const { data: traitsData } = await supabase
+          .from("user_traits")
+          .select("*")
+          .eq("user_id", user.id)
+          .single();
+        data = traitsData
+          ? {
+              Crimp: traitsData.crimp,
+              Sloper: traitsData.sloper,
+              Pocket: traitsData.pocket,
+              Sidepull: traitsData.sidepull,
+              Undercling: traitsData.undercling,
+              Pinch: traitsData.pinch,
+              Bigmove: traitsData.bigmove,
+              Meticulous: traitsData.meticulous,
+              Powerful: traitsData.powerful,
+              Routereading: traitsData.routereading,
+              Endurance: traitsData.endurance,
+              Slab: traitsData.slab,
+              Slightoverhang: traitsData.slightoverhang,
+              Overhang: traitsData.overhang,
+              Cave: traitsData.cave,
+            }
+          : defaultValue;
+        break;
+
+      case "accountInfo":
+        const { data: profileData } = await supabase
+          .from("profiles")
+          .select("*")
+          .eq("id", user.id)
+          .single();
+        data = profileData
+          ? {
+              username: profileData.username,
+              email: profileData.email,
+              joinDate: profileData.join_date,
+            }
+          : defaultValue;
+        break;
+
+      case "journalData":
+        const { data: journalData } = await supabase
+          .from("journal_entries")
+          .select("*")
+          .eq("user_id", user.id)
+          .order("created_at", { ascending: false });
+        data = journalData
+          ? journalData.map((entry) => ({
+              type: entry.entry_type,
+              discipline: entry.discipline,
+              grade: entry.grade,
+              difficulty: entry.difficulty,
+              trainingType: entry.training_type,
+              struggles: entry.struggles,
+              strengths: entry.strengths,
+              comments: entry.comments,
+              timestamp: entry.created_at,
+            }))
+          : defaultValue;
+        break;
+
+      default:
+        data = defaultValue;
+    }
+
+    return data;
   } catch (err) {
-    console.warn(`Failed to load key "${key}" from localStorage:`, err);
+    console.warn(`Failed to load ${dataType} from database:`, err);
     return defaultValue;
   }
 }
 
-function saveToStorage(key, data) {
-  console.log(`Saving ${key}:`, data); // Debugging log
-  localStorage.setItem(key, JSON.stringify(data));
+async function saveToDatabase(dataType, data) {
+  try {
+    const user = await getUser();
+    if (!user) throw new Error("No user found");
+
+    console.log(`Saving ${dataType}:`, data);
+
+    switch (dataType) {
+      case "grades":
+        await supabase.from("user_grades").upsert({
+          user_id: user.id,
+          bouldering_flash: data.boulderingFlash,
+          bouldering_project: data.boulderingProject,
+          roped_onsight: data.ropedOnsight,
+          roped_redpoint: data.ropedRedpoint,
+        });
+        break;
+
+      case "trainingData":
+        await supabase.from("training_data").upsert({
+          user_id: user.id,
+          bouldering: data.bouldering,
+          toprope: data.toprope,
+          lead: data.lead,
+          aerobic: data.aerobic,
+          anaerobic: data.anaerobic,
+          other: data.other,
+        });
+        break;
+
+      case "traits":
+        await supabase.from("user_traits").upsert({
+          user_id: user.id,
+          crimp: data.Crimp || 0,
+          sloper: data.Sloper || 0,
+          pocket: data.Pocket || 0,
+          sidepull: data.Sidepull || 0,
+          undercling: data.Undercling || 0,
+          pinch: data.Pinch || 0,
+          bigmove: data.Bigmove || 0,
+          meticulous: data.Meticulous || 0,
+          powerful: data.Powerful || 0,
+          routereading: data.Routereading || 0,
+          endurance: data.Endurance || 0,
+          slab: data.Slab || 0,
+          slightoverhang: data.Slightoverhang || 0,
+          overhang: data.Overhang || 0,
+          cave: data.Cave || 0,
+        });
+        break;
+
+      case "accountInfo":
+        await supabase.from("profiles").upsert({
+          id: user.id,
+          username: data.username,
+          email: data.email,
+          join_date: data.joinDate,
+        });
+        break;
+
+      case "journalData":
+        // For journal data, we'll handle individual entries separately
+        // This case will be handled in the dashboard.js updates
+        break;
+    }
+  } catch (err) {
+    console.error(`Failed to save ${dataType} to database:`, err);
+  }
 }
 
-/* Load Data from Storage */
-const grades = loadSafe("grades", defaultGrades);
-const trainingData = loadSafe("trainingData", defaultTrainingData);
-const traits = loadSafe("traits", defaultTraits);
+/* Load Data from Database */
+let grades = defaultGrades;
+let trainingData = defaultTrainingData;
+let traits = defaultTraits;
+let accountInfo = defaultAccountInfo;
 
-const accountInfo = loadSafe("accountInfo", defaultAccountInfo);
+// Initialize data when page loads
+async function initializeData() {
+  grades = await loadFromDatabase("grades", defaultGrades);
+  trainingData = await loadFromDatabase("trainingData", defaultTrainingData);
+  traits = await loadFromDatabase("traits", defaultTraits);
+  accountInfo = await loadFromDatabase("accountInfo", defaultAccountInfo);
+
+  /** Update UI after loading data
+  Object.entries(grades).forEach(([key, value]) =>
+    updateElementText(key, value)
+  ); **/
+}
+
+// Call initialize function when DOM is loaded
+document.addEventListener("DOMContentLoaded", initializeData);
 
 const styleTraits = {
   ...(traits.Crimp !== 0 && { Crimp: traits.Crimp }),
