@@ -39,21 +39,35 @@ const defaultAccountInfo = {
   joinDate: new Date().toISOString().split("T")[0], // Default to today's date
 };
 
-/* Load Utility and Save Local Storage Function */
+/* Load Utility and Save Database Function */
 async function loadFromDatabase(dataType, defaultValue = {}) {
   try {
-    await ensureUser();
+    // First check if Supabase is available and user is authenticated
+    if (typeof supabase === "undefined") {
+      console.warn("Supabase not initialized, falling back to localStorage");
+      return loadSafe(dataType, defaultValue);
+    }
+
     const user = await getUser();
-    if (!user) throw new Error("No user found");
+    if (!user) {
+      console.warn("No authenticated user, falling back to localStorage");
+      return loadSafe(dataType, defaultValue);
+    }
 
     let data;
     switch (dataType) {
       case "grades":
-        const { data: gradesData } = await supabase
+        const { data: gradesData, error: gradesError } = await supabase
           .from("user_grades")
           .select("*")
           .eq("user_id", user.id)
           .single();
+
+        if (gradesError && gradesError.code !== "PGRST116") {
+          // PGRST116 is "no rows returned"
+          throw gradesError;
+        }
+
         data = gradesData
           ? {
               boulderingFlash: gradesData.bouldering_flash,
@@ -65,11 +79,16 @@ async function loadFromDatabase(dataType, defaultValue = {}) {
         break;
 
       case "trainingData":
-        const { data: trainingData } = await supabase
+        const { data: trainingData, error: trainingError } = await supabase
           .from("training_data")
           .select("*")
           .eq("user_id", user.id)
           .single();
+
+        if (trainingError && trainingError.code !== "PGRST116") {
+          throw trainingError;
+        }
+
         data = trainingData
           ? {
               bouldering: trainingData.bouldering,
@@ -83,11 +102,16 @@ async function loadFromDatabase(dataType, defaultValue = {}) {
         break;
 
       case "traits":
-        const { data: traitsData } = await supabase
+        const { data: traitsData, error: traitsError } = await supabase
           .from("user_traits")
           .select("*")
           .eq("user_id", user.id)
           .single();
+
+        if (traitsError && traitsError.code !== "PGRST116") {
+          throw traitsError;
+        }
+
         data = traitsData
           ? {
               Crimp: traitsData.crimp,
@@ -110,11 +134,16 @@ async function loadFromDatabase(dataType, defaultValue = {}) {
         break;
 
       case "accountInfo":
-        const { data: profileData } = await supabase
+        const { data: profileData, error: profileError } = await supabase
           .from("profiles")
           .select("*")
           .eq("id", user.id)
           .single();
+
+        if (profileError && profileError.code !== "PGRST116") {
+          throw profileError;
+        }
+
         data = profileData
           ? {
               username: profileData.username,
@@ -125,11 +154,16 @@ async function loadFromDatabase(dataType, defaultValue = {}) {
         break;
 
       case "journalData":
-        const { data: journalData } = await supabase
+        const { data: journalData, error: journalError } = await supabase
           .from("journal_entries")
           .select("*")
           .eq("user_id", user.id)
           .order("created_at", { ascending: false });
+
+        if (journalError) {
+          throw journalError;
+        }
+
         data = journalData
           ? journalData.map((entry) => ({
               type: entry.entry_type,
@@ -152,81 +186,101 @@ async function loadFromDatabase(dataType, defaultValue = {}) {
     return data;
   } catch (err) {
     console.warn(`Failed to load ${dataType} from database:`, err);
-    return defaultValue;
+    // Fallback to localStorage
+    return loadSafe(dataType, defaultValue);
   }
 }
 
 async function saveToDatabase(dataType, data) {
   try {
-    const user = await getUser();
-    if (!user) throw new Error("No user found");
+    // Check if Supabase is available
+    if (typeof supabase === "undefined") {
+      console.warn("Supabase not initialized, data only saved to localStorage");
+      return;
+    }
 
-    console.log(`Saving ${dataType}:`, data);
+    const user = await getUser();
+    if (!user) {
+      console.warn("No authenticated user, data only saved to localStorage");
+      return;
+    }
+
+    console.log(`Saving ${dataType} to database:`, data);
 
     switch (dataType) {
       case "grades":
-        await supabase.from("user_grades").upsert({
-          user_id: user.id,
-          bouldering_flash: data.boulderingFlash,
-          bouldering_project: data.boulderingProject,
-          roped_onsight: data.ropedOnsight,
-          roped_redpoint: data.ropedRedpoint,
-        });
+        const { error: gradesError } = await supabase
+          .from("user_grades")
+          .upsert({
+            user_id: user.id,
+            bouldering_flash: data.boulderingFlash,
+            bouldering_project: data.boulderingProject,
+            roped_onsight: data.ropedOnsight,
+            roped_redpoint: data.ropedRedpoint,
+          });
+        if (gradesError) throw gradesError;
         break;
 
       case "trainingData":
-        await supabase.from("training_data").upsert({
-          user_id: user.id,
-          bouldering: data.bouldering,
-          toprope: data.toprope,
-          lead: data.lead,
-          aerobic: data.aerobic,
-          anaerobic: data.anaerobic,
-          other: data.other,
-        });
+        const { error: trainingError } = await supabase
+          .from("training_data")
+          .upsert({
+            user_id: user.id,
+            bouldering: data.bouldering,
+            toprope: data.toprope,
+            lead: data.lead,
+            aerobic: data.aerobic,
+            anaerobic: data.anaerobic,
+            other: data.other,
+          });
+        if (trainingError) throw trainingError;
         break;
 
       case "traits":
-        await supabase.from("user_traits").upsert({
-          user_id: user.id,
-          crimp: data.Crimp || 0,
-          sloper: data.Sloper || 0,
-          pocket: data.Pocket || 0,
-          sidepull: data.Sidepull || 0,
-          undercling: data.Undercling || 0,
-          pinch: data.Pinch || 0,
-          bigmove: data.Bigmove || 0,
-          meticulous: data.Meticulous || 0,
-          powerful: data.Powerful || 0,
-          routereading: data.Routereading || 0,
-          endurance: data.Endurance || 0,
-          slab: data.Slab || 0,
-          slightoverhang: data.Slightoverhang || 0,
-          overhang: data.Overhang || 0,
-          cave: data.Cave || 0,
-        });
+        const { error: traitsError } = await supabase
+          .from("user_traits")
+          .upsert({
+            user_id: user.id,
+            crimp: data.Crimp || 0,
+            sloper: data.Sloper || 0,
+            pocket: data.Pocket || 0,
+            sidepull: data.Sidepull || 0,
+            undercling: data.Undercling || 0,
+            pinch: data.Pinch || 0,
+            bigmove: data.Bigmove || 0,
+            meticulous: data.Meticulous || 0,
+            powerful: data.Powerful || 0,
+            routereading: data.Routereading || 0,
+            endurance: data.Endurance || 0,
+            slab: data.Slab || 0,
+            slightoverhang: data.Slightoverhang || 0,
+            overhang: data.Overhang || 0,
+            cave: data.Cave || 0,
+          });
+        if (traitsError) throw traitsError;
         break;
 
       case "accountInfo":
-        await supabase.from("profiles").upsert({
+        const { error: profileError } = await supabase.from("profiles").upsert({
           id: user.id,
           username: data.username,
           email: data.email,
           join_date: data.joinDate,
         });
+        if (profileError) throw profileError;
         break;
 
       case "journalData":
-        // For journal data, we'll handle individual entries separately
-        // This case will be handled in the dashboard.js updates
+        // Journal data is handled individually in dashboard.js
         break;
     }
   } catch (err) {
     console.error(`Failed to save ${dataType} to database:`, err);
+    throw err; // Re-throw so calling code can handle it
   }
 }
 
-/* Load Data from Database */
+/* Load Data from Database or localStorage */
 let grades = defaultGrades;
 let trainingData = defaultTrainingData;
 let traits = defaultTraits;
@@ -234,15 +288,26 @@ let accountInfo = defaultAccountInfo;
 
 // Initialize data when page loads
 async function initializeData() {
-  grades = await loadFromDatabase("grades", defaultGrades);
-  trainingData = await loadFromDatabase("trainingData", defaultTrainingData);
-  traits = await loadFromDatabase("traits", defaultTraits);
-  accountInfo = await loadFromDatabase("accountInfo", defaultAccountInfo);
+  try {
+    grades = await loadFromDatabase("grades", defaultGrades);
+    trainingData = await loadFromDatabase("trainingData", defaultTrainingData);
+    traits = await loadFromDatabase("traits", defaultTraits);
+    accountInfo = await loadFromDatabase("accountInfo", defaultAccountInfo);
 
-  /** Update UI after loading data
-  Object.entries(grades).forEach(([key, value]) =>
-    updateElementText(key, value)
-  ); **/
+    console.log("Data initialized:", {
+      grades,
+      trainingData,
+      traits,
+      accountInfo,
+    });
+  } catch (error) {
+    console.error("Error initializing data:", error);
+    // Fallback to localStorage defaults
+    grades = loadSafe("grades", defaultGrades);
+    trainingData = loadSafe("trainingData", defaultTrainingData);
+    traits = loadSafe("traits", defaultTraits);
+    accountInfo = loadSafe("accountInfo", defaultAccountInfo);
+  }
 }
 
 // Call initialize function when DOM is loaded
@@ -272,7 +337,7 @@ const wallTraits = {
   Cave: traits.Cave,
 };
 
-/* Load Grades from Local Storage */
+/* Load Grades from Local Storage (for backwards compatibility) */
 Object.keys(localStorage).forEach((key) => {
   if (key.endsWith("Grades") && key !== "grades") {
     const type = key.replace("Grades", "");
@@ -309,6 +374,7 @@ Object.keys(localStorage).forEach((key) => {
     }
   }
 });
+
 Object.entries(grades).forEach(([key, value]) => updateElementText(key, value)); //Update the UI with the loaded grades
 
 /* Update Text in Element */

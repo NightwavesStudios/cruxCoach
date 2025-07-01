@@ -1,8 +1,54 @@
 let trainingChart;
 
 const defaultJournal = [];
-const journalData = loadSafe("journalData", defaultJournal);
+let journalData = loadSafe("journalData", defaultJournal);
 console.log("Initialized journalData:", journalData);
+
+// Load journal data from database when available
+async function loadJournalData() {
+  try {
+    journalData = await loadFromDatabase("journalData", defaultJournal);
+    console.log("Loaded journalData from database:", journalData);
+    renderJournal();
+  } catch (error) {
+    console.warn("Failed to load journal data from database:", error);
+    journalData = loadSafe("journalData", defaultJournal);
+  }
+}
+
+// Save individual journal entry to database
+async function saveJournalEntry(entry) {
+  try {
+    if (typeof supabase === "undefined") {
+      console.warn("Supabase not initialized, saving to localStorage only");
+      return;
+    }
+
+    const user = await getUser();
+    if (!user) {
+      console.warn("No authenticated user, saving to localStorage only");
+      return;
+    }
+
+    const { error } = await supabase.from("journal_entries").insert({
+      user_id: user.id,
+      entry_type: entry.type,
+      discipline: entry.discipline || null,
+      grade: entry.grade || null,
+      difficulty: entry.difficulty || null,
+      training_type: entry.trainingType || null,
+      struggles: entry.struggles || null,
+      strengths: entry.strengths || null,
+      comments: entry.comments || null,
+      created_at: entry.timestamp,
+    });
+
+    if (error) throw error;
+    console.log("Journal entry saved to database");
+  } catch (error) {
+    console.error("Failed to save journal entry to database:", error);
+  }
+}
 
 function updateTrainingChart() {
   const chartElement = document.getElementById("trainingDistributionChart");
@@ -71,7 +117,10 @@ function updateTrainingChart() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  // Wait for data initialization
+  await initializeData();
+
   Object.entries(grades).forEach(([key, value]) =>
     updateElementText(key, value)
   );
@@ -87,14 +136,18 @@ document.addEventListener("DOMContentLoaded", () => {
       else if (value < 0) el.classList.add("down"); //Add "down" Class if Value is Negative
     }
   });
+
   const chartElement = document.getElementById("trainingDistributionChart");
   if (chartElement) {
     updateTrainingChart();
   }
+
+  // Load journal data
+  await loadJournalData();
 });
 
 /* Form Submission Actions */
-function updateAverageGrade(difficulty, grade) {
+async function updateAverageGrade(difficulty, grade) {
   const logKey = `${difficulty}Grades`; // Combine difficulty as the key
   const logArrayJSON = localStorage.getItem(logKey); // Get the log array from localStorage
   let logArray = []; // Initialize the log array
@@ -157,7 +210,7 @@ function updateAverageGrade(difficulty, grade) {
 
   grades[difficulty] = medianGradeText;
 
-  saveToStorage("grades", grades); // Save grades object to localStorage
+  await saveToStorage("grades", grades); // Save grades object to database and localStorage
   updateElementText(difficulty, medianGradeText); // Update UI with the new median grade
 }
 
