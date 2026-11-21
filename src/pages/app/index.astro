@@ -1,0 +1,8 @@
+---
+import AppLayout from "../../layouts/AppLayout.astro";
+import DashboardView from "../../components/app/DashboardView";
+---
+
+<AppLayout title="Dashboard — CruxCoach">
+  <DashboardView client:only="react" />
+</AppLayout>

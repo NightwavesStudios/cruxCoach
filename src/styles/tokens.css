@@ -1,0 +1,77 @@
+:root {
+  color-scheme: light;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  --ink: #1a202c;
+  --ink-2: #4a5568;
+  --ink-3: #718096;
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --surface-2: #f1f3f7;
+  --line: #e2e8f0;
+  --line-strong: #cbd5e0;
+
+  --accent: #f28c28;
+  --accent-strong: #d9720f;
+  --accent-soft: #fff3e6;
+  --green: #2f9e57;
+  --green-soft: #e9f7ef;
+  --blue: #3b7ddd;
+  --blue-soft: #eaf1fc;
+  --red: #d64545;
+  --red-soft: #fdecec;
+
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 1px 2px rgb(26 32 44 / 6%);
+  --shadow: 0 10px 30px -18px rgb(26 32 44 / 35%);
+  --shadow-lg: 0 30px 70px -40px rgb(26 32 44 / 45%);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+  --space-10: 4rem;
+  --space-12: 6rem;
+
+  --container: 1120px;
+  --header-h: 4.25rem;
+
+  --step--1: 0.875rem;
+  --step-0: 1rem;
+  --step-1: 1.125rem;
+  --step-2: 1.375rem;
+  --step-3: 1.75rem;
+  --step-4: 2.25rem;
+  --step-5: clamp(2.5rem, 5vw, 4rem);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --ink: #f2f5f9;
+  --ink-2: #c3ccd9;
+  --ink-3: #94a3b8;
+  --bg: #0e131b;
+  --surface: #161d28;
+  --surface-2: #1d2532;
+  --line: #2a3444;
+  --line-strong: #3b4759;
+
+  --accent-soft: #3a2a17;
+  --green-soft: #17301f;
+  --blue-soft: #17263d;
+  --red-soft: #3a1d1d;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 30%);
+  --shadow: 0 12px 32px -18px rgb(0 0 0 / 70%);
+  --shadow-lg: 0 34px 80px -40px rgb(0 0 0 / 80%);
+}

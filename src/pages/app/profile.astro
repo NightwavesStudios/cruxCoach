@@ -1,0 +1,8 @@
+---
+import AppLayout from "../../layouts/AppLayout.astro";
+import ProfileView from "../../components/app/ProfileView";
+---
+
+<AppLayout title="Profile — CruxCoach">
+  <ProfileView client:only="react" />
+</AppLayout>

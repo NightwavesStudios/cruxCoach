@@ -1,0 +1,562 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import FeatureRow from "../components/FeatureRow.astro";
+
+const features = [
+  {
+    eyebrow: "Reflect",
+    title: "Turn sessions into self-knowledge.",
+    body: "Score holds, wall angles and climbing styles after a session. CruxCoach keeps a rolling picture of your strengths and struggles so you know exactly what to work on next.",
+    image: "/images/reflect.webp",
+    alt: "CruxCoach session reflection screen with sliders for holds, angles and styles",
+  },
+  {
+    eyebrow: "Analytics",
+    title: "See the shape of your climbing.",
+    body: "Grade progression, training split, holds breakdown, wall angles and climbing style — clear charts that answer where your time is going and what is actually improving.",
+    image: "/images/analytics.webp",
+    alt: "CruxCoach analytics dashboard with charts for grades, holds and styles",
+  },
+  {
+    eyebrow: "Log",
+    title: "Log a session in under a minute.",
+    body: "Record discipline, grade, difficulty and training type. Every session feeds your journal, your charts and your training recommendations.",
+    image: "/images/log.webp",
+    alt: "CruxCoach session logging form",
+  },
+  {
+    eyebrow: "Plans",
+    title: "Training that adapts with you.",
+    body: "Build a 2–8 week plan around your goals, your available days and your current level, following an intensity cycle for performance and recovery.",
+    image: "/images/plans.webp",
+    alt: "CruxCoach personalised training plan screen",
+  },
+  {
+    eyebrow: "Journal",
+    title: "Your whole climbing history, organised.",
+    body: "Every workout, climb and reflection in one structured timeline. Look back at old notes, spot patterns and keep a record from your first V0 to your next project.",
+    image: "/images/journal.webp",
+    alt: "CruxCoach training journal with past sessions and reflections",
+  },
+  {
+    eyebrow: "Content",
+    title: "Learn the why behind the movement.",
+    body: "Curated lessons, workouts and drills for crimps, slopers, overhangs, endurance and more — recommended from your own data and ready to add to your plan.",
+    image: "/images/content.webp",
+    alt: "CruxCoach lesson and workout library",
+  },
+];
+
+const checks = [
+  "No subscriptions or paywalls",
+  "No \"14-day free trial\" nonsense",
+  "Your data stays yours — export it any time",
+];
+---
+
+<BaseLayout
+  title="CruxCoach — Train smarter. Climb harder."
+  description="CruxCoach is a free all-in-one climbing app for training, journaling, analytics and progress tracking. Built by climbers, for climbers."
+>
+  <SiteHeader />
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="spark" aria-hidden="true"></span> Free climbing training companion</p>
+          <h1>Train smarter.<br /><span>Climb harder.</span></h1>
+          <p class="lede">
+            Plan workouts, log sessions, reflect on how you climb, and turn it all into
+            training built for your next grade.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="/app">
+              Try the demo
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <path fill="currentColor" d="M13.2 5.2a1 1 0 0 1 1.4 0l6 6a1 1 0 0 1 0 1.4l-6 6a1 1 0 0 1-1.4-1.4l4.3-4.3H4a1 1 0 1 1 0-2h13.5l-4.3-4.3a1 1 0 0 1 0-1.4Z" />
+              </svg>
+            </a>
+            <a class="btn btn-secondary" href="#features">See what's inside</a>
+          </div>
+          <ul class="hero-points">
+            <li>No sign-up</li>
+            <li>Works offline</li>
+            <li>Free forever</li>
+          </ul>
+        </div>
+
+        <div class="hero-visual">
+          <div class="browser">
+            <div class="browser-bar" aria-hidden="true">
+              <span></span><span></span><span></span>
+              <em>cruxcoach.app</em>
+            </div>
+            <img
+              src="/images/analytics.webp"
+              alt="CruxCoach dashboard showing training distribution and strength breakdown"
+              width="1400"
+              height="900"
+              fetchpriority="high"
+            />
+          </div>
+          <div class="float-card float-a">
+            <span>Boulder project</span>
+            <strong>V6</strong>
+            <small>▲ one grade this month</small>
+          </div>
+          <div class="float-card float-b">
+            <span>Focus area</span>
+            <strong>Slopers</strong>
+            <small>2 workouts suggested</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Everything in one place</p>
+          <h2>The journal, the coach and the classroom.</h2>
+          <p>
+            Stop stitching together five apps and a notebook. CruxCoach connects what you
+            climb, how it felt and what to train next.
+          </p>
+        </header>
+
+        <div class="feature-list">
+          {features.map((feature, index) => (
+            <FeatureRow {...feature} reverse={index % 2 === 1} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+      <div class="container">
+        <div class="pricing-card">
+          <div class="pricing-copy">
+            <p class="eyebrow">Pricing</p>
+            <h2>Free, forever.</h2>
+            <p>
+              No subscriptions. No paywalls. CruxCoach exists because other climbing apps
+              felt limited or expensive. We built the app we wanted, then shared it with
+              the community.
+            </p>
+            <a class="btn btn-primary" href="/app">Start climbing</a>
+          </div>
+          <ul class="checks">
+            {checks.map((check) => (
+              <li>
+                <span class="check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="14" height="14">
+                    <path fill="currentColor" d="M9.6 16.6 5 12l-1.4 1.4 6 6 12-12L20.2 6 9.6 16.6Z" />
+                  </svg>
+                </span>
+                {check}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="container about-grid">
+        <p class="eyebrow">About CruxCoach</p>
+        <div>
+          <h2>One place to journal, track and train.</h2>
+          <p>
+            CruxCoach started with a simple frustration: no single app covered climbing
+            journaling, analytics and training without a monthly fee. So it became one
+            tool for the whole journey — from your first session to your hardest project.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a class="brand" href="/">
+        <img src="/assets/favicon.png" alt="" width="26" height="26" />
+        <span>CruxCoach</span>
+      </a>
+      <p>© {new Date().getFullYear()} CruxCoach. Built by climbers, for climbers.</p>
+      <a href="/app">Open dashboard</a>
+    </div>
+  </footer>
+</BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: clamp(3rem, 9vw, 7rem);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: -20% -10% auto auto;
+    width: 46rem;
+    height: 46rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgb(242 140 40 / 16%), transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: center;
+  }
+
+  .spark {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+
+  h1 {
+    margin-top: var(--space-4);
+    font-size: var(--step-5);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+  }
+
+  h1 span {
+    color: var(--accent-strong);
+  }
+
+  .lede {
+    margin-top: var(--space-4);
+    max-width: 36ch;
+    font-size: var(--step-1);
+    color: var(--ink-2);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  .hero-points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin: var(--space-5) 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.9rem;
+    color: var(--ink-3);
+  }
+
+  .hero-points li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .hero-points li::before {
+    content: "";
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 50%;
+    background: var(--green);
+  }
+
+  .hero-visual {
+    position: relative;
+    padding: var(--space-5) 0;
+  }
+
+  .browser {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-lg);
+    transform: rotate(-1deg);
+  }
+
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    height: 2.2rem;
+    padding-inline: var(--space-4);
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .browser-bar span {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--line-strong);
+  }
+
+  .browser-bar span:first-child {
+    background: var(--red);
+  }
+
+  .browser-bar span:nth-child(2) {
+    background: var(--accent);
+  }
+
+  .browser-bar span:nth-child(3) {
+    background: var(--green);
+  }
+
+  .browser-bar em {
+    margin-left: var(--space-3);
+    font-size: 0.72rem;
+    font-style: normal;
+    color: var(--ink-3);
+  }
+
+  .browser img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1400 / 900;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .float-card {
+    position: absolute;
+    display: grid;
+    gap: 0.15rem;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    font-size: 0.72rem;
+    color: var(--ink-3);
+  }
+
+  .float-card strong {
+    font-size: var(--step-2);
+    color: var(--ink);
+    line-height: 1.1;
+  }
+
+  .float-card small {
+    font-size: 0.7rem;
+    color: var(--green);
+  }
+
+  .float-a {
+    top: -0.5rem;
+    left: -1.5rem;
+  }
+
+  .float-b {
+    right: -1rem;
+    bottom: 0.5rem;
+  }
+
+  .features {
+    padding-block: var(--space-12);
+    background: var(--surface);
+    border-block: 1px solid var(--line);
+  }
+
+  .section-head {
+    max-width: 42rem;
+    margin-bottom: var(--space-6);
+  }
+
+  .section-head h2 {
+    margin-top: var(--space-3);
+    font-size: clamp(1.9rem, 3.4vw, 2.75rem);
+  }
+
+  .section-head p:last-child {
+    margin-top: var(--space-3);
+    color: var(--ink-2);
+  }
+
+  .feature-list {
+    display: grid;
+  }
+
+  .pricing {
+    padding-block: var(--space-12);
+  }
+
+  .pricing-card {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: var(--space-8);
+    align-items: center;
+    padding: clamp(2rem, 5vw, 4rem);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, #1a202c, #2c3748);
+    color: #eef2f7;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .pricing-card h2 {
+    margin-top: var(--space-3);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: #fff;
+  }
+
+  .pricing-card p {
+    margin-top: var(--space-3);
+    max-width: 52ch;
+    color: #b9c4d3;
+  }
+
+  .pricing-card .eyebrow {
+    color: #f6b06a;
+  }
+
+  .pricing-card .btn {
+    margin-top: var(--space-5);
+  }
+
+  .checks {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .checks li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius);
+    background: rgb(255 255 255 / 7%);
+    border: 1px solid rgb(255 255 255 / 10%);
+    font-size: 0.94rem;
+  }
+
+  .check {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 1.35rem;
+    height: 1.35rem;
+    margin-top: 0.1rem;
+    border-radius: 50%;
+    background: var(--green);
+    color: #fff;
+  }
+
+  .about {
+    padding-block: var(--space-10) var(--space-12);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 0.55fr 1.45fr;
+    gap: var(--space-6);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--line);
+  }
+
+  .about-grid h2 {
+    font-size: var(--step-3);
+  }
+
+  .about-grid p:last-child {
+    margin-top: var(--space-3);
+    max-width: 62ch;
+    color: var(--ink-2);
+  }
+
+  .footer {
+    padding-block: var(--space-5);
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+    font-size: 0.85rem;
+    color: var(--ink-3);
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .brand img {
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 7px;
+  }
+
+  .footer p {
+    margin-right: auto;
+  }
+
+  .footer > .container > a:last-child {
+    color: var(--ink-2);
+    font-weight: 600;
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-visual {
+      max-width: 40rem;
+    }
+
+    .float-a {
+      left: 0;
+    }
+
+    .float-b {
+      right: 0;
+    }
+
+    .pricing-card {
+      grid-template-columns: 1fr;
+    }
+
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .float-card {
+      display: none;
+    }
+
+    .browser {
+      transform: none;
+    }
+
+    .footer p {
+      order: 3;
+      width: 100%;
+    }
+  }
+</style>

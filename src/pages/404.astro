@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Page not found — CruxCoach" description="The page you were looking for does not exist." noindex>
+  <main class="not-found">
+    <img src="/assets/favicon.png" alt="" width="42" height="42" />
+    <p class="eyebrow">404</p>
+    <h1>That page is off route.</h1>
+    <p>The link may be old, or the page has moved. Your training data is safe.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="/app">Open dashboard</a>
+      <a class="btn btn-secondary" href="/">Back home</a>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-3);
+    max-width: 34rem;
+    margin: 14vh auto;
+    padding: var(--space-8) var(--space-5);
+    text-align: center;
+  }
+
+  h1 {
+    font-size: var(--step-4);
+  }
+
+  p {
+    color: var(--ink-2);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+  }
+</style>

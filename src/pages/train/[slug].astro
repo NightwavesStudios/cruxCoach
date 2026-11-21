@@ -1,0 +1,57 @@
+---
+import ContentLayout from "../../layouts/ContentLayout.astro";
+import { COLLECTIONS, CONTENT, type ContentItem } from "../../data/content";
+import { lessonBody } from "../../lib/lessons";
+
+export function getStaticPaths() {
+  return CONTENT.map((item) => ({
+    params: { slug: item.id },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props as { item: ContentItem };
+const collection = COLLECTIONS.find((entry) => entry.id === item.collection);
+const siblings = CONTENT.filter((entry) => entry.collection === item.collection);
+const index = siblings.findIndex((entry) => entry.id === item.id);
+const next = siblings[index + 1];
+const body = lessonBody(item.id);
+---
+
+<ContentLayout
+  title={`${item.title} — CruxCoach`}
+  description={item.summary}
+>
+  <article class="lesson">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/app/learn">Learn</a>
+      <span>/</span>
+      <a href={`/app/train`}>{collection?.title ?? "Library"}</a>
+    </nav>
+
+    <header class="lesson-head">
+      <p class="lesson-kicker">{item.type} · {item.length}</p>
+      <h1>{item.title}</h1>
+      <p class="lesson-summary">{item.summary}</p>
+      <div class="lesson-meta">
+        {item.difficulty.map((level) => (
+          <span class="difficulty">{level}</span>
+        ))}
+        {item.tags.map((tag) => (
+          <span class="tag">{tag.replace("-", " ")}</span>
+        ))}
+      </div>
+    </header>
+
+    <div class="lesson-body" set:html={body} />
+
+    <footer class="lesson-footer">
+      <a class="btn btn-secondary" href="/app/train">Browse the library</a>
+      {next && (
+        <a class="btn btn-primary" href={`/train/${next.id}`}>
+          Next: {next.title} →
+        </a>
+      )}
+    </footer>
+  </article>
+</ContentLayout>

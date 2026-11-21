@@ -1,19 +1,47 @@
 # CruxCoach
 
-cruxCoach is a web-based application designed to assist climbers in tracking their training sessions, reflecting their strugglepoints and strongpoints, displaying data through charts and diagrams, and offering lessons, articles, videos, and workouts personalized based on your data.
+CruxCoach is a free climbing training companion: log sessions, reflect on holds, angles and styles, see what is improving, and train with a plan built around your own data.
 
-[Website](cruxcoach.vercel.app)
+[Website](https://cruxcoach.vercel.app)
 
-## Features
+## What is in the app
 
-Session Logging: Log session, including training type, grade, and difficulty
+- **Session logging** — multiple climbs per session with grade, style and attempts, plus duration, effort, location and notes.
+- **Reflections** — 15 traits rated from −2 to +2, weighted toward recent sessions.
+- **Dashboard** — boulder and rope levels, weekly volume, grade progression, strengths and struggles, focus areas, recent sessions.
+- **Journal** — searchable history with edit and delete for sessions and reflections.
+- **Train** — a searchable library of articles, workouts and practices, with recommendations based on your lowest-rated traits.
+- **Learn** — four modules (holds, angles, style, training) with local completion tracking.
+- **Plans** — 2–8 week training blocks with a 3:1 build/deload cycle and weekly adherence.
+- **Profile and data** — preferences, JSON backup and restore, legacy data import, and delete-all.
 
-Reflect: Score various categories between -2 and 2 based on how you felt during your session or collection of past sessions.
+All training data is stored locally with IndexedDB (Dexie). There are no accounts and no server-side storage.
 
-Training Distribution Graph: Show your training distribution (lead, toprope, boulder, other) in the form of a pie chart.
+## Stack
 
-Struggle & Strongpoint Graph: Show your struggles and strongpoints between two charts and a text display.
+Astro static pages, React islands for the app, TypeScript, Dexie/IndexedDB, Zod for backup validation, Vitest for domain tests. Deployed as a static build on Vercel.
 
-Profile Page: Create a profile or stay local using local storage and download data to save it and reupload it later to the same, or different device.
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run check    # TypeScript and Astro diagnostics
+npm test         # domain tests
+npm run build    # production build in dist/
+```
 
-Content: Explore various content through categories shown by your needs. Content is in the form of articles, videos, and training exercises.
+## Structure
+
+```text
+src/pages/index.astro          landing page
+src/pages/app/                 dashboard, log, reflect, journal, train, learn, plans, profile
+src/pages/train/[slug].astro   static article routes
+src/components/app/            React app islands
+src/lib/                       domain logic, Dexie database, legacy import
+src/data/content.ts            lesson and workout catalog
+src/styles/                    design tokens, global and app styles
+train/lessons/                 original article bodies reused by the new lesson route
+```
+
+## Migration
+
+The previous site's `localStorage` data is detected automatically. The dashboard and profile offer a one-time import that converts old sessions, grades, traits and reflections without deleting the original data. Old URLs redirect to their new routes via `vercel.json`.

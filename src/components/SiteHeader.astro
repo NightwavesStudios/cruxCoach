@@ -1,0 +1,95 @@
+---
+import ThemeToggle from "./ThemeToggle";
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/">
+      <img src="/assets/favicon.png" alt="" width="32" height="32" />
+      <span>CruxCoach</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#about">About</a>
+    </nav>
+
+    <div class="header-actions">
+      <ThemeToggle client:load />
+      <a class="btn btn-primary btn-sm" href="/app">Open dashboard</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(14px);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-weight: 800;
+    font-size: var(--step-1);
+    letter-spacing: -0.02em;
+    margin-right: auto;
+  }
+
+  .brand img {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9px;
+  }
+
+  .site-nav {
+    display: flex;
+    gap: var(--space-5);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+
+  .site-nav a:hover {
+    color: var(--ink);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .btn-sm {
+    min-height: 2.4rem;
+    padding-inline: var(--space-4);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 860px) {
+    .site-nav {
+      display: none;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .header-actions .btn {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,112 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  body: string;
+  image: string;
+  alt: string;
+  reverse?: boolean;
+}
+
+const { eyebrow, title, body, image, alt, reverse = false } = Astro.props;
+---
+
+<article class:list={["feature-row", { reverse }]}>
+  <div class="feature-copy">
+    <p class="feature-eyebrow">{eyebrow}</p>
+    <h3>{title}</h3>
+    <p>{body}</p>
+  </div>
+
+  <div class="feature-media">
+    <div class="frame">
+      <img src={image} alt={alt} width="1400" height="900" loading="lazy" />
+    </div>
+  </div>
+</article>
+
+<style>
+  .feature-row {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: center;
+    padding-block: var(--space-8);
+    border-top: 1px solid var(--line);
+  }
+
+  .feature-row:first-child {
+    border-top: 0;
+  }
+
+  .feature-copy h3 {
+    margin-top: var(--space-3);
+    font-size: var(--step-3);
+  }
+
+  .feature-copy p:last-child {
+    margin-top: var(--space-3);
+    color: var(--ink-2);
+    max-width: 34ch;
+  }
+
+  .feature-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+  }
+
+  .feature-media {
+    position: relative;
+  }
+
+  .frame {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+
+  .frame::before {
+    content: "";
+    display: block;
+    height: 1.9rem;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .frame img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .reverse .feature-copy {
+    order: 2;
+  }
+
+  .reverse .feature-media {
+    order: 1;
+  }
+
+  @media (max-width: 780px) {
+    .feature-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+      padding-block: var(--space-6);
+    }
+
+    .reverse .feature-copy,
+    .reverse .feature-media {
+      order: initial;
+    }
+
+    .feature-copy p:last-child {
+      max-width: none;
+    }
+  }
+</style>

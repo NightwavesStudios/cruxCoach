@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.astro/
+.vercel/
+.astro-dev.pid
+.env
+.env.*
+.DS_Store

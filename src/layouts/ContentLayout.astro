@@ -1,0 +1,38 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import "../styles/content.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <header class="content-header">
+    <div class="container content-header-inner">
+      <a class="content-brand" href="/">
+        <img src="/assets/favicon.png" alt="" width="30" height="30" />
+        <span>CruxCoach</span>
+      </a>
+      <nav aria-label="Content">
+        <a href="/app/learn">Learn</a>
+        <a href="/app/train">Train</a>
+        <a class="btn btn-primary btn-small" href="/app">Open dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <slot />
+  </main>
+
+  <footer class="content-footer">
+    <div class="container">
+      <span>© {new Date().getFullYear()} CruxCoach</span>
+      <a href="/">Home</a>
+    </div>
+  </footer>
+</BaseLayout>

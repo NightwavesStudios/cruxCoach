@@ -1,0 +1,206 @@
+.content-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 84%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+.content-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  height: var(--header-h);
+}
+
+.content-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.content-brand img {
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 8px;
+}
+
+.content-header nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.content-header nav a:hover {
+  color: var(--ink);
+}
+
+.btn-small {
+  min-height: 2.2rem;
+  padding-inline: var(--space-3);
+  font-size: 0.82rem;
+}
+
+.lesson {
+  max-width: 46rem;
+  margin: var(--space-8) auto var(--space-10);
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: var(--space-4);
+  font-size: 0.78rem;
+  color: var(--ink-3);
+}
+
+.breadcrumb a:hover {
+  color: var(--ink);
+}
+
+.lesson-head {
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: var(--space-5);
+}
+
+.lesson-kicker {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
+
+.lesson-head h1 {
+  margin-top: 0.4rem;
+  font-size: clamp(1.9rem, 5vw, 2.9rem);
+}
+
+.lesson-summary {
+  margin-top: var(--space-3);
+  font-size: var(--step-1);
+  color: var(--ink-2);
+}
+
+.lesson-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: var(--space-4);
+}
+
+.difficulty,
+.tag {
+  padding: 0.22rem 0.6rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: var(--ink-2);
+}
+
+.difficulty {
+  background: var(--accent-soft);
+  border-color: transparent;
+  color: var(--accent-strong);
+}
+
+.lesson-body {
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: var(--ink-2);
+}
+
+.lesson-body h2 {
+  margin: var(--space-6) 0 var(--space-3);
+  font-size: 1.45rem;
+  color: var(--ink);
+}
+
+.lesson-body h3 {
+  margin: var(--space-5) 0 var(--space-2);
+  font-size: 1.15rem;
+  color: var(--ink);
+}
+
+.lesson-body p {
+  margin: 0 0 var(--space-4);
+}
+
+.lesson-body ul,
+.lesson-body ol {
+  margin: 0 0 var(--space-4);
+  padding-left: 1.3rem;
+}
+
+.lesson-body li {
+  margin-bottom: 0.4rem;
+}
+
+.lesson-body strong {
+  color: var(--ink);
+}
+
+.lesson-body a {
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.lesson-body #tipsContainer {
+  margin: var(--space-5) 0;
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--surface);
+  font-size: 0.95rem;
+}
+
+.lesson-body #tipsContainer h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.lesson-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--line);
+}
+
+.content-footer {
+  border-top: 1px solid var(--line);
+  padding-block: var(--space-5);
+  font-size: 0.8rem;
+  color: var(--ink-3);
+}
+
+.content-footer .container {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+@media (max-width: 560px) {
+  .content-header nav a:not(.btn) {
+    display: none;
+  }
+
+  .lesson {
+    margin-top: var(--space-5);
+  }
+}
