@@ -14,6 +14,7 @@ import {
   weekdayBreakdown,
   type GradeBand,
 } from "../../lib/patterns";
+import { projectSummary } from "../../lib/projects";
 import type { GradeSystem } from "../../lib/types";
 
 function hardestLabel(
@@ -62,6 +63,7 @@ function GradeTable({ bands, preferred }: { bands: GradeBand[]; preferred: Grade
 export default function PatternsView() {
   const sessions = useLiveQuery(() => db.sessions.toArray(), []);
   const ascents = useLiveQuery(() => db.ascents.toArray(), []);
+  const projects = useLiveQuery(() => db.projects.toArray(), []);
   const profile = useLiveQuery(() => db.profile.get("me"), []);
   const preferred = profile?.gradeSystem ?? "v";
   const units = profile?.units ?? "metric";
@@ -92,6 +94,14 @@ export default function PatternsView() {
     [sessions, ascents],
   );
   const styles = useMemo(() => styleBreakdown(ascents ?? []), [ascents]);
+  const indoorProjects = useMemo(
+    () => projectSummary(projects ?? [], sessions ?? [], ascents ?? [], "indoor"),
+    [projects, sessions, ascents],
+  );
+  const outdoorProjects = useMemo(
+    () => projectSummary(projects ?? [], sessions ?? [], ascents ?? [], "outdoor"),
+    [projects, sessions, ascents],
+  );
 
   const totalClimbs = ascents?.length ?? 0;
   const bothEnvironments = comparison.indoor.climbs > 0 && comparison.outdoor.climbs > 0;
@@ -207,6 +217,52 @@ export default function PatternsView() {
             {comparison.indoor.sessions === 0 && comparison.outdoor.sessions === 0
               ? "Log an indoor session and an outdoor session to start the comparison."
               : `Only ${comparison.indoor.sessions === 0 ? "outdoor" : "indoor"} sessions are logged so far. The other column fills in after your next session.`}
+          </p>
+        )}
+      </section>
+
+      <section className="panel">
+        <div className="panel-head">
+          <div>
+            <h2>Projects</h2>
+            <p>Named lines add sends the aggregate rates cannot show on their own.</p>
+          </div>
+          <a href="/app/projects">All projects</a>
+        </div>
+        <table className="pattern-table comparison-table">
+          <thead>
+            <tr>
+              <th scope="col">Measure</th>
+              <th scope="col">Indoor</th>
+              <th scope="col">Outdoor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Projects tracked</th>
+              <td>{indoorProjects.projects}</td>
+              <td>{outdoorProjects.projects}</td>
+            </tr>
+            <tr>
+              <th scope="row">Still trying</th>
+              <td>{indoorProjects.trying}</td>
+              <td>{outdoorProjects.trying}</td>
+            </tr>
+            <tr>
+              <th scope="row">Project sends</th>
+              <td>{indoorProjects.sent}</td>
+              <td>{outdoorProjects.sent}</td>
+            </tr>
+            <tr>
+              <th scope="row">Attempts on projects</th>
+              <td>{indoorProjects.attempts}</td>
+              <td>{outdoorProjects.attempts}</td>
+            </tr>
+          </tbody>
+        </table>
+        {indoorProjects.projects === 0 && outdoorProjects.projects === 0 && (
+          <p className="panel-note">
+            Name a line on the projects screen and every session spent on it starts counting here.
           </p>
         )}
       </section>

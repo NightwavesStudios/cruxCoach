@@ -1,21 +1,24 @@
 import { useEffect, useState, type SubmitEvent as FormSubmitEvent } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
-import { db, deleteSession, saveSession, todayISO } from "../../lib/db";
+import { db, deleteSession, saveProjectRecord, saveSession, todayISO } from "../../lib/db";
 import { gradeOptions, parseGrade } from "../../lib/grades";
 import { makeId } from "../../lib/id";
 import { planEnvironment } from "../../lib/plans";
 import { environmentOf } from "../../lib/patterns";
+import { createProject, projectGradeLabel, resolveProjectForPlan } from "../../lib/projects";
 import { formatDate, toCanonicalValue, toDisplayValue } from "../../lib/format";
 import {
   DISCIPLINES,
   DISCIPLINE_SYSTEM,
   type Ascent,
   type AscentStyle,
+  type ClimbingDiscipline,
   type Discipline,
   type Environment,
   type GradeSystem,
   type Plan,
   type PlanSession,
+  type Project,
   type Session,
   ENVIRONMENTS,
 } from "../../lib/types";
@@ -51,6 +54,10 @@ export default function LogForm() {
     if (typeof window === "undefined") return undefined;
     return new URLSearchParams(window.location.search).get("planSession") ?? undefined;
   });
+  const [initialProjectId] = useState(() => {
+    if (typeof window === "undefined") return undefined;
+    return new URLSearchParams(window.location.search).get("project") ?? undefined;
+  });
 
   const existing = useLiveQuery<Session | undefined>(
     () => (editId ? db.sessions.get(editId) : undefined),
@@ -68,6 +75,7 @@ export default function LogForm() {
     () => (planSession ? db.plans.get(planSession.planId) : undefined),
     [planSession?.planId],
   );
+  const projects = useLiveQuery(() => db.projects.orderBy("updatedAt").reverse().toArray(), []);
   const profile = useLiveQuery(() => db.profile.get("me"), []);
 
   const [date, setDate] = useState(todayISO());
@@ -82,6 +90,8 @@ export default function LogForm() {
       : "indoor";
   });
   const [notes, setNotes] = useState("");
+  const [projectChoice, setProjectChoice] = useState(initialProjectId ?? "");
+  const [newProjectName, setNewProjectName] = useState("");
   const [distanceKm, setDistanceKm] = useState<number | undefined>(undefined);
   const [ascents, setAscents] = useState<DraftAscent[]>([newAscent("v")]);
   const [gradeSystem, setGradeSystem] = useState<GradeSystem | undefined>(undefined);
@@ -90,6 +100,7 @@ export default function LogForm() {
   const [hydrated, setHydrated] = useState(false);
   const [appliedDefaults, setAppliedDefaults] = useState(false);
   const [planApplied, setPlanApplied] = useState(false);
+  const [projectApplied, setProjectApplied] = useState(false);
 
   const units = profile?.units ?? "metric";
   const system = gradeSystem ?? profile?.gradeSystem ?? DISCIPLINE_SYSTEM[discipline];
@@ -102,6 +113,7 @@ export default function LogForm() {
     setRpe(existing.rpe || 6);
     setLocation(existing.location);
     setEnvironment(environmentOf(existing));
+    setProjectChoice(existing.projectId ?? "");
     setNotes(existing.notes);
     setDistanceKm(existing.distanceKm);
     if (existingAscents && existingAscents.length > 0) {
@@ -130,7 +142,7 @@ export default function LogForm() {
   }, [appliedDefaults, editId, planSessionId, profile]);
 
   useEffect(() => {
-    if (editId || planApplied || !planSession || !linkedPlan) return;
+    if (editId || planApplied || !planSession || !linkedPlan || !projects) return;
     const system = linkedPlan.targetSystem ?? DISCIPLINE_SYSTEM[linkedPlan.discipline];
     setDiscipline(linkedPlan.discipline);
     setEnvironment(planEnvironment(linkedPlan));
@@ -142,17 +154,56 @@ export default function LogForm() {
         ? [newAscent(system)]
         : [{ key: makeId(), grade, style: "project", attempts: 1, sent: false }],
     );
+    setProjectChoice(resolveProjectForPlan(projects, linkedPlan, planSession)?.id ?? "");
     setNotes(`Plan: ${linkedPlan.name}, week ${planSession.week}, day ${planSession.day}.`);
     setPlanApplied(true);
     setAppliedDefaults(true);
-  }, [editId, linkedPlan, planApplied, planSession]);
+  }, [editId, linkedPlan, planApplied, planSession, projects]);
+
+  useEffect(() => {
+    if (editId || planSessionId || projectApplied || !initialProjectId || !projects) return;
+    const project = projects.find((item) => item.id === initialProjectId);
+    if (project) {
+      applyProject(project);
+      setAppliedDefaults(true);
+    }
+    setProjectApplied(true);
+  }, [editId, initialProjectId, planSessionId, projectApplied, projects]);
 
   const options = gradeOptions(system);
+  const projectChoices = (projects ?? []).filter(
+    (project) => project.environment === environment && project.discipline === discipline,
+  );
+
+  function applyProject(project: Project) {
+    setProjectChoice(project.id);
+    setEnvironment(project.environment);
+    setDiscipline(project.discipline);
+    setGradeSystem(project.system);
+    setAscents([
+      { key: makeId(), grade: project.grade, style: "project", attempts: 1, sent: false },
+    ]);
+  }
+
+  function chooseEnvironment(next: Environment) {
+    setEnvironment(next);
+    const chosen = projects?.find((project) => project.id === projectChoice);
+    if (chosen && chosen.environment !== next) setProjectChoice("");
+  }
+
+  function chooseProject(value: string) {
+    setProjectChoice(value);
+    if (!value || value === "__new") return;
+    const project = projects?.find((item) => item.id === value);
+    if (project) applyProject(project);
+  }
 
   function chooseDiscipline(next: Discipline) {
     if (next === discipline) return;
     setDiscipline(next);
     setAscents(next === "training" ? [] : [newAscent(system)]);
+    const chosen = projects?.find((project) => project.id === projectChoice);
+    if (chosen && chosen.discipline !== next) setProjectChoice("");
   }
 
   function updateAscent(key: string, patch: Partial<DraftAscent>) {
@@ -177,9 +228,29 @@ export default function LogForm() {
       setError("Add at least one climb, or log this as a training session.");
       return;
     }
+    if (projectChoice === "__new" && !newProjectName.trim()) {
+      setError("Give the new project a name, or pick an existing one.");
+      return;
+    }
 
     setSaving(true);
     try {
+      let sessionProjectId =
+        projectChoice && projectChoice !== "__new" ? projectChoice : undefined;
+
+      if (projectChoice === "__new" && discipline !== "training") {
+        const first = ascents[0];
+        sessionProjectId = await saveProjectRecord(
+          createProject({
+            name: newProjectName,
+            discipline: discipline as ClimbingDiscipline,
+            environment,
+            grade: first?.grade ?? newAscent(system).grade,
+            system,
+          }),
+        );
+      }
+
       const savedId = await saveSession(
         {
           date,
@@ -188,6 +259,7 @@ export default function LogForm() {
           rpe: Number(rpe) || 0,
           location,
           environment,
+          projectId: sessionProjectId,
           notes,
           distanceKm:
             environment === "outdoor" && distanceKm && distanceKm > 0 ? distanceKm : undefined,
@@ -245,7 +317,7 @@ export default function LogForm() {
                   environment === item.id ? `env-option ${item.id} active` : `env-option ${item.id}`
                 }
                 aria-pressed={environment === item.id}
-                onClick={() => setEnvironment(item.id)}
+                onClick={() => chooseEnvironment(item.id)}
               >
                 <strong>{item.label}</strong>
                 <span>{item.hint}</span>
@@ -331,6 +403,35 @@ export default function LogForm() {
             ))}
           </div>
         </fieldset>
+
+        {discipline !== "training" && (
+          <div className="project-picker">
+            <label className="field">
+              <span>Project</span>
+              <select value={projectChoice} onChange={(event) => chooseProject(event.target.value)}>
+                <option value="">No project</option>
+                {projectChoices.map((project) => (
+                  <option key={project.id} value={project.id}>
+                    {project.name}, {projectGradeLabel(project)}
+                  </option>
+                ))}
+                <option value="__new">New project</option>
+              </select>
+              <small>Pick a line and the climb comes prefilled from it.</small>
+            </label>
+            {projectChoice === "__new" && (
+              <label className="field">
+                <span>New project name</span>
+                <input
+                  value={newProjectName}
+                  onChange={(event) => setNewProjectName(event.target.value)}
+                  maxLength={60}
+                  placeholder="Cave line, Jerry's Arete"
+                />
+              </label>
+            )}
+          </div>
+        )}
 
         {discipline !== "training" ? (
           <div className="ascent-editor">

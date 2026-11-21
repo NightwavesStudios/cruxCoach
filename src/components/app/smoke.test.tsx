@@ -8,6 +8,7 @@ import LogForm from "./LogForm";
 import PatternsView from "./PatternsView";
 import PlansView from "./PlansView";
 import ProfileView from "./ProfileView";
+import ProjectsView from "./ProjectsView";
 import ReflectForm from "./ReflectForm";
 import TrainView from "./TrainView";
 
@@ -20,6 +21,7 @@ const screens = [
   ["TrainView", TrainView],
   ["LearnView", LearnView],
   ["PlansView", PlansView],
+  ["ProjectsView", ProjectsView],
   ["ProfileView", ProfileView],
 ] as const;
 

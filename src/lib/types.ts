@@ -4,6 +4,8 @@ export type Units = "metric" | "imperial";
 export type Environment = "indoor" | "outdoor";
 export type AscentStyle = "onsight" | "flash" | "repeat" | "project";
 export type Confidence = "learning" | "developing" | "established";
+export type ProjectStatus = "trying" | "sent" | "abandoned";
+export type ClimbingDiscipline = Exclude<Discipline, "training">;
 
 export const DISCIPLINES: { id: Discipline; label: string }[] = [
   { id: "bouldering", label: "Bouldering" },
@@ -22,6 +24,12 @@ export const ASCENT_STYLES: { id: AscentStyle; label: string }[] = [
   { id: "flash", label: "Flash" },
   { id: "repeat", label: "Repeat" },
   { id: "project", label: "Project" },
+];
+
+export const PROJECT_STATUSES: { id: ProjectStatus; label: string }[] = [
+  { id: "trying", label: "Trying" },
+  { id: "sent", label: "Sent" },
+  { id: "abandoned", label: "Abandoned" },
 ];
 
 export const TRAITS = [
@@ -55,6 +63,8 @@ export interface Session {
   notes: string;
   /** Absent on sessions logged before indoor and outdoor were tracked; patterns infer it from the location. */
   environment?: Environment;
+  /** Set when the session was spent on a named project. */
+  projectId?: string;
   distanceKm?: number;
   createdAt: string;
   updatedAt: string;
@@ -123,6 +133,19 @@ export interface PlanSession {
   status: "planned" | "done" | "skipped";
   /** Set when a real logged session was saved from this planned slot. */
   sessionId?: string;
+}
+
+export interface Project {
+  id: string;
+  name: string;
+  discipline: ClimbingDiscipline;
+  environment: Environment;
+  grade: number;
+  system: GradeSystem;
+  status: ProjectStatus;
+  notes: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ContentProgress {

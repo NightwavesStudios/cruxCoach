@@ -1,6 +1,18 @@
 import "fake-indexeddb/auto";
+import Dexie from "dexie";
 import { beforeEach, describe, expect, it } from "vitest";
-import { db, deleteSession, exportAll, importAll, saveReflection, saveSession } from "./db";
+import {
+  db,
+  deleteProject,
+  deleteSession,
+  exportAll,
+  importAll,
+  saveProjectRecord,
+  saveReflection,
+  saveSession,
+  setSessionProject,
+} from "./db";
+import { createProject } from "./projects";
 
 beforeEach(async () => {
   await db.delete();
@@ -32,6 +44,7 @@ async function readAllTables() {
     reflections: await db.reflections.toArray(),
     plans: await db.plans.toArray(),
     planSessions: await db.planSessions.toArray(),
+    projects: await db.projects.toArray(),
     contentProgress: await db.contentProgress.toArray(),
   };
 }
@@ -90,6 +103,84 @@ describe("saveSession", () => {
     const slot = await db.planSessions.get("slot");
     expect(slot?.status).toBe("planned");
     expect(slot?.sessionId).toBeUndefined();
+  });
+});
+
+describe("project links", () => {
+  it("moves a session onto a project and back off again", async () => {
+    const projectId = await saveProjectRecord(
+      createProject(
+        {
+          name: "Cave line",
+          discipline: "bouldering",
+          environment: "indoor",
+          grade: 6,
+          system: "v",
+        },
+        "2026-01-01T00:00:00.000Z",
+        "project-a",
+      ),
+    );
+    const sessionId = await saveSession({ ...session, projectId }, [ascent]);
+
+    expect((await db.sessions.get(sessionId))?.projectId).toBe(projectId);
+    await setSessionProject(sessionId);
+    expect((await db.sessions.get(sessionId))?.projectId).toBeUndefined();
+  });
+
+  it("deletes a project without deleting its sessions", async () => {
+    await db.projects.put(
+      createProject(
+        {
+          name: "Cave line",
+          discipline: "bouldering",
+          environment: "indoor",
+          grade: 6,
+          system: "v",
+        },
+        "2026-01-01T00:00:00.000Z",
+        "project-a",
+      ),
+    );
+    const sessionId = await saveSession({ ...session, projectId: "project-a" }, [ascent]);
+
+    await deleteProject("project-a");
+
+    expect(await db.projects.count()).toBe(0);
+    expect((await db.sessions.get(sessionId))?.projectId).toBeUndefined();
+    expect(await db.ascents.where("sessionId").equals(sessionId).count()).toBe(1);
+  });
+});
+
+describe("schema migration", () => {
+  it("upgrades a version 2 database and keeps existing sessions", async () => {
+    await db.delete();
+
+    const legacy = new Dexie("cruxcoach");
+    legacy.version(2).stores({
+      profile: "id",
+      sessions: "id, date, discipline",
+      ascents: "id, sessionId",
+      reflections: "id, sessionId, date",
+      plans: "id, status, startDate",
+      planSessions: "id, planId, week, status",
+      contentProgress: "contentId, status",
+    });
+    await legacy.open();
+    await legacy.table("sessions").put({
+      ...session,
+      id: "legacy-session",
+      createdAt: "2026-01-05T12:00:00.000Z",
+      updatedAt: "2026-01-05T12:00:00.000Z",
+    });
+    legacy.close();
+
+    await db.open();
+
+    const kept = await db.sessions.get("legacy-session");
+    expect(kept?.notes).toBe("Good session.");
+    expect(kept?.projectId).toBeUndefined();
+    expect(await db.projects.count()).toBe(0);
   });
 });
 
@@ -167,6 +258,19 @@ describe("backup round-trip", () => {
       intensity: "easy",
       status: "planned",
     });
+    await db.projects.put(
+      createProject(
+        {
+          name: "Cave line",
+          discipline: "bouldering",
+          environment: "indoor",
+          grade: 6,
+          system: "v",
+        },
+        now,
+        "project",
+      ),
+    );
     await db.contentProgress.put({ contentId: "intro-crimps", status: "done", updatedAt: now });
 
     const before = await readAllTables();
@@ -175,13 +279,14 @@ describe("backup round-trip", () => {
     await db.open();
 
     const count = await importAll(backup);
-    expect(count).toBe(7);
+    expect(count).toBe(8);
     expect(await readAllTables()).toEqual(before);
     expect(await db.sessions.count()).toBe(1);
     expect(await db.ascents.count()).toBe(1);
     expect(await db.reflections.count()).toBe(1);
     expect(await db.plans.count()).toBe(1);
     expect(await db.planSessions.count()).toBe(1);
+    expect(await db.projects.count()).toBe(1);
     expect(await db.contentProgress.count()).toBe(1);
   });
 

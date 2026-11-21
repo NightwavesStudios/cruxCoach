@@ -7,6 +7,7 @@ import type {
   Plan,
   PlanSession,
   Profile,
+  Project,
   Reflection,
   Session,
 } from "./types";
@@ -18,19 +19,23 @@ class CruxCoachDB extends Dexie {
   reflections!: EntityTable<Reflection, "id">;
   plans!: EntityTable<Plan, "id">;
   planSessions!: EntityTable<PlanSession, "id">;
+  projects!: EntityTable<Project, "id">;
   contentProgress!: EntityTable<ContentProgress, "contentId">;
 
   constructor() {
     super("cruxcoach");
     // Single schema for the whole app. Any object store missing from this list is
     // deleted on upgrade, so removing a store only needs a version bump.
-    this.version(2).stores({
+    // Version 3 adds named projects and a projectId index on sessions. Existing
+    // sessions and plans are left as they are; they simply have no project.
+    this.version(3).stores({
       profile: "id",
-      sessions: "id, date, discipline",
+      sessions: "id, date, discipline, projectId",
       ascents: "id, sessionId",
       reflections: "id, sessionId, date",
       plans: "id, status, startDate",
       planSessions: "id, planId, week, status",
+      projects: "id, environment, status, updatedAt",
       contentProgress: "contentId, status",
     });
   }
@@ -69,7 +74,7 @@ export async function saveSession(
   const now = new Date().toISOString();
   const existing = replaceId ? await db.sessions.get(replaceId) : undefined;
 
-  await db.transaction("rw", db.sessions, db.ascents, async () => {
+  await db.transaction("rw", db.sessions, db.ascents, db.projects, async () => {
     await db.sessions.put({
       ...session,
       id,
@@ -82,9 +87,45 @@ export async function saveSession(
     await db.ascents.bulkPut(
       ascents.map((ascent) => ({ ...ascent, id: makeId(), sessionId: id })),
     );
+    if (session.projectId) {
+      await db.projects.update(session.projectId, { updatedAt: now });
+    }
   });
 
   return id;
+}
+
+export async function saveProjectRecord(project: Project): Promise<string> {
+  await db.projects.put(project);
+  return project.id;
+}
+
+/** Attach or detach a session without touching its climbs. */
+export async function setSessionProject(
+  sessionId: string,
+  projectId?: string,
+): Promise<void> {
+  const now = new Date().toISOString();
+  await db.transaction("rw", db.sessions, db.projects, async () => {
+    const existing = await db.sessions.get(sessionId);
+    if (!existing) return;
+    await db.sessions.put({ ...existing, projectId, updatedAt: now });
+    if (projectId) {
+      await db.projects.update(projectId, { updatedAt: now });
+    }
+  });
+}
+
+/** Delete a project but keep its sessions, detached and intact. */
+export async function deleteProject(id: string): Promise<void> {
+  const now = new Date().toISOString();
+  await db.transaction("rw", db.sessions, db.projects, async () => {
+    const linked = await db.sessions.where("projectId").equals(id).toArray();
+    for (const session of linked) {
+      await db.sessions.put({ ...session, projectId: undefined, updatedAt: now });
+    }
+    await db.projects.delete(id);
+  });
 }
 
 export async function saveReflection(
@@ -141,6 +182,7 @@ export async function exportAll(): Promise<string> {
     reflections: await db.reflections.toArray(),
     plans: await db.plans.toArray(),
     planSessions: await db.planSessions.toArray(),
+    projects: await db.projects.toArray(),
     contentProgress: await db.contentProgress.toArray(),
   };
   const payload = {
@@ -168,6 +210,7 @@ export async function importAll(text: string): Promise<number> {
       db.reflections,
       db.plans,
       db.planSessions,
+      db.projects,
       db.contentProgress,
     ],
     async () => {
@@ -178,6 +221,7 @@ export async function importAll(text: string): Promise<number> {
         db.reflections.clear(),
         db.plans.clear(),
         db.planSessions.clear(),
+        db.projects.clear(),
         db.contentProgress.clear(),
       ]);
 

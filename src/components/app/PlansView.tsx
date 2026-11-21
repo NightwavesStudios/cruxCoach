@@ -11,6 +11,7 @@ import {
   planIntensityLabel,
   planProgress,
 } from "../../lib/plans";
+import { resolveProjectForPlan } from "../../lib/projects";
 import { computeTraitScores, focusAreas } from "../../lib/traits";
 import {
   DISCIPLINES,
@@ -30,6 +31,7 @@ const ENV_LABEL = Object.fromEntries(
 export default function PlansView() {
   const plans = useLiveQuery(() => db.plans.orderBy("startDate").reverse().toArray(), []);
   const planSessions = useLiveQuery(() => db.planSessions.toArray(), []);
+  const projects = useLiveQuery(() => db.projects.toArray(), []);
   const reflections = useLiveQuery(() => db.reflections.toArray(), []);
   const profile = useLiveQuery(() => db.profile.get("me"), []);
   const prefs = profile ?? defaultProfile();
@@ -248,7 +250,9 @@ export default function PlansView() {
               <div className="plan-sessions">
                 {activeSessions
                   .filter((session) => session.week === week)
-                  .map((session) => (
+                  .map((session) => {
+                    const planProject = resolveProjectForPlan(projects ?? [], activePlan, session);
+                    return (
                     <article className={`plan-session ${session.status}`} key={session.id}>
                       <div>
                         <span className="plan-day">Day {session.day}</span>
@@ -257,8 +261,19 @@ export default function PlansView() {
                           {planIntensityLabel(session.intensity)}, {session.durationMin} min,{" "}
                           {session.type}
                         </small>
+                        {session.type === "project" && !planProject && (
+                          <small>No project record yet</small>
+                        )}
                       </div>
                       <div className="plan-session-actions">
+                        {planProject && (
+                          <a
+                            className="text-button"
+                            href={`/app/projects?project=${planProject.id}`}
+                          >
+                            Open {planProject.name}
+                          </a>
+                        )}
                         {session.sessionId ? (
                           <a className="text-button" href={`/app/log?session=${session.sessionId}`}>
                             View log
@@ -283,7 +298,8 @@ export default function PlansView() {
                         </select>
                       </div>
                     </article>
-                  ))}
+                    );
+                  })}
               </div>
             </section>
           ))}

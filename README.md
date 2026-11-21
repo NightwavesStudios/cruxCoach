@@ -6,7 +6,7 @@ CruxCoach is a free climbing logbook and training companion. Log indoor and outd
 
 ## What is in the app
 
-- **Session logging:** multiple climbs per session with grade, style and attempts, plus where you climbed, duration, effort, approach distance and notes.
+- **Session logging:** multiple climbs per session with grade, style and attempts, plus where you climbed, duration, effort, approach distance, notes and an optional named project.
 - **Indoor and outdoor split:** every session and training block is tagged indoor or outdoor. The logbook, journal, patterns and plans screens count them separately, so a gym grade never quietly stands in for a crag grade.
 - **Reflections:** 15 traits rated from -2 to +2, weighted toward recent sessions.
 - **Patterns:** send rate by environment, grade and day, session length and effort against conversion, style mix, and plain-language findings that only appear when there are enough climbs behind them.
@@ -14,6 +14,7 @@ CruxCoach is a free climbing logbook and training companion. Log indoor and outd
 - **Journal:** searchable history with indoor and outdoor filters, plus edit and delete for sessions and reflections.
 - **Train:** a searchable library of articles, workouts and practices, with recommendations based on your lowest-rated traits.
 - **Learn:** four modules (holds, angles, style, training) with local completion tracking.
+- **Projects:** named indoor or outdoor lines with a grade, status and notes. Sessions attach from the log form and every attempt, send, first try and day span is read back from those sessions. Project slots in a plan open the matching project when one exists at the same venue and grade.
 - **Plans:** 2 to 8 week indoor or outdoor blocks with a 3:1 build and deload cycle, current-week tracking and adherence. A planned session can be logged straight from the block, which records it against the week and links back to the journal. Blocks can be completed and reopened.
 - **Profile and data:** preferences that drive the app (units for height, weight and distance, grade system for entry and display, weekly session goal, disciplines), JSON backup and restore, legacy data import, and delete-all.
 
@@ -35,7 +36,7 @@ npm run build    # production build in dist/
 
 ```text
 src/pages/index.astro          landing page
-src/pages/app/                 logbook, log, patterns, reflect, journal, train, learn, plans, profile
+src/pages/app/                 logbook, log, patterns, reflect, journal, train, learn, plans, projects, profile
 src/pages/train/[slug].astro   static article routes
 src/components/app/            React app islands
 src/lib/                       domain logic, Dexie database, pattern analysis, legacy import
@@ -46,4 +47,4 @@ train/lessons/                 original article bodies reused by the new lesson 
 
 ## Migration
 
-The previous site's `localStorage` data is detected automatically. The logbook and profile offer a one-time import that converts old sessions, grades, traits and reflections without deleting the original data. Sessions saved before indoor and outdoor were tracked are inferred from their location, and the original row is left untouched. Old URLs redirect to their new routes via `vercel.json`.
+The previous site's `localStorage` data is detected automatically. The logbook and profile offer a one-time import that converts old sessions, grades, traits and reflections without deleting the original data. Sessions saved before indoor and outdoor were tracked are inferred from their location, and the original row is left untouched. Old URLs redirect to their new routes via `vercel.json`. The database moves from version 2 to version 3 on first open: the new projects table and the session project link are added in place, and existing sessions, plans and reflections are kept without a rewrite.
