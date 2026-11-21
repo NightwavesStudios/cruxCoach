@@ -104,7 +104,6 @@ export interface PlanSession {
   durationMin: number;
   intensity: "easy" | "moderate" | "hard" | "deload";
   status: "planned" | "done" | "skipped";
-  contentId?: string;
 }
 
 export interface ContentProgress {

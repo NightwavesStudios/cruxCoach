@@ -8,24 +8,6 @@ export function formatDate(value: string): string {
   });
 }
 
-export function formatDateLong(value: string): string {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return value;
-  return date.toLocaleDateString(undefined, {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
-}
-
-export function todayLabel(): string {
-  return new Date().toLocaleDateString(undefined, {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-  });
-}
-
 export function percent(value: number): string {
   return `${Math.round(value)}%`;
 }

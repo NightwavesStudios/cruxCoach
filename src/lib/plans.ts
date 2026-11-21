@@ -1,4 +1,4 @@
-import type { Discipline, PlanSession, TraitKey } from "./types";
+import type { Discipline, Plan, PlanSession, TraitKey } from "./types";
 import { TRAITS } from "./types";
 
 export interface PlanInput {
@@ -64,6 +64,52 @@ export function generatePlanSessions(input: PlanInput): GeneratedPlanSession[] {
   }
 
   return sessions;
+}
+
+export interface PlanProgress {
+  week: number;
+  total: number;
+  done: number;
+  skipped: number;
+  remaining: number;
+  adherence: number;
+  ended: boolean;
+}
+
+const DAY_MS = 86_400_000;
+
+function daysSince(startDate: string, today: string): number {
+  return Math.floor(
+    (Date.parse(`${today}T00:00:00Z`) - Date.parse(`${startDate}T00:00:00Z`)) / DAY_MS,
+  );
+}
+
+/** Current week of the block, 0 before it starts and capped at its final week. */
+export function planWeek(plan: Plan, today: string): number {
+  const days = daysSince(plan.startDate, today);
+  if (Number.isNaN(days) || days < 0) return 0;
+  return Math.min(plan.weeks, Math.floor(days / 7) + 1);
+}
+
+export function planProgress(
+  plan: Plan,
+  planSessions: PlanSession[],
+  today: string,
+): PlanProgress {
+  const sessions = planSessions.filter((session) => session.planId === plan.id);
+  const done = sessions.filter((session) => session.status === "done").length;
+  const skipped = sessions.filter((session) => session.status === "skipped").length;
+  const days = daysSince(plan.startDate, today);
+
+  return {
+    week: planWeek(plan, today),
+    total: sessions.length,
+    done,
+    skipped,
+    remaining: sessions.length - done - skipped,
+    adherence: sessions.length ? Math.round((done / sessions.length) * 100) : 0,
+    ended: !Number.isNaN(days) && days >= plan.weeks * 7,
+  };
 }
 
 export function planIntensityLabel(value: PlanSession["intensity"]): string {

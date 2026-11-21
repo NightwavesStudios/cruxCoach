@@ -4,12 +4,13 @@ import { db, todayISO } from "../../lib/db";
 import { formatDate } from "../../lib/format";
 import { gradeOptions } from "../../lib/grades";
 import { makeId } from "../../lib/id";
-import { generatePlanSessions, planIntensityLabel } from "../../lib/plans";
+import { generatePlanSessions, planIntensityLabel, planProgress } from "../../lib/plans";
 import { computeTraitScores, focusAreas } from "../../lib/traits";
 import {
   DISCIPLINES,
   DISCIPLINE_SYSTEM,
   type Discipline,
+  type Plan,
   type PlanSession,
 } from "../../lib/types";
 
@@ -38,6 +39,7 @@ export default function PlansView() {
     () => focusAreas(computeTraitScores(reflections ?? [])),
     [reflections],
   );
+  const today = todayISO();
   const activePlan = plans?.find((plan) => plan.id === selected);
   const activeSessions = useMemo(
     () =>
@@ -105,6 +107,10 @@ export default function PlansView() {
     await db.planSessions.update(id, { status });
   }
 
+  async function setPlanStatus(id: string, status: Plan["status"]) {
+    await db.plans.update(id, { status });
+  }
+
   async function deletePlan(id: string) {
     if (!window.confirm("Delete this plan and its schedule? Logged sessions are kept.")) return;
     await db.transaction("rw", db.plans, db.planSessions, async () => {
@@ -116,12 +122,17 @@ export default function PlansView() {
   }
 
   if (activePlan) {
-    const done = activeSessions.filter((session) => session.status === "done").length;
-    const skipped = activeSessions.filter((session) => session.status === "skipped").length;
-    const adherence = activeSessions.length
-      ? Math.round((done / activeSessions.length) * 100)
-      : 0;
+    const progress = planProgress(activePlan, planSessions ?? [], today);
+    const completed = activePlan.status === "completed";
     const weekNumbers = [...new Set(activeSessions.map((session) => session.week))];
+    const currentWeek = completed ? 0 : progress.week;
+    const weekLabel = completed
+      ? "Block complete"
+      : progress.week === 0
+        ? `Starts ${formatDate(activePlan.startDate)}`
+        : progress.ended
+          ? "Final week passed"
+          : `Week ${progress.week} of ${activePlan.weeks}`;
 
     return (
       <div className="stack">
@@ -143,6 +154,21 @@ export default function PlansView() {
             </p>
           </div>
           <div className="page-actions">
+            {completed ? (
+              <button
+                className="btn btn-secondary"
+                onClick={() => setPlanStatus(activePlan.id, "active")}
+              >
+                Reopen plan
+              </button>
+            ) : (
+              <button
+                className="btn btn-secondary"
+                onClick={() => setPlanStatus(activePlan.id, "completed")}
+              >
+                Complete plan
+              </button>
+            )}
             <button className="btn btn-ghost danger" onClick={() => deletePlan(activePlan.id)}>
               Delete plan
             </button>
@@ -154,21 +180,30 @@ export default function PlansView() {
             <div>
               <h2>Adherence</h2>
               <p>
-                {done} done · {skipped} skipped · {activeSessions.length - done - skipped} planned
+                {weekLabel} · {progress.done} done · {progress.skipped} skipped
+                {!completed && ` · ${progress.remaining} planned`}
               </p>
             </div>
-            <span className="badge">{adherence}%</span>
+            <span className="badge">{completed ? "Completed" : `${progress.adherence}%`}</span>
           </div>
           <div className="progress-track">
-            <span style={{ width: `${adherence}%` }} />
+            <span style={{ width: `${progress.adherence}%` }} />
           </div>
+          {!completed && progress.remaining === 0 && (
+            <p className="callout">
+              Every session is done or skipped. Complete the plan to close the block.
+            </p>
+          )}
         </section>
 
         <div className="stack">
           {weekNumbers.map((week) => (
             <section className="panel" key={week}>
               <div className="panel-head">
-                <h2>Week {week}</h2>
+                <div>
+                  <h2>Week {week}</h2>
+                  {week === currentWeek && <p>Current week</p>}
+                </div>
                 <span className="badge">
                   {activeSessions.filter((session) => session.week === week && session.status === "done").length}
                   /{activeSessions.filter((session) => session.week === week).length}
@@ -209,6 +244,7 @@ export default function PlansView() {
   }
 
   const activePlans = (plans ?? []).filter((plan) => plan.status === "active");
+  const listedPlans = [...activePlans, ...(plans ?? []).filter((plan) => plan.status === "completed")];
 
   return (
     <div className="stack">
@@ -311,22 +347,26 @@ export default function PlansView() {
             <span className="badge">{activePlans.length} active</span>
           </div>
 
-          {activePlans.length ? (
+          {listedPlans.length ? (
             <ul className="plan-list">
-              {activePlans.map((plan) => {
-                const sessions = (planSessions ?? []).filter((session) => session.planId === plan.id);
-                const done = sessions.filter((session) => session.status === "done").length;
+              {listedPlans.map((plan) => {
+                const progress = planProgress(plan, planSessions ?? [], today);
                 return (
                   <li key={plan.id}>
                     <button className="plan-list-item" onClick={() => setSelected(plan.id)}>
                       <div>
                         <strong>{plan.name}</strong>
                         <small>
-                          {plan.weeks} weeks · {plan.daysPerWeek} days/week
+                          {plan.weeks} weeks · {plan.daysPerWeek} days/week ·{" "}
+                          {plan.status === "completed"
+                            ? `completed · ${progress.adherence}%`
+                            : progress.week === 0
+                              ? "not started"
+                              : `week ${progress.week} of ${plan.weeks}`}
                         </small>
                       </div>
                       <span>
-                        {done}/{sessions.length}
+                        {progress.done}/{progress.total}
                       </span>
                     </button>
                   </li>
