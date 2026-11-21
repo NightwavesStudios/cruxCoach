@@ -69,6 +69,28 @@ describe("saveSession", () => {
     expect(await db.ascents.count()).toBe(0);
     expect(await db.reflections.count()).toBe(0);
   });
+
+  it("reopens a planned slot when its logged session is deleted", async () => {
+    const id = await saveSession(session, [ascent]);
+    await db.planSessions.put({
+      id: "slot",
+      planId: "plan-a",
+      week: 1,
+      day: 1,
+      title: "Project: V4",
+      type: "project",
+      durationMin: 90,
+      intensity: "hard",
+      status: "done",
+      sessionId: id,
+    });
+
+    await deleteSession(id);
+
+    const slot = await db.planSessions.get("slot");
+    expect(slot?.status).toBe("planned");
+    expect(slot?.sessionId).toBeUndefined();
+  });
 });
 
 describe("saveReflection", () => {

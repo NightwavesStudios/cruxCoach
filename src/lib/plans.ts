@@ -1,12 +1,12 @@
-import type { Discipline, Plan, PlanSession, Profile, TraitKey } from "./types";
+import type { Discipline, Environment, Plan, PlanSession, Profile, TraitKey } from "./types";
 import { DISCIPLINES, TRAITS } from "./types";
 
 export interface PlanInput {
   discipline: Discipline;
+  environment: Environment;
   targetGrade: string;
   weeks: number;
   daysPerWeek: number;
-  startDate: string;
   focusTraits: TraitKey[];
 }
 
@@ -19,18 +19,38 @@ export interface GeneratedPlanSession {
   intensity: PlanSession["intensity"];
 }
 
-const TEMPLATE: {
-  title: (focus: string) => string;
+interface TemplateSlot {
+  title: (focus: string, target: string) => string;
   type: PlanSession["type"];
   duration: number;
-}[] = [
-  { title: (focus) => `Technique: ${focus}`, type: "technique", duration: 60 },
-  { title: () => "Strength & power", type: "strength", duration: 75 },
-  { title: () => "Endurance session", type: "endurance", duration: 60 },
-  { title: () => "Project session", type: "project", duration: 90 },
-  { title: () => "Mobility & recovery", type: "technique", duration: 30 },
-  { title: () => "Technique volume", type: "technique", duration: 60 },
-];
+}
+
+/**
+ * Indoor and outdoor blocks are different weeks. A gym block can load the board
+ * and repeat attempts; an outdoor block has to fit travel, conditions and skin.
+ */
+const TEMPLATES: Record<Environment, TemplateSlot[]> = {
+  indoor: [
+    { title: (focus) => `Technique: ${focus}`, type: "technique", duration: 60 },
+    { title: () => "Board power", type: "strength", duration: 75 },
+    { title: () => "Endurance laps", type: "endurance", duration: 60 },
+    { title: (_focus, target) => `Project session: ${target}`, type: "project", duration: 90 },
+    { title: () => "Mobility and recovery", type: "technique", duration: 30 },
+    { title: () => "Technique volume", type: "technique", duration: 60 },
+  ],
+  outdoor: [
+    { title: (focus) => `Crag movement: ${focus}`, type: "technique", duration: 90 },
+    { title: () => "Mileage at the crag", type: "endurance", duration: 120 },
+    { title: (_focus, target) => `Project: ${target}`, type: "project", duration: 120 },
+    { title: () => "Strength maintenance", type: "strength", duration: 60 },
+    { title: () => "Skin and recovery", type: "technique", duration: 30 },
+    { title: () => "Volume at the crag", type: "endurance", duration: 120 },
+  ],
+};
+
+export function planEnvironment(plan: Pick<Plan, "environment">): Environment {
+  return plan.environment ?? "indoor";
+}
 
 export function generatePlanSessions(input: PlanInput): GeneratedPlanSession[] {
   const weeks = Math.max(2, Math.min(8, Math.round(input.weeks)));
@@ -39,17 +59,19 @@ export function generatePlanSessions(input: PlanInput): GeneratedPlanSession[] {
     .map((key) => TRAITS.find((trait) => trait.key === key)?.label)
     .filter(Boolean);
   const focusLabel = focus.length ? focus.join(", ") : "movement quality";
+  const template = TEMPLATES[input.environment];
 
   const sessions: GeneratedPlanSession[] = [];
 
   for (let week = 1; week <= weeks; week += 1) {
     const deload = week % 4 === 0;
     for (let day = 1; day <= days; day += 1) {
-      const slot = TEMPLATE[(day - 1) % TEMPLATE.length];
+      const slot = template[(day - 1) % template.length];
+      const title = slot.title(focusLabel, input.targetGrade);
       sessions.push({
         week,
         day,
-        title: deload ? `Deload: ${slot.title(focusLabel)}` : slot.title(focusLabel),
+        title: deload ? `Deload: ${title}` : title,
         type: slot.type,
         durationMin: deload ? Math.round(slot.duration * 0.6) : slot.duration,
         intensity: deload
@@ -97,8 +119,12 @@ export function planProgress(
   today: string,
 ): PlanProgress {
   const sessions = planSessions.filter((session) => session.planId === plan.id);
-  const done = sessions.filter((session) => session.status === "done").length;
-  const skipped = sessions.filter((session) => session.status === "skipped").length;
+  const done = sessions.filter(
+    (session) => session.status === "done" || Boolean(session.sessionId),
+  ).length;
+  const skipped = sessions.filter(
+    (session) => session.status === "skipped" && !session.sessionId,
+  ).length;
   const days = daysSince(plan.startDate, today);
 
   return {

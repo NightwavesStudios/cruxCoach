@@ -7,13 +7,25 @@ import { makeId } from "../../lib/id";
 import {
   generatePlanSessions,
   planDefaults,
+  planEnvironment,
   planIntensityLabel,
   planProgress,
 } from "../../lib/plans";
 import { computeTraitScores, focusAreas } from "../../lib/traits";
-import { DISCIPLINES, type Discipline, type Plan, type PlanSession } from "../../lib/types";
+import {
+  DISCIPLINES,
+  ENVIRONMENTS,
+  type Discipline,
+  type Environment,
+  type Plan,
+  type PlanSession,
+} from "../../lib/types";
 
 const PLAN_DISCIPLINES = DISCIPLINES.filter((item) => item.id !== "training");
+
+const ENV_LABEL = Object.fromEntries(
+  ENVIRONMENTS.map((item) => [item.id, item.label]),
+) as Record<string, string>;
 
 export default function PlansView() {
   const plans = useLiveQuery(() => db.plans.orderBy("startDate").reverse().toArray(), []);
@@ -32,6 +44,7 @@ export default function PlansView() {
 
   const [name, setName] = useState("My training block");
   const [discipline, setDiscipline] = useState<Discipline>("bouldering");
+  const [environment, setEnvironment] = useState<Environment>("indoor");
   const [targetGrade, setTargetGrade] = useState(5);
   const [weeks, setWeeks] = useState(4);
   const [days, setDays] = useState(3);
@@ -79,10 +92,10 @@ export default function PlansView() {
       const target = gradeOptions(prefs.gradeSystem)[targetGrade]?.label ?? "Unset";
       const generated = generatePlanSessions({
         discipline,
+        environment,
         targetGrade: target,
         weeks,
         daysPerWeek: days,
-        startDate,
         focusTraits: focus.map((trait) => trait.key),
       });
 
@@ -91,7 +104,9 @@ export default function PlansView() {
           id: planId,
           name: name.trim() || "Training block",
           discipline,
+          environment,
           targetGrade: target,
+          targetSystem: prefs.gradeSystem,
           weeks,
           daysPerWeek: days,
           startDate,
@@ -163,6 +178,9 @@ export default function PlansView() {
             </button>
             <h1>{activePlan.name}</h1>
             <p className="page-sub">
+              <span className={`env-tag ${planEnvironment(activePlan)}`}>
+                {ENV_LABEL[planEnvironment(activePlan)]} plan
+              </span>{" "}
               {activePlan.weeks} weeks, {activePlan.daysPerWeek} days a week, target{" "}
               {activePlan.targetGrade}, starting {formatDate(activePlan.startDate)}
             </p>
@@ -219,7 +237,11 @@ export default function PlansView() {
                   {week === currentWeek && <p>Current week</p>}
                 </div>
                 <span className="badge">
-                  {activeSessions.filter((session) => session.week === week && session.status === "done").length}
+                  {
+                    activeSessions.filter(
+                      (session) => session.week === week && (session.status === "done" || session.sessionId),
+                    ).length
+                  }
                   /{activeSessions.filter((session) => session.week === week).length}
                 </span>
               </div>
@@ -236,17 +258,30 @@ export default function PlansView() {
                           {session.type}
                         </small>
                       </div>
-                      <select
-                        aria-label={`Status for ${session.title}`}
-                        value={session.status}
-                        onChange={(event) =>
-                          updateStatus(session.id, event.target.value as PlanSession["status"])
-                        }
-                      >
-                        <option value="planned">Planned</option>
-                        <option value="done">Done</option>
-                        <option value="skipped">Skipped</option>
-                      </select>
+                      <div className="plan-session-actions">
+                        {session.sessionId ? (
+                          <a className="text-button" href={`/app/log?session=${session.sessionId}`}>
+                            View log
+                          </a>
+                        ) : session.status !== "done" ? (
+                          <a className="text-button" href={`/app/log?planSession=${session.id}`}>
+                            Log this
+                          </a>
+                        ) : (
+                          <span className="muted small">Marked done</span>
+                        )}
+                        <select
+                          aria-label={`Status for ${session.title}`}
+                          value={session.status}
+                          onChange={(event) =>
+                            updateStatus(session.id, event.target.value as PlanSession["status"])
+                          }
+                        >
+                          <option value="planned">Planned</option>
+                          <option value="done">Done</option>
+                          <option value="skipped">Skipped</option>
+                        </select>
+                      </div>
                     </article>
                   ))}
               </div>
@@ -267,7 +302,8 @@ export default function PlansView() {
           <p className="page-kicker">Coaching</p>
           <h1>Training plans</h1>
           <p className="page-sub">
-            A structured block built from your available days and the traits you want to improve.
+            One venue, your available days and the traits your reflections flag. Log a planned
+            session and the block records it against the week.
           </p>
         </div>
       </header>
@@ -297,6 +333,23 @@ export default function PlansView() {
                     className={discipline === item.id ? "chip active" : "chip"}
                     aria-pressed={discipline === item.id}
                     onClick={() => chooseDiscipline(item.id)}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </fieldset>
+
+            <fieldset className="field">
+              <legend>Where</legend>
+              <div className="chips">
+                {ENVIRONMENTS.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={environment === item.id ? "chip active" : "chip"}
+                    aria-pressed={environment === item.id}
+                    onClick={() => setEnvironment(item.id)}
                   >
                     {item.label}
                   </button>
@@ -372,7 +425,8 @@ export default function PlansView() {
                       <div>
                         <strong>{plan.name}</strong>
                         <small>
-                          {plan.weeks} weeks, {plan.daysPerWeek} days a week,{" "}
+                          {ENV_LABEL[planEnvironment(plan)]}, {plan.weeks} weeks,{" "}
+                          {plan.daysPerWeek} days a week,{" "}
                           {plan.status === "completed"
                             ? `completed, ${progress.adherence}%`
                             : progress.week === 0

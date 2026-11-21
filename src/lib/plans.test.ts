@@ -1,13 +1,19 @@
 import { describe, expect, it } from "vitest";
-import { generatePlanSessions, planDefaults, planProgress, planWeek } from "./plans";
+import {
+  generatePlanSessions,
+  planDefaults,
+  planEnvironment,
+  planProgress,
+  planWeek,
+} from "./plans";
 import type { Plan, PlanSession, Profile } from "./types";
 
 const base = {
   discipline: "bouldering" as const,
+  environment: "indoor" as const,
   targetGrade: "V6",
   weeks: 4,
   daysPerWeek: 3,
-  startDate: "2026-01-05",
   focusTraits: ["Crimp", "Sloper"] as const,
 };
 
@@ -28,6 +34,24 @@ describe("generatePlanSessions", () => {
   it("names sessions after the focus traits", () => {
     const sessions = generatePlanSessions({ ...base, focusTraits: [...base.focusTraits] });
     expect(sessions[0].title).toContain("Crimp");
+  });
+
+  it("puts the target grade into project sessions", () => {
+    const sessions = generatePlanSessions({ ...base, daysPerWeek: 4, focusTraits: [] });
+    const projects = sessions.filter((session) => session.type === "project");
+    expect(projects.length).toBeGreaterThan(0);
+    expect(projects.every((session) => session.title.includes("V6"))).toBe(true);
+  });
+
+  it("builds indoor and outdoor weeks around different work", () => {
+    const indoor = generatePlanSessions({ ...base, environment: "indoor", focusTraits: [] });
+    const outdoor = generatePlanSessions({ ...base, environment: "outdoor", focusTraits: [] });
+
+    expect(indoor.some((session) => session.title.includes("Board power"))).toBe(true);
+    expect(indoor.some((session) => session.title.includes("crag"))).toBe(false);
+    expect(outdoor.some((session) => session.title.includes("Mileage at the crag"))).toBe(true);
+    expect(outdoor.some((session) => session.title.includes("Board power"))).toBe(false);
+    expect(outdoor.every((session) => session.durationMin >= 30)).toBe(true);
   });
 
   it("clamps weeks and days to supported ranges", () => {
@@ -142,5 +166,20 @@ describe("planProgress", () => {
     const sessions = [plannedSession("a", "plan-a", "planned")];
     expect(planProgress(plan, sessions, "2026-02-01").ended).toBe(false);
     expect(planProgress(plan, sessions, "2026-02-02").ended).toBe(true);
+  });
+
+  it("counts a planned slot that was filled by a logged session", () => {
+    const logged = { ...plannedSession("a", "plan-a", "planned"), sessionId: "session-1" };
+    const progress = planProgress(plan, [logged], "2026-01-12");
+    expect(progress.done).toBe(1);
+    expect(progress.remaining).toBe(0);
+    expect(progress.adherence).toBe(100);
+  });
+});
+
+describe("planEnvironment", () => {
+  it("falls back to indoor for plans made before venues existed", () => {
+    expect(planEnvironment({})).toBe("indoor");
+    expect(planEnvironment({ environment: "outdoor" })).toBe("outdoor");
   });
 });

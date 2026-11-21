@@ -1,8 +1,9 @@
 import { useEffect, useState, type SubmitEvent as FormSubmitEvent } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db, deleteSession, saveSession, todayISO } from "../../lib/db";
-import { gradeOptions } from "../../lib/grades";
+import { gradeOptions, parseGrade } from "../../lib/grades";
 import { makeId } from "../../lib/id";
+import { planEnvironment } from "../../lib/plans";
 import { environmentOf } from "../../lib/patterns";
 import { formatDate, toCanonicalValue, toDisplayValue } from "../../lib/format";
 import {
@@ -13,9 +14,15 @@ import {
   type Discipline,
   type Environment,
   type GradeSystem,
+  type Plan,
+  type PlanSession,
   type Session,
   ENVIRONMENTS,
 } from "../../lib/types";
+
+const ENV_LABEL = Object.fromEntries(
+  ENVIRONMENTS.map((item) => [item.id, item.label]),
+) as Record<string, string>;
 
 interface DraftAscent {
   key: string;
@@ -40,6 +47,10 @@ export default function LogForm() {
     if (typeof window === "undefined") return undefined;
     return new URLSearchParams(window.location.search).get("session") ?? undefined;
   });
+  const [planSessionId] = useState(() => {
+    if (typeof window === "undefined") return undefined;
+    return new URLSearchParams(window.location.search).get("planSession") ?? undefined;
+  });
 
   const existing = useLiveQuery<Session | undefined>(
     () => (editId ? db.sessions.get(editId) : undefined),
@@ -48,6 +59,14 @@ export default function LogForm() {
   const existingAscents = useLiveQuery<Ascent[]>(
     () => (editId ? db.ascents.where("sessionId").equals(editId).toArray() : []),
     [editId],
+  );
+  const planSession = useLiveQuery<PlanSession | undefined>(
+    () => (planSessionId ? db.planSessions.get(planSessionId) : undefined),
+    [planSessionId],
+  );
+  const linkedPlan = useLiveQuery<Plan | undefined>(
+    () => (planSession ? db.plans.get(planSession.planId) : undefined),
+    [planSession?.planId],
   );
   const profile = useLiveQuery(() => db.profile.get("me"), []);
 
@@ -70,6 +89,7 @@ export default function LogForm() {
   const [saving, setSaving] = useState(false);
   const [hydrated, setHydrated] = useState(false);
   const [appliedDefaults, setAppliedDefaults] = useState(false);
+  const [planApplied, setPlanApplied] = useState(false);
 
   const units = profile?.units ?? "metric";
   const system = gradeSystem ?? profile?.gradeSystem ?? DISCIPLINE_SYSTEM[discipline];
@@ -102,12 +122,30 @@ export default function LogForm() {
   }, [editId, existing, existingAscents, hydrated]);
 
   useEffect(() => {
-    if (editId || appliedDefaults || !profile) return;
+    if (editId || appliedDefaults || !profile || planSessionId) return;
     const first = profile.disciplines.find((item) => item !== "training") ?? "bouldering";
     setDiscipline(first);
     setAscents([newAscent(profile.gradeSystem)]);
     setAppliedDefaults(true);
-  }, [appliedDefaults, editId, profile]);
+  }, [appliedDefaults, editId, planSessionId, profile]);
+
+  useEffect(() => {
+    if (editId || planApplied || !planSession || !linkedPlan) return;
+    const system = linkedPlan.targetSystem ?? DISCIPLINE_SYSTEM[linkedPlan.discipline];
+    setDiscipline(linkedPlan.discipline);
+    setEnvironment(planEnvironment(linkedPlan));
+    setDuration(planSession.durationMin);
+    setGradeSystem(system);
+    const grade = parseGrade(linkedPlan.targetGrade, system);
+    setAscents(
+      grade === null
+        ? [newAscent(system)]
+        : [{ key: makeId(), grade, style: "project", attempts: 1, sent: false }],
+    );
+    setNotes(`Plan: ${linkedPlan.name}, week ${planSession.week}, day ${planSession.day}.`);
+    setPlanApplied(true);
+    setAppliedDefaults(true);
+  }, [editId, linkedPlan, planApplied, planSession]);
 
   const options = gradeOptions(system);
 
@@ -142,7 +180,7 @@ export default function LogForm() {
 
     setSaving(true);
     try {
-      await saveSession(
+      const savedId = await saveSession(
         {
           date,
           discipline,
@@ -165,6 +203,9 @@ export default function LogForm() {
             })),
         editId,
       );
+      if (planSessionId) {
+        await db.planSessions.update(planSessionId, { status: "done", sessionId: savedId });
+      }
       window.location.assign("/app/journal");
     } catch {
       setError("Could not save this session. Please try again.");
@@ -182,6 +223,17 @@ export default function LogForm() {
   return (
     <section className="panel form-panel">
       <form onSubmit={handleSubmit}>
+        {linkedPlan && planSession && (
+          <div className="plan-context">
+            <span className="section-label">Planned session</span>
+            <strong>{linkedPlan.name}</strong>
+            <span>
+              Week {planSession.week}, day {planSession.day}. {linkedPlan.targetGrade},{" "}
+              {ENV_LABEL[planEnvironment(linkedPlan)]}, {planSession.durationMin} min.
+            </span>
+          </div>
+        )}
+
         <fieldset className="field env-choice">
           <legend>Where did you climb?</legend>
           <div className="env-options">

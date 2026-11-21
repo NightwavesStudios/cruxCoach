@@ -1656,6 +1656,38 @@ fieldset.field {
   font-size: 0.72rem;
 }
 
+.plan-session-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.plan-context {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid var(--accent);
+  background: var(--surface-2);
+}
+
+.plan-context strong {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.plan-context > span:last-child {
+  font-size: 0.78rem;
+  color: var(--ink-3);
+}
+
+.page-sub .env-tag {
+  margin-right: 0.35rem;
+  vertical-align: 0.08em;
+}
+
 .plan-day {
   font-family: var(--font-mono);
   font-size: 0.55rem;

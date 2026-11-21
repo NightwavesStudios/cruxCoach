@@ -99,7 +99,11 @@ export interface Plan {
   id: string;
   name: string;
   discipline: Discipline;
+  /** Absent on plans created before plans carried a venue; treat those as indoor. */
+  environment?: Environment;
   targetGrade: string;
+  /** Grade system the target was chosen in, used to prefill a planned session. */
+  targetSystem?: GradeSystem;
   weeks: number;
   daysPerWeek: number;
   startDate: string;
@@ -117,6 +121,8 @@ export interface PlanSession {
   durationMin: number;
   intensity: "easy" | "moderate" | "hard" | "deload";
   status: "planned" | "done" | "skipped";
+  /** Set when a real logged session was saved from this planned slot. */
+  sessionId?: string;
 }
 
 export interface ContentProgress {

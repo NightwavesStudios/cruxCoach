@@ -104,11 +104,25 @@ export async function saveReflection(
 }
 
 export async function deleteSession(id: string): Promise<void> {
-  await db.transaction("rw", db.sessions, db.ascents, db.reflections, async () => {
-    await db.sessions.delete(id);
-    await db.ascents.where("sessionId").equals(id).delete();
-    await db.reflections.where("sessionId").equals(id).delete();
-  });
+  await db.transaction(
+    "rw",
+    db.sessions,
+    db.ascents,
+    db.reflections,
+    db.planSessions,
+    async () => {
+      await db.sessions.delete(id);
+      await db.ascents.where("sessionId").equals(id).delete();
+      await db.reflections.where("sessionId").equals(id).delete();
+      const linked = await db.planSessions.filter((item) => item.sessionId === id).toArray();
+      for (const item of linked) {
+        await db.planSessions.update(item.id, {
+          status: "planned",
+          sessionId: undefined,
+        });
+      }
+    },
+  );
 }
 
 const importSchema = z.object({
