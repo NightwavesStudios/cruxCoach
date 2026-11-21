@@ -1,18 +1,17 @@
-import { useMemo, useState, type SubmitEvent as FormSubmitEvent } from "react";
+import { useEffect, useMemo, useState, type SubmitEvent as FormSubmitEvent } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
-import { db, todayISO } from "../../lib/db";
+import { db, defaultProfile, todayISO } from "../../lib/db";
 import { formatDate } from "../../lib/format";
 import { gradeOptions } from "../../lib/grades";
 import { makeId } from "../../lib/id";
-import { generatePlanSessions, planIntensityLabel, planProgress } from "../../lib/plans";
-import { computeTraitScores, focusAreas } from "../../lib/traits";
 import {
-  DISCIPLINES,
-  DISCIPLINE_SYSTEM,
-  type Discipline,
-  type Plan,
-  type PlanSession,
-} from "../../lib/types";
+  generatePlanSessions,
+  planDefaults,
+  planIntensityLabel,
+  planProgress,
+} from "../../lib/plans";
+import { computeTraitScores, focusAreas } from "../../lib/traits";
+import { DISCIPLINES, type Discipline, type Plan, type PlanSession } from "../../lib/types";
 
 const PLAN_DISCIPLINES = DISCIPLINES.filter((item) => item.id !== "training");
 
@@ -20,6 +19,11 @@ export default function PlansView() {
   const plans = useLiveQuery(() => db.plans.orderBy("startDate").reverse().toArray(), []);
   const planSessions = useLiveQuery(() => db.planSessions.toArray(), []);
   const reflections = useLiveQuery(() => db.reflections.toArray(), []);
+  const profile = useLiveQuery(() => db.profile.get("me"), []);
+  const prefs = profile ?? defaultProfile();
+  const allowedDisciplines = prefs.disciplines.length
+    ? PLAN_DISCIPLINES.filter((item) => prefs.disciplines.includes(item.id))
+    : PLAN_DISCIPLINES;
 
   const [selected, setSelected] = useState<string | undefined>(() => {
     if (typeof window === "undefined") return undefined;
@@ -34,6 +38,16 @@ export default function PlansView() {
   const [startDate, setStartDate] = useState(todayISO());
   const [error, setError] = useState("");
   const [creating, setCreating] = useState(false);
+  const [appliedDefaults, setAppliedDefaults] = useState(false);
+
+  useEffect(() => {
+    if (!profile || appliedDefaults) return;
+    const defaults = planDefaults(profile);
+    setDiscipline(defaults.discipline);
+    setDays(defaults.daysPerWeek);
+    setTargetGrade(defaults.targetGrade);
+    setAppliedDefaults(true);
+  }, [appliedDefaults, profile]);
 
   const focus = useMemo(
     () => focusAreas(computeTraitScores(reflections ?? [])),
@@ -49,11 +63,11 @@ export default function PlansView() {
     [planSessions, selected],
   );
 
-  const gradeChoices = gradeOptions(DISCIPLINE_SYSTEM[discipline]);
+  const gradeChoices = gradeOptions(prefs.gradeSystem);
 
   function chooseDiscipline(next: Discipline) {
     setDiscipline(next);
-    setTargetGrade(DISCIPLINE_SYSTEM[next] === "v" ? 5 : 13);
+    setTargetGrade(prefs.gradeSystem === "v" ? 5 : 13);
   }
 
   async function createPlan(event: FormSubmitEvent<HTMLFormElement>) {
@@ -62,7 +76,7 @@ export default function PlansView() {
     setCreating(true);
     try {
       const planId = makeId();
-      const target = gradeOptions(DISCIPLINE_SYSTEM[discipline])[targetGrade]?.label ?? "—";
+      const target = gradeOptions(prefs.gradeSystem)[targetGrade]?.label ?? "—";
       const generated = generatePlanSessions({
         discipline,
         targetGrade: target,
@@ -276,7 +290,7 @@ export default function PlansView() {
             <fieldset className="field">
               <legend>Discipline</legend>
               <div className="chips">
-                {PLAN_DISCIPLINES.map((item) => (
+                {allowedDisciplines.map((item) => (
                   <button
                     key={item.id}
                     type="button"
@@ -292,7 +306,7 @@ export default function PlansView() {
 
             <div className="form-grid">
               <label className="field">
-                <span>Target grade</span>
+                <span>Target grade ({prefs.gradeSystem === "v" ? "V-scale" : "YDS"})</span>
                 <select value={targetGrade} onChange={(event) => setTargetGrade(Number(event.target.value))}>
                   {gradeChoices.map((grade) => (
                     <option key={grade.value} value={grade.value}>
@@ -320,6 +334,7 @@ export default function PlansView() {
                     </option>
                   ))}
                 </select>
+                <small>Defaults to your {prefs.weeklyGoal}-session weekly goal</small>
               </label>
               <label className="field">
                 <span>Start date</span>

@@ -3,13 +3,14 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { db, deleteSession, saveSession, todayISO } from "../../lib/db";
 import { gradeOptions } from "../../lib/grades";
 import { makeId } from "../../lib/id";
-import { formatDate } from "../../lib/format";
+import { formatDate, toCanonicalValue, toDisplayValue } from "../../lib/format";
 import {
   DISCIPLINES,
   DISCIPLINE_SYSTEM,
   type Ascent,
   type AscentStyle,
   type Discipline,
+  type GradeSystem,
   type Session,
 } from "../../lib/types";
 
@@ -21,10 +22,10 @@ interface DraftAscent {
   sent: boolean;
 }
 
-function newAscent(discipline: Discipline): DraftAscent {
+function newAscent(system: GradeSystem): DraftAscent {
   return {
     key: makeId(),
-    grade: discipline === "bouldering" ? 5 : 13,
+    grade: system === "v" ? 5 : 13,
     style: "flash",
     attempts: 1,
     sent: true,
@@ -45,6 +46,7 @@ export default function LogForm() {
     () => (editId ? db.ascents.where("sessionId").equals(editId).toArray() : []),
     [editId],
   );
+  const profile = useLiveQuery(() => db.profile.get("me"), []);
 
   const [date, setDate] = useState(todayISO());
   const [discipline, setDiscipline] = useState<Discipline>("bouldering");
@@ -52,10 +54,16 @@ export default function LogForm() {
   const [rpe, setRpe] = useState(6);
   const [location, setLocation] = useState("");
   const [notes, setNotes] = useState("");
-  const [ascents, setAscents] = useState<DraftAscent[]>([newAscent("bouldering")]);
+  const [distanceKm, setDistanceKm] = useState<number | undefined>(undefined);
+  const [ascents, setAscents] = useState<DraftAscent[]>([newAscent("v")]);
+  const [gradeSystem, setGradeSystem] = useState<GradeSystem | undefined>(undefined);
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
   const [hydrated, setHydrated] = useState(false);
+  const [appliedDefaults, setAppliedDefaults] = useState(false);
+
+  const units = profile?.units ?? "metric";
+  const system = gradeSystem ?? profile?.gradeSystem ?? DISCIPLINE_SYSTEM[discipline];
 
   useEffect(() => {
     if (!editId || hydrated || !existing) return;
@@ -65,7 +73,9 @@ export default function LogForm() {
     setRpe(existing.rpe || 6);
     setLocation(existing.location);
     setNotes(existing.notes);
+    setDistanceKm(existing.distanceKm);
     if (existingAscents && existingAscents.length > 0) {
+      setGradeSystem(existingAscents[0].system);
       setAscents(
         existingAscents.map((ascent) => ({
           key: ascent.id,
@@ -81,13 +91,20 @@ export default function LogForm() {
     setHydrated(true);
   }, [editId, existing, existingAscents, hydrated]);
 
-  const system = DISCIPLINE_SYSTEM[discipline];
+  useEffect(() => {
+    if (editId || appliedDefaults || !profile) return;
+    const first = profile.disciplines.find((item) => item !== "training") ?? "bouldering";
+    setDiscipline(first);
+    setAscents([newAscent(profile.gradeSystem)]);
+    setAppliedDefaults(true);
+  }, [appliedDefaults, editId, profile]);
+
   const options = gradeOptions(system);
 
   function chooseDiscipline(next: Discipline) {
     if (next === discipline) return;
     setDiscipline(next);
-    setAscents(next === "training" ? [] : [newAscent(next)]);
+    setAscents(next === "training" ? [] : [newAscent(system)]);
   }
 
   function updateAscent(key: string, patch: Partial<DraftAscent>) {
@@ -123,6 +140,7 @@ export default function LogForm() {
           rpe: Number(rpe) || 0,
           location,
           notes,
+          distanceKm: distanceKm && distanceKm > 0 ? distanceKm : undefined,
         },
         discipline === "training"
           ? []
@@ -185,6 +203,26 @@ export default function LogForm() {
               value={location}
               onChange={(event) => setLocation(event.target.value)}
               placeholder="Gym, crag, board…"
+            />
+          </label>
+          <label className="field">
+            <span>Distance ({units === "imperial" ? "mi" : "km"})</span>
+            <input
+              type="number"
+              min="0"
+              step="0.1"
+              value={
+                distanceKm === undefined
+                  ? ""
+                  : toDisplayValue("distance", distanceKm, units)
+              }
+              onChange={(event) => {
+                const raw = event.target.value;
+                setDistanceKm(
+                  raw ? toCanonicalValue("distance", Number(raw), units) : undefined,
+                );
+              }}
+              placeholder="Approach, optional"
             />
           </label>
         </div>
@@ -281,7 +319,7 @@ export default function LogForm() {
             <button
               type="button"
               className="btn btn-secondary btn-small"
-              onClick={() => setAscents((current) => [...current, newAscent(discipline)])}
+              onClick={() => setAscents((current) => [...current, newAscent(system)])}
             >
               + Add climb
             </button>

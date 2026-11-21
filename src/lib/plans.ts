@@ -1,5 +1,5 @@
-import type { Discipline, Plan, PlanSession, TraitKey } from "./types";
-import { TRAITS } from "./types";
+import type { Discipline, Plan, PlanSession, Profile, TraitKey } from "./types";
+import { DISCIPLINES, TRAITS } from "./types";
 
 export interface PlanInput {
   discipline: Discipline;
@@ -109,6 +109,25 @@ export function planProgress(
     remaining: sessions.length - done - skipped,
     adherence: sessions.length ? Math.round((done / sessions.length) * 100) : 0,
     ended: !Number.isNaN(days) && days >= plan.weeks * 7,
+  };
+}
+
+export interface PlanDefaults {
+  discipline: Discipline;
+  daysPerWeek: number;
+  targetGrade: number;
+}
+
+/** Wizard defaults taken from the profile: chosen discipline, weekly goal and grade system. */
+export function planDefaults(profile: Profile): PlanDefaults {
+  const chosen = DISCIPLINES.map((item) => item.id).filter(
+    (id) => id !== "training" && profile.disciplines.includes(id),
+  );
+
+  return {
+    discipline: chosen[0] ?? "bouldering",
+    daysPerWeek: Math.max(2, Math.min(6, Math.round(profile.weeklyGoal))),
+    targetGrade: profile.gradeSystem === "v" ? 5 : 13,
   };
 }
 

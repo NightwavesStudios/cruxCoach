@@ -74,6 +74,16 @@ export function fromCanonical(canonical: number, system: GradeSystem): number {
   return best;
 }
 
+/** The same climb expressed in another grading system. */
+export function convertGrade(index: number, from: GradeSystem, to: GradeSystem): number {
+  if (from === to) return index;
+  return fromCanonical(toCanonical(index, from), to);
+}
+
+export function displayGrade(index: number, from: GradeSystem, preferred: GradeSystem): string {
+  return formatGrade(convertGrade(index, from, preferred), preferred);
+}
+
 export function median(values: number[]): number {
   if (values.length === 0) return Number.NaN;
   const sorted = [...values].sort((a, b) => a - b);

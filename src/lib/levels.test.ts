@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { levelFor } from "./levels";
+import { levelFor, weekProgress } from "./levels";
 import type { Ascent, Session } from "./types";
 
 function session(id: string, date: string, discipline: Session["discipline"]): Session {
@@ -42,6 +42,16 @@ describe("levelFor", () => {
     expect(levelFor("bouldering", sessions, ascents).grade).toBe("—");
   });
 
+  it("compares sends across grade systems and shows the preferred one", () => {
+    const sessions = [
+      session("a", "2026-01-01", "bouldering"),
+      session("b", "2026-01-02", "bouldering"),
+    ];
+    const ascents = [ascent("a", 5, "v"), ascent("b", 7, "yds")];
+    expect(levelFor("bouldering", sessions, ascents, "v").grade).toBe("V4");
+    expect(levelFor("bouldering", sessions, ascents, "yds").grade).toBe("5.10c");
+  });
+
   it("combines top rope and lead sends into the rope level", () => {
     const sessions = [
       session("a", "2026-01-01", "toprope"),
@@ -51,5 +61,33 @@ describe("levelFor", () => {
     const level = levelFor("lead", sessions, ascents);
     expect(level.samples).toBe(2);
     expect(level.grade).toBe("5.12a");
+  });
+});
+
+describe("weekProgress", () => {
+  const sessions = [
+    session("a", "2026-01-05", "bouldering"),
+    session("b", "2026-01-06", "training"),
+    session("c", "2026-01-04", "bouldering"),
+    session("d", "2026-01-11", "toprope"),
+  ];
+
+  it("counts this week's sessions in the chosen disciplines", () => {
+    expect(weekProgress(sessions, 3, ["bouldering", "toprope"], "2026-01-07")).toMatchObject({
+      count: 2,
+      goal: 3,
+      remaining: 1,
+      percent: 67,
+      met: false,
+    });
+  });
+
+  it("marks the goal met from the chosen disciplines only", () => {
+    expect(weekProgress(sessions, 1, ["bouldering"], "2026-01-07")).toMatchObject({
+      count: 1,
+      remaining: 0,
+      percent: 100,
+      met: true,
+    });
   });
 });

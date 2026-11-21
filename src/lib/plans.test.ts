@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { generatePlanSessions, planProgress, planWeek } from "./plans";
-import type { Plan, PlanSession } from "./types";
+import { generatePlanSessions, planDefaults, planProgress, planWeek } from "./plans";
+import type { Plan, PlanSession, Profile } from "./types";
 
 const base = {
   discipline: "bouldering" as const,
@@ -71,6 +71,37 @@ function plannedSession(
     status,
   };
 }
+
+const profile: Profile = {
+  id: "me",
+  name: "",
+  email: "",
+  disciplines: ["toprope"],
+  goal: "",
+  gradeSystem: "yds",
+  units: "imperial",
+  weeklyGoal: 5,
+  createdAt: "2026-01-01T00:00:00.000Z",
+};
+
+describe("planDefaults", () => {
+  it("takes the discipline, weekly goal and grade system from the profile", () => {
+    expect(planDefaults(profile)).toEqual({
+      discipline: "toprope",
+      daysPerWeek: 5,
+      targetGrade: 13,
+    });
+  });
+
+  it("clamps the weekly goal and falls back when no discipline is chosen", () => {
+    expect(planDefaults({ ...profile, weeklyGoal: 9, disciplines: [] })).toEqual({
+      discipline: "bouldering",
+      daysPerWeek: 6,
+      targetGrade: 13,
+    });
+    expect(planDefaults({ ...profile, gradeSystem: "v" }).targetGrade).toBe(5);
+  });
+});
 
 describe("planWeek", () => {
   it("counts weeks from the start date and caps at the final week", () => {

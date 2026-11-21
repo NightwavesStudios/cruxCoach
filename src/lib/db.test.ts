@@ -120,6 +120,7 @@ describe("backup round-trip", () => {
       goal: "V5",
       gradeSystem: "v",
       units: "metric",
+      weeklyGoal: 3,
       createdAt: now,
     });
     await db.plans.put({

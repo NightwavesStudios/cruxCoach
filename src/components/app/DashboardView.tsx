@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
-import { db } from "../../lib/db";
+import { db, todayISO } from "../../lib/db";
 import { formatDate, plural } from "../../lib/format";
-import { formatGrade } from "../../lib/grades";
+import { displayGrade, toCanonical } from "../../lib/grades";
 import { hasLegacyData } from "../../lib/legacy";
 import { importLegacy } from "../../lib/legacy-import";
-import { levelFor, sessionsByWeek } from "../../lib/levels";
+import { levelFor, sessionsByWeek, weekProgress } from "../../lib/levels";
 import { computeTraitScores, focusAreas } from "../../lib/traits";
 import { DISCIPLINES } from "../../lib/types";
 
@@ -31,13 +31,24 @@ export default function DashboardView() {
     setShowLegacy(hasLegacyData() && !profile?.legacyImportedAt);
   }, [profile?.legacyImportedAt]);
 
+  const preferred = profile?.gradeSystem ?? "v";
+  const week = useMemo(
+    () =>
+      weekProgress(
+        sessions ?? [],
+        profile?.weeklyGoal ?? 3,
+        profile?.disciplines ?? [],
+        todayISO(),
+      ),
+    [sessions, profile?.weeklyGoal, profile?.disciplines],
+  );
   const boulder = useMemo(
-    () => levelFor("bouldering", sessions ?? [], ascents ?? []),
-    [sessions, ascents],
+    () => levelFor("bouldering", sessions ?? [], ascents ?? [], preferred),
+    [sessions, ascents, preferred],
   );
   const rope = useMemo(
-    () => levelFor("lead", sessions ?? [], ascents ?? []),
-    [sessions, ascents],
+    () => levelFor("lead", sessions ?? [], ascents ?? [], preferred),
+    [sessions, ascents, preferred],
   );
   const scores = useMemo(() => computeTraitScores(reflections ?? []), [reflections]);
   const focus = useMemo(() => focusAreas(scores, 3), [scores]);
@@ -65,7 +76,10 @@ export default function DashboardView() {
   const progression = useMemo(() => {
     const sessionMap = new Map((sessions ?? []).map((session) => [session.id, session]));
     return [...(ascents ?? [])]
-      .filter((ascent) => ascent.sent && ascent.system === "v")
+      .filter(
+        (ascent) =>
+          ascent.sent && sessionMap.get(ascent.sessionId)?.discipline === "bouldering",
+      )
       .sort((a, b) => {
         const dateA = sessionMap.get(a.sessionId)?.date ?? "";
         const dateB = sessionMap.get(b.sessionId)?.date ?? "";
@@ -76,14 +90,14 @@ export default function DashboardView() {
 
   const progressionPoints = useMemo(() => {
     if (progression.length < 2) return "";
-    const values = progression.map((ascent) => ascent.grade);
+    const values = progression.map((ascent) => toCanonical(ascent.grade, ascent.system));
     const min = Math.min(...values);
     const max = Math.max(...values);
     const span = max - min || 1;
-    return progression
-      .map((ascent, index) => {
+    return values
+      .map((value, index) => {
         const x = 12 + (index / (progression.length - 1)) * 276;
-        const y = 68 - ((ascent.grade - min) / span) * 52;
+        const y = 68 - ((value - min) / span) * 52;
         return `${x},${y}`;
       })
       .join(" ");
@@ -124,8 +138,10 @@ export default function DashboardView() {
       <header className="page-head">
         <div>
           <p className="page-kicker">Your training</p>
-          <h1>Dashboard</h1>
-          <p className="page-sub">A snapshot of where your climbing is and what to work on next.</p>
+          <h1>{profile?.name ? `Welcome back, ${profile.name}` : "Dashboard"}</h1>
+          <p className="page-sub">
+            {profile?.goal || "A snapshot of where your climbing is and what to work on next."}
+          </p>
         </div>
         <div className="page-actions">
           <a className="btn btn-secondary" href="/app/reflect">
@@ -151,9 +167,15 @@ export default function DashboardView() {
           <small>{rope.samples > 0 ? `${trendLabel(rope.trend)} · ${plural(rope.samples, "send")}` : "No sends yet"}</small>
         </article>
         <article className="stat-card">
-          <span className="stat-label">Sessions this month</span>
-          <strong>{thisMonth}</strong>
-          <small>{(sessions ?? []).length} logged in total</small>
+          <span className="stat-label">This week</span>
+          <strong>
+            {week.count} / {week.goal}
+          </strong>
+          <small>
+            {week.met
+              ? `Goal met · ${thisMonth} this month`
+              : `${plural(week.remaining, "session")} to your goal`}
+          </small>
         </article>
         <article className="stat-card">
           <span className="stat-label">Focus area</span>
@@ -203,18 +225,27 @@ export default function DashboardView() {
               <svg viewBox="0 0 300 80" role="img" aria-label="Boulder grade progression">
                 <polyline points={progressionPoints} fill="none" stroke="currentColor" strokeWidth="2" />
                 {progression.map((ascent, index) => {
-                  const values = progression.map((item) => item.grade);
+                  const values = progression.map((item) =>
+                    toCanonical(item.grade, item.system),
+                  );
                   const min = Math.min(...values);
                   const max = Math.max(...values);
                   const span = max - min || 1;
+                  const value = toCanonical(ascent.grade, ascent.system);
                   const x = 12 + (index / (progression.length - 1)) * 276;
-                  const y = 68 - ((ascent.grade - min) / span) * 52;
+                  const y = 68 - ((value - min) / span) * 52;
                   return <circle key={ascent.id} cx={x} cy={y} r="3" fill="currentColor" />;
                 })}
               </svg>
               <div className="sparkline-labels">
-                <span>{formatGrade(progression[0].grade, "v")}</span>
-                <span>{formatGrade(progression[progression.length - 1].grade, "v")}</span>
+                <span>{displayGrade(progression[0].grade, progression[0].system, preferred)}</span>
+                <span>
+                  {displayGrade(
+                    progression[progression.length - 1].grade,
+                    progression[progression.length - 1].system,
+                    preferred,
+                  )}
+                </span>
               </div>
             </div>
           ) : (
@@ -315,7 +346,7 @@ export default function DashboardView() {
                 <span className="recent-grades">
                   {(ascentsBySession.get(session.id) ?? [])
                     .slice(0, 3)
-                    .map((ascent) => formatGrade(ascent.grade, ascent.system))
+                    .map((ascent) => displayGrade(ascent.grade, ascent.system, preferred))
                     .join(" · ")}
                 </span>
               </li>

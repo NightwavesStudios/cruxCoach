@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db, deleteSession } from "../../lib/db";
-import { formatDate } from "../../lib/format";
-import { formatGrade } from "../../lib/grades";
+import { formatDate, formatMetric } from "../../lib/format";
+import { displayGrade, formatGrade } from "../../lib/grades";
 import { DISCIPLINES, type Ascent, type Reflection, type Session } from "../../lib/types";
 
 type Entry =
@@ -17,6 +17,12 @@ export default function JournalView() {
   const sessions = useLiveQuery(() => db.sessions.orderBy("date").reverse().toArray(), []);
   const ascents = useLiveQuery(() => db.ascents.toArray(), []);
   const reflections = useLiveQuery(() => db.reflections.orderBy("date").reverse().toArray(), []);
+  const profile = useLiveQuery(() => db.profile.get("me"), []);
+
+  const preferred = profile?.gradeSystem;
+  const units = profile?.units ?? "metric";
+  const gradeText = (ascent: Ascent) =>
+    preferred ? displayGrade(ascent.grade, ascent.system, preferred) : formatGrade(ascent.grade, ascent.system);
 
   const [filter, setFilter] = useState<"all" | "climbing" | "training" | "reflections">("all");
   const [search, setSearch] = useState("");
@@ -58,13 +64,13 @@ export default function JournalView() {
         const haystack =
           entry.kind === "session"
             ? `${entry.session.notes} ${entry.session.location} ${DISCIPLINE_LABEL[entry.session.discipline]} ${entry.ascents
-                .map((ascent) => formatGrade(ascent.grade, ascent.system))
+                .map((ascent) => gradeText(ascent))
                 .join(" ")}`
             : `${entry.reflection.notes} ${Object.keys(entry.reflection.scores).join(" ")}`;
         return haystack.toLowerCase().includes(search.trim().toLowerCase());
       })
       .sort((a, b) => b.date.localeCompare(a.date));
-  }, [sessions, ascents, reflections, filter, search]);
+  }, [sessions, ascents, reflections, filter, search, preferred]);
 
   async function handleDeleteSession(id: string) {
     if (!window.confirm("Delete this session, its climbs and any linked reflection?")) return;
@@ -147,14 +153,17 @@ export default function JournalView() {
                 <div className="journal-meta">
                   <span>{entry.session.durationMin || "—"} min</span>
                   {entry.session.rpe > 0 && <span>RPE {entry.session.rpe}/10</span>}
-                  {entry.session.location && <span>{entry.session.location}</span>}
-                </div>
+                                      {entry.session.location && <span>{entry.session.location}</span>}
+                    {entry.session.distanceKm !== undefined && (
+                      <span>{formatMetric("distance", entry.session.distanceKm, units)}</span>
+                    )}
+                  </div>
 
                 {entry.ascents.length > 0 && (
                   <div className="ascent-pills">
                     {entry.ascents.map((ascent) => (
                       <span className={`ascent-pill ${ascent.sent ? "sent" : "open"}`} key={ascent.id}>
-                        {formatGrade(ascent.grade, ascent.system)}
+                        {gradeText(ascent)}
                         <em>{ascent.style}</em>
                       </span>
                     ))}

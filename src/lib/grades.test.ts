@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
+  convertGrade,
+  displayGrade,
   formatGrade,
   fromCanonical,
   gradeNumberFromLegacy,
@@ -40,6 +42,15 @@ describe("cross-system conversion", () => {
     const canonical = toCanonical(13, "yds");
     expect(canonical).toBe(8);
     expect(fromCanonical(canonical, "yds")).toBe(13);
+  });
+});
+
+describe("preferred grade system", () => {
+  it("keeps grades in their own system and converts only across systems", () => {
+    expect(convertGrade(5, "v", "v")).toBe(5);
+    expect(convertGrade(5, "v", "yds")).toBe(7);
+    expect(displayGrade(5, "v", "yds")).toBe("5.10c");
+    expect(displayGrade(13, "yds", "v")).toBe("V7");
   });
 });
 

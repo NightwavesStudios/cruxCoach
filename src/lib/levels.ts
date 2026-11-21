@@ -1,5 +1,5 @@
-import { formatGrade, median } from "./grades";
-import type { Ascent, Discipline, Session } from "./types";
+import { convertGrade, formatGrade, median } from "./grades";
+import type { Ascent, Discipline, GradeSystem, Session } from "./types";
 
 export interface Level {
   discipline: Discipline;
@@ -23,6 +23,7 @@ export function levelFor(
   discipline: Discipline,
   sessions: Session[],
   ascents: Ascent[],
+  preferred?: GradeSystem,
 ): Level {
   if (discipline === "training") {
     return { discipline, grade: "—", trend: 0, samples: 0 };
@@ -46,9 +47,13 @@ export function levelFor(
     return { discipline, grade: "—", trend: 0, samples: 0 };
   }
 
-  const system = eligible[0].system;
-  const recent = eligible.slice(0, 10).map((ascent) => ascent.grade);
-  const previous = eligible.slice(10, 20).map((ascent) => ascent.grade);
+  const system = preferred ?? eligible[0].system;
+  const recent = eligible
+    .slice(0, 10)
+    .map((ascent) => convertGrade(ascent.grade, ascent.system, system));
+  const previous = eligible
+    .slice(10, 20)
+    .map((ascent) => convertGrade(ascent.grade, ascent.system, system));
   const currentMedian = median(recent);
   const previousMedian = median(previous);
 
@@ -60,6 +65,42 @@ export function levelFor(
         ? Math.sign(currentMedian - previousMedian)
         : 0,
     samples: recent.length,
+  };
+}
+
+export interface WeekProgress {
+  count: number;
+  goal: number;
+  remaining: number;
+  percent: number;
+  met: boolean;
+}
+
+/** Sessions logged this week (Monday to Sunday) against the profile's weekly goal. */
+export function weekProgress(
+  sessions: Session[],
+  goal: number,
+  disciplines: Discipline[],
+  today: string,
+): WeekProgress {
+  const start = new Date(`${today}T12:00:00`);
+  start.setDate(start.getDate() - ((start.getDay() + 6) % 7));
+  start.setHours(0, 0, 0, 0);
+  const end = new Date(start);
+  end.setDate(start.getDate() + 7);
+
+  const count = sessions.filter((session) => {
+    if (disciplines.length > 0 && !disciplines.includes(session.discipline)) return false;
+    const date = new Date(`${session.date}T12:00:00`);
+    return date >= start && date < end;
+  }).length;
+
+  return {
+    count,
+    goal,
+    remaining: Math.max(0, goal - count),
+    percent: goal > 0 ? Math.min(100, Math.round((count / goal) * 100)) : 0,
+    met: count >= goal,
   };
 }
 

@@ -13,7 +13,7 @@ CruxCoach is a free climbing training companion: log sessions, reflect on holds,
 - **Train** — a searchable library of articles, workouts and practices, with recommendations based on your lowest-rated traits.
 - **Learn** — four modules (holds, angles, style, training) with local completion tracking.
 - **Plans** — 2–8 week training blocks with a 3:1 build/deload cycle, current-week tracking and adherence; blocks can be completed and reopened.
-- **Profile and data** — preferences, JSON backup and restore, legacy data import, and delete-all.
+- **Profile and data** — preferences that drive the app (units for height, weight and distance, grade system for entry and display, weekly session goal, disciplines), JSON backup and restore, legacy data import, and delete-all.
 
 All training data is stored locally with IndexedDB (Dexie). There are no accounts and no server-side storage.
 

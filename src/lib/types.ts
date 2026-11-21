@@ -1,5 +1,6 @@
 export type Discipline = "bouldering" | "toprope" | "lead" | "training";
 export type GradeSystem = "v" | "yds";
+export type Units = "metric" | "imperial";
 export type AscentStyle = "onsight" | "flash" | "repeat" | "project";
 export type Confidence = "learning" | "developing" | "established";
 
@@ -46,6 +47,7 @@ export interface Session {
   rpe: number;
   location: string;
   notes: string;
+  distanceKm?: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -77,7 +79,10 @@ export interface Profile {
   disciplines: Discipline[];
   goal: string;
   gradeSystem: GradeSystem;
-  units: "metric" | "imperial";
+  units: Units;
+  weeklyGoal: number;
+  heightCm?: number;
+  weightKg?: number;
   createdAt: string;
   legacyImportedAt?: string;
 }

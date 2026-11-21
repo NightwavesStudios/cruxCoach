@@ -51,6 +51,7 @@ export function defaultProfile(): Profile {
     goal: "",
     gradeSystem: "v",
     units: "metric",
+    weeklyGoal: 3,
     createdAt: new Date().toISOString(),
   };
 }

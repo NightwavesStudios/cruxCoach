@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type SubmitEvent as FormSubmitEvent } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import { importAll, exportAll, db, defaultProfile, clearAll } from "../../lib/db";
+import { formatMetric, toCanonicalValue, toDisplayValue } from "../../lib/format";
 import { hasLegacyData } from "../../lib/legacy";
 import { importLegacy } from "../../lib/legacy-import";
 import { DISCIPLINES, type Discipline, type Profile } from "../../lib/types";
@@ -152,7 +153,7 @@ export default function ProfileView() {
 
             <div className="form-grid">
               <label className="field">
-                <span>Preferred grades</span>
+                <span>Grade system</span>
                 <select
                   value={form.gradeSystem}
                   onChange={(event) => patch({ gradeSystem: event.target.value as Profile["gradeSystem"] })}
@@ -172,6 +173,83 @@ export default function ProfileView() {
                 </select>
               </label>
             </div>
+
+            <div className="form-grid">
+              <label className="field">
+                <span>Sessions per week</span>
+                <select
+                  value={form.weeklyGoal}
+                  onChange={(event) => patch({ weeklyGoal: Number(event.target.value) })}
+                >
+                  {[2, 3, 4, 5, 6, 7].map((value) => (
+                    <option key={value} value={value}>
+                      {value} sessions
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="field">
+                <span>Height ({form.units === "imperial" ? "in" : "cm"})</span>
+                <input
+                  type="number"
+                  min="0"
+                  step="0.1"
+                  value={
+                    form.heightCm === undefined
+                      ? ""
+                      : toDisplayValue("height", form.heightCm, form.units)
+                  }
+                  onChange={(event) => {
+                    const raw = event.target.value;
+                    patch({
+                      heightCm: raw
+                        ? toCanonicalValue("height", Number(raw), form.units)
+                        : undefined,
+                    });
+                  }}
+                  placeholder="Optional"
+                />
+              </label>
+              <label className="field">
+                <span>Weight ({form.units === "imperial" ? "lb" : "kg"})</span>
+                <input
+                  type="number"
+                  min="0"
+                  step="0.1"
+                  value={
+                    form.weightKg === undefined
+                      ? ""
+                      : toDisplayValue("weight", form.weightKg, form.units)
+                  }
+                  onChange={(event) => {
+                    const raw = event.target.value;
+                    patch({
+                      weightKg: raw
+                        ? toCanonicalValue("weight", Number(raw), form.units)
+                        : undefined,
+                    });
+                  }}
+                  placeholder="Optional"
+                />
+              </label>
+            </div>
+
+            {(form.heightCm !== undefined || form.weightKg !== undefined) && (
+              <p className="muted small">
+                Entered as{" "}
+                {[
+                  form.heightCm !== undefined
+                    ? formatMetric("height", form.heightCm, form.units)
+                    : null,
+                  form.weightKg !== undefined
+                    ? formatMetric("weight", form.weightKg, form.units)
+                    : null,
+                ]
+                  .filter(Boolean)
+                  .join(" · ")}
+                .
+              </p>
+            )}
 
             {saved && <p className="form-success">Profile saved.</p>}
             <button className="btn btn-primary" type="submit">
