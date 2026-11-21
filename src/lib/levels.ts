@@ -26,7 +26,7 @@ export function levelFor(
   preferred?: GradeSystem,
 ): Level {
   if (discipline === "training") {
-    return { discipline, grade: "—", trend: 0, samples: 0 };
+    return { discipline, grade: "None", trend: 0, samples: 0 };
   }
 
   const sessionMap = new Map(sessions.map((session) => [session.id, session]));
@@ -44,7 +44,7 @@ export function levelFor(
     });
 
   if (eligible.length === 0) {
-    return { discipline, grade: "—", trend: 0, samples: 0 };
+    return { discipline, grade: "None", trend: 0, samples: 0 };
   }
 
   const system = preferred ?? eligible[0].system;

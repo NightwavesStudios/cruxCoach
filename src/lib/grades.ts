@@ -49,10 +49,10 @@ export function parseGrade(input: string, system: GradeSystem): number | null {
 }
 
 export function formatGrade(index: number, system: GradeSystem): string {
-  if (!Number.isFinite(index)) return "—";
+  if (!Number.isFinite(index)) return "None";
   const list = gradesFor(system);
   const rounded = Math.round(index);
-  return list[Math.max(0, Math.min(list.length - 1, rounded))] ?? "—";
+  return list[Math.max(0, Math.min(list.length - 1, rounded))] ?? "None";
 }
 
 export function toCanonical(index: number, system: GradeSystem): number {

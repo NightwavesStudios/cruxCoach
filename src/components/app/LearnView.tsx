@@ -39,7 +39,7 @@ export default function LearnView() {
           <p className="page-kicker">Guided learning</p>
           <h1>Learn</h1>
           <p className="page-sub">
-            Short, practical modules on holds, angles and style — then take the drills to the wall.
+            Short, practical modules on holds, angles and style. Take the drills to the wall.
           </p>
         </div>
         <span className="badge">
@@ -77,7 +77,7 @@ export default function LearnView() {
                     <div>
                       <a href={`/train/${lesson.id}`}>{lesson.title}</a>
                       <small>
-                        {lesson.type} · {lesson.length}
+                        {lesson.type}, {lesson.length}
                       </small>
                     </div>
                   </li>

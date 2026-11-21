@@ -1,36 +1,42 @@
 :root {
   color-scheme: light;
 
-  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-sans: "Avenir Next", Avenir, "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 
-  --ink: #1a202c;
-  --ink-2: #4a5568;
-  --ink-3: #718096;
-  --bg: #f7f8fa;
-  --surface: #ffffff;
-  --surface-2: #f1f3f7;
-  --line: #e2e8f0;
-  --line-strong: #cbd5e0;
+  --ink: #1d1b15;
+  --ink-2: #4b463a;
+  --ink-3: #766e5c;
+  --bg: #efe9dd;
+  --surface: #f8f4ea;
+  --surface-2: #e6dfcf;
+  --surface-3: #d9d0bc;
+  --line: #d3c9b4;
+  --line-strong: #a99d84;
 
-  --accent: #f28c28;
-  --accent-strong: #d9720f;
-  --accent-soft: #fff3e6;
-  --green: #2f9e57;
-  --green-soft: #e9f7ef;
-  --blue: #3b7ddd;
-  --blue-soft: #eaf1fc;
-  --red: #d64545;
-  --red-soft: #fdecec;
+  --accent: #9a4523;
+  --accent-strong: #7c3416;
+  --accent-soft: #f0dccd;
+  --indoor: #2e5b63;
+  --indoor-soft: #dbe7e7;
+  --outdoor: #9a4523;
+  --outdoor-soft: #efdccd;
+  --green: #3f6743;
+  --green-soft: #e0e8d9;
+  --blue: #2e5b63;
+  --blue-soft: #dbe7e7;
+  --red: #97382b;
+  --red-soft: #f1d9d3;
 
-  --radius-sm: 8px;
-  --radius: 14px;
-  --radius-lg: 22px;
-  --radius-pill: 999px;
+  --radius-sm: 2px;
+  --radius: 3px;
+  --radius-lg: 4px;
+  --radius-pill: 2px;
 
-  --shadow-sm: 0 1px 2px rgb(26 32 44 / 6%);
-  --shadow: 0 10px 30px -18px rgb(26 32 44 / 35%);
-  --shadow-lg: 0 30px 70px -40px rgb(26 32 44 / 45%);
+  --shadow-sm: none;
+  --shadow: none;
+  --shadow-lg: none;
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -42,12 +48,12 @@
   --space-10: 4rem;
   --space-12: 6rem;
 
-  --container: 1120px;
-  --header-h: 4.25rem;
+  --container: 1180px;
+  --header-h: 3.75rem;
 
-  --step--1: 0.875rem;
-  --step-0: 1rem;
-  --step-1: 1.125rem;
+  --step--1: 0.8125rem;
+  --step-0: 0.9688rem;
+  --step-1: 1.0625rem;
   --step-2: 1.375rem;
   --step-3: 1.75rem;
   --step-4: 2.25rem;
@@ -57,21 +63,27 @@
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --ink: #f2f5f9;
-  --ink-2: #c3ccd9;
-  --ink-3: #94a3b8;
-  --bg: #0e131b;
-  --surface: #161d28;
-  --surface-2: #1d2532;
-  --line: #2a3444;
-  --line-strong: #3b4759;
+  --ink: #ece5d3;
+  --ink-2: #c5bca6;
+  --ink-3: #948b76;
+  --bg: #17150f;
+  --surface: #201d16;
+  --surface-2: #2a261d;
+  --surface-3: #343024;
+  --line: #383327;
+  --line-strong: #554e3d;
 
-  --accent-soft: #3a2a17;
-  --green-soft: #17301f;
-  --blue-soft: #17263d;
-  --red-soft: #3a1d1d;
-
-  --shadow-sm: 0 1px 2px rgb(0 0 0 / 30%);
-  --shadow: 0 12px 32px -18px rgb(0 0 0 / 70%);
-  --shadow-lg: 0 34px 80px -40px rgb(0 0 0 / 80%);
+  --accent: #d98457;
+  --accent-strong: #e59a72;
+  --accent-soft: #38261a;
+  --indoor: #89b2bb;
+  --indoor-soft: #1d2b2d;
+  --outdoor: #d98a5f;
+  --outdoor-soft: #31231a;
+  --green: #8fae88;
+  --green-soft: #1f2a1d;
+  --blue: #89b2bb;
+  --blue-soft: #1d2b2d;
+  --red: #d98b7c;
+  --red-soft: #2f1e1a;
 }

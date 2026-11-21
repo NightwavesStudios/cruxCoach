@@ -76,7 +76,7 @@ export default function PlansView() {
     setCreating(true);
     try {
       const planId = makeId();
-      const target = gradeOptions(prefs.gradeSystem)[targetGrade]?.label ?? "—";
+      const target = gradeOptions(prefs.gradeSystem)[targetGrade]?.label ?? "Unset";
       const generated = generatePlanSessions({
         discipline,
         targetGrade: target,
@@ -163,8 +163,8 @@ export default function PlansView() {
             </button>
             <h1>{activePlan.name}</h1>
             <p className="page-sub">
-              {activePlan.weeks} weeks · {activePlan.daysPerWeek} days/week · target{" "}
-              {activePlan.targetGrade} · starts {formatDate(activePlan.startDate)}
+              {activePlan.weeks} weeks, {activePlan.daysPerWeek} days a week, target{" "}
+              {activePlan.targetGrade}, starting {formatDate(activePlan.startDate)}
             </p>
           </div>
           <div className="page-actions">
@@ -194,8 +194,8 @@ export default function PlansView() {
             <div>
               <h2>Adherence</h2>
               <p>
-                {weekLabel} · {progress.done} done · {progress.skipped} skipped
-                {!completed && ` · ${progress.remaining} planned`}
+                {weekLabel}. {progress.done} done, {progress.skipped} skipped
+                {!completed && `, ${progress.remaining} planned`}
               </p>
             </div>
             <span className="badge">{completed ? "Completed" : `${progress.adherence}%`}</span>
@@ -232,7 +232,7 @@ export default function PlansView() {
                         <span className="plan-day">Day {session.day}</span>
                         <h3>{session.title}</h3>
                         <small>
-                          {planIntensityLabel(session.intensity)} · {session.durationMin} min ·{" "}
+                          {planIntensityLabel(session.intensity)}, {session.durationMin} min,{" "}
                           {session.type}
                         </small>
                       </div>
@@ -277,7 +277,7 @@ export default function PlansView() {
           <div className="panel-head">
             <div>
               <h2>Build a plan</h2>
-              <p>Weeks 1–3 build, week 4 deloads, then the cycle repeats.</p>
+              <p>Weeks 1 to 3 build, week 4 deloads, then the cycle repeats.</p>
             </div>
           </div>
 
@@ -351,7 +351,7 @@ export default function PlansView() {
             {error && <p className="form-error">{error}</p>}
 
             <button className="btn btn-primary" type="submit" disabled={creating}>
-              {creating ? "Building…" : "Generate plan"}
+              {creating ? "Building" : "Generate plan"}
             </button>
           </form>
         </section>
@@ -372,9 +372,9 @@ export default function PlansView() {
                       <div>
                         <strong>{plan.name}</strong>
                         <small>
-                          {plan.weeks} weeks · {plan.daysPerWeek} days/week ·{" "}
+                          {plan.weeks} weeks, {plan.daysPerWeek} days a week,{" "}
                           {plan.status === "completed"
-                            ? `completed · ${progress.adherence}%`
+                            ? `completed, ${progress.adherence}%`
                             : progress.week === 0
                               ? "not started"
                               : `week ${progress.week} of ${plan.weeks}`}

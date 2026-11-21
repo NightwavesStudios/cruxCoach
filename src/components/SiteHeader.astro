@@ -5,7 +5,9 @@ import ThemeToggle from "./ThemeToggle";
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="/">
-      <img src="/assets/favicon.png" alt="" width="32" height="32" />
+      <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+        <path d="M2 19 9 5l4 8 3-5 6 11" fill="none" stroke="currentColor" stroke-width="1.7" />
+      </svg>
       <span>CruxCoach</span>
     </a>
 
@@ -30,9 +32,8 @@ import ThemeToggle from "./ThemeToggle";
     height: var(--header-h);
     display: flex;
     align-items: center;
-    background: color-mix(in srgb, var(--bg) 82%, transparent);
-    border-bottom: 1px solid var(--line);
-    backdrop-filter: blur(14px);
+    background: var(--bg);
+    border-bottom: 1px solid var(--ink);
   }
 
   .header-inner {
@@ -45,28 +46,30 @@ import ThemeToggle from "./ThemeToggle";
     display: inline-flex;
     align-items: center;
     gap: var(--space-3);
-    font-weight: 800;
-    font-size: var(--step-1);
-    letter-spacing: -0.02em;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.25rem;
+    letter-spacing: -0.01em;
     margin-right: auto;
   }
 
-  .brand img {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 9px;
+  .brand svg {
+    flex: none;
+    color: var(--accent);
   }
 
   .site-nav {
     display: flex;
     gap: var(--space-5);
-    font-size: 0.95rem;
-    font-weight: 500;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--ink-2);
   }
 
   .site-nav a:hover {
-    color: var(--ink);
+    color: var(--accent);
   }
 
   .header-actions {
@@ -76,9 +79,9 @@ import ThemeToggle from "./ThemeToggle";
   }
 
   .btn-sm {
-    min-height: 2.4rem;
-    padding-inline: var(--space-4);
-    font-size: 0.9rem;
+    min-height: 2.2rem;
+    padding-inline: var(--space-3);
+    font-size: 0.68rem;
   }
 
   @media (max-width: 860px) {

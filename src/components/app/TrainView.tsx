@@ -138,7 +138,7 @@ export default function TrainView() {
                 type="search"
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
-                placeholder="Search lessons…"
+                placeholder="Search lessons"
               />
             </label>
             <label className="field compact">

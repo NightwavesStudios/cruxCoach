@@ -49,7 +49,7 @@ export const CONTENT: ContentItem[] = [
     difficulty: ["beginner"],
     tags: ["crimp"],
     collection: "holds",
-    summary: "Open, half and closed crimps — when to use each and how to protect your fingers.",
+    summary: "Open, half and closed crimps: when to use each and how to protect your fingers.",
   },
   {
     id: "intro-slopers",

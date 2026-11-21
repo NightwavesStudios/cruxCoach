@@ -49,7 +49,7 @@ export function generatePlanSessions(input: PlanInput): GeneratedPlanSession[] {
       sessions.push({
         week,
         day,
-        title: deload ? `Deload · ${slot.title(focusLabel)}` : slot.title(focusLabel),
+        title: deload ? `Deload: ${slot.title(focusLabel)}` : slot.title(focusLabel),
         type: slot.type,
         durationMin: deload ? Math.round(slot.duration * 0.6) : slot.duration,
         intensity: deload

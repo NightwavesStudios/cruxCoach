@@ -19,7 +19,7 @@ const body = lessonBody(item.id);
 ---
 
 <ContentLayout
-  title={`${item.title} — CruxCoach`}
+  title={`${item.title} | CruxCoach`}
   description={item.summary}
 >
   <article class="lesson">
@@ -30,7 +30,7 @@ const body = lessonBody(item.id);
     </nav>
 
     <header class="lesson-head">
-      <p class="lesson-kicker">{item.type} · {item.length}</p>
+      <p class="lesson-kicker">{item.type}, {item.length}</p>
       <h1>{item.title}</h1>
       <p class="lesson-summary">{item.summary}</p>
       <div class="lesson-meta">

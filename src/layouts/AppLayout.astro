@@ -8,13 +8,13 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "Your CruxCoach climbing dashboard." } = Astro.props;
+const { title, description = "Your CruxCoach climbing logbook." } = Astro.props;
 const path = Astro.url.pathname.replace(/\/+$/, "") || "/";
 
 const items = [
   {
     href: "/app",
-    label: "Dashboard",
+    label: "Logbook",
     icon: "M4 4h6v7H4V4Zm10 0h6v4h-6V4ZM4 13h6v7H4v-7Zm10-3h6v10h-6V10Z",
   },
   {
@@ -23,9 +23,9 @@ const items = [
     icon: "M11 4h2v7h7v2h-7v7h-2v-7H4v-2h7V4Z",
   },
   {
-    href: "/app/reflect",
-    label: "Reflect",
-    icon: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 5v5.6l4 2.4-1 1.7-5-3V7h2Z",
+    href: "/app/patterns",
+    label: "Patterns",
+    icon: "M4 20V10h3v10H4Zm6 0V4h3v16h-3Zm6 0v-7h3v7h-3Z",
   },
   {
     href: "/app/journal",
@@ -52,12 +52,8 @@ const items = [
 const tabs = [
   items[0],
   items[1],
-  items[5],
-  {
-    href: "/app/profile",
-    label: "Profile",
-    icon: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0 2c-4.4 0-8 2.2-8 5v2h16v-2c0-2.8-3.6-5-8-5Z",
-  },
+  items[2],
+  items[3],
 ];
 ---
 
@@ -65,13 +61,15 @@ const tabs = [
   <header class="app-header">
     <div class="app-header-inner">
       <a class="app-brand" href="/app">
-        <img src="/assets/favicon.png" alt="" width="30" height="30" />
+        <svg class="brand-mark" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path d="M2 19 9 5l4 8 3-5 6 11" fill="none" stroke="currentColor" stroke-width="1.7" />
+        </svg>
         <span>CruxCoach</span>
       </a>
 
       <div class="app-header-actions">
         <a class="app-back" href="/">Back to site</a>
-        <a class="btn btn-primary app-log-btn" href="/app/log">+ Log session</a>
+        <a class="btn btn-primary app-log-btn" href="/app/log">Log session</a>
         <ThemeToggle client:load />
         <a class="app-avatar" href="/app/profile" aria-label="Open profile">CC</a>
       </div>
@@ -98,8 +96,8 @@ const tabs = [
       </nav>
 
       <div class="app-note">
-        <strong>Local-first</strong>
-        <p>Your data stays on this device. Export a backup from your profile at any time.</p>
+        <strong>On this device</strong>
+        <p>Your logbook stays in this browser. Export a backup from your profile whenever you want one.</p>
       </div>
     </aside>
 

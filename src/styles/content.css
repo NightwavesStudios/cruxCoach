@@ -2,9 +2,8 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  border-bottom: 1px solid var(--line);
-  background: color-mix(in srgb, var(--bg) 84%, transparent);
-  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--ink);
+  background: var(--bg);
 }
 
 .content-header-inner {
@@ -19,14 +18,15 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
-.content-brand img {
-  width: 1.85rem;
-  height: 1.85rem;
-  border-radius: 8px;
+.content-brand svg {
+  flex: none;
+  color: var(--accent);
 }
 
 .content-header nav {
@@ -73,11 +73,12 @@
 }
 
 .lesson-kicker {
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent-strong);
+  color: var(--accent);
 }
 
 .lesson-head h1 {
@@ -100,11 +101,11 @@
 
 .difficulty,
 .tag {
-  padding: 0.22rem 0.6rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--line);
-  font-size: 0.7rem;
-  font-weight: 600;
+  padding: 0.18rem 0.45rem;
+  border: 1px solid var(--line-strong);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
   text-transform: capitalize;
   color: var(--ink-2);
 }

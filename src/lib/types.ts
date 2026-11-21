@@ -1,6 +1,7 @@
 export type Discipline = "bouldering" | "toprope" | "lead" | "training";
 export type GradeSystem = "v" | "yds";
 export type Units = "metric" | "imperial";
+export type Environment = "indoor" | "outdoor";
 export type AscentStyle = "onsight" | "flash" | "repeat" | "project";
 export type Confidence = "learning" | "developing" | "established";
 
@@ -9,6 +10,11 @@ export const DISCIPLINES: { id: Discipline; label: string }[] = [
   { id: "toprope", label: "Top rope" },
   { id: "lead", label: "Lead" },
   { id: "training", label: "Training" },
+];
+
+export const ENVIRONMENTS: { id: Environment; label: string; hint: string }[] = [
+  { id: "indoor", label: "Indoor", hint: "Gym, board, competition" },
+  { id: "outdoor", label: "Outdoor", hint: "Crag, boulder field, sea cliff" },
 ];
 
 export const ASCENT_STYLES: { id: AscentStyle; label: string }[] = [
@@ -47,6 +53,8 @@ export interface Session {
   rpe: number;
   location: string;
   notes: string;
+  /** Absent on sessions logged before indoor and outdoor were tracked; patterns infer it from the location. */
+  environment?: Environment;
   distanceKm?: number;
   createdAt: string;
   updatedAt: string;

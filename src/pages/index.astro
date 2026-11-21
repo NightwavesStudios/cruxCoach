@@ -7,42 +7,42 @@ const features = [
   {
     eyebrow: "Reflect",
     title: "Turn sessions into self-knowledge.",
-    body: "Score holds, wall angles and climbing styles after a session. CruxCoach keeps a rolling picture of your strengths and struggles so you know exactly what to work on next.",
+    body: "Score holds, wall angles and climbing styles after a session. CruxCoach keeps a rolling picture of your strengths and struggles so you know what to work on next.",
     image: "/images/reflect.webp",
-    alt: "CruxCoach session reflection screen with sliders for holds, angles and styles",
+    alt: "CruxCoach session reflection screen with scores for holds, angles and styles",
   },
   {
-    eyebrow: "Analytics",
-    title: "See the shape of your climbing.",
-    body: "Grade progression, training split, holds breakdown, wall angles and climbing style — clear charts that answer where your time is going and what is actually improving.",
+    eyebrow: "Patterns",
+    title: "See what separates indoor from outdoor.",
+    body: "Send rate, hardest grade, session length and effort, counted indoors and outdoors on their own terms. The comparison shows which habits travel to the crag.",
     image: "/images/analytics.webp",
-    alt: "CruxCoach analytics dashboard with charts for grades, holds and styles",
+    alt: "CruxCoach patterns screen comparing indoor and outdoor climbing",
   },
   {
     eyebrow: "Log",
     title: "Log a session in under a minute.",
-    body: "Record discipline, grade, difficulty and training type. Every session feeds your journal, your charts and your training recommendations.",
+    body: "Record where you climbed, the discipline, each grade and how many attempts it took. Every session feeds the journal and the patterns.",
     image: "/images/log.webp",
     alt: "CruxCoach session logging form",
   },
   {
     eyebrow: "Plans",
-    title: "Training that adapts with you.",
-    body: "Build a 2–8 week plan around your goals, your available days and your current level, following an intensity cycle for performance and recovery.",
+    title: "Training that follows your own log.",
+    body: "Build a 2 to 8 week plan around your goal, your available days and the traits your reflections flag as weak points.",
     image: "/images/plans.webp",
-    alt: "CruxCoach personalised training plan screen",
+    alt: "CruxCoach training plan screen",
   },
   {
     eyebrow: "Journal",
-    title: "Your whole climbing history, organised.",
-    body: "Every workout, climb and reflection in one structured timeline. Look back at old notes, spot patterns and keep a record from your first V0 to your next project.",
+    title: "The whole history, in one place.",
+    body: "Every session and reflection in one timeline, filterable by indoor, outdoor or training. Old notes stay searchable.",
     image: "/images/journal.webp",
-    alt: "CruxCoach training journal with past sessions and reflections",
+    alt: "CruxCoach journal with past sessions and reflections",
   },
   {
-    eyebrow: "Content",
+    eyebrow: "Library",
     title: "Learn the why behind the movement.",
-    body: "Curated lessons, workouts and drills for crimps, slopers, overhangs, endurance and more — recommended from your own data and ready to add to your plan.",
+    body: "Practical lessons and drills for crimps, slopers, overhangs and endurance, recommended from your own reflection data.",
     image: "/images/content.webp",
     alt: "CruxCoach lesson and workout library",
   },
@@ -50,14 +50,14 @@ const features = [
 
 const checks = [
   "No subscriptions or paywalls",
-  "No \"14-day free trial\" nonsense",
-  "Your data stays yours — export it any time",
+  "No account and no trial period",
+  "Your data stays on your device",
 ];
 ---
 
 <BaseLayout
-  title="CruxCoach — Train smarter. Climb harder."
-  description="CruxCoach is a free all-in-one climbing app for training, journaling, analytics and progress tracking. Built by climbers, for climbers."
+  title="CruxCoach: a climbing logbook that reads patterns"
+  description="A free climbing logbook for indoor and outdoor sessions. Track grades, attempts and reflections, then compare how you climb in the gym and at the crag."
 >
   <SiteHeader />
 
@@ -65,64 +65,49 @@ const checks = [
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow"><span class="spark" aria-hidden="true"></span> Free climbing training companion</p>
-          <h1>Train smarter.<br /><span>Climb harder.</span></h1>
+          <p class="eyebrow">Climbing logbook</p>
+          <h1>Log the session.<br /><span>See the pattern.</span></h1>
           <p class="lede">
-            Plan workouts, log sessions, reflect on how you climb, and turn it all into
-            training built for your next grade.
+            Indoor and outdoor climbing kept apart, then read together. Grades, attempts and
+            reflections become patterns you can train against.
           </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="/app">
-              Try the demo
-              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-                <path fill="currentColor" d="M13.2 5.2a1 1 0 0 1 1.4 0l6 6a1 1 0 0 1 0 1.4l-6 6a1 1 0 0 1-1.4-1.4l4.3-4.3H4a1 1 0 1 1 0-2h13.5l-4.3-4.3a1 1 0 0 1 0-1.4Z" />
-              </svg>
+              Open the logbook
             </a>
-            <a class="btn btn-secondary" href="#features">See what's inside</a>
+            <a class="btn btn-secondary" href="#features">What is inside</a>
           </div>
           <ul class="hero-points">
-            <li>No sign-up</li>
+            <li>No account</li>
             <li>Works offline</li>
-            <li>Free forever</li>
+            <li>Free to use</li>
           </ul>
         </div>
 
-        <div class="hero-visual">
-          <div class="browser">
-            <div class="browser-bar" aria-hidden="true">
-              <span></span><span></span><span></span>
-              <em>cruxcoach.app</em>
-            </div>
-            <img
-              src="/images/analytics.webp"
-              alt="CruxCoach dashboard showing training distribution and strength breakdown"
-              width="1400"
-              height="900"
-              fetchpriority="high"
-            />
-          </div>
-          <div class="float-card float-a">
-            <span>Boulder project</span>
-            <strong>V6</strong>
-            <small>▲ one grade this month</small>
-          </div>
-          <div class="float-card float-b">
-            <span>Focus area</span>
-            <strong>Slopers</strong>
-            <small>2 workouts suggested</small>
-          </div>
-        </div>
+        <figure class="hero-plate">
+          <img
+            src="/images/analytics.webp"
+            alt="CruxCoach patterns screen with indoor and outdoor totals"
+            width="1400"
+            height="900"
+            fetchpriority="high"
+          />
+          <figcaption>
+            <span>Fig. 1</span>
+            Indoor and outdoor totals, side by side, from your own sessions.
+          </figcaption>
+        </figure>
       </div>
     </section>
 
     <section class="features" id="features">
       <div class="container">
         <header class="section-head">
-          <p class="eyebrow">Everything in one place</p>
-          <h2>The journal, the coach and the classroom.</h2>
+          <p class="eyebrow">What is inside</p>
+          <h2>A logbook, a coach and a classroom.</h2>
           <p>
-            Stop stitching together five apps and a notebook. CruxCoach connects what you
-            climb, how it felt and what to train next.
+            CruxCoach connects what you climb, how it felt and what to train next, without
+            stitching together five apps and a paper notebook.
           </p>
         </header>
 
@@ -139,19 +124,18 @@ const checks = [
         <div class="pricing-card">
           <div class="pricing-copy">
             <p class="eyebrow">Pricing</p>
-            <h2>Free, forever.</h2>
+            <h2>Free, no account.</h2>
             <p>
-              No subscriptions. No paywalls. CruxCoach exists because other climbing apps
-              felt limited or expensive. We built the app we wanted, then shared it with
-              the community.
+              No subscriptions and no paywalls. Everything runs in your browser and your data
+              stays there. Export a backup whenever you want one.
             </p>
-            <a class="btn btn-primary" href="/app">Start climbing</a>
+            <a class="btn btn-primary" href="/app">Start a logbook</a>
           </div>
           <ul class="checks">
             {checks.map((check) => (
               <li>
                 <span class="check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="14" height="14">
+                  <svg viewBox="0 0 24 24" width="13" height="13">
                     <path fill="currentColor" d="M9.6 16.6 5 12l-1.4 1.4 6 6 12-12L20.2 6 9.6 16.6Z" />
                   </svg>
                 </span>
@@ -165,13 +149,13 @@ const checks = [
 
     <section class="about" id="about">
       <div class="container about-grid">
-        <p class="eyebrow">About CruxCoach</p>
+        <p class="eyebrow">About</p>
         <div>
-          <h2>One place to journal, track and train.</h2>
+          <h2>One place for the whole log.</h2>
           <p>
             CruxCoach started with a simple frustration: no single app covered climbing
-            journaling, analytics and training without a monthly fee. So it became one
-            tool for the whole journey — from your first session to your hardest project.
+            journaling, patterns and training without a monthly fee. So it became one tool for
+            the whole journey, from the first session to the hardest project.
           </p>
         </div>
       </div>
@@ -181,11 +165,13 @@ const checks = [
   <footer class="footer">
     <div class="container footer-inner">
       <a class="brand" href="/">
-        <img src="/assets/favicon.png" alt="" width="26" height="26" />
+        <svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true">
+          <path d="M2 19 9 5l4 8 3-5 6 11" fill="none" stroke="currentColor" stroke-width="1.7" />
+        </svg>
         <span>CruxCoach</span>
       </a>
       <p>© {new Date().getFullYear()} CruxCoach. Built by climbers, for climbers.</p>
-      <a href="/app">Open dashboard</a>
+      <a href="/app">Open logbook</a>
     </div>
   </footer>
 </BaseLayout>
@@ -193,52 +179,34 @@ const checks = [
 <style>
   .hero {
     position: relative;
-    padding-block: clamp(3rem, 9vw, 7rem);
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: "";
-    position: absolute;
-    inset: -20% -10% auto auto;
-    width: 46rem;
-    height: 46rem;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgb(242 140 40 / 16%), transparent 65%);
-    pointer-events: none;
+    padding-block: clamp(3rem, 8vw, 6rem);
   }
 
   .hero-grid {
-    position: relative;
     display: grid;
     grid-template-columns: 1fr 1.05fr;
     gap: clamp(2.5rem, 6vw, 5rem);
     align-items: center;
   }
 
-  .spark {
-    width: 0.45rem;
-    height: 0.45rem;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 4px var(--accent-soft);
-  }
-
   h1 {
     margin-top: var(--space-4);
     font-size: var(--step-5);
-    font-weight: 800;
-    letter-spacing: -0.045em;
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
 
   h1 span {
-    color: var(--accent-strong);
+    display: inline-block;
+    padding-bottom: 0.05em;
+    border-bottom: 3px solid var(--accent);
   }
 
   .lede {
     margin-top: var(--space-4);
-    max-width: 36ch;
+    max-width: 40ch;
     font-size: var(--step-1);
+    line-height: 1.6;
     color: var(--ink-2);
   }
 
@@ -256,7 +224,10 @@ const checks = [
     margin: var(--space-5) 0 0;
     padding: 0;
     list-style: none;
-    font-size: 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: var(--ink-3);
   }
 
@@ -268,102 +239,42 @@ const checks = [
 
   .hero-points li::before {
     content: "";
-    width: 0.35rem;
-    height: 0.35rem;
-    border-radius: 50%;
-    background: var(--green);
-  }
-
-  .hero-visual {
-    position: relative;
-    padding: var(--space-5) 0;
-  }
-
-  .browser {
-    overflow: hidden;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    background: var(--surface);
-    box-shadow: var(--shadow-lg);
-    transform: rotate(-1deg);
-  }
-
-  .browser-bar {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    height: 2.2rem;
-    padding-inline: var(--space-4);
-    background: var(--surface-2);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .browser-bar span {
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
-    background: var(--line-strong);
-  }
-
-  .browser-bar span:first-child {
-    background: var(--red);
-  }
-
-  .browser-bar span:nth-child(2) {
+    width: 0.3rem;
+    height: 0.3rem;
     background: var(--accent);
   }
 
-  .browser-bar span:nth-child(3) {
-    background: var(--green);
+  .hero-plate {
+    margin: 0;
   }
 
-  .browser-bar em {
-    margin-left: var(--space-3);
-    font-size: 0.72rem;
-    font-style: normal;
-    color: var(--ink-3);
-  }
-
-  .browser img {
+  .hero-plate img {
     width: 100%;
     height: auto;
+    border: 1px solid var(--ink);
     aspect-ratio: 1400 / 900;
     object-fit: cover;
     object-position: top;
+    background: var(--surface);
   }
 
-  .float-card {
-    position: absolute;
-    display: grid;
-    gap: 0.15rem;
-    padding: var(--space-3) var(--space-4);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--surface);
-    box-shadow: var(--shadow);
-    font-size: 0.72rem;
+  .hero-plate figcaption {
+    display: flex;
+    gap: var(--space-3);
+    margin-top: 0.7rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.76rem;
     color: var(--ink-3);
   }
 
-  .float-card strong {
-    font-size: var(--step-2);
-    color: var(--ink);
-    line-height: 1.1;
-  }
-
-  .float-card small {
-    font-size: 0.7rem;
-    color: var(--green);
-  }
-
-  .float-a {
-    top: -0.5rem;
-    left: -1.5rem;
-  }
-
-  .float-b {
-    right: -1rem;
-    bottom: 0.5rem;
+  .hero-plate figcaption span {
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
   }
 
   .features {
@@ -373,13 +284,13 @@ const checks = [
   }
 
   .section-head {
-    max-width: 42rem;
+    max-width: 44rem;
     margin-bottom: var(--space-6);
   }
 
   .section-head h2 {
     margin-top: var(--space-3);
-    font-size: clamp(1.9rem, 3.4vw, 2.75rem);
+    font-size: clamp(1.9rem, 3.4vw, 2.7rem);
   }
 
   .section-head p:last-child {
@@ -397,39 +308,45 @@ const checks = [
 
   .pricing-card {
     display: grid;
-    grid-template-columns: 1.3fr 0.7fr;
+    grid-template-columns: 1.35fr 0.65fr;
     gap: var(--space-8);
     align-items: center;
-    padding: clamp(2rem, 5vw, 4rem);
-    border-radius: var(--radius-lg);
-    background: linear-gradient(135deg, #1a202c, #2c3748);
-    color: #eef2f7;
-    box-shadow: var(--shadow-lg);
+    padding: clamp(2rem, 5vw, 3.5rem);
+    background: var(--ink);
+    color: #eee7d7;
   }
 
   .pricing-card h2 {
     margin-top: var(--space-3);
-    font-size: clamp(2rem, 4vw, 3rem);
-    color: #fff;
+    font-size: clamp(2rem, 4vw, 2.9rem);
+    color: #faf5e9;
   }
 
   .pricing-card p {
     margin-top: var(--space-3);
     max-width: 52ch;
-    color: #b9c4d3;
+    color: #c8bfad;
   }
 
   .pricing-card .eyebrow {
-    color: #f6b06a;
+    color: #e0a179;
   }
 
   .pricing-card .btn {
     margin-top: var(--space-5);
+    background: #f3ecdc;
+    border-color: #f3ecdc;
+    color: #1d1b15;
+  }
+
+  .pricing-card .btn:hover {
+    background: #e0a179;
+    border-color: #e0a179;
   }
 
   .checks {
     display: grid;
-    gap: var(--space-3);
+    gap: var(--space-2);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -439,23 +356,20 @@ const checks = [
     display: flex;
     align-items: flex-start;
     gap: var(--space-3);
-    padding: var(--space-3) var(--space-4);
-    border-radius: var(--radius);
-    background: rgb(255 255 255 / 7%);
-    border: 1px solid rgb(255 255 255 / 10%);
-    font-size: 0.94rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgb(255 255 255 / 18%);
+    font-size: 0.9rem;
   }
 
   .check {
     display: grid;
     place-items: center;
     flex: none;
-    width: 1.35rem;
-    height: 1.35rem;
+    width: 1.2rem;
+    height: 1.2rem;
     margin-top: 0.1rem;
-    border-radius: 50%;
-    background: var(--green);
-    color: #fff;
+    border: 1px solid #e0a179;
+    color: #e0a179;
   }
 
   .about {
@@ -464,10 +378,10 @@ const checks = [
 
   .about-grid {
     display: grid;
-    grid-template-columns: 0.55fr 1.45fr;
+    grid-template-columns: 0.5fr 1.5fr;
     gap: var(--space-6);
-    padding-top: var(--space-6);
-    border-top: 1px solid var(--line);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--ink);
   }
 
   .about-grid h2 {
@@ -476,7 +390,7 @@ const checks = [
 
   .about-grid p:last-child {
     margin-top: var(--space-3);
-    max-width: 62ch;
+    max-width: 64ch;
     color: var(--ink-2);
   }
 
@@ -484,7 +398,7 @@ const checks = [
     padding-block: var(--space-5);
     border-top: 1px solid var(--line);
     background: var(--surface);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--ink-3);
   }
 
@@ -499,14 +413,14 @@ const checks = [
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
     color: var(--ink);
   }
 
-  .brand img {
-    width: 1.6rem;
-    height: 1.6rem;
-    border-radius: 7px;
+  .brand svg {
+    flex: none;
+    color: var(--accent);
   }
 
   .footer p {
@@ -515,7 +429,10 @@ const checks = [
 
   .footer > .container > a:last-child {
     color: var(--ink-2);
-    font-weight: 600;
+  }
+
+  .footer > .container > a:last-child:hover {
+    color: var(--accent);
   }
 
   @media (max-width: 900px) {
@@ -523,16 +440,8 @@ const checks = [
       grid-template-columns: 1fr;
     }
 
-    .hero-visual {
+    .hero-plate {
       max-width: 40rem;
-    }
-
-    .float-a {
-      left: 0;
-    }
-
-    .float-b {
-      right: 0;
     }
 
     .pricing-card {
@@ -546,14 +455,6 @@ const checks = [
   }
 
   @media (max-width: 560px) {
-    .float-card {
-      display: none;
-    }
-
-    .browser {
-      transform: none;
-    }
-
     .footer p {
       order: 3;
       width: 100%;

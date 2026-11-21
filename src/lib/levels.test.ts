@@ -39,7 +39,7 @@ describe("levelFor", () => {
       session("b", "2026-01-02", "training"),
     ];
     const ascents = [ascent("a", 8, "v", false), ascent("b", 10, "v")];
-    expect(levelFor("bouldering", sessions, ascents).grade).toBe("—");
+    expect(levelFor("bouldering", sessions, ascents).grade).toBe("None");
   });
 
   it("compares sends across grade systems and shows the preferred one", () => {

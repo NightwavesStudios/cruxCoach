@@ -126,7 +126,7 @@ export default function ReflectForm() {
                 <option value="">Reflect without linking</option>
                 {sessions?.map((session) => (
                   <option key={session.id} value={session.id}>
-                    {formatDate(session.date)} · {session.discipline}
+                    {formatDate(session.date)}, {session.discipline}
                   </option>
                 ))}
               </select>
@@ -139,7 +139,7 @@ export default function ReflectForm() {
           </div>
 
           <p className="callout">
-            -2 major struggle · -1 minor struggle · 0 neutral · +1 minor strength · +2 major strength.
+            -2 major struggle, -1 minor struggle, 0 neutral, +1 minor strength, +2 major strength.
             Recent reflections carry more weight than old ones.
           </p>
 
@@ -194,7 +194,7 @@ export default function ReflectForm() {
               className="btn btn-primary"
               disabled={Boolean(editId && !hydrated)}
             >
-              {editId ? (hydrated ? "Save changes" : "Loading…") : "Save reflection"}
+              {editId ? (hydrated ? "Save changes" : "Loading") : "Save reflection"}
             </button>
           </div>
         </form>

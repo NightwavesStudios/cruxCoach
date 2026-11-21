@@ -3,6 +3,7 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { db, deleteSession, saveSession, todayISO } from "../../lib/db";
 import { gradeOptions } from "../../lib/grades";
 import { makeId } from "../../lib/id";
+import { environmentOf } from "../../lib/patterns";
 import { formatDate, toCanonicalValue, toDisplayValue } from "../../lib/format";
 import {
   DISCIPLINES,
@@ -10,8 +11,10 @@ import {
   type Ascent,
   type AscentStyle,
   type Discipline,
+  type Environment,
   type GradeSystem,
   type Session,
+  ENVIRONMENTS,
 } from "../../lib/types";
 
 interface DraftAscent {
@@ -53,6 +56,12 @@ export default function LogForm() {
   const [duration, setDuration] = useState(60);
   const [rpe, setRpe] = useState(6);
   const [location, setLocation] = useState("");
+  const [environment, setEnvironment] = useState<Environment>(() => {
+    if (typeof window === "undefined") return "indoor";
+    return new URLSearchParams(window.location.search).get("env") === "outdoor"
+      ? "outdoor"
+      : "indoor";
+  });
   const [notes, setNotes] = useState("");
   const [distanceKm, setDistanceKm] = useState<number | undefined>(undefined);
   const [ascents, setAscents] = useState<DraftAscent[]>([newAscent("v")]);
@@ -72,6 +81,7 @@ export default function LogForm() {
     setDuration(existing.durationMin);
     setRpe(existing.rpe || 6);
     setLocation(existing.location);
+    setEnvironment(environmentOf(existing));
     setNotes(existing.notes);
     setDistanceKm(existing.distanceKm);
     if (existingAscents && existingAscents.length > 0) {
@@ -139,8 +149,10 @@ export default function LogForm() {
           durationMin: Number(duration) || 0,
           rpe: Number(rpe) || 0,
           location,
+          environment,
           notes,
-          distanceKm: distanceKm && distanceKm > 0 ? distanceKm : undefined,
+          distanceKm:
+            environment === "outdoor" && distanceKm && distanceKm > 0 ? distanceKm : undefined,
         },
         discipline === "training"
           ? []
@@ -170,6 +182,26 @@ export default function LogForm() {
   return (
     <section className="panel form-panel">
       <form onSubmit={handleSubmit}>
+        <fieldset className="field env-choice">
+          <legend>Where did you climb?</legend>
+          <div className="env-options">
+            {ENVIRONMENTS.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                className={
+                  environment === item.id ? `env-option ${item.id} active` : `env-option ${item.id}`
+                }
+                aria-pressed={environment === item.id}
+                onClick={() => setEnvironment(item.id)}
+              >
+                <strong>{item.label}</strong>
+                <span>{item.hint}</span>
+              </button>
+            ))}
+          </div>
+        </fieldset>
+
         <div className="form-grid">
           <label className="field">
             <span>Date</span>
@@ -202,29 +234,33 @@ export default function LogForm() {
             <input
               value={location}
               onChange={(event) => setLocation(event.target.value)}
-              placeholder="Gym, crag, board…"
-            />
-          </label>
-          <label className="field">
-            <span>Distance ({units === "imperial" ? "mi" : "km"})</span>
-            <input
-              type="number"
-              min="0"
-              step="0.1"
-              value={
-                distanceKm === undefined
-                  ? ""
-                  : toDisplayValue("distance", distanceKm, units)
+              placeholder={
+                environment === "outdoor" ? "Crag, sector or boulder field" : "Gym, board or wall"
               }
-              onChange={(event) => {
-                const raw = event.target.value;
-                setDistanceKm(
-                  raw ? toCanonicalValue("distance", Number(raw), units) : undefined,
-                );
-              }}
-              placeholder="Approach, optional"
             />
           </label>
+          {environment === "outdoor" && (
+            <label className="field">
+              <span>Approach distance ({units === "imperial" ? "mi" : "km"})</span>
+              <input
+                type="number"
+                min="0"
+                step="0.1"
+                value={
+                  distanceKm === undefined
+                    ? ""
+                    : toDisplayValue("distance", distanceKm, units)
+                }
+                onChange={(event) => {
+                  const raw = event.target.value;
+                  setDistanceKm(
+                    raw ? toCanonicalValue("distance", Number(raw), units) : undefined,
+                  );
+                }}
+                placeholder="Optional"
+              />
+            </label>
+          )}
         </div>
 
         <fieldset className="field">
@@ -339,7 +375,7 @@ export default function LogForm() {
             placeholder={
               discipline === "training"
                 ? "What did you train?"
-                : "What worked, what felt hard, anything worth remembering."
+                : "What worked, what felt hard, conditions, beta."
             }
           />
         </label>
@@ -356,7 +392,7 @@ export default function LogForm() {
             Cancel
           </a>
           <button type="submit" className="btn btn-primary" disabled={saving}>
-            {saving ? "Saving…" : editId ? "Save changes" : "Save session"}
+            {saving ? "Saving" : editId ? "Save changes" : "Save session"}
           </button>
         </div>
         {editId && existing && <p className="muted small">Editing {formatDate(existing.date)}</p>}

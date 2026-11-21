@@ -3,15 +3,43 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { db, deleteSession } from "../../lib/db";
 import { formatDate, formatMetric } from "../../lib/format";
 import { displayGrade, formatGrade } from "../../lib/grades";
-import { DISCIPLINES, type Ascent, type Reflection, type Session } from "../../lib/types";
+import { environmentOf } from "../../lib/patterns";
+import {
+  DISCIPLINES,
+  ENVIRONMENTS,
+  type Ascent,
+  type Environment,
+  type Reflection,
+  type Session,
+} from "../../lib/types";
 
 type Entry =
-  | { kind: "session"; date: string; session: Session; ascents: Ascent[] }
+  | { kind: "session"; date: string; session: Session; ascents: Ascent[]; environment: Environment }
   | { kind: "reflection"; date: string; reflection: Reflection };
+
+type Filter = "all" | Environment | "training" | "reflections";
 
 const DISCIPLINE_LABEL = Object.fromEntries(
   DISCIPLINES.map((item) => [item.id, item.label]),
 ) as Record<string, string>;
+
+const ENV_LABEL = Object.fromEntries(
+  ENVIRONMENTS.map((item) => [item.id, item.label]),
+) as Record<string, string>;
+
+const FILTERS: { value: Filter; label: string }[] = [
+  { value: "all", label: "Everything" },
+  { value: "indoor", label: "Indoor" },
+  { value: "outdoor", label: "Outdoor" },
+  { value: "training", label: "Training" },
+  { value: "reflections", label: "Reflections" },
+];
+
+function initialFilter(): Filter {
+  if (typeof window === "undefined") return "all";
+  const value = new URLSearchParams(window.location.search).get("env");
+  return value === "indoor" || value === "outdoor" ? value : "all";
+}
 
 export default function JournalView() {
   const sessions = useLiveQuery(() => db.sessions.orderBy("date").reverse().toArray(), []);
@@ -24,7 +52,7 @@ export default function JournalView() {
   const gradeText = (ascent: Ascent) =>
     preferred ? displayGrade(ascent.grade, ascent.system, preferred) : formatGrade(ascent.grade, ascent.system);
 
-  const [filter, setFilter] = useState<"all" | "climbing" | "training" | "reflections">("all");
+  const [filter, setFilter] = useState<Filter>(initialFilter);
   const [search, setSearch] = useState("");
 
   const entries = useMemo<Entry[]>(() => {
@@ -37,7 +65,8 @@ export default function JournalView() {
 
     const sessionEntries: Entry[] = (sessions ?? [])
       .filter((session) => {
-        if (filter === "climbing") return session.discipline !== "training";
+        const environment = environmentOf(session);
+        if (filter === "indoor" || filter === "outdoor") return environment === filter;
         if (filter === "training") return session.discipline === "training";
         if (filter === "reflections") return false;
         return true;
@@ -46,11 +75,12 @@ export default function JournalView() {
         kind: "session" as const,
         date: session.date,
         session,
+        environment: environmentOf(session),
         ascents: bySession.get(session.id) ?? [],
       }));
 
     const reflectionEntries: Entry[] =
-      filter === "climbing" || filter === "training"
+      filter === "indoor" || filter === "outdoor" || filter === "training"
         ? []
         : (reflections ?? []).map((reflection) => ({
             kind: "reflection" as const,
@@ -63,7 +93,7 @@ export default function JournalView() {
         if (!search.trim()) return true;
         const haystack =
           entry.kind === "session"
-            ? `${entry.session.notes} ${entry.session.location} ${DISCIPLINE_LABEL[entry.session.discipline]} ${entry.ascents
+            ? `${entry.session.notes} ${entry.session.location} ${DISCIPLINE_LABEL[entry.session.discipline]} ${ENV_LABEL[entry.environment]} ${entry.ascents
                 .map((ascent) => gradeText(ascent))
                 .join(" ")}`
             : `${entry.reflection.notes} ${Object.keys(entry.reflection.scores).join(" ")}`;
@@ -86,19 +116,14 @@ export default function JournalView() {
     <div className="stack">
       <div className="toolbar">
         <div className="chips" role="group" aria-label="Filter journal">
-          {[
-            ["all", "Everything"],
-            ["climbing", "Climbing"],
-            ["training", "Training"],
-            ["reflections", "Reflections"],
-          ].map(([value, label]) => (
+          {FILTERS.map((item) => (
             <button
-              key={value}
-              className={filter === value ? "chip active" : "chip"}
-              onClick={() => setFilter(value as typeof filter)}
-              aria-pressed={filter === value}
+              key={item.value}
+              className={filter === item.value ? "chip active" : "chip"}
+              onClick={() => setFilter(item.value)}
+              aria-pressed={filter === item.value}
             >
-              {label}
+              {item.label}
             </button>
           ))}
         </div>
@@ -108,7 +133,7 @@ export default function JournalView() {
             type="search"
             value={search}
             onChange={(event) => setSearch(event.target.value)}
-            placeholder="Search notes, grades, locations…"
+            placeholder="Search notes, grades, places"
           />
         </label>
       </div>
@@ -118,7 +143,7 @@ export default function JournalView() {
           <strong>Nothing here yet</strong>
           <p>
             {search || filter !== "all"
-              ? "No entries match this filter. Try clearing the search."
+              ? "No entries match this filter. Clear the search or pick another filter."
               : "Log your first session and it will show up here."}
           </p>
           <a className="btn btn-primary" href="/app/log">
@@ -129,12 +154,15 @@ export default function JournalView() {
         <ul className="journal-list">
           {entries.map((entry, index) =>
             entry.kind === "session" ? (
-              <li className="journal-entry" key={`${entry.session.id}-${index}`}>
+              <li className={`journal-entry ${entry.environment}`} key={`${entry.session.id}-${index}`}>
                 <div className="journal-entry-head">
                   <div>
-                    <span className={`type-tag ${entry.session.discipline}`}>
-                      {DISCIPLINE_LABEL[entry.session.discipline] ?? entry.session.discipline}
-                    </span>
+                    <div className="entry-tags">
+                      <span className={`env-tag ${entry.environment}`}>{ENV_LABEL[entry.environment]}</span>
+                      <span className={`type-tag ${entry.session.discipline}`}>
+                        {DISCIPLINE_LABEL[entry.session.discipline] ?? entry.session.discipline}
+                      </span>
+                    </div>
                     <h2>{formatDate(entry.session.date)}</h2>
                   </div>
                   <div className="journal-entry-actions">
@@ -151,13 +179,13 @@ export default function JournalView() {
                 </div>
 
                 <div className="journal-meta">
-                  <span>{entry.session.durationMin || "—"} min</span>
-                  {entry.session.rpe > 0 && <span>RPE {entry.session.rpe}/10</span>}
-                                      {entry.session.location && <span>{entry.session.location}</span>}
-                    {entry.session.distanceKm !== undefined && (
-                      <span>{formatMetric("distance", entry.session.distanceKm, units)}</span>
-                    )}
-                  </div>
+                  {entry.session.durationMin > 0 && <span>{entry.session.durationMin} min</span>}
+                  {entry.session.rpe > 0 && <span>Effort {entry.session.rpe}/10</span>}
+                  {entry.session.location && <span>{entry.session.location}</span>}
+                  {entry.session.distanceKm !== undefined && (
+                    <span>{formatMetric("distance", entry.session.distanceKm, units)}</span>
+                  )}
+                </div>
 
                 {entry.ascents.length > 0 && (
                   <div className="ascent-pills">
@@ -176,7 +204,9 @@ export default function JournalView() {
               <li className="journal-entry reflection" key={entry.reflection.id}>
                 <div className="journal-entry-head">
                   <div>
-                    <span className="type-tag reflection">Reflection</span>
+                    <div className="entry-tags">
+                      <span className="type-tag reflection">Reflection</span>
+                    </div>
                     <h2>{formatDate(entry.reflection.date)}</h2>
                   </div>
                   <div className="journal-entry-actions">

@@ -14,13 +14,15 @@ const { title, description } = Astro.props;
   <header class="content-header">
     <div class="container content-header-inner">
       <a class="content-brand" href="/">
-        <img src="/assets/favicon.png" alt="" width="30" height="30" />
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path d="M2 19 9 5l4 8 3-5 6 11" fill="none" stroke="currentColor" stroke-width="1.7" />
+        </svg>
         <span>CruxCoach</span>
       </a>
       <nav aria-label="Content">
         <a href="/app/learn">Learn</a>
         <a href="/app/train">Train</a>
-        <a class="btn btn-primary btn-small" href="/app">Open dashboard</a>
+        <a class="btn btn-primary btn-small" href="/app">Open logbook</a>
       </nav>
     </div>
   </header>

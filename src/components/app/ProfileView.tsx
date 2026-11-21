@@ -68,7 +68,7 @@ export default function ProfileView() {
     if (!window.confirm("This replaces all data in this browser with the backup. Continue?")) return;
     try {
       const count = await importAll(await file.text());
-      setMessage(`Imported ${count} records. Reloading…`);
+      setMessage(`Imported ${count} records. Reloading.`);
       window.location.reload();
     } catch {
       setError("That file is not a valid CruxCoach backup.");
@@ -129,7 +129,7 @@ export default function ProfileView() {
               <input
                 value={form.goal}
                 onChange={(event) => patch({ goal: event.target.value })}
-                placeholder="First V5, a 5.12a project, more endurance…"
+                placeholder="First V5, a 5.12a project, more endurance"
                 maxLength={120}
               />
             </label>
@@ -246,7 +246,7 @@ export default function ProfileView() {
                     : null,
                 ]
                   .filter(Boolean)
-                  .join(" · ")}
+                  .join(", ")}
                 .
               </p>
             )}
