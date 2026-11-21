@@ -7,6 +7,7 @@ import { hasLegacyData } from "../../lib/legacy";
 import { importLegacy } from "../../lib/legacy-import";
 import { sessionsByWeek, weekProgress } from "../../lib/levels";
 import { environmentComparison, environmentOf, patternHighlights } from "../../lib/patterns";
+import { activeProjectLines } from "../../lib/projects";
 import { computeTraitScores, focusAreas } from "../../lib/traits";
 import { DISCIPLINES, ENVIRONMENTS, type GradeSystem } from "../../lib/types";
 
@@ -22,6 +23,7 @@ export default function DashboardView() {
   const sessions = useLiveQuery(() => db.sessions.toArray(), []);
   const ascents = useLiveQuery(() => db.ascents.toArray(), []);
   const reflections = useLiveQuery(() => db.reflections.toArray(), []);
+  const projects = useLiveQuery(() => db.projects.toArray(), []);
   const profile = useLiveQuery(() => db.profile.get("me"), []);
   const [showLegacy, setShowLegacy] = useState(false);
   const [importing, setImporting] = useState(false);
@@ -48,6 +50,10 @@ export default function DashboardView() {
   const highlights = useMemo(
     () => patternHighlights(sessions ?? [], ascents ?? [], 3),
     [sessions, ascents],
+  );
+  const activeLines = useMemo(
+    () => activeProjectLines(projects ?? [], sessions ?? [], ascents ?? []),
+    [projects, sessions, ascents],
   );
   const scores = useMemo(() => computeTraitScores(reflections ?? []), [reflections]);
   const focus = useMemo(() => focusAreas(scores, 3), [scores]);
@@ -173,6 +179,70 @@ export default function DashboardView() {
             </article>
           );
         })}
+      </section>
+
+      <section className="panel">
+        <div className="panel-head">
+          <div>
+            <h2>Lines in progress</h2>
+            <p>Named projects still being worked, counted from their attached sessions.</p>
+          </div>
+          <a href="/app/projects">All projects</a>
+        </div>
+        {activeLines.length ? (
+          <div className="active-lines">
+            {(["indoor", "outdoor"] as const).map((environment) => {
+              const lines = activeLines.filter(
+                (line) => line.project.environment === environment,
+              );
+              return (
+                <div className={`active-lines-group ${environment}`} key={environment}>
+                  <div className="active-lines-head">
+                    <span className={`env-tag ${environment}`}>{ENV_LABEL[environment]}</span>
+                    <span className="muted small">{plural(lines.length, "line")}</span>
+                  </div>
+                  {lines.length ? (
+                    <ul className="active-line-list">
+                      {lines.map((line) => (
+                        <li key={line.project.id}>
+                          <a href={`/app/projects?project=${line.project.id}`}>
+                            <span>
+                              <strong>{line.project.name}</strong>
+                              <small>
+                                {DISCIPLINE_LABEL[line.project.discipline]},{" "}
+                                {displayGrade(
+                                  line.project.grade,
+                                  line.project.system,
+                                  preferred,
+                                )}
+                              </small>
+                            </span>
+                            <span className="active-line-count">
+                              {plural(line.stats.attempts, "attempt")},{" "}
+                              {plural(line.stats.sends, "send")}
+                            </span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="muted small">
+                      No {ENV_LABEL[environment].toLowerCase()} lines in progress.
+                    </p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="empty-state">
+            <strong>No lines in progress</strong>
+            <p>Name a project and the sessions you spend on it will collect here.</p>
+            <a className="btn btn-secondary" href="/app/projects">
+              Open projects
+            </a>
+          </div>
+        )}
       </section>
 
       <div className="panel-grid wide">

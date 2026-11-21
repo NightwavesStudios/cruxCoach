@@ -2156,3 +2156,146 @@ fieldset.field {
     flex-wrap: wrap;
   }
 }
+
+/* ---- Project thread ---- */
+.project-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: 100%;
+  padding: 0.12rem 0.4rem;
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--ink-2);
+  overflow-wrap: anywhere;
+}
+
+.project-tag > span {
+  flex: none;
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.project-tag.indoor {
+  border-left-color: var(--indoor);
+}
+
+.project-tag.outdoor {
+  border-left-color: var(--outdoor);
+}
+
+.project-tag:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.journal-project-field {
+  min-width: 180px;
+  max-width: 230px;
+}
+
+.journal-project-field select {
+  width: 100%;
+  padding: 0.45rem 0.5rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font-size: 0.72rem;
+}
+
+.active-lines {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+
+.active-lines-group {
+  min-width: 0;
+  padding-left: var(--space-3);
+  border-left: 3px solid var(--line-strong);
+}
+
+.active-lines-group.indoor {
+  border-left-color: var(--indoor);
+}
+
+.active-lines-group.outdoor {
+  border-left-color: var(--outdoor);
+}
+
+.active-lines-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 0.35rem;
+}
+
+.active-line-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.active-line-list li {
+  border-bottom: 1px solid var(--line);
+}
+
+.active-line-list li:last-child {
+  border-bottom: 0;
+}
+
+.active-line-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: 0.55rem 0;
+}
+
+.active-line-list a > span:first-child {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.active-line-list strong {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.active-line-list small {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  color: var(--ink-3);
+}
+
+.active-line-count {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--ink-3);
+  text-align: right;
+}
+
+@media (max-width: 760px) {
+  .active-lines {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .journal-project-field {
+    flex: 1 1 160px;
+    max-width: none;
+  }
+}

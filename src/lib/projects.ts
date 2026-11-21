@@ -77,6 +77,16 @@ export function projectGradeLabel(project: Pick<Project, "grade" | "system">): s
   return formatGrade(project.grade, project.system);
 }
 
+export function projectForSession(
+  projects: Project[],
+  session: Session,
+): Project | undefined {
+  if (!session.projectId) return undefined;
+  const project = projects.find((item) => item.id === session.projectId);
+  if (!project || project.environment !== environmentOf(session)) return undefined;
+  return project;
+}
+
 /** Sessions counted for a project, with a hard venue boundary. */
 export function projectLinkedSessions(
   project: Pick<Project, "id" | "environment">,
@@ -225,6 +235,29 @@ export function resolveProjectForPlan(
         project.status !== "abandoned",
     )
     .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))[0];
+}
+
+export interface ActiveProjectLine {
+  project: Project;
+  stats: ProjectStats;
+}
+
+/** Still-trying projects, newest activity first, for the logbook. */
+export function activeProjectLines(
+  projects: Project[],
+  sessions: Session[],
+  ascents: Ascent[],
+): ActiveProjectLine[] {
+  return projects
+    .filter((project) => project.status === "trying")
+    .map((project) => ({
+      project,
+      stats: projectStats(project, sessions, ascents),
+    }))
+    .sort((a, b) => {
+      const byDate = (b.stats.lastDate ?? "").localeCompare(a.stats.lastDate ?? "");
+      return byDate || b.project.updatedAt.localeCompare(a.project.updatedAt);
+    });
 }
 
 export interface ProjectSummary {

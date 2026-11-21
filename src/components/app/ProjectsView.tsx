@@ -164,6 +164,9 @@ export default function ProjectsView() {
             <a className="btn btn-primary" href={`/app/log?project=${project.id}`}>
               Log session
             </a>
+            <a className="btn btn-secondary" href={`/app/journal?project=${project.id}`}>
+              Journal
+            </a>
             <button className="btn btn-secondary" onClick={startEditing}>
               Edit details
             </button>

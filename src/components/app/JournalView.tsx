@@ -1,20 +1,29 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db, deleteSession } from "../../lib/db";
 import { formatDate, formatMetric } from "../../lib/format";
 import { displayGrade, formatGrade } from "../../lib/grades";
 import { environmentOf } from "../../lib/patterns";
+import { projectForSession } from "../../lib/projects";
 import {
   DISCIPLINES,
   ENVIRONMENTS,
   type Ascent,
   type Environment,
+  type Project,
   type Reflection,
   type Session,
 } from "../../lib/types";
 
 type Entry =
-  | { kind: "session"; date: string; session: Session; ascents: Ascent[]; environment: Environment }
+  | {
+      kind: "session";
+      date: string;
+      session: Session;
+      ascents: Ascent[];
+      environment: Environment;
+      project?: Project;
+    }
   | { kind: "reflection"; date: string; reflection: Reflection };
 
 type Filter = "all" | Environment | "training" | "reflections";
@@ -41,10 +50,16 @@ function initialFilter(): Filter {
   return value === "indoor" || value === "outdoor" ? value : "all";
 }
 
+function initialProjectFilter(): string {
+  if (typeof window === "undefined") return "";
+  return new URLSearchParams(window.location.search).get("project") ?? "";
+}
+
 export default function JournalView() {
   const sessions = useLiveQuery(() => db.sessions.orderBy("date").reverse().toArray(), []);
   const ascents = useLiveQuery(() => db.ascents.toArray(), []);
   const reflections = useLiveQuery(() => db.reflections.orderBy("date").reverse().toArray(), []);
+  const projects = useLiveQuery(() => db.projects.toArray(), []);
   const profile = useLiveQuery(() => db.profile.get("me"), []);
 
   const preferred = profile?.gradeSystem;
@@ -53,7 +68,46 @@ export default function JournalView() {
     preferred ? displayGrade(ascent.grade, ascent.system, preferred) : formatGrade(ascent.grade, ascent.system);
 
   const [filter, setFilter] = useState<Filter>(initialFilter);
+  const [projectFilter, setProjectFilter] = useState(initialProjectFilter);
   const [search, setSearch] = useState("");
+
+  const projectChoices = useMemo(
+    () =>
+      [...(projects ?? [])].sort(
+        (a, b) =>
+          a.environment.localeCompare(b.environment) || a.name.localeCompare(b.name),
+      ),
+    [projects],
+  );
+
+  useEffect(() => {
+    if (!projects || !projectFilter) return;
+    const chosen = projects.find((project) => project.id === projectFilter);
+    if (!chosen) {
+      setProjectFilter("");
+      return;
+    }
+    if (filter !== chosen.environment) setFilter(chosen.environment);
+  }, [filter, projectFilter, projects]);
+
+  function chooseFilter(next: Filter) {
+    setFilter(next);
+    if (next === "training" || next === "reflections") {
+      setProjectFilter("");
+      return;
+    }
+    if (next === "indoor" || next === "outdoor") {
+      const chosen = projects?.find((project) => project.id === projectFilter);
+      if (chosen && chosen.environment !== next) setProjectFilter("");
+    }
+  }
+
+  function chooseProjectFilter(value: string) {
+    setProjectFilter(value);
+    if (!value) return;
+    const chosen = projects?.find((project) => project.id === value);
+    if (chosen) setFilter(chosen.environment);
+  }
 
   const entries = useMemo<Entry[]>(() => {
     const bySession = new Map<string, Ascent[]>();
@@ -64,23 +118,29 @@ export default function JournalView() {
     }
 
     const sessionEntries: Entry[] = (sessions ?? [])
-      .filter((session) => {
-        const environment = environmentOf(session);
+      .map((session) => ({
+        session,
+        environment: environmentOf(session),
+        project: projectForSession(projects ?? [], session),
+      }))
+      .filter(({ session, environment, project }) => {
+        if (projectFilter && project?.id !== projectFilter) return false;
         if (filter === "indoor" || filter === "outdoor") return environment === filter;
         if (filter === "training") return session.discipline === "training";
         if (filter === "reflections") return false;
         return true;
       })
-      .map((session) => ({
+      .map(({ session, environment, project }) => ({
         kind: "session" as const,
         date: session.date,
         session,
-        environment: environmentOf(session),
+        environment,
+        project,
         ascents: bySession.get(session.id) ?? [],
       }));
 
     const reflectionEntries: Entry[] =
-      filter === "indoor" || filter === "outdoor" || filter === "training"
+      projectFilter || filter === "indoor" || filter === "outdoor" || filter === "training"
         ? []
         : (reflections ?? []).map((reflection) => ({
             kind: "reflection" as const,
@@ -93,14 +153,14 @@ export default function JournalView() {
         if (!search.trim()) return true;
         const haystack =
           entry.kind === "session"
-            ? `${entry.session.notes} ${entry.session.location} ${DISCIPLINE_LABEL[entry.session.discipline]} ${ENV_LABEL[entry.environment]} ${entry.ascents
+            ? `${entry.session.notes} ${entry.session.location} ${DISCIPLINE_LABEL[entry.session.discipline]} ${ENV_LABEL[entry.environment]} ${entry.project?.name ?? ""} ${entry.ascents
                 .map((ascent) => gradeText(ascent))
                 .join(" ")}`
             : `${entry.reflection.notes} ${Object.keys(entry.reflection.scores).join(" ")}`;
         return haystack.toLowerCase().includes(search.trim().toLowerCase());
       })
       .sort((a, b) => b.date.localeCompare(a.date));
-  }, [sessions, ascents, reflections, filter, search, preferred]);
+  }, [sessions, ascents, reflections, projects, filter, projectFilter, search, preferred]);
 
   async function handleDeleteSession(id: string) {
     if (!window.confirm("Delete this session, its climbs and any linked reflection?")) return;
@@ -114,26 +174,40 @@ export default function JournalView() {
 
   return (
     <div className="stack">
-      <div className="toolbar">
+      <div className="toolbar wrap">
         <div className="chips" role="group" aria-label="Filter journal">
           {FILTERS.map((item) => (
             <button
               key={item.value}
               className={filter === item.value ? "chip active" : "chip"}
-              onClick={() => setFilter(item.value)}
+              onClick={() => chooseFilter(item.value)}
               aria-pressed={filter === item.value}
             >
               {item.label}
             </button>
           ))}
         </div>
+        <label className="field compact journal-project-field">
+          <span className="sr-only">Filter by project</span>
+          <select
+            value={projectFilter}
+            onChange={(event) => chooseProjectFilter(event.target.value)}
+          >
+            <option value="">All projects</option>
+            {projectChoices.map((project) => (
+              <option key={project.id} value={project.id}>
+                {project.name}, {ENV_LABEL[project.environment]}
+              </option>
+            ))}
+          </select>
+        </label>
         <label className="field compact search-field">
           <span className="sr-only">Search journal</span>
           <input
             type="search"
             value={search}
             onChange={(event) => setSearch(event.target.value)}
-            placeholder="Search notes, grades, places"
+            placeholder="Search notes, grades, projects"
           />
         </label>
       </div>
@@ -142,7 +216,7 @@ export default function JournalView() {
         <section className="panel empty-state">
           <strong>Nothing here yet</strong>
           <p>
-            {search || filter !== "all"
+            {search || filter !== "all" || projectFilter
               ? "No entries match this filter. Clear the search or pick another filter."
               : "Log your first session and it will show up here."}
           </p>
@@ -162,6 +236,15 @@ export default function JournalView() {
                       <span className={`type-tag ${entry.session.discipline}`}>
                         {DISCIPLINE_LABEL[entry.session.discipline] ?? entry.session.discipline}
                       </span>
+                      {entry.project && (
+                        <a
+                          className={`project-tag ${entry.project.environment}`}
+                          href={`/app/projects?project=${entry.project.id}`}
+                        >
+                          <span>Project</span>
+                          {entry.project.name}
+                        </a>
+                      )}
                     </div>
                     <h2>{formatDate(entry.session.date)}</h2>
                   </div>

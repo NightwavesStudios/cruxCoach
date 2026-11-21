@@ -10,11 +10,11 @@ CruxCoach is a free climbing logbook and training companion. Log indoor and outd
 - **Indoor and outdoor split:** every session and training block is tagged indoor or outdoor. The logbook, journal, patterns and plans screens count them separately, so a gym grade never quietly stands in for a crag grade.
 - **Reflections:** 15 traits rated from -2 to +2, weighted toward recent sessions.
 - **Patterns:** send rate by environment, grade and day, session length and effort against conversion, style mix, and plain-language findings that only appear when there are enough climbs behind them.
-- **Logbook:** indoor and outdoor totals, hardest send, weekly goal, volume, strengths, struggles, focus areas and recent sessions.
-- **Journal:** searchable history with indoor and outdoor filters, plus edit and delete for sessions and reflections.
+- **Logbook:** indoor and outdoor totals, hardest send, weekly goal, active project lines with derived attempt and send counts, volume, strengths, struggles, focus areas and recent sessions.
+- **Journal:** searchable history with indoor and outdoor filters, a project filter, project tags that link to the line, plus edit and delete for sessions and reflections.
 - **Train:** a searchable library of articles, workouts and practices, with recommendations based on your lowest-rated traits.
 - **Learn:** four modules (holds, angles, style, training) with local completion tracking.
-- **Projects:** named indoor or outdoor lines with a grade, status and notes. Sessions attach from the log form and every attempt, send, first try and day span is read back from those sessions. Project slots in a plan open the matching project when one exists at the same venue and grade.
+- **Projects:** named indoor or outdoor lines with a grade, status and notes. Sessions attach from the log form and every attempt, send, first try and day span is read back from those sessions. Project slots in a plan open the matching project when one exists at the same venue and grade, and the journal tags each session with its line and filters by it.
 - **Plans:** 2 to 8 week indoor or outdoor blocks with a 3:1 build and deload cycle, current-week tracking and adherence. A planned session can be logged straight from the block, which records it against the week and links back to the journal. Blocks can be completed and reopened.
 - **Profile and data:** preferences that drive the app (units for height, weight and distance, grade system for entry and display, weekly session goal, disciplines), JSON backup and restore, legacy data import, and delete-all.
 

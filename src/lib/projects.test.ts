@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
+  activeProjectLines,
   createProject,
+  projectForSession,
   projectStats,
   projectSummary,
   projectTotalsForSession,
@@ -229,6 +231,53 @@ function projectSlot(overrides: Partial<PlanSession> = {}): PlanSession {
     ...overrides,
   };
 }
+
+describe("projectForSession", () => {
+  it("returns a project only when the session sits at the same venue", () => {
+    const indoor = project({ id: "indoor-project", environment: "indoor" });
+    expect(
+      projectForSession([indoor], session("s", "2026-01-05", { projectId: indoor.id })),
+    ).toBe(indoor);
+    expect(
+      projectForSession(
+        [indoor],
+        session("s", "2026-01-05", { projectId: indoor.id, environment: "outdoor" }),
+      ),
+    ).toBeUndefined();
+    expect(projectForSession([indoor], session("s", "2026-01-05"))).toBeUndefined();
+  });
+});
+
+describe("activeProjectLines", () => {
+  it("keeps trying lines with counts read from their sessions, newest activity first", () => {
+    const indoor = project({
+      id: "indoor",
+      grade: 6,
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    });
+    const outdoor = project({
+      id: "outdoor",
+      environment: "outdoor",
+      grade: 7,
+      updatedAt: "2026-02-01T00:00:00.000Z",
+    });
+    const finished = project({ id: "finished", status: "sent" });
+    const sessions = [
+      session("i1", "2026-01-05", { projectId: "indoor" }),
+      session("i2", "2026-01-12", { projectId: "indoor" }),
+    ];
+    const ascents = [
+      ascent("a1", "i1", 6, { attempts: 2 }),
+      ascent("a2", "i2", 6, { attempts: 1, sent: true, style: "flash" }),
+    ];
+
+    const lines = activeProjectLines([indoor, outdoor, finished], sessions, ascents);
+
+    expect(lines.map((line) => line.project.id)).toEqual(["indoor", "outdoor"]);
+    expect(lines[0].stats).toMatchObject({ attempts: 3, sends: 1, sessions: 2 });
+    expect(lines[1].stats).toMatchObject({ attempts: 0, sends: 0, sessions: 0 });
+  });
+});
 
 describe("resolveProjectForPlan", () => {
   const indoorV5 = project({ id: "indoor", environment: "indoor", grade: 6, updatedAt: "2026-03-01T00:00:00.000Z" });
