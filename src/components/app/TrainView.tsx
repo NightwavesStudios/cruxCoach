@@ -76,7 +76,7 @@ export default function TrainView() {
             <p>
               {focus.length
                 ? `Based on your lowest-rated traits: ${focus.map((trait) => trait.label).join(", ")}.`
-                : "Reflect on three sessions to unlock personalised recommendations."}
+                : "Reflect on three sessions and recommendations appear here."}
             </p>
           </div>
           {focus.length > 0 && <span className="badge">{focus.length} focus areas</span>}
@@ -97,7 +97,7 @@ export default function TrainView() {
           <p className="muted">
             {focus.length
               ? "You have completed the matching content. Explore the full library below."
-              : "The more you reflect, the sharper these suggestions become."}
+              : "More reflections make these suggestions more specific."}
           </p>
         )}
       </section>

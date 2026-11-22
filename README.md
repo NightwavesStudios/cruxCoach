@@ -1,6 +1,6 @@
 # CruxCoach
 
-CruxCoach is a free climbing logbook and training companion. Log indoor and outdoor sessions separately, reflect on holds, angles and styles, and read the patterns that come out of your own data.
+CruxCoach is a free climbing logbook. Log indoor and outdoor sessions separately, reflect on holds, angles and styles, and read the patterns that come out of your own data.
 
 [Website](https://cruxcoach.vercel.app)
 

@@ -172,7 +172,7 @@
   display: none;
 }
 
-/* ---- Page furniture ---- */
+/* Page furniture */
 .stack {
   display: grid;
   gap: var(--space-4);
@@ -277,7 +277,7 @@
   line-height: 1.6;
 }
 
-/* ---- Panels and grids ---- */
+/* Panels and grids */
 .panel {
   min-width: 0;
   padding: var(--space-5);
@@ -360,7 +360,7 @@
   margin-top: var(--space-3);
 }
 
-/* ---- Indoor and outdoor ---- */
+/* Indoor and outdoor */
 .env-split {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -462,7 +462,7 @@
   margin-top: 0.55rem;
 }
 
-/* ---- Insights, goal, meters ---- */
+/* Insights, goal, meters */
 .insight-list {
   display: grid;
   margin: 0;
@@ -581,7 +581,7 @@
   background: var(--surface-2);
 }
 
-/* ---- Charts ---- */
+/* Charts */
 .bar-chart {
   display: flex;
   align-items: flex-end;
@@ -628,7 +628,7 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* ---- Data tables ---- */
+/* Data tables */
 .pattern-table {
   width: 100%;
   border-collapse: collapse;
@@ -733,7 +733,7 @@
   color: var(--ink-3);
 }
 
-/* ---- Traits ---- */
+/* Traits */
 .trait-columns {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -888,7 +888,7 @@
   background: var(--outdoor);
 }
 
-/* ---- Forms ---- */
+/* Forms */
 .form-panel form {
   display: grid;
   gap: var(--space-4);
@@ -1173,7 +1173,7 @@ fieldset.field {
   line-height: 1;
 }
 
-/* ---- Reflection ---- */
+/* Reflection */
 .trait-group {
   margin: 0 0 var(--space-4);
   padding: var(--space-4);
@@ -1280,7 +1280,7 @@ fieldset.field {
   color: var(--red);
 }
 
-/* ---- Journal ---- */
+/* Journal */
 .toolbar {
   display: flex;
   align-items: center;
@@ -1437,7 +1437,7 @@ fieldset.field {
   white-space: pre-wrap;
 }
 
-/* ---- Content library ---- */
+/* Content library */
 .content-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -1530,7 +1530,7 @@ fieldset.field {
   gap: var(--space-2);
 }
 
-/* ---- Learn ---- */
+/* Learn */
 .module-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1614,7 +1614,7 @@ fieldset.field {
   color: var(--surface);
 }
 
-/* ---- Plans ---- */
+/* Plans */
 .plan-sessions {
   display: grid;
   gap: var(--space-2);
@@ -1737,7 +1737,7 @@ fieldset.field {
   color: var(--accent);
 }
 
-/* ---- Profile ---- */
+/* Profile */
 .data-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1779,46 +1779,7 @@ fieldset.field {
   margin-top: var(--space-5);
 }
 
-/* ---- Stat cards (kept for compact summaries) ---- */
-.stat-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-3);
-}
-
-.stat-card {
-  display: grid;
-  gap: 0.15rem;
-  padding: var(--space-4);
-  border-top: 2px solid var(--ink);
-  background: var(--surface);
-}
-
-.stat-label {
-  font-family: var(--font-mono);
-  font-size: 0.56rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-}
-
-.stat-card strong {
-  font-family: var(--font-display);
-  font-size: 1.7rem;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-}
-
-.stat-card small {
-  font-size: 0.7rem;
-  color: var(--ink-3);
-}
-
 @media (max-width: 1060px) {
-  .stat-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .panel-grid,
   .panel-grid.wide {
     grid-template-columns: 1fr;
@@ -1958,7 +1919,7 @@ fieldset.field {
   }
 }
 
-/* ---- Projects ---- */
+/* Projects */
 .project-picker {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
@@ -2157,7 +2118,7 @@ fieldset.field {
   }
 }
 
-/* ---- Project thread ---- */
+/* Project thread */
 .project-tag {
   display: inline-flex;
   align-items: center;

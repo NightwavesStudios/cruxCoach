@@ -338,8 +338,8 @@ export default function ProfileView() {
 
           {persistent === true && (
             <p className="muted small">
-              This browser keeps your logbook in persistent storage, so it will not clear it to
-              free space. A downloaded backup is still the only copy you control.
+              This browser has marked the logbook as persistent, so it is less likely to clear it
+              when space runs short. A downloaded backup is still the only copy you control.
             </p>
           )}
           {persistent === false && (
@@ -353,8 +353,7 @@ export default function ProfileView() {
           {error && <p className="form-error">{error}</p>}
 
           <p className="muted small">
-            Cloud sync and accounts are not enabled. Local-first keeps the app free and your
-            training private.
+            There are no accounts and no syncing. Everything is stored in this browser.
           </p>
 
           <button className="text-button danger clear-data" onClick={handleClear}>

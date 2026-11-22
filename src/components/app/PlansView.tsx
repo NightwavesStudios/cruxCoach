@@ -315,11 +315,11 @@ export default function PlansView() {
     <div className="stack">
       <header className="page-head">
         <div>
-          <p className="page-kicker">Coaching</p>
+          <p className="page-kicker">Planning</p>
           <h1>Training plans</h1>
           <p className="page-sub">
-            One venue, your available days and the traits your reflections flag. Log a planned
-            session and the block records it against the week.
+            A venue, the days you can climb and the traits your reflections point at. Log a
+            planned session and the block records it against the week.
           </p>
         </div>
       </header>

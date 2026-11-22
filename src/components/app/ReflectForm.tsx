@@ -140,7 +140,6 @@ export default function ReflectForm() {
 
           <p className="callout">
             -2 major struggle, -1 minor struggle, 0 neutral, +1 minor strength, +2 major strength.
-            Recent reflections carry more weight than old ones.
           </p>
 
           {GROUPS.map((group) => (
@@ -204,7 +203,7 @@ export default function ReflectForm() {
         <div className="panel-head">
           <div>
             <h2>Recent reflections</h2>
-            <p>Your scores decay over time, so newer sessions have more influence.</p>
+            <p>Scores fade with time, so recent reflections count for more.</p>
           </div>
         </div>
 

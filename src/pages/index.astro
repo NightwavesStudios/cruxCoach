@@ -6,8 +6,8 @@ import FeatureRow from "../components/FeatureRow.astro";
 const features = [
   {
     eyebrow: "Reflect",
-    title: "Turn sessions into self-knowledge.",
-    body: "Score holds, wall angles and climbing styles after a session. CruxCoach keeps a rolling picture of your strengths and struggles so you know what to work on next.",
+    title: "Score what felt hard.",
+    body: "Rate holds, wall angles and styles after a session. Recent reflections count for more, so the picture follows you as you improve.",
     image: "/images/reflect.webp",
     alt: "CruxCoach session reflection screen with scores for holds, angles and styles",
   },
@@ -20,29 +20,29 @@ const features = [
   },
   {
     eyebrow: "Log",
-    title: "Log a session in under a minute.",
+    title: "Log the session while it is fresh.",
     body: "Record where you climbed, the discipline, each grade and how many attempts it took. Every session feeds the journal and the patterns.",
     image: "/images/log.webp",
     alt: "CruxCoach session logging form",
   },
   {
     eyebrow: "Plans",
-    title: "Training that follows your own log.",
-    body: "Build a 2 to 8 week plan around your goal, your available days and the traits your reflections flag as weak points.",
+    title: "Plan the next block.",
+    body: "Pick a discipline, a venue, a target grade and the days you can climb. CruxCoach fills in a 2 to 8 week schedule.",
     image: "/images/plans.webp",
     alt: "CruxCoach training plan screen",
   },
   {
     eyebrow: "Journal",
-    title: "The whole history, in one place.",
+    title: "Every session, in order.",
     body: "Every session and reflection in one timeline, filterable by indoor, outdoor or training. Old notes stay searchable.",
     image: "/images/journal.webp",
     alt: "CruxCoach journal with past sessions and reflections",
   },
   {
     eyebrow: "Library",
-    title: "Learn the why behind the movement.",
-    body: "Practical lessons and drills for crimps, slopers, overhangs and endurance, recommended from your own reflection data.",
+    title: "Read up on the holds that trouble you.",
+    body: "Practical lessons and drills for crimps, slopers, overhangs and endurance, recommended from your reflection scores.",
     image: "/images/content.webp",
     alt: "CruxCoach lesson and workout library",
   },
@@ -104,7 +104,7 @@ const checks = [
       <div class="container">
         <header class="section-head">
           <p class="eyebrow">What is inside</p>
-          <h2>A logbook, a coach and a classroom.</h2>
+          <h2>What the log gives back.</h2>
           <p>
             CruxCoach connects what you climb, how it felt and what to train next, without
             stitching together five apps and a paper notebook.
@@ -153,9 +153,9 @@ const checks = [
         <div>
           <h2>One place for the whole log.</h2>
           <p>
-            CruxCoach started with a simple frustration: no single app covered climbing
-            journaling, patterns and training without a monthly fee. So it became one tool for
-            the whole journey, from the first session to the hardest project.
+            CruxCoach started because no single app covered climbing journaling, patterns and
+            training without a monthly fee. This is that app: the whole log, from a first
+            session to a long-running project.
           </p>
         </div>
       </div>
@@ -170,7 +170,7 @@ const checks = [
         </svg>
         <span>CruxCoach</span>
       </a>
-      <p>© {new Date().getFullYear()} CruxCoach. Built by climbers, for climbers.</p>
+      <p>© {new Date().getFullYear()} CruxCoach. Your logbook stays in your browser.</p>
       <a href="/app">Open logbook</a>
     </div>
   </footer>

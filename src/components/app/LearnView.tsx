@@ -36,7 +36,7 @@ export default function LearnView() {
     <div className="stack">
       <header className="page-head">
         <div>
-          <p className="page-kicker">Guided learning</p>
+          <p className="page-kicker">Lessons</p>
           <h1>Learn</h1>
           <p className="page-sub">
             Short, practical modules on holds, angles and style. Take the drills to the wall.

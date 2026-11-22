@@ -34,7 +34,7 @@ export function backupReminder(options: {
   if (!options.hasData) return null;
   const days = daysSinceBackup(options.lastBackupAt, options.now);
   if (days === null) {
-    return "No backup yet. Download one so a cleared browser cannot take this logbook with it.";
+    return "No backup yet. Download one in case this browser clears its data.";
   }
   if (days < BACKUP_INTERVAL_DAYS) return null;
   return `Last backup was ${days} days ago. Download a fresh one.`;

@@ -233,10 +233,6 @@ export const CONTENT: ContentItem[] = [
   },
 ];
 
-export function contentById(id: string): ContentItem | undefined {
-  return CONTENT.find((item) => item.id === id);
-}
-
 export function contentForCollection(collection: CollectionId): ContentItem[] {
   return CONTENT.filter((item) => item.collection === collection);
 }

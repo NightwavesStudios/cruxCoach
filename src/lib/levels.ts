@@ -8,17 +8,6 @@ export interface Level {
   samples: number;
 }
 
-export function recentSessions(
-  sessions: Session[],
-  discipline: Discipline,
-  count = 5,
-): Session[] {
-  return sessions
-    .filter((session) => session.discipline === discipline)
-    .sort((a, b) => b.date.localeCompare(a.date))
-    .slice(0, count);
-}
-
 export function levelFor(
   discipline: Discipline,
   sessions: Session[],
@@ -127,16 +116,4 @@ export function sessionsByWeek(sessions: Session[], weeks = 8): { label: string;
   }
 
   return buckets;
-}
-
-export function disciplineSplit(
-  sessions: Session[],
-): { discipline: Discipline; count: number }[] {
-  const counts = new Map<Discipline, number>();
-  for (const session of sessions) {
-    counts.set(session.discipline, (counts.get(session.discipline) ?? 0) + 1);
-  }
-  return [...counts.entries()]
-    .map(([discipline, count]) => ({ discipline, count }))
-    .sort((a, b) => b.count - a.count);
 }

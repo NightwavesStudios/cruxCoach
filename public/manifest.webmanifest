@@ -1,12 +1,12 @@
 {
   "name": "CruxCoach",
   "short_name": "CruxCoach",
-  "description": "A free climbing journal, analytics and training companion.",
+  "description": "A climbing logbook for indoor and outdoor sessions, kept in your browser.",
   "start_url": "/app",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#f7f8fa",
-  "theme_color": "#1a202c",
+  "background_color": "#efe9dd",
+  "theme_color": "#1d1b15",
   "icons": [
     {
       "src": "/icons/icon-192.png",

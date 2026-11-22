@@ -19,13 +19,6 @@ export const ENVIRONMENTS: { id: Environment; label: string; hint: string }[] = 
   { id: "outdoor", label: "Outdoor", hint: "Crag, boulder field, sea cliff" },
 ];
 
-export const ASCENT_STYLES: { id: AscentStyle; label: string }[] = [
-  { id: "onsight", label: "Onsight" },
-  { id: "flash", label: "Flash" },
-  { id: "repeat", label: "Repeat" },
-  { id: "project", label: "Project" },
-];
-
 export const PROJECT_STATUSES: { id: ProjectStatus; label: string }[] = [
   { id: "trying", label: "Trying" },
   { id: "sent", label: "Sent" },

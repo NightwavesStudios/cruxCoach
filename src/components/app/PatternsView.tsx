@@ -110,7 +110,7 @@ export default function PatternsView() {
     <div className="stack">
       <header className="page-head">
         <div>
-          <p className="page-kicker">Reading the log</p>
+          <p className="page-kicker">Analysis</p>
           <h1>Patterns</h1>
           <p className="page-sub">
             Indoor and outdoor climbing are counted separately. The comparison shows what travels

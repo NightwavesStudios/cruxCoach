@@ -69,10 +69,6 @@ export function focusAreas(scores: TraitScore[], limit = 3): TraitScore[] {
   return [...rated].sort((a, b) => a.raw - b.raw).slice(0, limit);
 }
 
-export function traitLabel(key: string): string {
-  return TRAITS.find((trait) => trait.key === key)?.label ?? key;
-}
-
 export function traitTag(key: string): string {
   return key
     .replace(/([a-z])([A-Z])/g, "$1-$2")
