@@ -16,7 +16,7 @@ CruxCoach is a free climbing logbook and training companion. Log indoor and outd
 - **Learn:** four modules (holds, angles, style, training) with local completion tracking.
 - **Projects:** named indoor or outdoor lines with a grade, status and notes. Sessions attach from the log form and every attempt, send, first try and day span is read back from those sessions. Project slots in a plan open the matching project when one exists at the same venue and grade, and the journal tags each session with its line and filters by it.
 - **Plans:** 2 to 8 week indoor or outdoor blocks with a 3:1 build and deload cycle, current-week tracking and adherence. A planned session can be logged straight from the block, which records it against the week and links back to the journal. Blocks can be completed and reopened.
-- **Profile and data:** preferences that drive the app (units for height, weight and distance, grade system for entry and display, weekly session goal, disciplines), JSON backup and restore, legacy data import, and delete-all.
+- **Profile and data:** preferences that drive the app (units for height, weight and distance, grade system for entry and display, weekly session goal, disciplines), JSON backup and restore, a reminder when the last download is a month old, persistent storage where the browser supports it, a one-time legacy data import, and delete-all.
 
 All training data is stored locally with IndexedDB (Dexie). There are no accounts and no server-side storage.
 
@@ -47,4 +47,4 @@ train/lessons/                 original article bodies reused by the new lesson 
 
 ## Migration
 
-The previous site's `localStorage` data is detected automatically. The logbook and profile offer a one-time import that converts old sessions, grades, traits and reflections without deleting the original data. Sessions saved before indoor and outdoor were tracked are inferred from their location, and the original row is left untouched. Old URLs redirect to their new routes via `vercel.json`. The database moves from version 2 to version 3 on first open: the new projects table and the session project link are added in place, and existing sessions, plans and reflections are kept without a rewrite.
+The previous site's `localStorage` data is detected automatically. The logbook and profile offer a one-time import that converts old sessions, grades, traits and reflections without deleting the original data; the import records when it ran and refuses to repeat, so old rows are never doubled. Sessions saved before indoor and outdoor were tracked are inferred from their location, and the original row is left untouched. Old URLs redirect to their new routes via `vercel.json`. The database moves from version 2 to version 3 on first open: the new projects table and the session project link are added in place, and existing sessions, plans and reflections are kept without a rewrite.

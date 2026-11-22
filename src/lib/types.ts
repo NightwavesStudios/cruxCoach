@@ -103,6 +103,8 @@ export interface Profile {
   weightKg?: number;
   createdAt: string;
   legacyImportedAt?: string;
+  /** Set when the user downloads a backup file. */
+  lastBackupAt?: string;
 }
 
 export interface Plan {

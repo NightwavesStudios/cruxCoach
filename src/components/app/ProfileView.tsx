@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState, type SubmitEvent as FormSubmitEvent } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
-import { importAll, exportAll, db, defaultProfile, clearAll } from "../../lib/db";
+import { importAll, exportAll, db, defaultProfile, clearAll, getProfile } from "../../lib/db";
 import { formatMetric, toCanonicalValue, toDisplayValue } from "../../lib/format";
 import { hasLegacyData } from "../../lib/legacy";
 import { importLegacy } from "../../lib/legacy-import";
+import { backupReminder, requestPersistentStorage } from "../../lib/storage";
 import { DISCIPLINES, type Discipline, type Profile } from "../../lib/types";
 
 export default function ProfileView() {
@@ -19,9 +20,20 @@ export default function ProfileView() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [legacyAvailable, setLegacyAvailable] = useState(false);
+  const [persistent, setPersistent] = useState<boolean | null>(null);
 
   useEffect(() => {
-    setLegacyAvailable(hasLegacyData());
+    setLegacyAvailable(hasLegacyData() && !profile?.legacyImportedAt);
+  }, [profile?.legacyImportedAt]);
+
+  useEffect(() => {
+    let active = true;
+    void requestPersistentStorage().then((granted) => {
+      if (active) setPersistent(granted);
+    });
+    return () => {
+      active = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -30,6 +42,11 @@ export default function ProfileView() {
       setLoaded(true);
     }
   }, [profile, loaded]);
+
+  const reminder = backupReminder({
+    hasData: (sessionCount ?? 0) + (reflectionCount ?? 0) + (planCount ?? 0) > 0,
+    lastBackupAt: profile?.lastBackupAt,
+  });
 
   function patch(patchValue: Partial<Profile>) {
     setForm((current) => ({ ...current, ...patchValue }));
@@ -59,6 +76,8 @@ export default function ProfileView() {
     link.download = `cruxcoach-${new Date().toISOString().slice(0, 10)}.json`;
     link.click();
     URL.revokeObjectURL(url);
+    const existing = await getProfile();
+    await db.profile.put({ ...existing, lastBackupAt: new Date().toISOString() });
     setMessage("Backup downloaded.");
   }
 
@@ -76,14 +95,18 @@ export default function ProfileView() {
   }
 
   async function handleLegacyImport() {
-    const report = await importLegacy();
-    if (!report) {
+    const result = await importLegacy();
+    if (result.status === "no-data") {
       setError("No old data found on this device.");
       return;
     }
     setLegacyAvailable(false);
+    if (result.status === "already-imported") {
+      setMessage("Old data was already imported once. Nothing was added.");
+      return;
+    }
     setMessage(
-      `Imported ${report.sessions} sessions, ${report.ascents} climbs and ${report.reflections} reflections.`,
+      `Imported ${result.report.sessions} sessions, ${result.report.ascents} climbs and ${result.report.reflections} reflections.`,
     );
   }
 
@@ -284,6 +307,15 @@ export default function ProfileView() {
             </div>
           )}
 
+          {reminder && (
+            <div className="banner inline">
+              <div>
+                <strong>Backup reminder</strong>
+                <p>{reminder}</p>
+              </div>
+            </div>
+          )}
+
           <div className="data-actions">
             <button className="btn btn-secondary" onClick={handleExport}>
               Download backup
@@ -303,6 +335,19 @@ export default function ProfileView() {
               }}
             />
           </div>
+
+          {persistent === true && (
+            <p className="muted small">
+              This browser keeps your logbook in persistent storage, so it will not clear it to
+              free space. A downloaded backup is still the only copy you control.
+            </p>
+          )}
+          {persistent === false && (
+            <p className="muted small">
+              This browser may clear your logbook when space runs short. Keep a backup file
+              somewhere else.
+            </p>
+          )}
 
           {message && <p className="form-success">{message}</p>}
           {error && <p className="form-error">{error}</p>}

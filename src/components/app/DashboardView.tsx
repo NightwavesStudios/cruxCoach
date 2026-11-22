@@ -8,6 +8,7 @@ import { importLegacy } from "../../lib/legacy-import";
 import { sessionsByWeek, weekProgress } from "../../lib/levels";
 import { environmentComparison, environmentOf, patternHighlights } from "../../lib/patterns";
 import { activeProjectLines } from "../../lib/projects";
+import { requestPersistentStorage } from "../../lib/storage";
 import { computeTraitScores, focusAreas } from "../../lib/traits";
 import { DISCIPLINES, ENVIRONMENTS, type GradeSystem } from "../../lib/types";
 
@@ -31,6 +32,10 @@ export default function DashboardView() {
   useEffect(() => {
     setShowLegacy(hasLegacyData() && !profile?.legacyImportedAt);
   }, [profile?.legacyImportedAt]);
+
+  useEffect(() => {
+    void requestPersistentStorage();
+  }, []);
 
   const preferred = profile?.gradeSystem ?? "v";
   const week = useMemo(
@@ -98,11 +103,16 @@ export default function DashboardView() {
   async function handleLegacyImport() {
     setImporting(true);
     try {
-      await importLegacy();
-      window.location.reload();
+      const result = await importLegacy();
+      if (result.status === "imported") {
+        window.location.reload();
+        return;
+      }
+      setShowLegacy(false);
     } catch {
-      setImporting(false);
+      setShowLegacy(false);
     }
+    setImporting(false);
   }
 
   return (
